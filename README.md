@@ -85,6 +85,10 @@ Copy your Phantom Wallet Address, then airdrop.
 % solana airdrop 5 [your Phantom Wallet Address]
 ```
 
+### 4. Send Transaction
+"Connect to Wallet" button, then "Send" button on Website.
+
+![Overview](https://github.com/256hax/solana-anchor-react-example/blob/main/docs/screenshot/overview.png?raw=true)
 
 ## Update Programs(Smart Contract)
 Update any programs(ex: lib.rs) and move to each example root directory.  
