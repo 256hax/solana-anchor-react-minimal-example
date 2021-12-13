@@ -78,7 +78,7 @@ Transactions will showing to terminal(monitoring log).
 ### 2. Change Network your Phantom
 Phantom settings > Change Network > select "Localhost"
 
-### 3. Airdrop for phantom
+### 3. (important!) Airdrop for Phantom
 Copy your Phantom Wallet Address, then airdrop.
 
 ```
@@ -96,7 +96,7 @@ Don't forget to run local cluster(solana-test-validator).
 ```
 
 
-## Erros
+## Errors
 ### Transaction Error:  TypeError: Cannot read properties of undefined (reading 'publicKey')
 Restart your Chrome or super reload.
 
