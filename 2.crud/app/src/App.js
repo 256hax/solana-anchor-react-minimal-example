@@ -11,10 +11,7 @@ const opts = {
 }
 const programID = new PublicKey(idl.metadata.address);
 
-
 function App() {
-  const wallet = window.solana;
-
   async function connectWallet() {
     try {
         const resp = await window.solana.connect();
@@ -33,6 +30,7 @@ function App() {
   async function getProvider() {
     const network = "http://127.0.0.1:8899";
     const connection = new Connection(network, opts.preflightCommitment);
+    const wallet = window.solana;
 
     const provider = new Provider(
       connection, wallet, opts.preflightCommitment,
