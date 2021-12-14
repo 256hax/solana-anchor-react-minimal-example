@@ -1,0 +1,12 @@
+[programs.localnet]
+crud = "9Y88G9ZfugSDD24mCBpe64KAiEkaxieVPZYgVkrYR3gz"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/"
