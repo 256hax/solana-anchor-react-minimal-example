@@ -103,6 +103,9 @@ Don't forget to run local cluster(solana-test-validator).
 ### Transaction Error:  TypeError: Cannot read properties of undefined (reading 'publicKey')
 Restart your Chrome or super reload.
 
+### Transaction Error:  Error: failed to send transaction: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x0
+Restart your Chrome or super reload.
+
 ### Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.
 Insufficient your Phantom Wallet Address.  
 Copy your Phantom Wallet Address, then airdrop.
@@ -121,6 +124,11 @@ It's incorrect Wallet Address for airdrop. Make sure correct Wallet Address.
 
 ### Transaction simulation failed: Attempt to load a program that does not exist
 You missed anchor build and deploy. Try re-build and deploy.
+```
+% cd [each example root directory]
+% anchor build
+% anchor deploy
+```
 
 ## Reference
 - [Anchor Tutorial - GitHub](https://github.com/project-serum/anchor/tree/master/examples/tutorial)
