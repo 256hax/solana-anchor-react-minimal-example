@@ -1,4 +1,4 @@
-# Solana x Anchor x React Example
+# Solana x Anchor x React Minimal Example
 Solana x Anchor x React Minimal Examples. Experiment purpose only.
 
 
@@ -99,7 +99,6 @@ Don't forget to run local cluster(solana-test-validator).
 % anchor deploy
 ```
 
-
 ## Errors
 ### Transaction Error:  TypeError: Cannot read properties of undefined (reading 'publicKey')
 Restart your Chrome or super reload.
@@ -122,3 +121,6 @@ It's incorrect Wallet Address for airdrop. Make sure correct Wallet Address.
 
 ### Transaction simulation failed: Attempt to load a program that does not exist
 You missed anchor build and deploy. Try re-build and deploy.
+
+## Reference
+- [Anchor Tutorial - GitHub](https://github.com/project-serum/anchor/tree/master/examples/tutorial)

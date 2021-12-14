@@ -44,7 +44,7 @@ function App() {
     try {
       // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.initialize();
-      console.log("Signature: ", tx);
+      console.log("Sent! Signature: ", tx);
     } catch (err) {
       console.log("Transaction Error: ", err);
     }
