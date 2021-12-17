@@ -10,6 +10,7 @@
 % npx create-react-app app
 
 % npm install \
+assert \
 @project-serum/anchor @solana/web3.js \
 @solana/wallet-adapter-react-ui \
 @solana/wallet-adapter-wallets \
