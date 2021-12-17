@@ -36,7 +36,7 @@ function App() {
     return provider;
   }
 
-  async function sendTransaction() {
+  async function transfer() {
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
 
@@ -53,7 +53,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <button onClick={connectWallet}>1. Connect to Wallet</button>
-        <button onClick={sendTransaction}>2. Send</button>
+        <button onClick={transfer}>2. Send</button>
         <button onClick={disconnectWallet}>3. Disconnect</button>
       </header>
     </div>

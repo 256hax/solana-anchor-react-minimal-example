@@ -1,4 +1,21 @@
 ## CLI
+### Starter Template
+#### Anchor
+```
+% anchor init [PJ Name] --javascript
+```
+
+#### React
+```
+% npx create-react-app app
+
+% npm install \
+@project-serum/anchor @solana/web3.js \
+@solana/wallet-adapter-react-ui \
+@solana/wallet-adapter-wallets \
+@solana/wallet-adapter-base
+```
+
 ### Airdrop to Target Deploy Keypair
 ```
 % cd 1.initialize/

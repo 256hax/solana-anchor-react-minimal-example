@@ -5,7 +5,6 @@ Solana x Anchor x React Minimal Examples. Experiment purpose only.
 ## Installation
 - (Rust) rustup 1.24.3
 - (Solana) solana-cli 1.9.0
-- Yarn 1.22.10
 - (Anchor) anchor-cli 0.19.0
 
 Instructions: [Installing Dependencies by Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust)
@@ -65,8 +64,8 @@ Copy idl file to app directory.
 ### 4. Install React packages, running Web Server
 ```
 % cd app/
-% yarn install
-% yarn start
+% npm install
+% npm start
 ```
 
 ## Run minimal example DApps
