@@ -27,8 +27,8 @@ Open another new terminal, then run monitoring logs.
 ### 2. DL and move to each example root directory
 Open another new terminal.
 ```
-% git clone https://github.com/256hax/solana-anchor-react-example.git
-% cd solana-anchor-react-example/1.initialize/
+% git clone https://github.com/256hax/solana-anchor-react-minimal-example.git
+% cd solana-anchor-react-minimal-example/full-stack/initialize/
 ```
 
 ### 3. Anchor build and deploy to local cluster
@@ -87,7 +87,7 @@ Copy your Phantom Wallet Address, then airdrop.
 ### 4. Send Transaction
 "Connect to Wallet" button, then "Send" button on Website.
 
-![Overview](https://github.com/256hax/solana-anchor-react-example/blob/main/docs/screenshot/overview.png?raw=true)
+![Overview](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/overview.png?raw=true)
 
 ## Update Programs(Smart Contract)
 Update any programs(ex: lib.rs) and move to each example root directory.  

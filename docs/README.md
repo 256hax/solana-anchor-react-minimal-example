@@ -19,7 +19,7 @@ assert \
 
 ### Airdrop to Target Deploy Keypair
 ```
-% cd 1.initialize/
+% cd full-stack/initialize/
 % ANCHOR_WALLET_ADDRESS=$(solana address -k target/deploy/initialize-keypair.json)
 % solana balance $ANCHOR_WALLET_ADDRESS
 % solana airdrop 1 $ANCHOR_WALLET_ADDRESS
