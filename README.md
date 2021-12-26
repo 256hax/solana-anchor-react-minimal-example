@@ -1,7 +1,6 @@
 # Solana x Anchor x React Minimal Example
 Solana x Anchor x React Minimal Examples. Experiment purpose only.
 
-
 ## Installation
 - (Rust) rustup 1.24.3
 - (Solana) solana-cli 1.9.0
@@ -9,7 +8,6 @@ Solana x Anchor x React Minimal Examples. Experiment purpose only.
 
 Instructions: [Installing Dependencies by Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust)
 - [Phantom](https://phantom.app/) for Google Chrome
-
 
 ## Setup
 ### 1. Run local cluster and monitoring logs
