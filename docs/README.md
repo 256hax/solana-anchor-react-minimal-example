@@ -66,3 +66,17 @@ const network = clusterApiUrl('devnet');
 ```
 % solana airdrop 1 [Phantom Wallet Address]
 ```
+
+
+## Docker
+### Image
+- [Anchor Docker Image](https://project-serum.github.io/anchor/getting-started/verification.html#images)  
+
+ex) Should replace to latest version.
+```
+docker pull projectserum/build:v0.19.0
+```
+
+Important: Should be latest version. Especially Solana and Anchor.
+
+- [Minimal Solana Docker image](https://github.com/solana-labs/solana/tree/master/sdk/docker-solana

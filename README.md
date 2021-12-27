@@ -3,11 +3,14 @@ Solana x Anchor x React Minimal Examples. Experiment purpose only.
 
 ## Installation
 - (Rust) rustup 1.24.3
-- (Solana) solana-cli 1.9.0
-- (Anchor) anchor-cli 0.19.0
+- (Solana) [solana-cli](https://docs.solana.com/cli/install-solana-cli-tools) 1.9.0
+- (Anchor) [anchor-cli](https://project-serum.github.io/anchor/getting-started/installation.html#install-anchor) 0.19.0
 
 Instructions: [Installing Dependencies by Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust)
+
 - [Phantom](https://phantom.app/) for Google Chrome
+
+Important: Should be latest version. Especially Solana and Anchor.
 
 ## Setup
 ### 1. Run local cluster and monitoring logs
