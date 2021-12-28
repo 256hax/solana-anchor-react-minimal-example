@@ -51,7 +51,17 @@ programs/initialize/src/lib.rs
 declare_id!("[New Program ID]");
 ```
 
-#### 3-3. Anchor build and deploy
+#### 3-3. Create Keypair
+Create keypair for deploy.
+
+```
+% solana-keygen new
+```
+
+#### 3-4. Anchor build and deploy
+Deploy to localnet cluster.  
+Make sure running solana-test-validator before it.  
+
 ```
 % anchor build
 % anchor deploy
