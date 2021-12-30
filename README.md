@@ -43,19 +43,35 @@ Open another new terminal.
 
 Anchor.toml
 ```
-initialize = "[New Program ID]"
+initialize = "[NEW PROGRAM ID]"
 ```
 
 programs/initialize/src/lib.rs
 ```
-declare_id!("[New Program ID]");
+declare_id!("[NEW PROGRAM ID]");
 ```
 
-#### 3-3. Create Keypair
-Create keypair for deploy.
+#### 3-3. Create Keypair and Airdrop
+Create keypair.
 
 ```
 % solana-keygen new
+```
+
+Airdrop to your wallet. Replace your [KEYPAIR PATH] and address.
+
+```
+% solana config get
+Config File: /root/.config/solana/cli/config.yml
+RPC URL: http://localhost:8899
+WebSocket URL: ws://localhost:8900/ (computed)
+Keypair Path: [KEYPAIR PATH]
+Commitment: confirmed
+
+% solana address -k [KEYPAIR PATH]
+[YOUR ADDRESS]
+
+% solana airdrop 1 [YOUR ADDRESS]
 ```
 
 #### 3-4. Anchor build and deploy
