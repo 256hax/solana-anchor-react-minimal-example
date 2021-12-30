@@ -37,6 +37,7 @@ Open another new terminal.
 ```
 % anchor build
 % solana address -k target/deploy/initialize-keypair.json
+[NEW PROGRAM ID]
 ```
 
 #### 3-2. Update to New ProgramID
@@ -51,6 +52,21 @@ programs/initialize/src/lib.rs
 declare_id!("[NEW PROGRAM ID]");
 ```
 
+### IMPORTANT: insufficient fee-payer funds error
+M1 Mac or Linux get following error when airdrop or deploy to localnet.
+
+```
+Error: unable to confirm transaction. This can happen in situations such as transaction expiration and insufficient fee-payer funds
+```
+
+Stop solana-test-validator, then Try following.
+
+```
+% ANCHOR_WALLET_ADDRESS=$(solana address -k target/deploy/initialize-keypair.json)
+% solana-test-validator --bpf-program $ANCHOR_WALLET_ADDRESS target/deploy/initialize.so
+```
+
+
 #### 3-3. Create Keypair and Airdrop
 Create keypair.
 
@@ -58,7 +74,7 @@ Create keypair.
 % solana-keygen new
 ```
 
-Airdrop to your wallet. Replace your [KEYPAIR PATH] and address.
+Airdrop to your wallet. Replace [KEYPAIR PATH] and [YOUR ADDRESS] to your value.
 
 ```
 % solana config get
@@ -83,7 +99,15 @@ Make sure running solana-test-validator before it.
 % anchor deploy
 ```
 
+If you got following error, perhaps you have got successful deploying.
+
+```
+Error: Account CKSsKGvY7gLtGQpL1GZ9UkmmKSVBbBUnp6DEsDtPNQk7 is not an upgradeable program or already in use
+There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)), stdout: "", stderr: "" }.
+```
+
 Copy idl file to app directory.
+
 ```
 % cp target/idl/initialize.json app/src/idl.json
 ```
@@ -137,12 +161,12 @@ Insufficient your Phantom Wallet Address.
 Copy your Phantom Wallet Address, then airdrop.
 
 ```
-% solana airdrop 5 [your Phantom Wallet Address]
+% solana airdrop 5 [YOUR PHANTOM WALLET ADDRESS]
 ```
 
 Make sure your balance.
 ```
-% solana balance [your Phantom Wallet Address]
+% solana balance [YOUR PHANTOM WALLET ADDRESS]
 ```
 
 ### Error: unable to confirm transaction. This can happen in situations such as transaction expiration and insufficient fee-payer funds
@@ -151,7 +175,7 @@ It's incorrect Wallet Address for airdrop. Make sure correct Wallet Address.
 ### Transaction simulation failed: Attempt to load a program that does not exist
 You missed anchor build and deploy. Try re-build and deploy.
 ```
-% cd [each example root directory]
+% cd [EACH EXAMPLE ROOT DIRECTORY]
 % anchor build
 % anchor deploy
 ```
