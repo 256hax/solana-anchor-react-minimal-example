@@ -28,8 +28,13 @@ async function main() {
   }));
 
   // Send and confirm transaction
+  // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  let signature = await web3.sendAndConfirmTransaction(connection, transaction, [payer]);
+  let signature = await web3.sendAndConfirmTransaction(
+    connection, // Connection
+    transaction, // Transaction
+    [payer] // Signer[]
+  );
 
   console.log('signature -> ', signature);
 }
