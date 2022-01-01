@@ -1,17 +1,12 @@
 // Ref: https://docs.solana.com/developing/clients/javascript-reference#transaction
 const web3 = require('@solana/web3.js');
 const nacl = require('tweetnacl');
-const cluster = 'devnet';
-// const cluster = 'http://localhost:8899'; // for debug
 
 async function main() {
   // Airdrop SOL for paying transactions
   let payer = web3.Keypair.generate();
-  let connection = new web3.Connection(
-      web3.clusterApiUrl(cluster),
-      // cluster, // for debug
-      'confirmed'
-  );
+  let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  // let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
   let airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
@@ -29,7 +24,7 @@ async function main() {
   transaction.add(web3.SystemProgram.transfer({
       fromPubkey: payer.publicKey,
       toPubkey: toAccount.publicKey,
-      lamports: 1000,
+      lamports: web3.LAMPORTS_PER_SOL * 0.01,
   }));
 
   // Send and confirm transaction
