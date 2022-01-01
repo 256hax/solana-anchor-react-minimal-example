@@ -36,7 +36,7 @@ async function main() {
     [payer] // Signer[]
   );
 
-  console.log('signature -> ', signature);
+  console.log('Signature -> ', signature);
 }
 
 main();
