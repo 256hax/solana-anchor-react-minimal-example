@@ -34,11 +34,15 @@ console.log("hex + binary to Base 16 -> ", res.toString(16));
 
 console.log("\n--- date ------------------------------------------");
 var now = Date.now();
-var nowStr = new Date(now);
+var nowDate = new Date(now);
 var nowBn = new BN(now);
+var nowBnNum = nowBn.toNumber();
+var nowBnDate = new Date(nowBnNum);
 console.log("now -> ", now);
-console.log("nowStr -> ", nowStr);
+console.log("nowDate -> ", nowDate);
 console.log("nowBn -> ", nowBn);
+console.log("nowBn num -> ", nowBnNum);
+console.log("nowBn date -> ", nowBnDate);
 
 /*
 % node bn.js
