@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bn.js": "^5.2.0",
+    "buffer-layout": "^1.2.2"
+  }
+}
