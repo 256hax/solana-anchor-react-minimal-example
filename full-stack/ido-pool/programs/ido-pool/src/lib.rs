@@ -7,7 +7,7 @@ use anchor_spl::token::{self, Burn, CloseAccount, Mint, MintTo, Token, TokenAcco
 
 use std::ops::Deref;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("8CPmhwWpPB1NsdNBBFAT5ko3oFo3HgVPXhWXobMwn1mT");
 
 const DECIMALS: u8 = 6;
 

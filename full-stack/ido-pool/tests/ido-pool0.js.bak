@@ -15,8 +15,6 @@ const { token } = require("@project-serum/anchor/dist/cjs/utils");
 
 describe("ido-pool", () => {
   const provider = anchor.Provider.local();
-  // const provider = anchor.Provider.env();
-  const connection = provider.connection;
 
   // Configure the client to use the local cluster.
   anchor.setProvider(provider);
@@ -28,12 +26,17 @@ describe("ido-pool", () => {
 
   // These are all of the variables we assume exist in the world already and
   // are available to the client.
-  let usdcMintAccount = null;       // USDC Token Program Account
-  let usdcMint = null;              // Public Key of USDC Token Program Account
+  let usdcMintAccount = null; // USDC Token Program Account
+  let usdcMint = null; // Public Key of USDC Token Program Account
   let watermelonMintAccount = null; // Watermelon Token Program Account
-  let watermelonMint = null;        // Public Key of Watermelon Token Program Account
+  let watermelonMint = null; // Public Key of Watermelon Token Program Account
   let idoAuthorityUsdc = null;
   let idoAuthorityWatermelon = null;
+
+  console.log("\n----------------------------------------------------------");
+  console.log("provider.wallet.publicKey (= My Wallet) -> ", provider.wallet.publicKey.toString());
+  console.log("watermelonIdoAmount -> ", watermelonIdoAmount.toNumber().toLocaleString());
+  console.log("----------------------------------------------------------\n");
 
   it("Initializes the state-of-the-world", async () => {
     usdcMintAccount = await createMint(provider);
@@ -64,6 +67,9 @@ describe("ido-pool", () => {
     assert.ok(idoAuthority_watermelon_account.amount.eq(watermelonIdoAmount));
 
     console.log("----------------------------------------------------------");
+    console.log("usdcMintAccount programId (= Solana Token Program ID) -> ", usdcMintAccount.programId.toString());
+    console.log("usdcMintAccount associatedProgramId -> ", usdcMintAccount.associatedProgramId.toString());
+    console.log("usdcMintAccount publicKey (= Mint Address) -> ", usdcMintAccount.publicKey.toString());
     console.log("idoAuthority_watermelon_account.mint publicKey -> ", idoAuthority_watermelon_account.mint.toString());
     console.log("idoAuthority_watermelon_account.owner publicKey -> ", idoAuthority_watermelon_account.owner.toString());
     console.log("idoAuthority_watermelon_account.amount -> ", idoAuthority_watermelon_account.amount.toNumber().toLocaleString());
@@ -79,9 +85,8 @@ describe("ido-pool", () => {
     let bumps = new PoolBumps();
 
     const [idoAccount, idoAccountBump] =
-      // Ref: https://project-serum.github.io/anchor/ts/classes/web3.PublicKey.html#findProgramAddress
       await anchor.web3.PublicKey.findProgramAddress(
-        [Buffer.from(idoName)], // seeds
+        [Buffer.from(idoName)],
         program.programId
       );
     bumps.idoAccount = idoAccountBump;
@@ -160,7 +165,6 @@ describe("ido-pool", () => {
 
   it("Exchanges user USDC for redeemable tokens", async () => {
     // Wait until the IDO has opened.
-    // "sleep" means simulated time.
     if (Date.now() < idoTimes.startIdo.toNumber() * 1000) {
       await sleep(idoTimes.startIdo.toNumber() * 1000 - Date.now() + 2000);
     }
@@ -208,12 +212,10 @@ describe("ido-pool", () => {
       [],
       firstDeposit.toString()
     );
-    console.log("getBalance(userUsdc) -> ", await connection.getBalance(userUsdc));
 
     // Check if we inited correctly
     userUsdcAccount = await getTokenAccount(provider, userUsdc);
     assert.ok(userUsdcAccount.amount.eq(firstDeposit));
-    console.log("userUsdcAccount token balance ->", await connection.getBalance(userUsdcAccount.mint));
 
     const [userRedeemable] = await anchor.web3.PublicKey.findProgramAddress(
       [
@@ -225,8 +227,6 @@ describe("ido-pool", () => {
     );
 
     try {
-      console.log("Transfer user's USDC to pool USDC account.");
-      // Programs: https://github.com/project-serum/anchor/blob/5edaf7af841296079906e16bf8b9fb8795249403/tests/ido-pool/programs/ido-pool/src/lib.rs#L66
       const tx = await program.rpc.exchangeUsdcForRedeemable(firstDeposit, {
         accounts: {
           userAuthority: provider.wallet.publicKey,
@@ -268,14 +268,10 @@ describe("ido-pool", () => {
     console.log("userUsdcAccount.mint publickey -> ", userUsdcAccount.mint.toString());
     console.log("userUsdcAccount.owner publickey -> ", userUsdcAccount.owner.toString());
     console.log("userUsdcAccount.amount -> ", userUsdcAccount.amount.toNumber().toLocaleString());
-
-    console.log("idoAccount Public Key (Program ID?) -> ", idoAccount.toString());
-    console.log("redeemableMint Public Key -> ", redeemableMint.toString());
-    console.log("poolUsdc Public Key -> ", poolUsdc.toString());
     console.log("----------------------------------------------------------\n");
   });
 
-  // // 23 usdc
+  // 23 usdc
   const secondDeposit = new anchor.BN(23_000_672);
   let totalPoolUsdc, secondUserKeypair, secondUserUsdc;
 
@@ -296,15 +292,6 @@ describe("ido-pool", () => {
     );
 
     secondUserKeypair = anchor.web3.Keypair.generate();
-
-    // --- Airdrop ---
-    const airdropSignature = await connection.requestAirdrop(
-      secondUserKeypair.publicKey,
-      anchor.web3.LAMPORTS_PER_SOL,
-    );
-    await connection.confirmTransaction(airdropSignature);
-    const secondUserBalance = await connection.getBalance(secondUserKeypair.publicKey);
-    console.log("secondUserBalance (LAMPORTS_PER_SOL) -> ", secondUserBalance);
 
     transferSolInstr = anchor.web3.SystemProgram.transfer({
       fromPubkey: provider.wallet.publicKey,
@@ -391,7 +378,6 @@ describe("ido-pool", () => {
 
     console.log("----------------------------------------------------------");
     console.log("secondDeposit (23 USDC) -> ", secondDeposit.toNumber().toLocaleString());
-    console.log("secondUserKeypair.publicKey -> ", secondUserKeypair.publicKey.toString());
     console.log("secondUserUsdc publickey -> ", userUsdc.toString());
     console.log("secondUserUsdcAccount.mint publickey -> ", secondUserUsdcAccount.mint.toString());
     console.log("secondUserUsdcAccount.owner publickey -> ", secondUserUsdcAccount.owner.toString());
@@ -466,7 +452,7 @@ describe("ido-pool", () => {
 
     totalPoolUsdc = totalPoolUsdc.sub(firstWithdrawal);
     poolUsdcAccount = await getTokenAccount(provider, poolUsdc);
-    // assert.ok(poolUsdcAccount.amount.eq(totalPoolUsdc));
+    assert.ok(poolUsdcAccount.amount.eq(totalPoolUsdc));
     escrowUsdcAccount = await getTokenAccount(provider, escrowUsdc);
     assert.ok(escrowUsdcAccount.amount.eq(firstWithdrawal));
 
@@ -688,27 +674,6 @@ describe("ido-pool", () => {
     console.log("userUsdcAccount.owner publickey -> ", userUsdcAccount.mint.toString());
     console.log("userUsdcAccount.amount -> ", userUsdcAccount.amount.toNumber().toLocaleString());
     console.log("totalPoolUsdc -> ", totalPoolUsdc.toNumber().toLocaleString());
-    console.log("----------------------------------------------------------\n");
-
-
-
-    console.log("----------------------------------------------------------");
-    console.log("provider.wallet.publicKey (= My Wallet) -> ", provider.wallet.publicKey.toString());
-    console.log("watermelonIdoAmount -> ", watermelonIdoAmount.toNumber().toLocaleString());
-
-    console.log("usdcMintAccount programId (= Solana Token Program ID. Fixed Value) -> ", usdcMintAccount.programId.toString());
-    console.log("usdcMintAccount associatedProgramId (Fixed Value) -> ", usdcMintAccount.associatedProgramId.toString());
-    console.log("usdcMintAccount Public Key (= Mint Address) -> ", usdcMintAccount.publicKey.toString());
-
-    console.log("watermelonMintAccount programId (= Solana Token Program ID) -> ", watermelonMintAccount.programId.toString());
-    console.log("watermelonMintAccount associatedProgramId -> ", watermelonMintAccount.associatedProgramId.toString());
-    console.log("watermelonMintAccount Public Key (= Mint Address) -> ", watermelonMintAccount.publicKey.toString());
-
-    console.log("idoAuthorityUsdc Public Key -> ", idoAuthorityUsdc.toString());
-    console.log("idoAuthorityWatermelon Public Key -> ", idoAuthorityWatermelon.toString());
-
-    console.log("userUsdcAccount.mint publickey -> ", userUsdcAccount.mint.toString());
-    console.log("userUsdcAccount.owner publickey -> ", userUsdcAccount.owner.toString());
     console.log("----------------------------------------------------------\n");
   });
 

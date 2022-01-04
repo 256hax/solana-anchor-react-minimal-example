@@ -23,13 +23,14 @@ async function createMint(provider, authority) {
   if (authority === undefined) {
     authority = provider.wallet.publicKey;
   }
+  // Ref: https://github.com/solana-labs/solana-program-library/blob/78cb32435296eb258ec3de76ee4ee2d391f397ee/token/js/client/token.js#L384
   const mint = await spl.Token.createMint(
-    provider.connection,
-    provider.wallet.payer,
-    authority,
-    null,
-    6,
-    TOKEN_PROGRAM_ID
+    provider.connection, // connection
+    provider.wallet.payer, // payer
+    authority, // mintAuthority
+    null, // freezeAuthority
+    6, // decimals
+    TOKEN_PROGRAM_ID // programId
   );
   return mint;
 }
