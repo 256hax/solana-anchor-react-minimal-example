@@ -45,6 +45,18 @@ Anchor build and deploy.
 % anchor deploy
 ```
 
+### anchor test
+Should Use env() instead local().
+```
+// const provider = anchor.Provider.local();
+const provider = anchor.Provider.env();
+```
+
+Then setup for devnet.
+```
+% solana config set --url devnet
+```
+
 ## Frontend connecting to devnet
 ### Frontend file
 Add clusterApiUrl and replace network at App.js.
