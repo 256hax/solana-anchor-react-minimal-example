@@ -726,3 +726,128 @@ describe("ido-pool", () => {
     this.endEscrow;
   }
 });
+
+/*
+% anchor test
+
+~~~ skip ~~~
+
+ido-pool
+----------------------------------------------------------
+idoAuthority_watermelon_account.mint publicKey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+idoAuthority_watermelon_account.owner publicKey ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+idoAuthority_watermelon_account.amount ->  5,000,000
+----------------------------------------------------------
+
+  ✔ Initializes the state-of-the-world (2516ms)
+----------------------------------------------------------
+nowBn date ->  1970-01-19T23:55:46.773Z
+idoTimes.startIdo ->  1970-01-19T23:55:46.778Z
+idoTimes.endDeposits ->  1970-01-19T23:55:46.783Z
+idoTimes.endIdo ->  1970-01-19T23:55:46.788Z
+idoTimes.endEscrow ->  1970-01-19T23:55:46.789Z
+----------------------------------------------------------
+
+  ✔ Initializes the IDO pool (415ms)
+Sleeping for 6.069 seconds
+tx (createAssociatedTokenAccountInstruction) ->  2CaKK32And8iW8RjhhS8RpQDvrLn7AkiTcU1x3zLCjck1suNiwURmZTGcnUpRraUPJmge8z9sDMWoegJPgo1iPgw
+getBalance(userUsdc) ->  2039280
+userUsdcAccount token balance -> 1461600
+Transfer user's USDC to pool USDC account.
+tx (exchangeUsdcForRedeemable) ->  2v3WMdmkFz9yeqWvvmoZycjnjLGX2TaemmVStqFictuKwxva4CerSc3qS2Zqqj78dtedWNpsxcsgr5xY3DGGMt7E
+----------------------------------------------------------
+firstDeposit (10 USDC) ->  10,000,349
+userUsdc publickey ->  ApNdod4e7unTqKjBGwHJqYQigs56B6EueCHUuHD9hjWB
+userUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+userUsdcAccount.owner publickey ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+userUsdcAccount.amount ->  10,000,349
+idoAccount Public Key (Program ID?) ->  2YkqGDyLGuu1G5QSRtVMbrX6dx3KUQi6WAQZfyy67x3h
+redeemableMint Public Key ->  Bpq5y6h11C8iVTTHY5D9CLTdcgyzhHaaX8N9ZCTjms7K
+poolUsdc Public Key ->  Egcr8zNd7trXinEFHC1sCDx5CTt3JULtEMrPRX6KimxN
+----------------------------------------------------------
+
+  ✔ Exchanges user USDC for redeemable tokens (7578ms)
+secondUserBalance (LAMPORTS_PER_SOL) ->  1000000000
+tx ->  h9NzQduuVbAgPjwyk3Cw5jhYGg2TrMckMfShvkFjWRfqbVgsR4bJAfokn31K9rRqqFnqLZ7Nt9EgHJyoVLnXiJ6
+----------------------------------------------------------
+secondDeposit (23 USDC) ->  23,000,672
+secondUserKeypair.publicKey ->  GRT5XpbA5ukqnhgz34xB9vrwZMP6pUHryYx8HM92uQLa
+secondUserUsdc publickey ->  ApNdod4e7unTqKjBGwHJqYQigs56B6EueCHUuHD9hjWB
+secondUserUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+secondUserUsdcAccount.owner publickey ->  GRT5XpbA5ukqnhgz34xB9vrwZMP6pUHryYx8HM92uQLa
+secondUserUsdcAccount.amount ->  23,000,672
+totalPoolUsdc (frst:10 + second:23 = 33 USDC) ->  33,001,021
+----------------------------------------------------------
+
+  ✔ Exchanges a second users USDC for redeemable tokens (1880ms)
+tx ->  5P5mrkfJrv44DZjk2sCE4gWCeFFxkdHj66UJc88Biyzc2bkAJ7XUafp4ajaaVoHFV5bQ4QtYoYwuu3TGen5ecgGc
+----------------------------------------------------------
+firstWithdrawal (2 USDC) -> 2,000,000
+totalPoolUsdc (33 - 2 = 31 USDC) -> 31,001,021
+escrowUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+escrowUsdcAccount.owner publickey ->  2YkqGDyLGuu1G5QSRtVMbrX6dx3KUQi6WAQZfyy67x3h
+escrowUsdcAccount.amount ->  2,000,000
+----------------------------------------------------------
+
+  ✔ Exchanges user Redeemable tokens for USDC (480ms)
+Sleeping for 7.127 seconds
+tx ->  3Jzp88J1txMXax4frGco33HoteCERPmBWkRVkjMbKL92nDnwsy5fz9QjSwUE2F2Ej28Tvvv7oqjT8oCKrpmd1815
+----------------------------------------------------------
+poolWatermelonAccount.mint publickey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+poolWatermelonAccount.owner publickey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+poolWatermelonAccount.amount ->  3,709,664
+remainingWatermelon ->  3,709,664
+userWatermelonAccount.mint publickey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+userWatermelonAccount.owner publickey ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+----------------------------------------------------------
+
+  ✔ Exchanges user Redeemable tokens for watermelon (7927ms)
+tx ->  5KgJWb4L4XrYT5DCvet84DWnQqMGBLMeBg1T1s34jFL1Q49q8EvaSQdF9b3KXhytusvtWkSwSdVh5wvp7czmF4rk
+----------------------------------------------------------
+poolWatermelonAccount.mint publickey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+poolWatermelonAccount.owner publickey ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+poolWatermelonAccount.amount (Redemmed second deposit = 0 USDC) ->  0
+----------------------------------------------------------
+
+  ✔ Exchanges second user's Redeemable tokens for watermelon (943ms)
+tx ->  4ZFA8cQPVqhaARF3N2yGqvMJfmPR5BG92P9kj974UTNRwWFCW8DjqXuZkbzciHaKWPPhiULvmbqf8pBrEByvM7SL
+----------------------------------------------------------
+poolUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+poolUsdcAccount.owner publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+poolUsdcAccount.amount ->  0
+idoAuthorityUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+idoAuthorityUsdcAccount.owner publickey ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+totalPoolUsdc ->  31,001,021
+----------------------------------------------------------
+
+  ✔ Withdraws total USDC from pool account (463ms)
+tx ->  WYyxt6VdajfnvukpZSFwhiqupYhrw1XaYkS4HaSeAMUSFzTTy56MnVau5DfGv6AMJ5Pf4Yj2YPx2ZA3fmC4fFEd
+----------------------------------------------------------
+userUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+userUsdcAccount.owner publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+userUsdcAccount.amount ->  2,000,000
+totalPoolUsdc ->  31,001,021
+----------------------------------------------------------
+
+----------------------------------------------------------
+provider.wallet.publicKey (= My Wallet) ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+watermelonIdoAmount ->  5,000,000
+usdcMintAccount programId (= Solana Token Program ID. Fixed Value) ->  TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
+usdcMintAccount associatedProgramId (Fixed Value) ->  ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL
+usdcMintAccount Public Key (= Mint Address) ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+watermelonMintAccount programId (= Solana Token Program ID) ->  TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
+watermelonMintAccount associatedProgramId ->  ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL
+watermelonMintAccount Public Key (= Mint Address) ->  Gk9ZNBaJvY5JCSJvuc5LM9mnLMLa9E2xBNP1bx9pxB6W
+idoAuthorityUsdc Public Key ->  7oHqefwzrCLZrmRUvLhu1G4haY9QLX9B3bjtMMYHd8op
+idoAuthorityWatermelon Public Key ->  4U8RXaAVoFQgy9o76mvcPvGehzAbVaKFnHTdp6yiqGCm
+userUsdcAccount.mint publickey ->  CTHTqStM2KqfiwouEW3ad7W1DAKJzivRE4XSa96XcBQ3
+userUsdcAccount.owner publickey ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+----------------------------------------------------------
+
+  ✔ Withdraws USDC from the escrow account after waiting period is over (471ms)
+
+
+9 passing (23s)
+
+✨  Done in 28.52s.
+*/
