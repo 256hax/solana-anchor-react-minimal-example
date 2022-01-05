@@ -11,3 +11,14 @@
 - [@project-serum/anchor](https://project-serum.github.io/anchor/ts/index.html)
 - [@project-serum/common](https://github.com/project-serum/serum-ts/tree/master/packages/common)
 - [@project-serum/serum](https://github.com/project-serum/serum-ts/tree/master/packages/serum)
+
+## Setup
+### npm
+If you got some npm errors, install packages again.
+```
+npm add @project-serum/anchor
+npm add @project-serum/common
+npm add @project-serum/serum
+npm add @solana/spl-token
+npm add mocha
+```
