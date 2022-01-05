@@ -25,6 +25,22 @@ assert \
 % solana airdrop 1 $ANCHOR_WALLET_ADDRESS
 ```
 
+### Localnet Transactions at Solana Explorer
+1. Run validator
+```
+% solana-test-validator
+```
+
+2. anchor test (Deploy)
+```
+% anchor test --skip-local-validator
+```
+
+3. Check transaction
+[Solana Explorer - localhost](https://explorer.solana.com/?cluster=custom)
+
+Usage:
+
 ## Programs Deploying to devnet
 There're Two ways available.
 
@@ -78,7 +94,6 @@ const network = clusterApiUrl('devnet');
 ```
 % solana airdrop 1 [Phantom Wallet Address]
 ```
-
 
 ## Docker
 ### Image
