@@ -1,4 +1,6 @@
-## Run JS
+# JavaScript
+
+## Run
 ```
 % npm install
 % node [JS FILE]
