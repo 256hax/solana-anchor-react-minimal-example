@@ -1,0 +1,10 @@
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[programs.localnet]
+puppet = "EK38jFBYPbyUDct8mbod5WYRpZUUKFZYjrXMqrPrxEj6"
+puppet_master = "Qb2s9TbPSoqjw3XcrRpVmQ3pUmvufHEBjWEVQfMB1sB"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/"

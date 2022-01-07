@@ -85,14 +85,16 @@ describe("escrow", () => {
     assert.ok(_takerTokenAccountB.amount.toNumber() == takerAmount);
 
     console.log("\n----------------------------------------------------------------------");
-    console.log("My Public Key          -> ", provider.wallet.publicKey.toString());
-    console.log("Token Account A Amount -> ", _initializerTokenAccountA.amount.toNumber().toLocaleString());
-    console.log("Token Account B Amount -> ", _takerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("My Public Key                    -> ", provider.wallet.publicKey.toString());
+    console.log("initializerTokenAccountA mint    -> ", _initializerTokenAccountA.mint.toString());
+    console.log("initializerTokenAccountA address -> ", _initializerTokenAccountA.address.toString());
+    console.log("initializerTokenAccountA amount  -> ", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("takerTokenAccountB Amount        -> ", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
   it("Initialize escrow", async () => {
-    await program.rpc.initializeEscrow(
+    const tx = await program.rpc.initializeEscrow(
       new BN(initializerAmount),
       new BN(takerAmount),
       {
@@ -140,6 +142,7 @@ describe("escrow", () => {
     );
 
     console.log("\n----------------------------------------------------------------------");
+    console.log("tx                               -> ", tx);
     console.log("PDA PublicKey                    -> ", pda.toString());
     console.log("_escrowAccount.initializerKey    -> ", _escrowAccount.initializerKey.toString());
     console.log("_escrowAccount.initializerAmount -> ", _escrowAccount.initializerAmount.toNumber().toLocaleString());
@@ -148,7 +151,7 @@ describe("escrow", () => {
   });
 
   it("Exchange escrow", async () => {
-    await program.rpc.exchange({
+    const tx = await program.rpc.exchange({
       accounts: {
         taker: provider.wallet.publicKey,
         takerDepositTokenAccount: takerTokenAccountB,
@@ -176,11 +179,12 @@ describe("escrow", () => {
     assert.ok(_takerTokenAccountB.amount.toNumber() == 0);
 
     console.log("\n----------------------------------------------------------------------");
+    console.log("tx                                   -> ", tx);
     console.log("_takerTokenAccountA.owner PublicKey  -> ", _takerTokenAccountA.owner.toString());
-    console.log("_takerTokenAccountA.amount           -> ", _takerTokenAccountA.amount.toNumber());
-    console.log("_initializerTokenAccountA.amount     -> ", _initializerTokenAccountA.amount.toNumber());
-    console.log("_initializerTokenAccountB.amount     -> ", _initializerTokenAccountB.amount.toNumber());
-    console.log("_takerTokenAccountB.amount           -> ", _takerTokenAccountB.amount.toNumber());
+    console.log("_takerTokenAccountA.amount           -> ", _takerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountA.amount     -> ", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountB.amount     -> ", _initializerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountB.amount           -> ", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
@@ -195,7 +199,7 @@ describe("escrow", () => {
       initializerAmount
     );
 
-    await program.rpc.initializeEscrow(
+    const tx_init = await program.rpc.initializeEscrow(
       new BN(initializerAmount),
       new BN(takerAmount),
       {
@@ -219,7 +223,7 @@ describe("escrow", () => {
     assert.ok(_initializerTokenAccountA.owner.equals(pda));
 
     // Cancel the escrow.
-    await program.rpc.cancelEscrow({
+    const tx_cancel = await program.rpc.cancelEscrow({
       accounts: {
         initializer: provider.wallet.publicKey,
         pdaDepositTokenAccount: initializerTokenAccountA,
@@ -239,6 +243,11 @@ describe("escrow", () => {
 
     // Check all the funds are still there.
     assert.ok(_initializerTokenAccountA.amount.toNumber() == initializerAmount);
+
+    console.log("\n----------------------------------------------------------------------");
+    console.log("tx_init    -> ", tx_init);
+    console.log("tx_cancel  -> ", tx_cancel);
+    console.log("----------------------------------------------------------------------\n");
   });
 });
 
