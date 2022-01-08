@@ -10,8 +10,8 @@ async function main() {
   console.log('payerB Public Key -> ', payerB.publicKey.toString());
 
 
-  let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  // let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
 
   // --- Airdrop ---
