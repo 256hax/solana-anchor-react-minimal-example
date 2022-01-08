@@ -16,23 +16,27 @@ async function main() {
 
   // --- Airdrop ---
   // Airdrop for PayerA
+  console.log("Airdopping to PayerA");
   let airdropSignature = await connection.requestAirdrop(
       payerA.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
   await connection.confirmTransaction(airdropSignature);
 
-  // For "Too Many Requests" error
+  // For "Too Many Requests" error for Devnet
+  console.log("sleep 10 sec...");
   sleep.sleep(10);
 
   // Airdrop for PayerB
+  console.log("Airdopping to PayerB");
   let airdropSignaturePayerB = await connection.requestAirdrop(
       payerB.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
   await connection.confirmTransaction(airdropSignaturePayerB);
 
-  // For "Too Many Requests" error
+  // For "Too Many Requests" error for Devnet
+  console.log("sleep 10 sec...");
   sleep.sleep(10);
 
 
@@ -70,6 +74,10 @@ main();
 % node multiple_signers_and_transfer.js
 payerA Public Key ->  ZeKo8prhWKSSmvPrsv3js7TXyxQfiyiYMcWs1NBG4Vm
 payerB Public Key ->  3fE3MAUwG45rYDH2RU8wsZDfterGjBxxffsLf24Ujiq8
+Airdopping to PayerA
+sleep 10 sec...
+Airdopping to PayerB
+sleep 10 sec...
 Signature ->  FkF8LbjYGE4SprCZJSrrxboePnQ5GjTyQpURmo6SLXLtsbd5rS1ZsinUeMxuf8gM4L3Cby73wL5Lo6XEZ7Sqk8W
 */
 
