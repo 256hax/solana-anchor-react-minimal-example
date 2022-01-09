@@ -12,3 +12,5 @@
 //
 // #[derive(Accounts)]
 // pub struct Initialize {}
+
+// It doesn't use programs(Rust).
