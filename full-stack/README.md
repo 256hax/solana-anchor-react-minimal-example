@@ -51,7 +51,7 @@ programs/initialize/src/lib.rs
 declare_id!("[NEW PROGRAM ID]");
 ```
 
-### IMPORTANT: insufficient fee-payer funds error
+### [OPTIONS] Insufficient fee-payer funds error
 M1 Mac or Linux get following error when airdrop or deploy to localnet.
 
 ```
@@ -131,7 +131,7 @@ Phantom settings > Change Network > select "Localhost"
 Copy your Phantom Wallet Address, then airdrop.
 
 ```
-% solana airdrop 5 [your Phantom Wallet Address]
+% solana airdrop 2 [your Phantom Wallet Address]
 ```
 
 ### 4. Send Transaction
@@ -160,7 +160,7 @@ Insufficient your Phantom Wallet Address.
 Copy your Phantom Wallet Address, then airdrop.
 
 ```
-% solana airdrop 5 [YOUR PHANTOM WALLET ADDRESS]
+% solana airdrop 2 [YOUR PHANTOM WALLET ADDRESS]
 ```
 
 Make sure your balance.
