@@ -2,13 +2,13 @@
 const {struct,u32, ns64} = require("@solana/buffer-layout");
 const {Buffer} = require('buffer');
 const web3 = require("@solana/web3.js");
-const cluster = 'devnet';
 
 async function main() {
   let keypair = web3.Keypair.generate();
   let payer = web3.Keypair.generate();
 
-  let connection = new web3.Connection(web3.clusterApiUrl(cluster));
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
   let airdropSignature = await connection.requestAirdrop(
     payer.publicKey,

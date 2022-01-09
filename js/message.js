@@ -2,18 +2,13 @@
 const {Buffer} = require("buffer");
 const bs58 = require('bs58');
 const web3 = require('@solana/web3.js');
-const cluster = 'devnet';
-// const cluster = 'http://localhost:8899'; // for debug
 
 async function main() {
   let toPublicKey = web3.Keypair.generate().publicKey;
   let fromPublicKey = web3.Keypair.generate();
 
-  let connection = new web3.Connection(
-      web3.clusterApiUrl(cluster),
-      // cluster, // for debug
-      'confirmed'
-  );
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
   let airdropSignature = await connection.requestAirdrop(
       fromPublicKey.publicKey,
@@ -59,7 +54,6 @@ async function main() {
 
   let signature = await web3.sendAndConfirmTransaction(connection, transaction, [fromPublicKey])
 
-  console.log('Cluster -> ', cluster);
   console.log('From -> ', fromPublicKey.publicKey.toString());
   console.log('To -> ', toPublicKey.toString());
   console.log('Signature -> ', signature);
@@ -71,7 +65,6 @@ async function main() {
 main();
 /*
 % node message.js
-Cluster ->  devnet
 From ->  Dy8XGcZyiXwtQ7WfZ8M9RytzCn96CWPBHdwErPFgZ6bH
 To ->  TFzkL3deka2RprWuxkiRZZXvyrcsmuH7YEpQsg3HHNB
 Signature ->  21h23fkVmHftGDEKUdaacQySTx8vmV4dFC9XMuBSASyUvE26fMSGijV4HggGURUKB77ZGx6ErcrMFtWsEWHuuepE

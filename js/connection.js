@@ -2,7 +2,8 @@
 const web3 = require("@solana/web3.js");
 
 async function main() {
-  let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
   let slot = await connection.getSlot();
   console.log('slot -> ', slot);

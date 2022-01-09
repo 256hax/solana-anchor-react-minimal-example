@@ -6,8 +6,8 @@ const splToken = require('@solana/spl-token');
 (async () => {
   // Connect to cluster
   const connection = new web3.Connection(
-    web3.clusterApiUrl('devnet'),
-    // 'http://localhost:8899', // for debug
+    // web3.clusterApiUrl('devnet'),
+    'http://localhost:8899', // for debug
     'confirmed',
   );
 

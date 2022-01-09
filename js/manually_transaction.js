@@ -5,7 +5,8 @@ const nacl = require('tweetnacl');
 async function main() {
   // Airdrop SOL for paying transactions
   let payer = web3.Keypair.generate();
-  let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
 
   let airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
