@@ -5,7 +5,7 @@ import idl from './idl.json';
 
 const { SystemProgram, Keypair } = web3;
 /* create an account  */
-const myAccount = Keypair.generate();
+const crudAccount = Keypair.generate();
 const opts = {
   preflightCommitment: "processed"
 }
@@ -47,11 +47,11 @@ function App() {
       // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.create(data, {
         accounts: {
-          myAccount: myAccount.publicKey,
+          crudAccount: crudAccount.publicKey,
           user: provider.wallet.publicKey.toString(),
           systemProgram: SystemProgram.programId,
         },
-        signers: [myAccount],
+        signers: [crudAccount],
       });
       console.log("Sent! Signature: ", tx);
     } catch (err) {
@@ -63,7 +63,7 @@ function App() {
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
 
-    const account = await program.account.myAccount.fetch(myAccount.publicKey);
+    const account = await program.account.crudAccount.fetch(crudAccount.publicKey);
     console.log(account.data.toString());
   }
 
@@ -76,7 +76,7 @@ function App() {
       // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.update(data, {
         accounts: {
-          myAccount: myAccount.publicKey,
+          crudAccount: crudAccount.publicKey,
         },
       });
       console.log("Sent! Signature: ", tx);
@@ -93,7 +93,7 @@ function App() {
       // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.delete({
         accounts: {
-          myAccount: myAccount.publicKey,
+          crudAccount: crudAccount.publicKey,
         },
       });
       console.log("Sent! Signature: ", tx);

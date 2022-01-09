@@ -15,33 +15,33 @@ describe("CRUD", () => {
     const program = anchor.workspace.Crud;
 
     // The Account to create.
-    const myAccount = anchor.web3.Keypair.generate();
+    const crudAccount = anchor.web3.Keypair.generate();
 
     // Create the new account and initialize it with the program.
     // #region code-simplified
     await program.rpc.create(new anchor.BN(1234), {
       accounts: {
-        myAccount: myAccount.publicKey,
+        crudAccount: crudAccount.publicKey,
         user: provider.wallet.publicKey,
         systemProgram: SystemProgram.programId,
       },
-      signers: [myAccount],
+      signers: [crudAccount],
     });
     // #endregion code-simplified
 
     // Fetch the newly created account from the cluster.
-    const account = await program.account.myAccount.fetch(myAccount.publicKey);
+    const account = await program.account.crudAccount.fetch(crudAccount.publicKey);
 
     // Check it's state was initialized.
     assert.ok(account.data.eq(new anchor.BN(1234)));
     console.log("data: ", account.data.toString());
 
     // Store the account for the next test.
-    _myAccount = myAccount;
+    _crudAccount = crudAccount;
   });
 
   it("Updates a previously created account", async () => {
-    const myAccount = _myAccount;
+    const crudAccount = _crudAccount;
 
     // #region update-test
 
@@ -51,12 +51,12 @@ describe("CRUD", () => {
     // Invoke the update rpc.
     await program.rpc.update(new anchor.BN(4321), {
       accounts: {
-        myAccount: myAccount.publicKey,
+        crudAccount: crudAccount.publicKey,
       },
     });
 
     // Fetch the newly updated account.
-    const account = await program.account.myAccount.fetch(myAccount.publicKey);
+    const account = await program.account.crudAccount.fetch(crudAccount.publicKey);
 
     // Check it's state was mutated.
     assert.ok(account.data.eq(new anchor.BN(4321)));
@@ -66,7 +66,7 @@ describe("CRUD", () => {
   });
 
   it("Delete(Data Masking) a previously created account", async () => {
-    const myAccount = _myAccount;
+    const crudAccount = _crudAccount;
 
     // #region update-test
 
@@ -76,12 +76,12 @@ describe("CRUD", () => {
     // Invoke the update rpc.
     await program.rpc.delete({
       accounts: {
-        myAccount: myAccount.publicKey,
+        crudAccount: crudAccount.publicKey,
       },
     });
 
     // Fetch the newly updated account.
-    const account = await program.account.myAccount.fetch(myAccount.publicKey);
+    const account = await program.account.crudAccount.fetch(crudAccount.publicKey);
 
     // Check it's state was mutated.
     assert.ok(account.data.eq(new anchor.BN(0)));

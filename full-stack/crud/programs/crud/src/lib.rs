@@ -7,23 +7,23 @@ mod crud {
     use super::*;
 
     pub fn create(ctx: Context<Initialize>, data: u64) -> ProgramResult {
-        let my_account = &mut ctx.accounts.my_account;
-        my_account.data = data;
+        let crud_account = &mut ctx.accounts.crud_account;
+        crud_account.data = data;
         msg!("data: {}", data);
         Ok(())
     }
 
     pub fn update(ctx: Context<Update>, data: u64) -> ProgramResult {
-        let my_account = &mut ctx.accounts.my_account;
-        my_account.data = data;
+        let crud_account = &mut ctx.accounts.crud_account;
+        crud_account.data = data;
         msg!("data: {}", data);
         Ok(())
     }
 
     pub fn delete(ctx: Context<Update>) -> ProgramResult {
-        let my_account = &mut ctx.accounts.my_account;
-        my_account.data = 0;
-        msg!("data: {}", my_account.data);
+        let crud_account = &mut ctx.accounts.crud_account;
+        crud_account.data = 0;
+        msg!("data: {}", crud_account.data);
         Ok(())
     }
 }
@@ -31,7 +31,7 @@ mod crud {
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(init, payer = user, space = 8 + 8)]
-    pub my_account: Account<'info, MyAccount>,
+    pub crud_account: Account<'info, CrudAccount>,
     #[account(mut)]
     pub user: Signer<'info>,
     pub system_program: Program<'info, System>,
@@ -40,10 +40,10 @@ pub struct Initialize<'info> {
 #[derive(Accounts)]
 pub struct Update<'info> {
     #[account(mut)]
-    pub my_account: Account<'info, MyAccount>,
+    pub crud_account: Account<'info, CrudAccount>,
 }
 
 #[account]
-pub struct MyAccount {
+pub struct CrudAccount {
     pub data: u64,
 }
