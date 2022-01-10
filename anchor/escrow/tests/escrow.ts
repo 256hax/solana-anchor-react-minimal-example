@@ -38,12 +38,12 @@ describe("escrow", () => {
     // --- Create Token ---
     // Ref: https://github.com/solana-labs/solana-program-library/blob/eedcbd860270e43fe56900c29bbdb176ea61e3a3/token/js/client/token.js#L384
     mintA = await Token.createMint(
-      provider.connection,
-      payer,
-      mintAuthority.publicKey,
-      null,
-      0,
-      TOKEN_PROGRAM_ID
+      provider.connection,      // connection: Connection
+      payer,                    // payer: Signer
+      mintAuthority.publicKey,  // mintAuthority: PublicKey
+      null,                     // freezeAuthority: PublicKey | null
+      0,                        // decimals: number
+      TOKEN_PROGRAM_ID          // programId: PublicKey,
     );
 
     mintB = await Token.createMint(
@@ -55,8 +55,8 @@ describe("escrow", () => {
       TOKEN_PROGRAM_ID
     );
 
-    // --- Create Token Account ---
-    // Ref: https://github.com/solana-labs/solana-program-library/blob/eedcbd860270e43fe56900c29bbdb176ea61e3a3/token/js/client/token.js#L407
+    // --- Create and initialize a new account ---
+    // Ref: https://github.com/solana-labs/solana-program-library/blob/eedcbd860270e43fe56900c29bbdb176ea61e3a3/token/js/client/token.js#L446
     initializerTokenAccountA  = await mintA.createAccount(provider.wallet.publicKey);
     takerTokenAccountA        = await mintA.createAccount(provider.wallet.publicKey);
     initializerTokenAccountB  = await mintB.createAccount(provider.wallet.publicKey);
@@ -65,10 +65,10 @@ describe("escrow", () => {
     // --- Mint New Token ---
     // Ref: https://github.com/solana-labs/solana-program-library/blob/eedcbd860270e43fe56900c29bbdb176ea61e3a3/token/js/client/token.js#L1027
     await mintA.mintTo(
-      initializerTokenAccountA,
-      mintAuthority.publicKey,
-      [mintAuthority],
-      initializerAmount
+      initializerTokenAccountA, // dest: PublicKey
+      mintAuthority.publicKey,  // authority: any
+      [mintAuthority],          // multiSigners: Array<Signer>
+      initializerAmount         // amount: number | u64
     );
 
     await mintB.mintTo(
@@ -81,15 +81,32 @@ describe("escrow", () => {
     let _initializerTokenAccountA = await mintA.getAccountInfo(initializerTokenAccountA);
     let _takerTokenAccountB       = await mintB.getAccountInfo(takerTokenAccountB);
 
+    // Check balance for debug.
+    let _initializerTokenAccountB = await mintB.getAccountInfo(initializerTokenAccountB); // For debug
+    let _takerTokenAccountA       = await mintA.getAccountInfo(takerTokenAccountA); // For debug
+
     assert.ok(_initializerTokenAccountA.amount.toNumber() == initializerAmount);
     assert.ok(_takerTokenAccountB.amount.toNumber() == takerAmount);
 
     console.log("\n----------------------------------------------------------------------");
-    console.log("My Public Key                    -> ", provider.wallet.publicKey.toString());
-    console.log("initializerTokenAccountA mint    -> ", _initializerTokenAccountA.mint.toString());
-    console.log("initializerTokenAccountA address -> ", _initializerTokenAccountA.address.toString());
-    console.log("initializerTokenAccountA amount  -> ", _initializerTokenAccountA.amount.toNumber().toLocaleString());
-    console.log("takerTokenAccountB Amount        -> ", _takerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("provider.wallet.publicKey          ->", provider.wallet.publicKey.toString());
+    console.log("initializerTokenAccountA           ->", initializerTokenAccountA.toString());
+    console.log("initializerTokenAccountB           ->", initializerTokenAccountB.toString());
+    console.log("takerTokenAccountA                 ->", takerTokenAccountA.toString());
+    console.log("takerTokenAccountB                 ->", takerTokenAccountB.toString());
+    console.log("------------------------------------------------------------------------");
+    console.log("escrowAccount                      ->", escrowAccount.publicKey.toString());
+    console.log("payer                              ->", payer.publicKey.toString());
+    console.log("mintAuthority                      ->", mintAuthority.publicKey.toString());
+    console.log("------------------------------------------------------------------------");
+    console.log("_initializerTokenAccountA mint     ->", _initializerTokenAccountA.mint.toString());
+    console.log("_initializerTokenAccountA address  ->", _initializerTokenAccountA.address.toString());
+    console.log("_initializerTokenAccountA amount   ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountB amount   ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountB mint           ->", _takerTokenAccountB.mint.toString());
+    console.log("_takerTokenAccountB address        ->", _takerTokenAccountB.address.toString());
+    console.log("_takerTokenAccountB Amount         ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountA Amount         ->", _takerTokenAccountA.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
@@ -142,11 +159,13 @@ describe("escrow", () => {
     );
 
     console.log("\n----------------------------------------------------------------------");
-    console.log("tx                               -> ", tx);
-    console.log("PDA PublicKey                    -> ", pda.toString());
-    console.log("_escrowAccount.initializerKey    -> ", _escrowAccount.initializerKey.toString());
-    console.log("_escrowAccount.initializerAmount -> ", _escrowAccount.initializerAmount.toNumber().toLocaleString());
-    console.log("_escrowAccount.takerAmount       -> ", _escrowAccount.takerAmount.toNumber().toLocaleString());
+    console.log("tx                                             ->", tx);
+    console.log("PDA PublicKey                                  ->", pda.toString());
+    console.log("_escrowAccount.initializerKey                  ->", _escrowAccount.initializerKey.toString());
+    console.log("_escrowAccount.initializerAmount               ->", _escrowAccount.initializerAmount.toNumber().toLocaleString());
+    console.log("_escrowAccount.initializerDepositTokenAccount  ->", _escrowAccount.initializerDepositTokenAccount.toString());
+    console.log("_escrowAccount.initializerReceiveTokenAccount  ->", _escrowAccount.initializerReceiveTokenAccount.toString());
+    console.log("_escrowAccount.takerAmount                     ->", _escrowAccount.takerAmount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
@@ -179,76 +198,76 @@ describe("escrow", () => {
     assert.ok(_takerTokenAccountB.amount.toNumber() == 0);
 
     console.log("\n----------------------------------------------------------------------");
-    console.log("tx                                   -> ", tx);
-    console.log("_takerTokenAccountA.owner PublicKey  -> ", _takerTokenAccountA.owner.toString());
-    console.log("_takerTokenAccountA.amount           -> ", _takerTokenAccountA.amount.toNumber().toLocaleString());
-    console.log("_initializerTokenAccountA.amount     -> ", _initializerTokenAccountA.amount.toNumber().toLocaleString());
-    console.log("_initializerTokenAccountB.amount     -> ", _initializerTokenAccountB.amount.toNumber().toLocaleString());
-    console.log("_takerTokenAccountB.amount           -> ", _takerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("tx                                   ->", tx);
+    console.log("_initializerTokenAccountA.amount     ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountB.amount     ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountA.owner PublicKey  ->", _takerTokenAccountA.owner.toString());
+    console.log("_takerTokenAccountA.amount           ->", _takerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountB.amount           ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
-  let newEscrow = Keypair.generate();
-
-  it("Initialize escrow and cancel escrow", async () => {
-    // Put back tokens into initializer token A account.
-    await mintA.mintTo(
-      initializerTokenAccountA,
-      mintAuthority.publicKey,
-      [mintAuthority],
-      initializerAmount
-    );
-
-    const tx_init = await program.rpc.initializeEscrow(
-      new BN(initializerAmount),
-      new BN(takerAmount),
-      {
-        accounts: {
-          initializer: provider.wallet.publicKey,
-          initializerDepositTokenAccount: initializerTokenAccountA,
-          initializerReceiveTokenAccount: initializerTokenAccountB,
-          escrowAccount: newEscrow.publicKey,
-          systemProgram: SystemProgram.programId,
-          tokenProgram: TOKEN_PROGRAM_ID,
-        },
-        signers: [newEscrow],
-      }
-    );
-
-    let _initializerTokenAccountA = await mintA.getAccountInfo(
-      initializerTokenAccountA
-    );
-
-    // Check that the new owner is the PDA.
-    assert.ok(_initializerTokenAccountA.owner.equals(pda));
-
-    // Cancel the escrow.
-    const tx_cancel = await program.rpc.cancelEscrow({
-      accounts: {
-        initializer: provider.wallet.publicKey,
-        pdaDepositTokenAccount: initializerTokenAccountA,
-        pdaAccount: pda,
-        escrowAccount: newEscrow.publicKey,
-        tokenProgram: TOKEN_PROGRAM_ID,
-      },
-    });
-
-    // Check the final owner should be the provider public key.
-    _initializerTokenAccountA = await mintA.getAccountInfo(
-      initializerTokenAccountA
-    );
-    assert.ok(
-      _initializerTokenAccountA.owner.equals(provider.wallet.publicKey)
-    );
-
-    // Check all the funds are still there.
-    assert.ok(_initializerTokenAccountA.amount.toNumber() == initializerAmount);
-
-    console.log("\n----------------------------------------------------------------------");
-    console.log("tx_init    -> ", tx_init);
-    console.log("tx_cancel  -> ", tx_cancel);
-    console.log("----------------------------------------------------------------------\n");
-  });
+  // let newEscrow = Keypair.generate();
+  //
+  // it("Initialize escrow and cancel escrow", async () => {
+  //   // Put back tokens into initializer token A account.
+  //   await mintA.mintTo(
+  //     initializerTokenAccountA,
+  //     mintAuthority.publicKey,
+  //     [mintAuthority],
+  //     initializerAmount
+  //   );
+  //
+  //   const tx_init = await program.rpc.initializeEscrow(
+  //     new BN(initializerAmount),
+  //     new BN(takerAmount),
+  //     {
+  //       accounts: {
+  //         initializer: provider.wallet.publicKey,
+  //         initializerDepositTokenAccount: initializerTokenAccountA,
+  //         initializerReceiveTokenAccount: initializerTokenAccountB,
+  //         escrowAccount: newEscrow.publicKey,
+  //         systemProgram: SystemProgram.programId,
+  //         tokenProgram: TOKEN_PROGRAM_ID,
+  //       },
+  //       signers: [newEscrow],
+  //     }
+  //   );
+  //
+  //   let _initializerTokenAccountA = await mintA.getAccountInfo(
+  //     initializerTokenAccountA
+  //   );
+  //
+  //   // Check that the new owner is the PDA.
+  //   assert.ok(_initializerTokenAccountA.owner.equals(pda));
+  //
+  //   // Cancel the escrow.
+  //   const tx_cancel = await program.rpc.cancelEscrow({
+  //     accounts: {
+  //       initializer: provider.wallet.publicKey,
+  //       pdaDepositTokenAccount: initializerTokenAccountA,
+  //       pdaAccount: pda,
+  //       escrowAccount: newEscrow.publicKey,
+  //       tokenProgram: TOKEN_PROGRAM_ID,
+  //     },
+  //   });
+  //
+  //   // Check the final owner should be the provider public key.
+  //   _initializerTokenAccountA = await mintA.getAccountInfo(
+  //     initializerTokenAccountA
+  //   );
+  //   assert.ok(
+  //     _initializerTokenAccountA.owner.equals(provider.wallet.publicKey)
+  //   );
+  //
+  //   // Check all the funds are still there.
+  //   assert.ok(_initializerTokenAccountA.amount.toNumber() == initializerAmount);
+  //
+  //   console.log("\n----------------------------------------------------------------------");
+  //   console.log("tx_init    -> ", tx_init);
+  //   console.log("tx_cancel  -> ", tx_cancel);
+  //   console.log("----------------------------------------------------------------------\n");
+  // });
 });
 
 /*

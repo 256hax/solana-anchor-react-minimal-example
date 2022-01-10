@@ -4,7 +4,7 @@ cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [programs.localnet]
-escrow = "GShJcD9o7ZSPzMvCkbNbt1cUaHSuCWfsfDP1qVvWhHTH"
+escrow = "Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC"
 
 [scripts]
 test = "yarn run ts-mocha -t 1000000 tests/*.ts"

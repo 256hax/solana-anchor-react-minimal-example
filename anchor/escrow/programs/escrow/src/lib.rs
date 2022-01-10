@@ -19,7 +19,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{self, SetAuthority, Token, TokenAccount, Transfer};
 use spl_token::instruction::AuthorityType;
 
-declare_id!("GShJcD9o7ZSPzMvCkbNbt1cUaHSuCWfsfDP1qVvWhHTH");
+declare_id!("Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC");
 
 #[program]
 pub mod escrow {
@@ -50,25 +50,28 @@ pub mod escrow {
         ctx.accounts.escrow_account.initializer_amount = initializer_amount;
         ctx.accounts.escrow_account.taker_amount = taker_amount;
 
+        // Is find_program_address(by seeds) same meaning as create_program_address?
+        // Ref: https://docs.rs/solana-program/latest/solana_program/pubkey/struct.Pubkey.html#examples-1
         let (pda, _bump_seed) = Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
+        // Ref: https://docs.rs/spl-token/2.0.3/spl_token/instruction/fn.set_authority.html
         token::set_authority(ctx.accounts.into(), AuthorityType::AccountOwner, Some(pda))?;
         Ok(())
     }
 
-    pub fn cancel_escrow(ctx: Context<CancelEscrow>) -> ProgramResult {
-        let (_pda, bump_seed) = Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
-        let seeds = &[&ESCROW_PDA_SEED[..], &[bump_seed]];
-
-        token::set_authority(
-            ctx.accounts
-                .into_set_authority_context()
-                .with_signer(&[&seeds[..]]),
-            AuthorityType::AccountOwner,
-            Some(ctx.accounts.escrow_account.initializer_key),
-        )?;
-
-        Ok(())
-    }
+    // pub fn cancel_escrow(ctx: Context<CancelEscrow>) -> ProgramResult {
+    //     let (_pda, bump_seed) = Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
+    //     let seeds = &[&ESCROW_PDA_SEED[..], &[bump_seed]];
+    //
+    //     token::set_authority(
+    //         ctx.accounts
+    //             .into_set_authority_context()
+    //             .with_signer(&[&seeds[..]]),
+    //         AuthorityType::AccountOwner,
+    //         Some(ctx.accounts.escrow_account.initializer_key),
+    //     )?;
+    //
+    //     Ok(())
+    // }
 
     pub fn exchange(ctx: Context<Exchange>) -> ProgramResult {
         // Transferring from initializer to taker
@@ -108,6 +111,8 @@ pub struct InitializeEscrow<'info> {
         mut,
         constraint = initializer_deposit_token_account.amount >= initializer_amount
     )]
+    // It doesn't need seeds with init, right?
+    // Ref: https://docs.rs/solana-program/latest/solana_program/pubkey/struct.Pubkey.html#examples-1
     pub initializer_deposit_token_account: Account<'info, TokenAccount>,
     pub initializer_receive_token_account: Account<'info, TokenAccount>,
     #[account(init, payer = initializer, space = 8 + EscrowAccount::LEN)]
@@ -143,21 +148,21 @@ pub struct Exchange<'info> {
     pub token_program: Program<'info, Token>,
 }
 
-#[derive(Accounts)]
-pub struct CancelEscrow<'info> {
-    pub initializer: AccountInfo<'info>,
-    #[account(mut)]
-    pub pda_deposit_token_account: Account<'info, TokenAccount>,
-    pub pda_account: AccountInfo<'info>,
-    #[account(
-        mut,
-        constraint = escrow_account.initializer_key == *initializer.key,
-        constraint = escrow_account.initializer_deposit_token_account == *pda_deposit_token_account.to_account_info().key,
-        close = initializer
-    )]
-    pub escrow_account: Account<'info, EscrowAccount>,
-    pub token_program: Program<'info, Token>,
-}
+// #[derive(Accounts)]
+// pub struct CancelEscrow<'info> {
+//     pub initializer: AccountInfo<'info>,
+//     #[account(mut)]
+//     pub pda_deposit_token_account: Account<'info, TokenAccount>,
+//     pub pda_account: AccountInfo<'info>,
+//     #[account(
+//         mut,
+//         constraint = escrow_account.initializer_key == *initializer.key,
+//         constraint = escrow_account.initializer_deposit_token_account == *pda_deposit_token_account.to_account_info().key,
+//         close = initializer
+//     )]
+//     pub escrow_account: Account<'info, EscrowAccount>,
+//     pub token_program: Program<'info, Token>,
+// }
 
 #[account]
 pub struct EscrowAccount {
@@ -188,16 +193,16 @@ impl<'info> From<&mut InitializeEscrow<'info>>
     }
 }
 
-impl<'info> CancelEscrow<'info> {
-    fn into_set_authority_context(&self) -> CpiContext<'_, '_, '_, 'info, SetAuthority<'info>> {
-        let cpi_accounts = SetAuthority {
-            account_or_mint: self.pda_deposit_token_account.to_account_info().clone(),
-            current_authority: self.pda_account.clone(),
-        };
-        let cpi_program = self.token_program.to_account_info();
-        CpiContext::new(cpi_program, cpi_accounts)
-    }
-}
+// impl<'info> CancelEscrow<'info> {
+//     fn into_set_authority_context(&self) -> CpiContext<'_, '_, '_, 'info, SetAuthority<'info>> {
+//         let cpi_accounts = SetAuthority {
+//             account_or_mint: self.pda_deposit_token_account.to_account_info().clone(),
+//             current_authority: self.pda_account.clone(),
+//         };
+//         let cpi_program = self.token_program.to_account_info();
+//         CpiContext::new(cpi_program, cpi_accounts)
+//     }
+// }
 
 impl<'info> Exchange<'info> {
     fn into_set_authority_context(&self) -> CpiContext<'_, '_, '_, 'info, SetAuthority<'info>> {
