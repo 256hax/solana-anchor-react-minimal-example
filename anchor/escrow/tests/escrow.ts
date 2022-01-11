@@ -1,3 +1,8 @@
+/*
+There are many my debug code here. Shouldn't use this code for Mainnet.
+Try to get source program if use for Mainnet.
+Source Program: https://github.com/project-serum/anchor/tree/master/tests/escrow
+*/
 import * as anchor from "@project-serum/anchor";
 import { Program, BN, IdlAccounts } from "@project-serum/anchor";
 import { PublicKey, Keypair, SystemProgram } from "@solana/web3.js";
@@ -101,12 +106,12 @@ describe("escrow", () => {
     console.log("------------------------------------------------------------------------");
     console.log("_initializerTokenAccountA mint     ->", _initializerTokenAccountA.mint.toString());
     console.log("_initializerTokenAccountA address  ->", _initializerTokenAccountA.address.toString());
-    console.log("_initializerTokenAccountA amount   ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
-    console.log("_initializerTokenAccountB amount   ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("_takerTokenAccountB mint           ->", _takerTokenAccountB.mint.toString());
     console.log("_takerTokenAccountB address        ->", _takerTokenAccountB.address.toString());
-    console.log("_takerTokenAccountB Amount         ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountA amount   ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountB amount   ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("_takerTokenAccountA Amount         ->", _takerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountB Amount         ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
@@ -135,7 +140,11 @@ describe("escrow", () => {
 
     pda = _pda;
 
+    let _takerTokenAccountA       = await mintA.getAccountInfo(takerTokenAccountA); // For debug
+    let _takerTokenAccountB       = await mintB.getAccountInfo(takerTokenAccountB); // For debug
     let _initializerTokenAccountA = await mintA.getAccountInfo(initializerTokenAccountA);
+    let _initializerTokenAccountB = await mintB.getAccountInfo(initializerTokenAccountB); // For debug
+
 
     let _escrowAccount: EscrowAccount =
       await program.account.escrowAccount.fetch(escrowAccount.publicKey);
@@ -162,10 +171,15 @@ describe("escrow", () => {
     console.log("tx                                             ->", tx);
     console.log("PDA PublicKey                                  ->", pda.toString());
     console.log("_escrowAccount.initializerKey                  ->", _escrowAccount.initializerKey.toString());
-    console.log("_escrowAccount.initializerAmount               ->", _escrowAccount.initializerAmount.toNumber().toLocaleString());
     console.log("_escrowAccount.initializerDepositTokenAccount  ->", _escrowAccount.initializerDepositTokenAccount.toString());
     console.log("_escrowAccount.initializerReceiveTokenAccount  ->", _escrowAccount.initializerReceiveTokenAccount.toString());
+    console.log("_escrowAccount.initializerAmount               ->", _escrowAccount.initializerAmount.toNumber().toLocaleString());
     console.log("_escrowAccount.takerAmount                     ->", _escrowAccount.takerAmount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountA.owner PublicKey            ->", _takerTokenAccountA.owner.toString());
+    console.log("_initializerTokenAccountA.amount               ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_initializerTokenAccountB.amount               ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountA.amount                     ->", _takerTokenAccountA.amount.toNumber().toLocaleString());
+    console.log("_takerTokenAccountB.amount                     ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
   });
 
@@ -199,9 +213,11 @@ describe("escrow", () => {
 
     console.log("\n----------------------------------------------------------------------");
     console.log("tx                                   ->", tx);
+    console.log("_takerTokenAccountA.owner PublicKey  ->", _takerTokenAccountA.owner.toString());
+    console.log("pdaDepositTokenAccount               ->", initializerTokenAccountA.toString());
+    console.log("initializerMainAccount               ->", provider.wallet.publicKey.toString());
     console.log("_initializerTokenAccountA.amount     ->", _initializerTokenAccountA.amount.toNumber().toLocaleString());
     console.log("_initializerTokenAccountB.amount     ->", _initializerTokenAccountB.amount.toNumber().toLocaleString());
-    console.log("_takerTokenAccountA.owner PublicKey  ->", _takerTokenAccountA.owner.toString());
     console.log("_takerTokenAccountA.amount           ->", _takerTokenAccountA.amount.toNumber().toLocaleString());
     console.log("_takerTokenAccountB.amount           ->", _takerTokenAccountB.amount.toNumber().toLocaleString());
     console.log("----------------------------------------------------------------------\n");
@@ -277,35 +293,59 @@ describe("escrow", () => {
 escrow
 
 ----------------------------------------------------------------------
-My Public Key          ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-Token Account A Amount ->  500
-Token Account B Amount ->  1,000
+provider.wallet.publicKey          -> HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+initializerTokenAccountA           -> 4cj8t4zpCZ3TVGTm4HvBYHc8PYHwDXDti4cwvUZL2ss6
+initializerTokenAccountB           -> AHGGSrE8XDQjEya3BrUnQXfFcun3nPXbKXgqLy2quHpi
+takerTokenAccountA                 -> C6368tDqHRtnyrHaqDxgbPvHP1yyjdtQVm2zyzdDdo6V
+takerTokenAccountB                 -> 7DJzsgqxUsQcDmxXJ8nqppcxVrXFy3inxWvXZbcbeyEc
+------------------------------------------------------------------------
+escrowAccount                      -> 7RqpL2LcRaT9kMvfuie79iEyg6byy86p5qmkuzkWehn8
+payer                              -> 6Q5rLqmfi4z4dXZsvSA1aWBbFqqiPoymqFywzwD8k4QB
+mintAuthority                      -> CUQVsXzVvmfjnSYBer85VDKpiHNutMssMvXGkDEHccMC
+------------------------------------------------------------------------
+_initializerTokenAccountA mint     -> F1yuu98HEidV5z57KRP5V7ztiaUt4en3Xx4Mez9PGNdP
+_initializerTokenAccountA address  -> 4cj8t4zpCZ3TVGTm4HvBYHc8PYHwDXDti4cwvUZL2ss6
+_takerTokenAccountB mint           -> 4egcE2GSZLteiqgWeZ487ygpf3nmvr6uaSYbDj7x9aYV
+_takerTokenAccountB address        -> 7DJzsgqxUsQcDmxXJ8nqppcxVrXFy3inxWvXZbcbeyEc
+_initializerTokenAccountA amount   -> 500
+_initializerTokenAccountB amount   -> 0
+_takerTokenAccountA Amount         -> 0
+_takerTokenAccountB Amount         -> 1,000
 ----------------------------------------------------------------------
 
-  ✓ Initialise escrow state (4361ms)
+  ✓ Initialise escrow state (4318ms)
 
 ----------------------------------------------------------------------
-PDA PublicKey                    ->  EBPuYEyCbGpYYq7ioy9nH2nm7SXkNgwRKQeqGCzbSNvu
-_escrowAccount.initializerKey    ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-_escrowAccount.initializerAmount ->  500
-_escrowAccount.takerAmount       ->  1,000
+tx                                             -> 2sabaVcNuAgV7uRNfEmYsMWdHd8TXsg227ZoiBuymAUARfoyRNtX7GLoHqThBSoZUyiSq815zVweoY4bmKLFXPqX
+PDA PublicKey                                  -> 8qPYoRnenK1FmuA2RkHvEo6FEz5YpKZ1oPZkbo6NaJw
+_escrowAccount.initializerKey                  -> HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+_escrowAccount.initializerDepositTokenAccount  -> 4cj8t4zpCZ3TVGTm4HvBYHc8PYHwDXDti4cwvUZL2ss6
+_escrowAccount.initializerReceiveTokenAccount  -> AHGGSrE8XDQjEya3BrUnQXfFcun3nPXbKXgqLy2quHpi
+_escrowAccount.initializerAmount               -> 500
+_escrowAccount.takerAmount                     -> 1,000
+_takerTokenAccountA.owner PublicKey            -> HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+_initializerTokenAccountA.amount               -> 500
+_initializerTokenAccountB.amount               -> 0
+_takerTokenAccountA.amount                     -> 0
+_takerTokenAccountB.amount                     -> 1,000
 ----------------------------------------------------------------------
 
   ✓ Initialize escrow (425ms)
 
 ----------------------------------------------------------------------
-_takerTokenAccountA.owner PublicKey  ->  HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-_takerTokenAccountA.amount           ->  500
-_initializerTokenAccountA.amount     ->  0
-_initializerTokenAccountB.amount     ->  1000
-_takerTokenAccountB.amount           ->  0
+tx                                   -> WmVrX5x1P7DmMR2eHuaAXfDmv8sXnwZ7K7BmQCWNJuK4CF8dL3mnrZiHUvicMtU1UyugTiueTWZZA2KrS3wr1Xw
+_takerTokenAccountA.owner PublicKey  -> HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+pdaDepositTokenAccount               -> 4cj8t4zpCZ3TVGTm4HvBYHc8PYHwDXDti4cwvUZL2ss6
+_initializerTokenAccountA.amount     -> 0
+_initializerTokenAccountB.amount     -> 1,000
+_takerTokenAccountA.amount           -> 500
+_takerTokenAccountB.amount           -> 0
 ----------------------------------------------------------------------
 
-  ✓ Exchange escrow (466ms)
-  ✓ Initialize escrow and cancel escrow (10332ms)
+  ✓ Exchange escrow (461ms)
 
 
-4 passing (16s)
+3 passing (5s)
 
-✨  Done in 21.62s.
+✨  Done in 11.27s.
 */
