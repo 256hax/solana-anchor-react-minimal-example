@@ -7,6 +7,8 @@ describe("token", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(provider);
 
+  console.log("provider ->", provider);
+
   const program = anchor.workspace.TokenProxy;
 
   let mint = null;
@@ -158,6 +160,7 @@ async function createMint(provider, authority) {
   const tx = new anchor.web3.Transaction();
   tx.add(...instructions);
 
+  // Ref: https://project-serum.github.io/anchor/ts/classes/Provider.html#send
   const tx_sig = await provider.send(tx, [mint]);
 
   console.log("\n-----------------------------------------------------------");
