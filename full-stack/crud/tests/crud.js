@@ -19,11 +19,13 @@ describe("CRUD", () => {
 
     // Create the new account and initialize it with the program.
     // #region code-simplified
-    await program.rpc.create(new anchor.BN(1234), {
-      accounts: {
-        crudAccount: crudAccount.publicKey,
-        user: provider.wallet.publicKey,
-        systemProgram: SystemProgram.programId,
+    await program.rpc.create(
+      new anchor.BN(1234), // args: data
+      {
+        accounts: { // args: ctx
+          crudAccount: crudAccount.publicKey,
+          user: provider.wallet.publicKey,
+          systemProgram: SystemProgram.programId,
       },
       signers: [crudAccount],
     });
@@ -49,9 +51,11 @@ describe("CRUD", () => {
     const program = anchor.workspace.Crud;
 
     // Invoke the update rpc.
-    await program.rpc.update(new anchor.BN(4321), {
-      accounts: {
-        crudAccount: crudAccount.publicKey,
+    await program.rpc.update(
+      new anchor.BN(4321), // args: data
+      {
+        accounts: { // args: ctx
+          crudAccount: crudAccount.publicKey,
       },
     });
 
@@ -75,7 +79,7 @@ describe("CRUD", () => {
 
     // Invoke the update rpc.
     await program.rpc.delete({
-      accounts: {
+      accounts: { // args: ctx
         crudAccount: crudAccount.publicKey,
       },
     });
@@ -90,3 +94,22 @@ describe("CRUD", () => {
     // #endregion update-test
   });
 });
+
+/*
+% anchor test
+
+~~~ skip ~~~
+
+CRUD
+data:  1234
+  ✔ Creates and initializes an account in a single atomic transaction (simplified) (545ms)
+data:  4321
+  ✔ Updates a previously created account (482ms)
+data:  0
+  ✔ Delete(Data Masking) a previously created account (481ms)
+
+
+3 passing (2s)
+
+✨  Done in 7.26s.
+*/
