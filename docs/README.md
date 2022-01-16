@@ -1,3 +1,6 @@
+## Outline Figure
+(Solana Blockchain Outline Figure - PowerPoint)[https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx]
+
 ## CLI
 ### Starter Template
 #### Anchor
