@@ -55,7 +55,7 @@ function App() {
 
     /*
     Ref: https://project-serum.github.io/anchor/ts/classes/web3.Transaction.html
-    Transaction {
+    Transaction Properties {
         feePayer?: PublicKey,
         instructions: TransactionInstruction[],
         nonceInfo?: NonceInformation,
