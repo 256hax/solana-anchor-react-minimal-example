@@ -53,7 +53,18 @@ function App() {
     const provider = await getProvider();
     const connection = provider.connection;
 
+    /*
+    Ref: https://project-serum.github.io/anchor/ts/classes/web3.Transaction.html
+    Transaction {
+        feePayer?: PublicKey,
+        instructions: TransactionInstruction[],
+        nonceInfo?: NonceInformation,
+        recentBlockhash?: string,
+        signatures: SignaturePubkeyPair[],
+    }
+    */
     const transaction = new web3.Transaction();
+    // Ref: https://project-serum.github.io/anchor/ts/modules/web3.html#TransferParams
     transaction.add(web3.SystemProgram.transfer({
         fromPubkey: payer.publicKey,
         toPubkey: toAccount.publicKey,
