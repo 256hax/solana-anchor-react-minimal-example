@@ -1,6 +1,5 @@
 # Send and Confirm Transaction
 ## Run
-Available for
 - anchor test at PJ root directory
 - npm start at app directory
 
