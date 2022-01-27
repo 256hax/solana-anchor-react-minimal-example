@@ -1,9 +1,0 @@
-[provider]
-cluster = "localnet"
-wallet = "~/.config/solana/id.json"
-
-[programs.localnet]
-token_proxy = "Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC"
-
-[scripts]
-test = "yarn run mocha -t 1000000 tests/"
