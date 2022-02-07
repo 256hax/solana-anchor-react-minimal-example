@@ -1,7 +1,8 @@
 # Solana x Anchor x React Minimal Example
 Solana x Anchor x React Minimal Examples. For experiment purpose only.
 
-Check README.md at each directories.
+## How To Run
+It's depends on Framework(ex: Anchor, React, JS...). Check README.md at each directories.
 
 ## Tools
 ### User-friendly Transaction Explorer
