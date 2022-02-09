@@ -1,4 +1,5 @@
 const Arweave = require('arweave');
+const fs = require('fs');
 
 const arweave = Arweave.init({
     host: '127.0.0.1',
@@ -6,16 +7,16 @@ const arweave = Arweave.init({
     protocol: 'http'
 });
 
-async function main() {
-  let key = await arweave.wallets.generate();
+const key = JSON.parse(fs.readFileSync('key.json'));
 
+async function main() {
   // Plain text
-  let transactionA = await arweave.createTransaction({
+  const transactionA = await arweave.createTransaction({
       data: '<html><head><meta charset="UTF-8"><title>Hello world!</title></head><body></body></html>'
   }, key);
 
   // Buffer
-  let transactionB = await arweave.createTransaction({
+  const transactionB = await arweave.createTransaction({
       data: Buffer.from('Some data', 'utf8')
   }, key);
 
@@ -30,7 +31,7 @@ main();
 % npx arlocal
 arlocal started on port 1984
 
-% node create_transaction.cjs
+% node create_tx.js
 Transaction {
   format: 2,
   id: '',

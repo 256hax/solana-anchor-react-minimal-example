@@ -6,6 +6,6 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "arlocal": "^1.1.19"
+    "arlocal": "^1.1.20"
   }
 }
