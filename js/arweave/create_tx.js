@@ -20,7 +20,6 @@ async function main() {
       data: Buffer.from('Some data', 'utf8')
   }, key);
 
-
   console.log(transactionA);
 }
 
