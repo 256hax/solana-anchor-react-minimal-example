@@ -10,9 +10,15 @@ const arweave = Arweave.init({
 const key = JSON.parse(fs.readFileSync('key.json')); // Payer
 
 async function main() {
+  // Airdrop for Payer
+  const address = await arweave.wallets.jwkToAddress(key);
+  const airdrop = await arweave.api.get('/mint/' + address + '/100000000000000')
+
+  // Generate Taker Wallet
   const taker_key = await arweave.wallets.generate(); // Taker
   const takder_address = await arweave.wallets.jwkToAddress(taker_key);
 
+  // Transaction
   const transaction = await arweave.createTransaction({
       target: takder_address,
       quantity: arweave.ar.arToWinston('10.5')

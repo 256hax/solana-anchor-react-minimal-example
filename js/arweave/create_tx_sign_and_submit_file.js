@@ -10,8 +10,14 @@ const arweave = Arweave.init({
 const key = JSON.parse(fs.readFileSync('key.json'));
 
 async function main() {
+  // Airdrop
+  const address = await arweave.wallets.jwkToAddress(key);
+  const airdrop = await arweave.api.get('/mint/' + address + '/100000000000000')
+
+  // Upload File
   const data = fs.readFileSync('./assets/dummy.pdf');
 
+  // Transaction
   const transaction = await arweave.createTransaction({ data: data }, key);
   transaction.addTag('Content-Type', 'application/pdf');
   await arweave.transactions.sign(transaction, key);

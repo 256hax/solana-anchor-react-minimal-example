@@ -19,7 +19,7 @@ async function main() {
   // --- Airdrop ---
   const address = await arweave.wallets.jwkToAddress(key);
   // Airdrop AR from ArLocal. http://127.0.0.1:1984/mint/<ADDRESS>/<AMOUNT>
-  // 100.000000000000 AR = 100000000000000
+  // 100 AR = 100000000000000 Winston
   await arweave.api.get('mint/' + address + '/100000000000000');
 
 
