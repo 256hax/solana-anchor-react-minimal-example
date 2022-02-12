@@ -51,6 +51,7 @@ function App() {
 
   async function airdrop() {
     const address = await window.arweaveWallet.getActiveAddress();
+    // 100 AR = 100000000000000 Winston
     const response = await arweave.api.get('mint/' + address + '/100000000000000');
     console.log(response);
   }
@@ -93,7 +94,7 @@ function App() {
     // console.log(tx_getData);
 
     // Instead of getData function.
-    // Base64
+    // Base64(Stored raw data)
     const tx_api_get_base64  = await arweave.api.get('/tx/' + transactionId + '/data');
     console.log('Base64 Data =>', tx_api_get_base64.data);
     // Decoded
