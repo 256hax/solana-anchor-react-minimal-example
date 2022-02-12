@@ -84,11 +84,24 @@ function App() {
   }
 
   async function getTransactionData() {
-    const tx_data = await arweave.transactions.getData(transactionId, {decode: true, string: true});
-    console.log(tx_data);
+    // Note:
+    //    getData function is always getting empty data(0 length) with arweave@1.10.23 and arlocal@1.1.20.
+    //    Transaction Format 1(deprecated) is successful but Format 2 is getting empty data. Bug? or incorrect my code?
+    // Ref: https://github.com/ArweaveTeam/arweave-js#get-transaction-data
+    //
+    // const tx_getData = await arweave.transactions.getData(transactionId, {decode: true, string: true});
+    // console.log(tx_getData);
 
-    const tx_tags = await arweave.transactions.get(transactionId);
-    tx_tags.get('tags').forEach(tag => {
+    // Instead of getData function.
+    // Base64
+    const tx_api_get_base64  = await arweave.api.get('/tx/' + transactionId + '/data');
+    console.log('Base64 Data =>', tx_api_get_base64.data);
+    // Decoded
+    const tx_api_get_decoded = await arweave.api.get('/' + transactionId);
+    console.log('Decoded Data =>', tx_api_get_decoded.data);
+
+    const tx_get = await arweave.transactions.get(transactionId);
+    tx_get.get('tags').forEach(tag => {
       let key = tag.get('name', {decode: true, string: true});
       let value = tag.get('value', {decode: true, string: true});
       console.log(`${key} : ${value}`);
