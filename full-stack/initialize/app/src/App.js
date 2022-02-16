@@ -13,7 +13,7 @@ function App() {
   async function connectWallet() {
     try {
         const resp = await window.solana.connect();
-        console.log("Conneted! Public Key: ", resp.publicKey.toString());
+        console.log("Connected! Public Key: ", resp.publicKey.toString());
     } catch (err) {
         console.log(err);
         // => { code: 4001, message: 'User rejected the request.' }

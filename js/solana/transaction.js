@@ -1,6 +1,5 @@
 // Ref: https://docs.solana.com/developing/clients/javascript-reference#transaction
 const web3 = require('@solana/web3.js');
-const nacl = require('tweetnacl');
 
 async function main() {
   // Airdrop SOL for paying transactions
