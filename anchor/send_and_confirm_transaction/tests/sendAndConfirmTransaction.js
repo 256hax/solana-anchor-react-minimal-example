@@ -23,6 +23,17 @@ describe('sendAndConfirmTransaction', () => {
 
     balance = await connection.getBalance(payer.publicKey);
     console.log("balance -> ", balance);
+
+
+    const airdropSignatureToAccount = await connection.requestAirdrop(
+        toAccount.publicKey,
+        web3.LAMPORTS_PER_SOL,
+    );
+    await connection.confirmTransaction(airdropSignatureToAccount);
+    console.log("toAccount Airdrop completed.");
+
+    const balanceToAccount = await connection.getBalance(toAccount.publicKey);
+    console.log("toAccount balance -> ", balanceToAccount);
   });
 
   it('has been completed!', async () => {
