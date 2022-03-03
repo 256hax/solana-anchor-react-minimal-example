@@ -1,4 +1,4 @@
-// Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+// Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
 const web3 = require('@solana/web3.js');
 
 async function main() {

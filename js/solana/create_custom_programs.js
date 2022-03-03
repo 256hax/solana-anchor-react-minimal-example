@@ -1,4 +1,4 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-api#interacting-with-custom-programs
+// Source: https://docs.solana.com/developing/clients/javascript-api#interacting-with-custom-programs
 const {struct,u32, ns64} = require("@solana/buffer-layout");
 const {Buffer} = require('buffer');
 const web3 = require("@solana/web3.js");
@@ -8,7 +8,7 @@ async function main() {
   let payer = web3.Keypair.generate();
 
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   let airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
@@ -43,17 +43,15 @@ async function main() {
 
   let signature = await web3.sendAndConfirmTransaction(connection, allocateTransaction, [payer, keypair]);
 
-  console.log('Cluster -> ', cluster);
-  console.log('From -> ', keypair.publicKey.toString());
-  console.log('To -> ', payer.publicKey.toString());
-  console.log('Signature -> ', signature);
+  console.log('From => ', keypair.publicKey.toString());
+  console.log('To => ', payer.publicKey.toString());
+  console.log('Signature => ', signature);
 }
 
 main();
 /*
-% node custom_programs.js
-Cluster ->  testnet
-From ->  FLjBZzd7qEmodu4WrTyiTXCaLsGUjjPRHRCMYAgZkp2c
-To ->  FNxQPD9aFpUVFEWkqfF6rwdNWQZhLXUehuvVGGc83DKX
-Signature -> 5MhJWsX8Ru2CKe1tUH8KpPgDXUVRonYKT9aNYAUegw7fp152AKJKxjE878PB2C99crXPsPVG5368kfmyf6BMgzrF
+% node <THIS JS FILE>
+From =>  FLjBZzd7qEmodu4WrTyiTXCaLsGUjjPRHRCMYAgZkp2c
+To =>  FNxQPD9aFpUVFEWkqfF6rwdNWQZhLXUehuvVGGc83DKX
+Signature => 5MhJWsX8Ru2CKe1tUH8KpPgDXUVRonYKT9aNYAUegw7fp152AKJKxjE878PB2C99crXPsPVG5368kfmyf6BMgzrF
 */

@@ -1,4 +1,4 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
+// Source: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
 const {Keypair} = require("@solana/web3.js");
 
 // There are two ways to obtain a Keypair:
@@ -19,11 +19,11 @@ let secretKey = Uint8Array.from([
 
 let keypair = Keypair.fromSecretKey(secretKey);
 
-console.log('Keypair -> ', keypair);
-console.log('Wallet Address -> ', keypair.publicKey.toString());
+console.log('Keypair => ', keypair);
+console.log('Wallet Address => ', keypair.publicKey.toString());
 /*
-% node keypair.js
-Keypair ->  Keypair {
+% node <THIS JS FILE>
+Keypair =>  Keypair {
   _keypair: {
     publicKey: Uint8Array(32) [
        91, 245,  84, 221, 157, 190,   9, 145,
@@ -41,5 +41,5 @@ Keypair ->  Keypair {
     ]
   }
 }
-Wallet Address ->  7By5EKRWGRKD5eQSh582u3QPcyuYRi7Me5UHzJ4hvru4
+Wallet Address =>  7By5EKRWGRKD5eQSh582u3QPcyuYRi7Me5UHzJ4hvru4
 */

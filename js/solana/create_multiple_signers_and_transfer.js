@@ -1,4 +1,4 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-reference#transaction
+// Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
 const web3 = require('@solana/web3.js');
 const nacl = require('tweetnacl');
 const sleep = require('sleep');
@@ -11,7 +11,7 @@ async function main() {
 
 
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
 
   // --- Airdrop ---
@@ -71,7 +71,7 @@ async function main() {
 
 main();
 /*
-% node multiple_signers_and_transfer.js
+% node <THIS JS FILE>
 payerA Public Key ->  ZeKo8prhWKSSmvPrsv3js7TXyxQfiyiYMcWs1NBG4Vm
 payerB Public Key ->  3fE3MAUwG45rYDH2RU8wsZDfterGjBxxffsLf24Ujiq8
 Airdopping to PayerA

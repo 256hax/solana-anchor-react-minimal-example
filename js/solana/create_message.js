@@ -1,4 +1,4 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-reference#message
+// Source: https://docs.solana.com/developing/clients/javascript-reference#message
 const {Buffer} = require("buffer");
 const bs58 = require('bs58');
 const web3 = require('@solana/web3.js');
@@ -8,7 +8,7 @@ async function main() {
   let fromPublicKey = web3.Keypair.generate();
 
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   let airdropSignature = await connection.requestAirdrop(
       fromPublicKey.publicKey,
@@ -54,21 +54,21 @@ async function main() {
 
   let signature = await web3.sendAndConfirmTransaction(connection, transaction, [fromPublicKey])
 
-  console.log('From -> ', fromPublicKey.publicKey.toString());
-  console.log('To -> ', toPublicKey.toString());
-  console.log('Signature -> ', signature);
-  console.log('messageParams -> ', messageParams);
-  console.log('Message -> ', message);
-  console.log('Transaction.populate -> ', transaction);
+  console.log('From => ', fromPublicKey.publicKey.toString());
+  console.log('To => ', toPublicKey.toString());
+  console.log('Signature => ', signature);
+  console.log('messageParams => ', messageParams);
+  console.log('Message => ', message);
+  console.log('Transaction.populate => ', transaction);
 }
 
 main();
 /*
-% node message.js
-From ->  Dy8XGcZyiXwtQ7WfZ8M9RytzCn96CWPBHdwErPFgZ6bH
-To ->  TFzkL3deka2RprWuxkiRZZXvyrcsmuH7YEpQsg3HHNB
-Signature ->  21h23fkVmHftGDEKUdaacQySTx8vmV4dFC9XMuBSASyUvE26fMSGijV4HggGURUKB77ZGx6ErcrMFtWsEWHuuepE
-messageParams ->  {
+% node <THIS JS FILE>
+From =>  Dy8XGcZyiXwtQ7WfZ8M9RytzCn96CWPBHdwErPFgZ6bH
+To =>  TFzkL3deka2RprWuxkiRZZXvyrcsmuH7YEpQsg3HHNB
+Signature =>  21h23fkVmHftGDEKUdaacQySTx8vmV4dFC9XMuBSASyUvE26fMSGijV4HggGURUKB77ZGx6ErcrMFtWsEWHuuepE
+messageParams =>  {
   accountKeys: [
     'Dy8XGcZyiXwtQ7WfZ8M9RytzCn96CWPBHdwErPFgZ6bH',
     'TFzkL3deka2RprWuxkiRZZXvyrcsmuH7YEpQsg3HHNB',
@@ -87,7 +87,7 @@ messageParams ->  {
     feeCalculator: { lamportsPerSignature: 5000 }
   }
 }
-Message ->  Message {
+Message =>  Message {
   header: {
     numReadonlySignedAccounts: 0,
     numReadonlyUnsignedAccounts: 1,

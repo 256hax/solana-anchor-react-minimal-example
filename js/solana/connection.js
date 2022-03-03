@@ -1,29 +1,29 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-reference#connection
+// Source: https://docs.solana.com/developing/clients/javascript-reference#connection
 const web3 = require("@solana/web3.js");
 
 async function main() {
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   let slot = await connection.getSlot();
-  console.log('slot -> ', slot);
+  console.log('slot => ', slot);
 
   let blockTime = await connection.getBlockTime(slot);
-  console.log('blockTime -> ', blockTime);
+  console.log('blockTime => ', blockTime);
 
   let block = await connection.getBlock(slot);
-  console.log('block -> ', block);
+  console.log('block => ', block);
 
   let slotLeader = await connection.getSlotLeader();
-  console.log('slotLeader ->', slotLeader);
+  console.log('slotLeader =>', slotLeader);
 }
 
 main();
 /*
-% node connection.js
-slog ->  97501255
+% node <THIS JS FILE>
+slog =>  97501255
 blockTime ->  1638185260
-block ->  {
+block =>  {
   blockHeight: 94561154,
   blockTime: 1638185260,
   blockhash: 'FMPNKFgBRCnjSpuzRWxUt69ANUkAHZzX2o3MTZhHkiDa',
@@ -184,5 +184,5 @@ block ->  {
     ... 51 more items
   ]
 }
-slotLeader -> dv2eQHeP4RFrJZ6UeiZWoc3XTtmtZCUKxxCApCDcRNV
+slotLeader => dv2eQHeP4RFrJZ6UeiZWoc3XTtmtZCUKxxCApCDcRNV
 */

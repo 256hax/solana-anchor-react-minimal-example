@@ -1,8 +1,9 @@
-// Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+// Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
 const web3 = require('@solana/web3.js');
 
 async function main() {
-  const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  const connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   const ph_ed_address = new web3.PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
   const ph_ch_address = new web3.PublicKey('2SN6o2mb4DFBEgSNcDqcdN5HWqa38xyF6F6xtTQ3HRwn');

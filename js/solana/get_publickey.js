@@ -1,4 +1,4 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-reference#publickey
+// Source: https://docs.solana.com/developing/clients/javascript-reference#publickey
 const {Buffer} = require('buffer');
 const web3 = require('@solana/web3.js');
 const crypto = require('crypto');
@@ -20,15 +20,8 @@ async function main() {
 
 main();
 /*
-(first)
-% node publickey.js
+% node <THIS JS FILE>
 5xot9PVkphiX2adznghwrAuxGs2zeWisNSxMW6hU6Hkj
 Generated Program Address: 2ZL1DSSHdpSuyQZmmRECfDH9CpBvnt1iD4ukfu2YnhcF
 Valid Program Address: 6TLahm8dkEKv2twdA1dWDruJ5PJe6MeHG31EqDGbJHwR,252
-
-(second)
-% node publickey.js
-5xot9PVkphiX2adznghwrAuxGs2zeWisNSxMW6hU6Hkj
-Generated Program Address: Aes5vrPYcfVbQJGn3UwQFLVgtRxDWz6sw7wCyjN2uFbv
-Valid Program Address: FswPzw7EQPYH3XdsAAMi6968pDsPxFdjiBYQwHoVuoZ9,254
 */

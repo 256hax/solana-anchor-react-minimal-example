@@ -1,11 +1,11 @@
-// Ref: https://docs.solana.com/developing/clients/javascript-reference#transaction
+// Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
 const web3 = require('@solana/web3.js');
 
 async function main() {
   // Airdrop SOL for paying transactions
   let payer = web3.Keypair.generate();
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed'); // For debug
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   let airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
@@ -40,6 +40,6 @@ async function main() {
 
 main();
 /*
-% node transaction.js
+% node <THIS JS FILE>
 signature ->  4nRgQQEcW8qsA9f9v8sTg8LByxo7hv53xjir6xp27zXdNUB31cqen16DkMoX9tgCzPJm2MppnpTswB3ghMc1KiRW
 */
