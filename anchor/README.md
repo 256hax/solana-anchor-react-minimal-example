@@ -18,6 +18,11 @@
 - [@project-serum/anchor](https://project-serum.github.io/anchor/ts/index.html)
 - [@project-serum/common](https://github.com/project-serum/serum-ts/tree/master/packages/common)
 
+## Tested Version
+- rustc 1.59.0 (9d1b2106e 2022-02-23)
+- solana-cli 1.9.9 (src:450404f8; feat:3246413280)
+- anchor-cli 0.22.1
+
 ## Run
 at each directory:
 ```
