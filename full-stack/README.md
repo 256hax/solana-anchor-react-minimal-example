@@ -98,7 +98,7 @@ Make sure running solana-test-validator before it.
 % anchor deploy
 ```
 
-If you got following error, perhaps you have got successful deploying.
+If you got following error, perhaps you have already got successful for deploying.
 
 ```
 Error: Account CKSsKGvY7gLtGQpL1GZ9UkmmKSVBbBUnp6DEsDtPNQk7 is not an upgradeable program or already in use

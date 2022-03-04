@@ -259,13 +259,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Wait for transaction response with console each action. If you run it quickly and continuously, it will fail.</p>
+        <p>Wait for transaction response with console each action(about 30 sec each tx). If you run it quickly and continuously, it will fail.</p>
         <button onClick={connectWallet}>1. Connect to Wallet</button>
-        <button onClick={initializeState}>2. Initialize State</button>
-        <button onClick={mintToken}>3. Mints a Token</button>
-        <button onClick={transferToken}>4. Transfers a Token</button>
+        <button onClick={initializeState}>2. Initialize State(wait for 3 approving)</button>
+        <button onClick={mintToken}>3. Mints a Token(1 approving)</button>
+        <button onClick={transferToken}>4. Transfers a Token(1 approving)</button>
         <button onClick={burnToken}>5. Burns a Token</button>
-        <button onClick={setNewMintAuthority}>6. Set new mint authority</button>
+        <button onClick={setNewMintAuthority}>6. Set new mint authority(1 approving)</button>
         <button onClick={disconnectWallet}>7. Disconnect</button>
       </header>
     </div>
