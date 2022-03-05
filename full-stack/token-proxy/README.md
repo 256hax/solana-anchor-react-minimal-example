@@ -4,7 +4,7 @@ I implement [anchor token-proxy](https://github.com/project-serum/anchor/tree/a6
 
 
 ## Outline
-This is overview of my hypothesis.
+This is Escrow overview of my hypothesis.
 ![Escrow Overview](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/escrow-overview.png?raw=true)
 
 Look at the Escrow section for more details.  
