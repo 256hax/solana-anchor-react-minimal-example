@@ -28,7 +28,7 @@ Open another new terminal, then run monitoring logs.
 Open another new terminal.
 ```
 % git clone https://github.com/256hax/solana-anchor-react-minimal-example.git
-% cd solana-anchor-react-minimal-example/full-stack/initialize/
+% cd solana-anchor-react-minimal-example/full-stack/initialize/anchor/
 ```
 
 ### 3. Anchor build and deploy to local cluster

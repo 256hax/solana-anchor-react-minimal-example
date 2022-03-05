@@ -1,7 +1,10 @@
 import './App.css';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { Program, Provider, web3, BN } from '@project-serum/anchor';
+import { Buffer } from 'buffer';
 import idl from './idl.json';
+
+window.Buffer = Buffer; // for "Buffer is not defined"
 
 const { SystemProgram, Keypair } = web3;
 /* create an account  */

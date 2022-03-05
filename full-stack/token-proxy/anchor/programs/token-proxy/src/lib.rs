@@ -10,15 +10,15 @@ declare_id!("Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC");
 mod token_proxy {
     use super::*;
 
-    pub fn proxy_transfer(ctx: Context<ProxyTransfer>, amount: u64) -> ProgramResult {
+    pub fn proxy_transfer(ctx: Context<ProxyTransfer>, amount: u64) -> Result<()> {
         token::transfer(ctx.accounts.into(), amount)
     }
 
-    pub fn proxy_mint_to(ctx: Context<ProxyMintTo>, amount: u64) -> ProgramResult {
+    pub fn proxy_mint_to(ctx: Context<ProxyMintTo>, amount: u64) -> Result<()> {
         token::mint_to(ctx.accounts.into(), amount)
     }
 
-    pub fn proxy_burn(ctx: Context<ProxyBurn>, amount: u64) -> ProgramResult {
+    pub fn proxy_burn(ctx: Context<ProxyBurn>, amount: u64) -> Result<()> {
         token::burn(ctx.accounts.into(), amount)
     }
 
@@ -26,7 +26,7 @@ mod token_proxy {
         ctx: Context<ProxySetAuthority>,
         authority_type: AuthorityType,
         new_authority: Option<Pubkey>,
-    ) -> ProgramResult {
+    ) -> Result<()> {
         token::set_authority(ctx.accounts.into(), authority_type.into(), new_authority)
     }
 }
@@ -46,42 +46,57 @@ pub enum AuthorityType {
 #[derive(Accounts)]
 pub struct ProxyTransfer<'info> {
     #[account(signer)]
+    /// CHECK:
     pub authority: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub from: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub to: AccountInfo<'info>,
+    /// CHECK:
     pub token_program: AccountInfo<'info>,
 }
 
 #[derive(Accounts)]
 pub struct ProxyMintTo<'info> {
     #[account(signer)]
+    /// CHECK:
     pub authority: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub mint: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub to: AccountInfo<'info>,
+    /// CHECK:
     pub token_program: AccountInfo<'info>,
 }
 
 #[derive(Accounts)]
 pub struct ProxyBurn<'info> {
     #[account(signer)]
+    /// CHECK:
     pub authority: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub mint: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub to: AccountInfo<'info>,
+    /// CHECK:
     pub token_program: AccountInfo<'info>,
 }
 
 #[derive(Accounts)]
 pub struct ProxySetAuthority<'info> {
     #[account(signer)]
+    /// CHECK:
     pub current_authority: AccountInfo<'info>,
     #[account(mut)]
+    /// CHECK:
     pub account_or_mint: AccountInfo<'info>,
+    /// CHECK:
     pub token_program: AccountInfo<'info>,
 }
 
