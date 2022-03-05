@@ -4,18 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-borsh = "0.9.1"
-borsh-derive = "0.9.1"
-
-# Ref: https://doc.rust-lang.org/cargo/reference/cargo-targets.html#library
-# [lib]
-# name = "borsh_sample"    # The name of the target.
-# path = "src/borsh.rs"    # The source file of the target.
-
-# Ref: https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries
-# [[bin]]
-# name = "borsh_sample"
-# path = "src/borsh.rs"
-#
-# % cargo test -- --nocapture [fn name in test]
-# (ex)% cargo test -- --nocapture borsh_test_simple_struct
+# borsh
+borsh = "0.9.3"
+borsh-derive = "0.9.3"

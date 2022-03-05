@@ -22,7 +22,7 @@ fn borsh_test_simple_struct() {
 }
 
 /*
-% cargo test -- --nocapture borsh_test_simple_struct
+% cargo test -- --nocapture <THIS RUST FILE>
     Finished test [unoptimized + debuginfo] target(s) in 0.01s
      Running unittests (target/debug/deps/rust_sample-5676dc4c6fa69f76)
 

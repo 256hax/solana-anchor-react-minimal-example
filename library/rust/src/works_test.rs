@@ -10,7 +10,7 @@ mod tests {
 }
 
 /*
-% cargo test -- --nocapture works_test
+% cargo test -- --nocapture <THIS RUST FILE>
     Finished test [unoptimized + debuginfo] target(s) in 0.01s
      Running unittests (target/debug/deps/rust-0b745c09bff3c539)
 
