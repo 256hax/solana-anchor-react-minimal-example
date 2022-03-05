@@ -1,3 +1,4 @@
+// Source: https://github.com/project-serum/anchor/blob/a604f8595c875a23b8e13c8569577d6a6b1c79bd/tests/spl/token-proxy/programs/token-proxy/src/lib.rs
 //! This example demonstrates the use of the `anchor_spl::token` CPI client.
 
 use anchor_lang::prelude::*;
