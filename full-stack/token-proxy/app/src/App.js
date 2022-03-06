@@ -1,5 +1,4 @@
 import './App.css';
-import React, { useState } from 'react';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { Program, Provider, web3, BN } from '@project-serum/anchor';
 import { TokenInstructions } from '@project-serum/serum';
@@ -75,7 +74,7 @@ function App() {
     const fromAccount = await getTokenAccount(provider, from);
 
     console.log("-------------------------------------------------------");
-    console.log("mintToken");
+    console.log("mintToken(mint 1000 tokens)");
     console.log("tx           ->", tx);
     console.log("fromAccount  ->", fromAccount);
     console.log("-------------------------------------------------------");
@@ -98,7 +97,7 @@ function App() {
     const toAccount = await getTokenAccount(provider, to);
 
     console.log("-------------------------------------------------------");
-    console.log("transferToken");
+    console.log("transferToken(fromAccount->toAccount: 400 tokens)");
     console.log("tx         ->", tx);
     console.log("fromAccount->", fromAccount);
     console.log("toAccount  ->", toAccount);
@@ -121,7 +120,7 @@ function App() {
     const toAccount = await getTokenAccount(provider, to);
 
     console.log("-------------------------------------------------------");
-    console.log("burnToken");
+    console.log("burnToken(burned 399 tokens from toAccount)");
     console.log("tx         ->", tx);
     console.log("toAccount  ->", toAccount);
     console.log("-------------------------------------------------------");
@@ -259,9 +258,9 @@ function App() {
         <p>Wait for transaction response with console each action(about 30 sec each tx). If you run it quickly and continuously, it will fail.</p>
         <button onClick={connectWallet}>1. Connect to Wallet</button>
         <button onClick={initializeState}>2. Initialize State(wait for 3 approving)</button>
-        <button onClick={mintToken}>3. Mints a Token(1 approving)</button>
-        <button onClick={transferToken}>4. Transfers a Token(1 approving)</button>
-        <button onClick={burnToken}>5. Burns a Token</button>
+        <button onClick={mintToken}>3. Mint Token(1 approving)</button>
+        <button onClick={transferToken}>4. Transfers Token(1 approving)</button>
+        <button onClick={burnToken}>5. Burns Token</button>
         <button onClick={setNewMintAuthority}>6. Set new mint authority(1 approving)</button>
         <button onClick={disconnectWallet}>7. Disconnect</button>
       </header>
