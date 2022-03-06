@@ -4,11 +4,8 @@ import { Connection, PublicKey } from '@solana/web3.js';
 import { Program, Provider, web3, BN } from '@project-serum/anchor';
 import { TokenInstructions } from '@project-serum/serum';
 import { getTokenAccount, getMintInfo } from '@project-serum/common';
-import sleep from 'sleep-promise';
 import idl from './idl.json';
 
-const { SystemProgram, Keypair } = web3;
-// Ref: https://docs.solana.com/developing/clients/jsonrpc-api#configuring-state-commitment
 const opts = {
   // preflightCommitment: "confirmed", // Getting this error "Transaction simulation failed: Blockhash not found "
   preflightCommitment: "finalized"
@@ -48,7 +45,6 @@ function App() {
 
   async function initializeState() {
     const provider = await getProvider();
-    const program = new Program(idl, programID, provider);
 
     // Takes a few sec per tx
     mint = await createMint(provider);
@@ -104,7 +100,8 @@ function App() {
     console.log("-------------------------------------------------------");
     console.log("transferToken");
     console.log("tx         ->", tx);
-    console.log("toAccount  ->", fromAccount);
+    console.log("fromAccount->", fromAccount);
+    console.log("toAccount  ->", toAccount);
     console.log("-------------------------------------------------------");
   }
 
