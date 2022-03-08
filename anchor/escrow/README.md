@@ -2,8 +2,8 @@
 ## Source(Anchor Escrow Example)
 [anchor escrow](https://github.com/project-serum/anchor/tree/master/tests/escrow)
 
-## anchor-clid Available Version
-Available for fixed version. Look at the each directory name(available version).
+## anchor-cli Available Version
+Available for fixed version. Look at the each directory name.
 
 ## How To Downgrade Version
 ex) downgrade to v0.19.0
