@@ -1,3 +1,4 @@
+// Source: https://github.com/project-serum/anchor/blob/master/tests/escrow/tests/escrow.ts
 import './App.css';
 import React from 'react';
 import * as anchor from "@project-serum/anchor";
@@ -162,8 +163,10 @@ function App() {
       initializerTokenAccountA
     );
 
-    // let _escrowAccount: EscrowAccount = await program.account.escrowAccount.fetch(escrowAccount.publicKey);
-    let _escrowAccount = await program.account.escrowAccount.fetch(escrowAccount.publicKey);
+    // @ts-ignore
+    let _escrowAccount: EscrowAccount = await program.account.escrowAccount.fetch(escrowAccount.publicKey);
+    // or
+    // let _escrowAccount = await program.account.escrowAccount.fetch(escrowAccount.publicKey);
 
     console.log('Check that the new owner is the PDA.');
     console.log('_initializerTokenAccountA.owner =>', _initializerTokenAccountA.owner.toString());
@@ -176,12 +179,50 @@ function App() {
     console.log('_escrowAccount.initializerReceiveTokenAccount =>', _escrowAccount.initializerReceiveTokenAccount.toString());
   }
 
+  async function exchangeEscrow() {
+    const provider = await getProvider();
+    // @ts-ignore
+    const program = new Program(idl, programID, provider);
+
+    await program.rpc.exchange({
+      accounts: {
+        taker: provider.wallet.publicKey,
+        takerDepositTokenAccount: takerTokenAccountB,
+        takerReceiveTokenAccount: takerTokenAccountA,
+        pdaDepositTokenAccount: initializerTokenAccountA,
+        initializerReceiveTokenAccount: initializerTokenAccountB,
+        initializerMainAccount: provider.wallet.publicKey,
+        escrowAccount: escrowAccount.publicKey,
+        pdaAccount: pda,
+        tokenProgram: TOKEN_PROGRAM_ID,
+      },
+    });
+
+    let _takerTokenAccountA = await mintA.getAccountInfo(takerTokenAccountA);
+    let _takerTokenAccountB = await mintB.getAccountInfo(takerTokenAccountB);
+    let _initializerTokenAccountA = await mintA.getAccountInfo(
+      initializerTokenAccountA
+    );
+    let _initializerTokenAccountB = await mintB.getAccountInfo(
+      initializerTokenAccountB
+    );
+
+    console.log('Check that the initializer gets back ownership of their token account.')
+    console.log('_takerTokenAccountA.owner =>', _takerTokenAccountA.owner.toString());
+
+    console.log('_takerTokenAccountA.amount.toNumber() =>', _takerTokenAccountA.amount.toNumber());
+    console.log('_initializerTokenAccountA.amount.toNumber() =>', _initializerTokenAccountA.amount.toNumber());
+    console.log('_initializerTokenAccountB.amount.toNumber() =>', _initializerTokenAccountB.amount.toNumber());
+    console.log('_takerTokenAccountB.amount.toNumber() =>', _takerTokenAccountB.amount.toNumber());
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <button onClick={connectWallet}>Connect to Wallet</button>
         <button onClick={initializeEscrowState}>initializeEscrowState</button>
         <button onClick={initializeEscrow}>initializeEscrow</button>
+        <button onClick={exchangeEscrow}>exchangeEscrow</button>
         <button onClick={disconnectWallet}>Disconnect</button>
       </header>
     </div>
