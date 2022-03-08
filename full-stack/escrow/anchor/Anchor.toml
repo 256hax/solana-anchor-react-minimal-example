@@ -1,0 +1,11 @@
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[programs.localnet]
+escrow = "Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC"
+
+[scripts]
+test = "yarn run ts-mocha -t 1000000 tests/*.ts"
+
+[features]
