@@ -1,5 +1,6 @@
-// Source: https://github.com/solana-labs/solana-program-library/blob/bbbf250a67777a3dea8717648bf1b78d72fa1a8c/token/js/examples/create_mint_and_transfer_tokens.ts
-// Docs: https://github.com/solana-labs/solana-program-library/tree/bbbf250a67777a3dea8717648bf1b78d72fa1a8c/token/js/src/instructions
+// Source:
+//  TS: https://github.com/solana-labs/solana-program-library/blob/master/token/js/examples/create_mint_and_transfer_tokens.ts
+//  RS: https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs
 const web3 = require('@solana/web3.js');
 const splToken = require('@solana/spl-token');
 
