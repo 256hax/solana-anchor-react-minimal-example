@@ -9,7 +9,7 @@ First Terminal:
 % solana-test-validator
 ```
 
-Secodn Terminal:
+Second Terminal:
 ```
 % npm install
 % node <JS FILE>
