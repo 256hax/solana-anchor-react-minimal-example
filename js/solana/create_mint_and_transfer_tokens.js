@@ -34,25 +34,27 @@ const splToken = require('@solana/spl-token');
     const toTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(connection, fromWallet, mint, toWallet.publicKey);
 
     // Mint 1 new token to the "fromTokenAccount" account we just created
+    // Source: https://github.com/solana-labs/solana-program-library/blob/664ad292ac8855f8bf3e4414bc522b248f474927/token/js/test/e2e/mint.test.ts#L39
     const signature_mint = await splToken.mintTo(
-        connection,
-        fromWallet,
-        mint,
-        fromTokenAccount.address,
-        fromWallet.publicKey,
-        web3.LAMPORTS_PER_SOL,
-        []
+        connection,                 // Connection
+        fromWallet,                 // Payer
+        mint,                       // Mint Address
+        fromTokenAccount.address,   // From Address
+        fromWallet.publicKey,       // Mint Authority
+        web3.LAMPORTS_PER_SOL,      // Mint Ammount
+        []                          // perhaps Signers?
     );
 
     // Transfer the new token to the "toTokenAccount" we just created
+    // Source: https://github.com/solana-labs/solana-program-library/blob/664ad292ac8855f8bf3e4414bc522b248f474927/token/js/test/e2e/transfer.test.ts#L73
     const signature_transfer = await splToken.transfer(
-        connection,
-        fromWallet,
-        fromTokenAccount.address,
-        toTokenAccount.address,
-        fromWallet.publicKey,
-        web3.LAMPORTS_PER_SOL,
-        []
+        connection,                 // Connection
+        fromWallet,                 // Payer
+        fromTokenAccount.address,   // From Address
+        toTokenAccount.address,     // To Address
+        fromWallet.publicKey,       // Authority
+        web3.LAMPORTS_PER_SOL,      // Transfer Amount
+        []                          // perhaps Signers?
     );
 
     console.log('fromWallet.publicKey =>', fromWallet.publicKey.toString());
