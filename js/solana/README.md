@@ -35,3 +35,8 @@ npm add @solana/web3.js
 npm add @solana/spl-token
 npm add sleep
 ```
+
+## Misc
+### @solana/spl-token@v0.1.8
+- [create_mint_and_transfer_tokens.js](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/js/examples/create_mint_and_transfer_tokens.js)
+- [instruction.rs](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/program/src/instruction.rs)
