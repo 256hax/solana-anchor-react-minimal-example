@@ -5,14 +5,14 @@ async function main() {
   // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
   const connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
-  const ph_ed_address = new web3.PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
-  const ph_ch_address = new web3.PublicKey('2SN6o2mb4DFBEgSNcDqcdN5HWqa38xyF6F6xtTQ3HRwn');
+  const ph_ed_address = new web3.PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg'); // REPLACE YOUR WALLET ADDRESS1
+  const ph_ch_address = new web3.PublicKey('2SN6o2mb4DFBEgSNcDqcdN5HWqa38xyF6F6xtTQ3HRwn'); // REPLACE YOUR WALLET ADDRESS2
   const addresses     = [ph_ed_address, ph_ch_address];
 
-  const token_program_id = new web3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-  const my_token_mint_address = new web3.PublicKey('29W5PHfs5EnQviwSgsZWG9E9hmnz3CXaivMpzPcjxPZ5'); // Mint Authority: ph_ed_address
-  const anchor_sample_program_id = new web3.PublicKey('Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS'); // Upgrade Authority: ph_ed_address
-  const metaplex_token_metadata_program_id = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
+  const token_program_id = new web3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'); // Fixed Value
+  const my_token_mint_address = new web3.PublicKey('29W5PHfs5EnQviwSgsZWG9E9hmnz3CXaivMpzPcjxPZ5'); // MINTED THEN REPLACE YOUR MINT ADDRESS. Mint Authority: ph_ed_address
+  const anchor_sample_program_id = new web3.PublicKey('Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS'); // ANCHOR DEPLOY THEN REPLACE ANCHOR PROGRAM ID. Upgrade Authority: ph_ed_address
+  const metaplex_token_metadata_program_id = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'); // Fixed Value
 
 
   // [Note] If you want to decode, use JSON.stringify.
