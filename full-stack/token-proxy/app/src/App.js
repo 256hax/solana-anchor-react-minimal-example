@@ -87,8 +87,8 @@ function App() {
     const tx = await program.rpc.proxyTransfer(new BN(400), {
       accounts: {
         authority: provider.wallet.publicKey,
-        to,
-        from,
+        to: to,
+        from: from,
         tokenProgram: TokenInstructions.TOKEN_PROGRAM_ID,
       },
     });
