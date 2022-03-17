@@ -125,6 +125,7 @@ function App() {
     );
     let _takerTokenAccountB = await mintB.getAccountInfo(takerTokenAccountB);
 
+    console.log('--- initializeEscrowState ---');
     console.log('_initializerTokenAccountA.amount.toNumber() =>', _initializerTokenAccountA.amount.toNumber());
     console.log('_takerTokenAccountB.amount.toNumber() =>', _takerTokenAccountB.amount.toNumber());
   }
@@ -168,6 +169,7 @@ function App() {
     // or
     // let _escrowAccount = await program.account.escrowAccount.fetch(escrowAccount.publicKey);
 
+    console.log('--- initializeEscrow ---');
     console.log('Check that the new owner is the PDA.');
     console.log('_initializerTokenAccountA.owner =>', _initializerTokenAccountA.owner.toString());
 
@@ -207,6 +209,7 @@ function App() {
       initializerTokenAccountB
     );
 
+    console.log('--- exchangeEscrow ---');
     console.log('Check that the initializer gets back ownership of their token account.')
     console.log('_takerTokenAccountA.owner =>', _takerTokenAccountA.owner.toString());
 
