@@ -52,8 +52,8 @@ describe("token", () => {
     const tx = await program.rpc.proxyTransfer(new anchor.BN(400), {
       accounts: {
         authority: provider.wallet.publicKey,
-        to,
-        from,
+        from: from,
+        to: to,
         tokenProgram: TokenInstructions.TOKEN_PROGRAM_ID,
       },
     });
@@ -85,8 +85,8 @@ describe("token", () => {
     const tx = await program.rpc.proxyBurn(new anchor.BN(399), {
       accounts: {
         authority: provider.wallet.publicKey,
-        mint,
-        to,
+        mint: mint,
+        to: to,
         tokenProgram: TokenInstructions.TOKEN_PROGRAM_ID,
       },
     });
