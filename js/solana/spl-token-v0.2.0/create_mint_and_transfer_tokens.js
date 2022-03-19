@@ -57,16 +57,28 @@ const splToken = require('@solana/spl-token');
         []                          // perhaps Signers?
     );
 
-    console.log('fromWallet.publicKey =>', fromWallet.publicKey.toString());
-    console.log('toWallet.publicKey   =>', toWallet.publicKey.toString());
-    console.log('mint tx              =>', signature_mint);
-    console.log('transfer txx         =>', signature_transfer);
+    console.log('--- from --------------------------------------------------');
+    console.log('fromWallet       =>', fromWallet.publicKey.toString());
+    console.log('fromTokenAccount =>', fromTokenAccount.address.toString());
+    console.log('\n--- to --------------------------------------------------');
+    console.log('toWallet         =>', toWallet.publicKey.toString());
+    console.log('toTokenAccount   =>', toTokenAccount.address.toString());
+    console.log('\n--- tx --------------------------------------------------');
+    console.log('mint tx          =>', signature_mint);
+    console.log('transfer tx      =>', signature_transfer);
 })();
 
 /*
 % node <THIS JS FILE>
-fromWallet.publicKey => Cu8zkHdqqfhHRSutTxbyM5t4iYPM1NLxL9Koz6pUZp5V
-toWallet.publicKey   => 8MqL5e8iZwrzP4CVbkNXZfm77VKxm6vUjaaUp78vA5Yf
-mint tx              => 3FQikxc583Cnt4vv3RUfS6VhR5zPwXbhWyAUuV7cYMumJaMjLKTNHUTUzVLMUti7UNbDkTcUHa9U1RfjgULLhc7h
-transfer txx         => 4jGURs2YZATrp7Ztxo5EhRTiDgGoLWjNHsWtEK4V5GzS63zYHe26Udnxx4WY61pNctqNFfQuxPKHfU8WEJXxzDxB
+--- from --------------------------------------------------
+fromWallet       => Z9me2QDfvxBVNfD6yKdStXQv29F2yB1zQXJoTYMem6w
+fromTokenAccount => 9wz1pVht29oHYNfzdiHMR3W8fPqC48y9BkEFqhQfnVxZ
+
+--- to --------------------------------------------------
+toWallet         => 553KUYff3GahKATRaekqPwZingv5hPpcxAe8R58Q2f1s
+toTokenAccount   => 6SnuSHL89t59qCRzdW2YNbPHAnNc8EnXKAPkiWzpy3wk
+
+--- tx --------------------------------------------------
+mint tx          => 2neZuisRqgHdbqCukeaVZddpx31mGKaqxKZinTTdyH7TdMgnEwKJPf7cAbRKya3bmoriJo7SsNiRouSZ1ujBAqgp
+transfer tx      => 62dRZdhc1KDwzady3c1rDhNYEgmgfwuH4ABatgQ91ZPeuaBcJVVuTXWA6ZZsyipznuXnuohrBDr7x2bxrLHEzzY7
 */
