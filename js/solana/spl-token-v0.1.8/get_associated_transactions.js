@@ -3,6 +3,7 @@ const web3 = require('@solana/web3.js');
 
 async function main() {
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  // let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   const nft_mint_signature = '9hDPtgqmAAJHKaDKj4xbEJQz9r32jvStJf2b96pPyqnqDDxXeYXEXgMatMCQcoHZ7fEr1HmfgrYgp45iEP9LtJH';
   const sol_transfer_signature = '5zeWmoxnYQUk1AA5re2cqpvqZsMqvnAapZztfnvdeifLTNFy2utG8fcdrxhmegCaqgdWUNmpC5hWt28JaEpiw2Mv';

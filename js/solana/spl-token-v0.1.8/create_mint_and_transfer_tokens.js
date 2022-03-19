@@ -6,10 +6,11 @@ var splToken = require('@solana/spl-token');
 
 (async () => {
   // Connect to cluster
-  var connection = new web3.Connection(
-    web3.clusterApiUrl('devnet'),
-    'confirmed',
-  );
+  // var connection = new web3.Connection(
+  //   web3.clusterApiUrl('devnet'),
+  //   'confirmed',
+  // );
+  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
   // Generate a new wallet keypair and airdrop SOL
   var fromWallet = web3.Keypair.generate();
