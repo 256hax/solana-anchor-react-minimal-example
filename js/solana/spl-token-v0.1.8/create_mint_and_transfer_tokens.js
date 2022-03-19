@@ -27,11 +27,11 @@ var splToken = require('@solana/spl-token');
   // Source?: https://github.com/solana-labs/solana-program-library/blob/50f165ba0359285f3f2f85540aeb8a6d59c7c51a/token/program/src/instruction.rs#L700
   let mint = await splToken.Token.createMint(
     connection,
-    fromWallet,
-    fromWallet.publicKey,
-    null,
-    9,
-    splToken.TOKEN_PROGRAM_ID,
+    fromWallet,                 // mint_pubkey: &Pubkey,
+    fromWallet.publicKey,       // mint_authority_pubkey: &Pubkey,
+    null,                       // freeze_authority_pubkey: Option<&Pubkey>,
+    9,                          // decimals: u8,
+    splToken.TOKEN_PROGRAM_ID,  // token_program_id: &Pubkey,
   );
 
   //get the token account of the fromWallet Solana address, if it does not exist, create it
@@ -47,31 +47,31 @@ var splToken = require('@solana/spl-token');
   //minting 1 new token to the "fromTokenAccount" account we just returned/created
   // Source?: https://github.com/solana-labs/solana-program-library/blob/50f165ba0359285f3f2f85540aeb8a6d59c7c51a/token/program/src/instruction.rs#L1010
   await mint.mintTo(
-    fromTokenAccount.address,
-    fromWallet.publicKey,
-    [],
-    1000000000,
+    fromTokenAccount.address, // account_pubkey(destination): &Pubkey,
+    fromWallet.publicKey,     // owner_pubkey(mint_authority_pubkey): &Pubkey,
+    [],                       // signer_pubkeys: &[&Pubkey],
+    1000000000,               // amount: u64,
   );
 
   // Add token transfer instructions to transaction
   // Source: https://github.com/solana-labs/solana-program-library/blob/50f165ba0359285f3f2f85540aeb8a6d59c7c51a/token/program/src/instruction.rs#L889
   var transaction = new web3.Transaction().add(
     splToken.Token.createTransferInstruction(
-      splToken.TOKEN_PROGRAM_ID,
-      fromTokenAccount.address,
-      toTokenAccount.address,
-      fromWallet.publicKey,
-      [],
-      1,
+      splToken.TOKEN_PROGRAM_ID,  // token_program_id: &Pubkey,
+      fromTokenAccount.address,   // source_pubkey: &Pubkey,
+      toTokenAccount.address,     // destination_pubkey: &Pubkey,
+      fromWallet.publicKey,       // authority_pubkey: &Pubkey,
+      [],                         // signer_pubkeys: &[&Pubkey],
+      1,                          // amount: u64,
     ),
   );
 
   // Sign transaction, broadcast, and confirm
   var signature = await web3.sendAndConfirmTransaction(
-    connection,
-    transaction,
-    [fromWallet],
-    {commitment: 'confirmed'},
+    connection,                 // connection: Connection,
+    transaction,                // transaction: Transaction,
+    [fromWallet],               // signers: Signer[],
+    {commitment: 'confirmed'},  // options?: ConfirmOptions
   );
   console.log('SIGNATURE', signature);
 })();
