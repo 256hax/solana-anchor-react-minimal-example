@@ -1,6 +1,6 @@
 // Source:
-//  TS: https://github.com/solana-labs/solana-program-library/blob/master/token/js/examples/create_mint_and_transfer_tokens.ts
-//  RS: https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs
+//  RS: https://github.com/solana-labs/solana-program-library/blob/b7a3fc62431fcd00001df625aaa61a29ce7d1e29/token/program/src/instruction.rs
+//  TS: https://github.com/solana-labs/solana-program-library/blob/b7a3fc62431fcd00001df625aaa61a29ce7d1e29/token/js/examples/create_mint_and_transfer_tokens.ts
 const web3 = require('@solana/web3.js');
 const splToken = require('@solana/spl-token');
 
@@ -39,7 +39,7 @@ const splToken = require('@solana/spl-token');
         connection,                 // Connection
         fromWallet,                 // Payer
         mint,                       // Mint Address
-        fromTokenAccount.address,   // From Address
+        fromTokenAccount.address,   // Destination Address
         fromWallet.publicKey,       // Mint Authority
         web3.LAMPORTS_PER_SOL,      // Mint Ammount
         []                          // perhaps Signers?
