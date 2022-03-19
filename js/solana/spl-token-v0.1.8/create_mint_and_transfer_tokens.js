@@ -74,5 +74,27 @@ var splToken = require('@solana/spl-token');
     [fromWallet],               // signers: Signer[],
     {commitment: 'confirmed'},  // options?: ConfirmOptions
   );
-  console.log('SIGNATURE', signature);
+
+  console.log('--- from --------------------------------------------------');
+  console.log('fromWallet       =>', fromWallet.publicKey.toString());
+  console.log('fromTokenAccount =>', fromTokenAccount.address.toString());
+  console.log('\n--- to --------------------------------------------------');
+  console.log('toWallet         =>', toWallet.publicKey.toString());
+  console.log('toTokenAccount   =>', toTokenAccount.address.toString());
+  console.log('\n--- tx --------------------------------------------------');
+  console.log('SIGNATURE        =>', signature);
 })();
+
+/*
+% node <THIS JS FILE>
+--- from --------------------------------------------------
+fromWallet       => AgjFhM9AntUm1972eAN6NJFLGBh452dXtmhfYMQ2xTMj
+fromTokenAccount => 7nzQmUs5fMddsMMNy5LJAaqrX9iMZVJMVpqvrTtu1KEp
+
+--- to --------------------------------------------------
+toWallet         => EkfSdFL3rSmyikGBfEhRYKrTsRb3GU5RixepVn2Z2pRs
+toTokenAccount   => 3Qsr1VV8hhzALYhtqHx9AzoRzjz433bXpUABHP89j7nF
+
+--- tx --------------------------------------------------
+SIGNATURE        => 48dMtH3f9xAm2X4QJi7dys5FVexCYDcXWmpnxeE5fxWNVWJCmAvRtLsGhk926g9iBeMd8kKMDEzWSz9wpaa4X2Cb
+*/
