@@ -21,14 +21,20 @@ const splToken = require('@solana/spl-token');
     const toWallet = web3.Keypair.generate();
 
     // Create new token mint
-    const mint = await splToken.createMint(connection, fromWallet, fromWallet.publicKey, null, 9);
+    const mint = await splToken.createMint(
+        connection,             // connection,
+        fromWallet,             // payer,
+        fromWallet.publicKey,   // authority,
+        null,                   // freeze_authority???
+        9                       // decimals
+    );
 
     // Get the token account of the fromWallet address, and if it does not exist, create it
     const fromTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
-        connection,
-        fromWallet,
-        mint,
-        fromWallet.publicKey
+        connection,             // connection: Connection,
+        fromWallet,             // payer: Signer,
+        mint,                   // mint: PublicKey,
+        fromWallet.publicKey    // owner: PublicKey,
     );
 
     // Get the token account of the toWallet address, and if it does not exist, create it
@@ -43,7 +49,7 @@ const splToken = require('@solana/spl-token');
         fromTokenAccount.address,   // Destination Address
         fromWallet.publicKey,       // Mint Authority
         web3.LAMPORTS_PER_SOL,      // Mint Ammount
-        []                          // perhaps Signers?
+        []                          // Signers???
     );
 
     // Transfer the new token to the "toTokenAccount" we just created
@@ -55,7 +61,7 @@ const splToken = require('@solana/spl-token');
         toTokenAccount.address,     // To Address
         fromWallet.publicKey,       // Authority
         web3.LAMPORTS_PER_SOL,      // Transfer Amount
-        []                          // perhaps Signers?
+        []                          // Signers???
     );
 
     console.log('--- from --------------------------------------------------');
