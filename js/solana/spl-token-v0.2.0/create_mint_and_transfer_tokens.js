@@ -38,7 +38,12 @@ const splToken = require('@solana/spl-token');
     );
 
     // Get the token account of the toWallet address, and if it does not exist, create it
-    const toTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(connection, fromWallet, mint, toWallet.publicKey);
+     const toTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
+        connection,             // connection: Connection,
+        fromWallet,             // payer: Signer,
+        mint,                   // mint: PublicKey,
+        toWallet.publicKey      // owner: PublicKey,
+    );
 
     // Mint 1 new token to the "fromTokenAccount" account we just created
     // Source: https://github.com/solana-labs/solana-program-library/blob/664ad292ac8855f8bf3e4414bc522b248f474927/token/js/test/e2e/mint.test.ts#L39
