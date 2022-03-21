@@ -53,7 +53,7 @@ const splToken = require('@solana/spl-token');
         mint,                       // Mint Address
         fromTokenAccount.address,   // Destination Address
         fromWallet.publicKey,       // Mint Authority
-        web3.LAMPORTS_PER_SOL,      // Mint Ammount
+        web3.LAMPORTS_PER_SOL,      // Mint Amount
         []                          // Signers???
     );
 
