@@ -24,13 +24,16 @@ describe('game', async() => {
 
     userStatsPDA = _userStatsPDA;
 
-    const set_tx = await program.rpc.createUserStats("brian", {
-      accounts: {
-        user: anchor.getProvider().wallet.publicKey,
-        userStats: userStatsPDA,
-        systemProgram: SystemProgram.programId
+    const set_tx = await program.rpc.createUserStats(
+      "brian",
+      {
+        accounts: {
+          user: anchor.getProvider().wallet.publicKey,
+          userStats: userStatsPDA,
+          systemProgram: SystemProgram.programId
+        }
       }
-    });
+    );
 
     const fetchUserStats = await program.account.userStats.fetch(userStatsPDA);
     expect(fetchUserStats.name).to.equal("brian");
@@ -43,12 +46,15 @@ describe('game', async() => {
   });
 
   it('Changes name.', async () => {
-    const change_tx = await program.rpc.changeUserName("tom", {
-      accounts: {
-        user: anchor.getProvider().wallet.publicKey,
-        userStats: userStatsPDA
+    const change_tx = await program.rpc.changeUserName(
+      "tom",
+      {
+        accounts: {
+          user: anchor.getProvider().wallet.publicKey,
+          userStats: userStatsPDA
+        }
       }
-    })
+    );
 
     const fetchNewUserStats = await program.account.userStats.fetch(userStatsPDA);
     expect(fetchNewUserStats.name).to.equal("tom");
