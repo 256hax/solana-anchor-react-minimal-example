@@ -47,7 +47,6 @@ function App() {
     const data = new BN(1234);
 
     try {
-      // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.create(data, {
         accounts: {
           crudAccount: crudAccount.publicKey,
@@ -76,7 +75,6 @@ function App() {
     const data = new BN(4321);
 
     try {
-      // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.update(data, {
         accounts: {
           crudAccount: crudAccount.publicKey,
@@ -93,7 +91,6 @@ function App() {
     const program = new Program(idl, programID, provider);
 
     try {
-      // Call function of programs/initialize/src/lib.rs
       const tx = await program.rpc.delete({
         accounts: {
           crudAccount: crudAccount.publicKey,
