@@ -23,3 +23,12 @@ async function main() {
 }
 
 main();
+
+/*
+% node <THIS JS FILE>
+--- Not airdrop ---
+myPubkey_balance => 0
+
+--- Airdropped ---
+airdropped_myPubkey_balance => 1000000000
+*/
