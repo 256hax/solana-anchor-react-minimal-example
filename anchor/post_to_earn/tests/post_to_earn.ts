@@ -1,7 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
-import { PublicKey, SystemProgram } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount } from '@solana/spl-token';
+import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo, getAccount } from '@solana/spl-token';
 import { PostToEarn } from '../target/types/post_to_earn';
 import { assert } from 'chai';
 
@@ -59,7 +59,7 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  it("Updates a counter.", async () => {
+  it("Increments a counter.", async () => {
     const increment_tx = await program.rpc.increment({
       accounts: {
         counter: pda,
@@ -94,45 +94,32 @@ describe('post_to_earn', async() => {
 
     assert.ok(mint);
     assert.ok(providerTokenWallet.address);
-    
-    console.log(mint);
-    console.log(providerTokenWallet);
+
+    console.log('\n');
+    console.log('mint =>', mint.toString());
+    console.log('providerTokenWallet =>', providerTokenWallet.address.toString());
     console.log('---------------------------------------------------');
   });
-  //
-  // it("Mints tokens.", async () => {
-  //   const signatureMint = await splToken.mintTo(
-  //     connection,             // Connection
-  //     providerWallet.payer,                  // Payer
-  //     mint,                   // Mint Address
-  //     providerTokenAccount.address,     // Destination Address
-  //     providerWallet.publicKey,         // Mint Authority
-  //     web3.LAMPORTS_PER_SOL,  // Mint Amount
-  //     []                      // Signers???
-  //   );
-  //
-  //   const getMintedProviderTokenAccount = await splToken.getAccount(connection, providerTokenAccount.address);
-  //   assert.ok(Number(getMintedProviderTokenAccount.amount) === web3.LAMPORTS_PER_SOL);
-  // });
-  //
-  // it("Updates a counter.", async () => {
-  //   const program = anchor.workspace.PostToEarn;
-  //
-  //   await program.rpc.increment({
-  //     accounts: {
-  //       counter: counter.publicKey,
-  //       authority: provider.wallet.publicKey,
-  //     },
-  //   });
-  //
-  //   let counterAccount = await program.account.counter.fetch(
-  //     counter.publicKey
-  //   );
-  //
-  //   assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
-  //   assert.ok(counterAccount.count.toNumber() === 1);
-  // });
-  //
+
+  it("Mints tokens.", async () => {
+    const mint_tx = await mintTo(
+      connection,             // Connection
+      provider.wallet.payer,                  // Payer
+      mint,                   // Mint Address
+      providerTokenWallet.address,     // Destination Address
+      provider.wallet.publicKey,         // Mint Authority
+      LAMPORTS_PER_SOL,  // Mint Amount
+      []                      // Signers???
+    );
+
+    const getMintedProviderTokenAccount = await getAccount(connection, providerTokenWallet.address);
+    assert.ok(Number(getMintedProviderTokenAccount.amount) === LAMPORTS_PER_SOL);
+
+    console.log('\n');
+    console.log('mint_tx =>', mint_tx)
+    console.log('---------------------------------------------------');
+  });
+
   // it("Transfers token.", async () => {
   //   const signatureTransfer = await splToken.transfer(
   //     connection,                 // Connection
