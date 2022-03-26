@@ -103,15 +103,27 @@ const splToken = require('@solana/spl-token');
 
 /*
 % node <THIS JS FILE>
+--- Create token Account ---
+fromTokenAccountBalance => 0
+toTokenAccountBalance => 0
+
+--- Mint token to fromTokenAccont ---
+fromTokenAccountBalance => 1000000000
+toTokenAccountBalance => 0
+
+--- Transfer token from fromTokenAccont to toTokenAccount ---
+fromTokenAccountBalance => 0
+toTokenAccountBalance => 1000000000
+
 --- from --------------------------------------------------
-fromWallet       => Z9me2QDfvxBVNfD6yKdStXQv29F2yB1zQXJoTYMem6w
-fromTokenAccount => 9wz1pVht29oHYNfzdiHMR3W8fPqC48y9BkEFqhQfnVxZ
+fromWallet       => 3sNCtZ1uCkB8aYLoevWMmwvAKGTzhvTyXMGtWConttNN
+fromTokenAccount => Cw5ZRcyTS3XY9xxD8sGJb7CqmsjoV4hh6CNdQXrS7JQx
 
 --- to --------------------------------------------------
-toWallet         => 553KUYff3GahKATRaekqPwZingv5hPpcxAe8R58Q2f1s
-toTokenAccount   => 6SnuSHL89t59qCRzdW2YNbPHAnNc8EnXKAPkiWzpy3wk
+toWallet         => 2YsiitU9zSriF2o6Hfo3NWAtiQuG4Lurv4T89dMtXY1Z
+toTokenAccount   => 9efSeNoq87uQsX7A37NyS3MqfrFizFiTcYPb4D4vUpYH
 
 --- tx --------------------------------------------------
-mint tx          => 2neZuisRqgHdbqCukeaVZddpx31mGKaqxKZinTTdyH7TdMgnEwKJPf7cAbRKya3bmoriJo7SsNiRouSZ1ujBAqgp
-transfer tx      => 62dRZdhc1KDwzady3c1rDhNYEgmgfwuH4ABatgQ91ZPeuaBcJVVuTXWA6ZZsyipznuXnuohrBDr7x2bxrLHEzzY7
+mint tx          => 3CQdtMu7QEzoscHoFFUT11rFHjdDLUzn53e9PefpLgVpb84G6KUQhrYBaZs1w2FmE9LcVy2CDWM7nhXAbkj6cfJD
+transfer tx      => NhMSPL6KD6H6K2hzeHxoeuiTQx5j6j43HaYors33KjT95wQRDZFdnBSXDDwMmsK4G97MGSHNCsD795LRWAUMqjD
 */
