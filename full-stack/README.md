@@ -2,8 +2,8 @@
 
 ## Installation
 - (Rust) rustup 1.24.3
-- (Solana) [solana-cli](https://docs.solana.com/cli/install-solana-cli-tools) 1.9.0
-- (Anchor) [anchor-cli](https://project-serum.github.io/anchor/getting-started/installation.html#install-anchor) 0.19.0
+- (Solana) [solana-cli](https://docs.solana.com/cli/install-solana-cli-tools) 1.9.9
+- (Anchor) [anchor-cli](https://project-serum.github.io/anchor/getting-started/installation.html#install-anchor) 0.22.1
 
 Instructions: [Installing Dependencies by Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust)
 
@@ -180,4 +180,5 @@ You missed anchor build and deploy. Try re-build and deploy.
 ```
 
 ## Reference
-- [Anchor Tutorial - GitHub](https://github.com/project-serum/anchor/tree/master/examples/tutorial)
+- [The Complete Guide to Full Stack Solana Development with React, Anchor, Rust, and Phantom](https://dev.to/edge-and-node/the-complete-guide-to-full-stack-solana-development-with-react-anchor-rust-and-phantom-3291)
+- [The Anchor Book](https://book.anchor-lang.com/)
