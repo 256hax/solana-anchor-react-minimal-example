@@ -1,7 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
-import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, getAccount } from '@solana/spl-token';
+import { PublicKey, SystemProgram, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo, getAccount, transfer } from '@solana/spl-token';
 import { PostToEarn } from '../target/types/post_to_earn';
 import { assert } from 'chai';
 
@@ -9,12 +9,15 @@ describe('post_to_earn', async() => {
   const provider = anchor.Provider.local();
   const connection = provider.connection
   anchor.setProvider(provider);
-
   const program = anchor.workspace.PostToEarn as Program<PostToEarn>;
+
+  // const taker = anchor.web3.Keypair.generate();
+
   let pda = null;
   let bump = null;
   let mint = null;
   let providerTokenWallet = null;
+  // let takerTokenWallet = null;
 
   it('Gets PDA.', async () => {
     // It need underscore var. Shouldn't directly into var.
@@ -59,7 +62,7 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  it("Increments a counter.", async () => {
+  it("Increments a count.", async () => {
     const increment_tx = await program.rpc.increment({
       accounts: {
         counter: pda,
@@ -120,30 +123,49 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  // it("Transfers token.", async () => {
-  //   const signatureTransfer = await splToken.transfer(
-  //     connection,                 // Connection
-  //     providerWallet.payer,                 // Payer
-  //     providerTokenAccount.address,   // From Address
-  //     providerTokenAccount.address,     // To Address
-  //     providerWallet.publicKey,       // Authority
-  //     web3.LAMPORTS_PER_SOL,      // Transfer Amount
-  //     []                          // Signers???
-  //   );
-  // });
-  //
-  // it("Resets counter.", async () => {
-  //   const program = anchor.workspace.PostToEarn;
-  //
-  //   await program.rpc.reset({
-  //     accounts: {
-  //       counter: counter.publicKey,
-  //       authority: provider.wallet.publicKey,
-  //     },
-  //   });
-  //
-  //   let counterAccount = await program.account.counter.fetch(counter.publicKey);
-  //
-  //   assert.ok(counterAccount.count.toNumber() === 0)
-  // });
+  // Read count in counter account then transfers counter amount same tokens.
+  it("Transfers LAMPORTS_PER_SOL tokens.", async () => {
+    let fetchCounter = await program.account.counter.fetch(pda);
+
+    const transfer_tx = await transfer(
+      connection,                 // Connection
+      provider.wallet.payer,                 // Payer
+      providerTokenWallet.address,   // From Address
+      providerTokenWallet.address,     // To Address
+      provider.wallet.publicKey,       // Authority
+      fetchCounter.count,      // Transfer Amount
+      []                          // Signers???
+    );
+
+    console.log('\n');
+    console.log('transfer_tx =>', transfer_tx)
+    console.log('---------------------------------------------------');
+  });
+
+  // Increments count then transfers token.
+  it("Transfers LAMPORTS_PER_SOL * 2 tokens.", async () => {
+    const increment_tx_2nd = await program.rpc.increment({
+      accounts: {
+        counter: pda,
+        user: provider.wallet.publicKey,
+      },
+    });
+
+    let fetchCounter = await program.account.counter.fetch(pda);
+    assert.ok(fetchCounter.count === 2);
+
+    const transfer_tx_2nd = await transfer(
+      connection,                 // Connection
+      provider.wallet.payer,                 // Payer
+      providerTokenWallet.address,   // From Address
+      providerTokenWallet.address,     // To Address
+      provider.wallet.publicKey,       // Authority
+      fetchCounter.count,      // Transfer Amount
+      []                          // Signers???
+    );
+
+    console.log('\n');
+    console.log('transfer_tx_2nd =>', transfer_tx_2nd)
+    console.log('---------------------------------------------------');
+  });
 });
