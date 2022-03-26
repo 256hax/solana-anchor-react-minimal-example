@@ -15,18 +15,18 @@ describe('post_to_earn', async() => {
   let bump = null;
   let mint = null;
 
-  // Provider
-  // Provider Wallet is provider.wallet.publicKey. Keypair is provider.wallet.payer.
-  let providerTokenAccount = null;
-  let providerTokenBalance = null;
+  // User
+  // Wallet is provider.wallet.publicKey. Keypair is provider.wallet.payer.
+  let userTokenAccount = null;
+  let userTokenBalance = null;
 
-  // Taker
-  const taker = Keypair.generate();
-  let takerTokenAccount = null;
-  let takerTokenBalance = null;
+  // Admin
+  const admin = Keypair.generate();
+  let adminTokenAccount = null;
+  let adminTokenBalance = null;
 
-  it('Gets PDA.', async () => {
-    // It need underscore vars. Shouldn't directly into vars(ex: [pda, bump] = xxx).
+  it('Gets a PDA.', async () => {
+    // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
     const [_pda, _bump] = await PublicKey
       .findProgramAddress(
         [
@@ -44,7 +44,7 @@ describe('post_to_earn', async() => {
     assert.ok(bump);
   });
 
-  it('Creates counter accounts.', async () => {
+  it('Creates a counter account.', async () => {
     const create_tx = await program.rpc.create(
       provider.wallet.publicKey,
       {
@@ -56,7 +56,7 @@ describe('post_to_earn', async() => {
       }
     );
 
-    const fetchCounter = await program.account.counter.fetch(pda);
+    let fetchCounter = await program.account.counter.fetch(pda);
     assert.ok(fetchCounter);
 
     console.log('\n');
@@ -84,11 +84,19 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
+  it("Airdrop for admin.", async () => {
+    let airdropSignature = await connection.requestAirdrop(
+        admin.publicKey,
+        LAMPORTS_PER_SOL,
+    );
+    await connection.confirmTransaction(airdropSignature);
+  });
+
   it("Creates a token.", async () => {
     mint = await createMint(
       connection,                 // connection,
-      provider.wallet.payer,      // payer,
-      provider.wallet.publicKey,  // authority,
+      admin,      // payer,
+      admin.publicKey,  // authority,
       null,                       // freeze_authority???
       9                           // decimals
     );
@@ -99,86 +107,87 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  it("Creates a providerTokenAccount.", async () => {
-    providerTokenAccount = await getOrCreateAssociatedTokenAccount(
+  it("Creates a userTokenAccount.", async () => {
+    userTokenAccount = await getOrCreateAssociatedTokenAccount(
       connection,               // connection: Connection,
       provider.wallet.payer,    // payer: Signer,
       mint,                     // mint: PublicKey,
       provider.wallet.publicKey // owner: PublicKey,
     );
 
-    assert.ok(providerTokenAccount.address);
-    assert.ok(Number(providerTokenAccount.amount) === 0);
+    assert.ok(userTokenAccount.address);
+    assert.ok(Number(userTokenAccount.amount) === 0);
 
     console.log('\n');
-    console.log('providerTokenWallet =>', providerTokenAccount.address.toString());
+    console.log('userTokenAccount =>', userTokenAccount.address.toString());
     console.log('---------------------------------------------------');
   });
 
-  it("Creates a takerTokenAccount.", async () => {
-    takerTokenAccount = await getOrCreateAssociatedTokenAccount(
+  it("Creates a adminTokenAccount.", async () => {
+    adminTokenAccount = await getOrCreateAssociatedTokenAccount(
       connection,               // connection: Connection,
-      provider.wallet.payer,    // payer: Signer,
+      admin,    // payer: Signer,
       mint,                     // mint: PublicKey,
-      taker.publicKey           // owner: PublicKey,
+      admin.publicKey           // owner: PublicKey,
     );
 
-    providerTokenBalance = await connection.getTokenAccountBalance(providerTokenAccount.address);
-    takerTokenBalance = await connection.getTokenAccountBalance(takerTokenAccount.address);
-    assert.ok(Number(providerTokenBalance.value.amount) === 0);
-    assert.ok(Number(takerTokenBalance.value.amount) === 0);
+    userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
+    adminTokenBalance = await connection.getTokenAccountBalance(adminTokenAccount.address);
+    assert.ok(Number(userTokenBalance.value.amount) === 0);
+    assert.ok(Number(adminTokenBalance.value.amount) === 0);
 
     console.log('\n');
-    console.log('providerTokenBalance =>', providerTokenBalance.value.amount);
-    console.log('takerTokenBalance =>', takerTokenBalance.value.amount);
-    console.log('takerTokenAccount =>', takerTokenAccount.address.toString());
+    console.log('adminTokenAccount =>', adminTokenAccount.address.toString());
+    console.log('userTokenBalance =>', userTokenBalance.value.amount);
+    console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
     console.log('---------------------------------------------------');
   });
 
   it("Mints tokens.", async () => {
     const mint_tx = await mintTo(
       connection,                   // Connection
-      provider.wallet.payer,        // Payer
+      admin,        // Payer
       mint,                         // Mint Address
-      providerTokenAccount.address, // Destination Address
-      provider.wallet.publicKey,    // Mint Authority
+      adminTokenAccount.address, // Destination Address
+      admin.publicKey,    // Mint Authority
       LAMPORTS_PER_SOL,             // Mint Amount
       []                            // Signers???
     );
 
-    providerTokenBalance = await connection.getTokenAccountBalance(providerTokenAccount.address);
-    takerTokenBalance = await connection.getTokenAccountBalance(takerTokenAccount.address);
-    assert.ok(Number(providerTokenBalance.value.amount) === LAMPORTS_PER_SOL);
-    assert.ok(Number(takerTokenBalance.value.amount) === 0);
+    userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
+    adminTokenBalance = await connection.getTokenAccountBalance(adminTokenAccount.address);
+    assert.ok(Number(userTokenBalance.value.amount) === 0);
+    assert.ok(Number(adminTokenBalance.value.amount) === LAMPORTS_PER_SOL);
 
     console.log('\n');
-    console.log('providerTokenBalance =>', providerTokenBalance.value.amount);
-    console.log('takerTokenBalance =>', takerTokenBalance.value.amount);
+    console.log('userTokenBalance =>', userTokenBalance.value.amount);
+    console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
     console.log('mint_tx =>', mint_tx)
     console.log('---------------------------------------------------');
   });
 
   // Read count in counter account then transfers counter amount same tokens.
-  it("Transfers 1 tokens.", async () => {
+  it("Transfers 1 token.", async () => {
     let fetchCounter = await program.account.counter.fetch(pda);
 
     const transfer_tx = await transfer(
       connection,                   // Connection
-      provider.wallet.payer,        // Payer
-      providerTokenAccount.address, // From Address
-      takerTokenAccount.address,    // To Address
-      provider.wallet.publicKey,    // Authority
+      admin,        // Payer
+      adminTokenAccount.address, // From Address
+      userTokenAccount.address,    // To Address
+      admin.publicKey,    // Authority
       fetchCounter.count,           // Transfer Amount
       []                            // Signers???
     );
 
-    providerTokenBalance = await connection.getTokenAccountBalance(providerTokenAccount.address);
-    takerTokenBalance = await connection.getTokenAccountBalance(takerTokenAccount.address);
-    assert.ok(Number(takerTokenBalance.value.amount) === 1);
+    userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
+    adminTokenBalance = await connection.getTokenAccountBalance(adminTokenAccount.address);
+    assert.ok(Number(userTokenBalance.value.amount) === 1);
 
     console.log('\n');
-    console.log('providerTokenBalance =>', providerTokenBalance.value.amount);
-    console.log('takerTokenBalance =>', takerTokenBalance.value.amount);
+    console.log('userTokenBalance =>', userTokenBalance.value.amount);
+    console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
+    console.log('fetchCounter =>', fetchCounter);
     console.log('transfer_tx =>', transfer_tx)
     console.log('---------------------------------------------------');
   });
@@ -193,25 +202,25 @@ describe('post_to_earn', async() => {
     });
 
     let fetchCounter = await program.account.counter.fetch(pda);
-    assert.ok(fetchCounter.count === 2);
 
     const transfer_tx_2nd = await transfer(
       connection,                   // Connection
-      provider.wallet.payer,        // Payer
-      providerTokenAccount.address, // From Address
-      takerTokenAccount.address,    // To Address
-      provider.wallet.publicKey,    // Authority
+      admin,        // Payer
+      adminTokenAccount.address, // From Address
+      userTokenAccount.address,    // To Address
+      admin.publicKey,    // Authority
       fetchCounter.count,           // Transfer Amount
       []                            // Signers???
     );
 
-    providerTokenBalance = await connection.getTokenAccountBalance(providerTokenAccount.address);
-    takerTokenBalance = await connection.getTokenAccountBalance(takerTokenAccount.address);
-    assert.ok(Number(takerTokenBalance.value.amount) === 3);
+    userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
+    adminTokenBalance = await connection.getTokenAccountBalance(adminTokenAccount.address);
+    assert.ok(fetchCounter.count === 2);
+    assert.ok(Number(userTokenBalance.value.amount) === 3);
 
     console.log('\n');
-    console.log('providerTokenBalance =>', providerTokenBalance.value.amount);
-    console.log('takerTokenBalance =>', takerTokenBalance.value.amount);
+    console.log('userTokenBalance =>', userTokenBalance.value.amount);
+    console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
     console.log('fetchCounter =>', fetchCounter);
     console.log('transfer_tx_2nd =>', transfer_tx_2nd)
     console.log('---------------------------------------------------');
@@ -258,32 +267,32 @@ mint => BgTGDKL7kBGUydhEyRbrugHQVqBVxRAyumQJ4mM5EH5b
 
 providerTokenWallet => 4La4yibQ8sT2PTUMVZ3SPTfU47ZGNXekNfGhYZgqat9W
 ---------------------------------------------------
-  ✓ Creates a providerTokenAccount. (450ms)
+  ✓ Creates a userTokenAccount. (450ms)
 
 
-providerTokenBalance => 0
-takerTokenBalance => 0
-takerTokenAccount => 3KQXtVSop8KNPvqVP9XLRsHt3gktYMfFmJcTHY9BqavJ
+userTokenBalance => 0
+adminTokenBalance => 0
+adminTokenAccount => 3KQXtVSop8KNPvqVP9XLRsHt3gktYMfFmJcTHY9BqavJ
 ---------------------------------------------------
-  ✓ Creates a takerTokenAccount. (455ms)
+  ✓ Creates a adminTokenAccount. (455ms)
 
 
-providerTokenBalance => 1000000000
-takerTokenBalance => 0
+userTokenBalance => 1000000000
+adminTokenBalance => 0
 mint_tx => 3srEALFMEQixnFZPCNPN5vSzRVNx6U7LY4rhWPqcjompyfzJG4pkCa9fYMrLAtE2NAYT2NV9vHj6iFfa3Hxfdta4
 ---------------------------------------------------
   ✓ Mints tokens. (459ms)
 
 
-providerTokenBalance => 999999999
-takerTokenBalance => 1
+userTokenBalance => 999999999
+adminTokenBalance => 1
 transfer_tx => 1SvkJBCCF6LtYqsoH3o2Kiazz1P1fmGT7Rngv7PL1aZmXtAxWFYo7xqapPXvprbMRpqa1rcxk34bKEJcnQL8ohL
 ---------------------------------------------------
   ✓ Transfers 1 tokens. (462ms)
 
 
-providerTokenBalance => 999999997
-takerTokenBalance => 3
+userTokenBalance => 999999997
+adminTokenBalance => 3
 fetchCounter => {
 authority: PublicKey {
   _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
