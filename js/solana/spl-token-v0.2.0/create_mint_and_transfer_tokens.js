@@ -14,6 +14,9 @@ const splToken = require('@solana/spl-token');
     const fromWallet = web3.Keypair.generate();
     const fromAirdropSignature = await connection.requestAirdrop(fromWallet.publicKey, web3.LAMPORTS_PER_SOL);
 
+    let fromTokenAccountBalance = null;
+    let toTokenAccountBalance = null;
+
     // Wait for airdrop confirmation
     await connection.confirmTransaction(fromAirdropSignature);
 
@@ -45,6 +48,12 @@ const splToken = require('@solana/spl-token');
         toWallet.publicKey      // owner: PublicKey,
     );
 
+    console.log('\n--- Create token Account ---');
+    fromTokenAccountBalance = await connection.getTokenAccountBalance(fromTokenAccount.address);
+    toTokenAccountBalance = await connection.getTokenAccountBalance(toTokenAccount.address);
+    console.log('fromTokenAccountBalance =>', fromTokenAccountBalance.value.amount);
+    console.log('toTokenAccountBalance =>', toTokenAccountBalance.value.amount);
+
     // Mint 1 new token to the "fromTokenAccount" account we just created
     // Source: https://github.com/solana-labs/solana-program-library/blob/664ad292ac8855f8bf3e4414bc522b248f474927/token/js/test/e2e/mint.test.ts#L39
     const signature_mint = await splToken.mintTo(
@@ -56,6 +65,12 @@ const splToken = require('@solana/spl-token');
         web3.LAMPORTS_PER_SOL,      // Mint Amount
         []                          // Signers???
     );
+
+    console.log('\n--- Mint token to fromTokenAccont ---');
+    fromTokenAccountBalance = await connection.getTokenAccountBalance(fromTokenAccount.address);
+    toTokenAccountBalance = await connection.getTokenAccountBalance(toTokenAccount.address);
+    console.log('fromTokenAccountBalance =>', fromTokenAccountBalance.value.amount);
+    console.log('toTokenAccountBalance =>', toTokenAccountBalance.value.amount);
 
     // Transfer the new token to the "toTokenAccount" we just created
     // Source: https://github.com/solana-labs/solana-program-library/blob/664ad292ac8855f8bf3e4414bc522b248f474927/token/js/test/e2e/transfer.test.ts#L73
@@ -69,7 +84,13 @@ const splToken = require('@solana/spl-token');
         []                          // Signers???
     );
 
-    console.log('--- from --------------------------------------------------');
+    console.log('\n--- Transfer token from fromTokenAccont to toTokenAccount ---');
+    fromTokenAccountBalance = await connection.getTokenAccountBalance(fromTokenAccount.address);
+    toTokenAccountBalance = await connection.getTokenAccountBalance(toTokenAccount.address);
+    console.log('fromTokenAccountBalance =>', fromTokenAccountBalance.value.amount);
+    console.log('toTokenAccountBalance =>', toTokenAccountBalance.value.amount);
+
+    console.log('\n--- from --------------------------------------------------');
     console.log('fromWallet       =>', fromWallet.publicKey.toString());
     console.log('fromTokenAccount =>', fromTokenAccount.address.toString());
     console.log('\n--- to --------------------------------------------------');
