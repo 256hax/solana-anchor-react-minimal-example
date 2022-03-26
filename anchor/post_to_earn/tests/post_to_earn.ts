@@ -94,11 +94,11 @@ describe('post_to_earn', async() => {
 
   it("Creates a token.", async () => {
     mint = await createMint(
-      connection,                 // connection,
-      admin,      // payer,
+      connection,       // connection,
+      admin,            // payer,
       admin.publicKey,  // authority,
-      null,                       // freeze_authority???
-      9                           // decimals
+      null,             // freeze_authority???
+      9                 // decimals
     );
     assert.ok(mint);
 
@@ -125,10 +125,10 @@ describe('post_to_earn', async() => {
 
   it("Creates a adminTokenAccount.", async () => {
     adminTokenAccount = await getOrCreateAssociatedTokenAccount(
-      connection,               // connection: Connection,
-      admin,    // payer: Signer,
-      mint,                     // mint: PublicKey,
-      admin.publicKey           // owner: PublicKey,
+      connection,     // connection: Connection,
+      admin,          // payer: Signer,
+      mint,           // mint: PublicKey,
+      admin.publicKey // owner: PublicKey,
     );
 
     userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
@@ -145,13 +145,13 @@ describe('post_to_earn', async() => {
 
   it("Mints tokens.", async () => {
     const mint_tx = await mintTo(
-      connection,                   // Connection
-      admin,        // Payer
-      mint,                         // Mint Address
-      adminTokenAccount.address, // Destination Address
-      admin.publicKey,    // Mint Authority
-      LAMPORTS_PER_SOL,             // Mint Amount
-      []                            // Signers???
+      connection,                 // Connection
+      admin,                      // Payer
+      mint,                       // Mint Address
+      adminTokenAccount.address,  // Destination Address
+      admin.publicKey,            // Mint Authority
+      LAMPORTS_PER_SOL,           // Mint Amount
+      []                          // Signers???
     );
 
     userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
@@ -171,13 +171,13 @@ describe('post_to_earn', async() => {
     let fetchCounter = await program.account.counter.fetch(pda);
 
     const transfer_tx = await transfer(
-      connection,                   // Connection
-      admin,        // Payer
-      adminTokenAccount.address, // From Address
-      userTokenAccount.address,    // To Address
-      admin.publicKey,    // Authority
-      fetchCounter.count,           // Transfer Amount
-      []                            // Signers???
+      connection,                 // Connection
+      admin,                      // Payer
+      adminTokenAccount.address,  // From Address
+      userTokenAccount.address,   // To Address
+      admin.publicKey,            // Authority
+      fetchCounter.count,         // Transfer Amount
+      []                          // Signers???
     );
 
     userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
@@ -204,13 +204,13 @@ describe('post_to_earn', async() => {
     let fetchCounter = await program.account.counter.fetch(pda);
 
     const transfer_tx_2nd = await transfer(
-      connection,                   // Connection
-      admin,        // Payer
-      adminTokenAccount.address, // From Address
-      userTokenAccount.address,    // To Address
-      admin.publicKey,    // Authority
-      fetchCounter.count,           // Transfer Amount
-      []                            // Signers???
+      connection,                 // Connection
+      admin,                      // Payer
+      adminTokenAccount.address,  // From Address
+      userTokenAccount.address,   // To Address
+      admin.publicKey,            // Authority
+      fetchCounter.count,         // Transfer Amount
+      []                          // Signers???
     );
 
     userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
