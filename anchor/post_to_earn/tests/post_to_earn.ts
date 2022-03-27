@@ -46,7 +46,6 @@ describe('post_to_earn', async() => {
 
   it('Creates a counter account.', async () => {
     const create_tx = await program.rpc.create(
-      provider.wallet.publicKey,
       {
         accounts: {
           user: provider.wallet.publicKey,
@@ -90,6 +89,9 @@ describe('post_to_earn', async() => {
         LAMPORTS_PER_SOL,
     );
     await connection.confirmTransaction(airdropSignature);
+
+    const adminBalance = await connection.getBalance(admin.publicKey);
+    assert.ok(adminBalance === LAMPORTS_PER_SOL);
   });
 
   it("Creates a token.", async () => {
