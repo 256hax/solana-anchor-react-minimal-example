@@ -33,11 +33,11 @@ pub struct Counter {
 pub struct Create<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
-    // space: 8 discriminator + 2 level + 4 name length + 200 name + 1 bump
+    // space: 8 discriminator + 32 authority + 1 bump + 1 count
     #[account(
         init,
         payer = user,
-        space = 8 + 2 + 4 + 200 + 1, seeds = [b"counter", user.key().as_ref()], bump
+        space = 8 + 32 + 1 + 1, seeds = [b"counter", user.key().as_ref()], bump
     )]
     pub counter: Account<'info, Counter>,
     pub system_program: Program<'info, System>,
