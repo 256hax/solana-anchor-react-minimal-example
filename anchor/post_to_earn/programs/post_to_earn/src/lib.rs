@@ -6,14 +6,14 @@ declare_id!("Fepp9QeEjxdqfYkokG8T6wtEZWadvWfwaXSeLThsrmjC");
 pub mod post_to_earn {
     use super::*;
 
-    pub fn create(ctx: Context<Create>) -> Result<()> {
+    pub fn create_counter(ctx: Context<CreateCounter>) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
         counter.bump = *ctx.bumps.get("counter").unwrap();
         counter.count = 0;
         Ok(())
     }
 
-    pub fn increment(ctx: Context<Increment>) -> Result<()> {
+    pub fn increment_counter(ctx: Context<IncrementCounter>) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
         counter.count += 1;
         Ok(())
@@ -45,9 +45,10 @@ pub struct Counter {
 
 // validation struct
 #[derive(Accounts)]
-pub struct Create<'info> {
+pub struct CreateCounter<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
+    // Space Reference: https://book.anchor-lang.com/chapter_5/space.html
     // space: 8 discriminator + 1 bump + 1 count
     #[account(
         init,
@@ -60,7 +61,7 @@ pub struct Create<'info> {
 
 // validation struct
 #[derive(Accounts)]
-pub struct Increment<'info> {
+pub struct IncrementCounter<'info> {
     pub user: Signer<'info>,
     #[account(
         mut,
