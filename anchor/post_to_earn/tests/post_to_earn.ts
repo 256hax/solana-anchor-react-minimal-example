@@ -31,7 +31,7 @@ describe('post_to_earn', async() => {
   // Payment
   let transferAmount = null;
 
-  it('Gets a PDA.', async () => {
+  it('Gets a PDA for Counter.', async () => {
     // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
     const [_pdaCounter, _bumpCounter] = await PublicKey
       .findProgramAddress(
@@ -48,6 +48,10 @@ describe('post_to_earn', async() => {
 
     assert.ok(pdaCounter);
     assert.ok(bumpCounter);
+
+    console.log('\n');
+    console.log('pdaCounter   =>', pdaCounter.toString());
+    console.log('bumpCounter  =>', bumpCounter);
   });
 
   it('Gets a PDA for Payment.', async () => {
@@ -67,6 +71,10 @@ describe('post_to_earn', async() => {
 
     assert.ok(pdaPayment);
     assert.ok(bumpPayment);
+
+    console.log('\n');
+    console.log('pdaPayment   =>', pdaPayment.toString());
+    console.log('bumpCounter  =>', bumpCounter);
   });
 
   it('Creates a counter account.', async () => {
@@ -84,8 +92,6 @@ describe('post_to_earn', async() => {
     assert.ok(fetchCounter);
 
     console.log('\n');
-    console.log('pdaCounter   =>', pdaCounter.toString());
-    console.log('bumpCounter  =>', bumpCounter);
     console.log('fetchCounter =>', fetchCounter);
     console.log('create_tx    =>', create_tx);
     console.log('---------------------------------------------------');
@@ -106,8 +112,6 @@ describe('post_to_earn', async() => {
     assert.ok(fetchPayment);
 
     console.log('\n');
-    console.log('pdaPayment       =>', pdaPayment.toString());
-    console.log('bumpCounter      =>', bumpCounter);
     console.log('fetchPayment     =>', fetchPayment);
     console.log('createPayment_tx =>', createPayment_tx);
     console.log('---------------------------------------------------');
@@ -270,74 +274,78 @@ describe('post_to_earn', async() => {
 % anchor test
 
 post_to_earn
-  ✓ Gets a PDA.
-  ✓ Gets a PDA for Payment.
 
 
 pdaCounter   => Gr5Byc7RVyPuBYDvQH4fktcvYgVnBg1rU3VryjC7Mcfy
 bumpCounter  => 255
+  ✓ Gets a PDA for Counter.
+
+
+pdaPayment   => 5b1FyYLd6rDkP3usQND2Zugzn1DnMsCRRsaDjCgMjJoT
+bumpCounter  => 255
+  ✓ Gets a PDA for Payment.
+
+
 fetchCounter => { bump: 255, count: 0 }
-create_tx    => 4NRGj1cgDPYrUHEAFPdwho8tYzr1V4cBuYZimioGQ7hBbYySzdovFdWn1Pvc3EreqfGF7ttfmQPsLh4x9BpiTcab
+create_tx    => f1UnWxim4SCr2sZbH9kceeE5bfvPQejrhnrqy93sSr8trfYt5VRqgdAtvbB9HeQzhW4XpY1AwHghReJUW1QqeUB
 ---------------------------------------------------
-  ✓ Creates a counter account. (221ms)
+  ✓ Creates a counter account. (340ms)
 
 
-pdaPayment       => 5b1FyYLd6rDkP3usQND2Zugzn1DnMsCRRsaDjCgMjJoT
-bumpCounter      => 255
 fetchPayment     => { bump: 255, count: 0 }
-createPayment_tx => 4ed3siriryqhfrupJte8zkQrKaXy8T7bMdFo4A2LdwhRC47bcCM8MvHidgE7WTfAqnxQbf3ii4wzZnn2Tpe6Rwa1
+createPayment_tx => YMNwCf2Jv4pZ3LJ7cdeEYR3fxhfT7MpgRjBAG6fRurbZHmDB7phHvayLuQd3nneRZeu3jo1Zfsz2CZhzBN4HQNx
 ---------------------------------------------------
-  ✓ Creates a payment account. (454ms)
+  ✓ Creates a payment account. (474ms)
 
 
 fetchCounter => { bump: 255, count: 1 }
-increment_tx => ikfm1bx9vNpjvPrXzC5urfFKBnsJxWdAGs6pouvVEBEQ1wY2hCAoLATBuEsDwE7apTqXbnxby7TQGHNg4WnXTZy
+increment_tx => 2PFA9LEQRiKQVxnzFWsd2iEBgkEjntceGA9zwgCWwZhRkvH5cvxU2qaa729KNMUkCB1mhHM8mFAmAX59ek4Lrs1A
 ---------------------------------------------------
-  ✓ Increments a count. (464ms)
-  ✓ Airdrop for admin. (469ms)
+  ✓ Increments a count. (482ms)
+  ✓ Airdrop for admin. (471ms)
 
 
-mint => 4vqwkmbH7wRFaDTzYfS6bktHTyRo3ouknqEGBB92VzRK
+mint => HNLUCbWEtQdtzEz4UrtXGvapnRxzqxh49dJbHQtQWM1i
 ---------------------------------------------------
-  ✓ Creates a token. (454ms)
+  ✓ Creates a token. (470ms)
 
 
-userTokenAccount => CoVrbCuXc2AMKpvxL8M5BgqfUAkMgFhcjdsHnSkQ49qB
+userTokenAccount => GkEQznoUT6BZ95SvFb2AD7T9S33AcxGUexTTjUnuGjxy
 ---------------------------------------------------
   ✓ Creates an userTokenAccount. (477ms)
 
 
-adminTokenAccount  => 92Cjeym5B5AnYWKYEjGrfc5bZuf7zfPq2QwthiKGhXzp
+adminTokenAccount  => 2v62Fkve1vJQZdZ25QjeB8C99SGWcXx7daqGMTVRsSQk
 userTokenBalance   => 0
 adminTokenBalance  => 0
 ---------------------------------------------------
-  ✓ Creates an adminTokenAccount. (511ms)
+  ✓ Creates an adminTokenAccount. (462ms)
 
 
 userTokenBalance   => 0
 adminTokenBalance  => 1000000000
-mint_tx            => 3WHpBh2jSJGi5BbHteFE9iaCEYJek2sQvFzk775nk4v6y6J2kKyLU9cyrBVGrc1srAuwWguvkcXLUDg2DFRsuhR
+mint_tx            => 5rqzsPNyi5qmtoeZqihWDhgMULJ1D3NSCh3DWqewFBZa5GFWXSk2GaxG7rHgPrkz7uvw5VyjzQxeGEkCzhH9AgKA
 ---------------------------------------------------
-  ✓ Mints tokens. (459ms)
+  ✓ Mints tokens. (448ms)
 
 
 userTokenBalance   => 1
 adminTokenBalance  => 999999999
 fetchCounter       => { bump: 255, count: 1 }
 fetchPayment       => { bump: 255, count: 0 }
-transfer_tx        => 4hjfm279VtNhHAJymahxA4DtCtnEyioEd2LXzKPdDX2Ewq1WY61hpSgoBWaZxJauj4n4hqmSxiHWRdxfsEc45Tsb
+transfer_tx        => 31nadWJWq4QwW23p78vSSi3C9oahdhSsv21cj5d6SYFakjgTJm1nTv2TPdk3PLurRw822VrfMHSK9ge5sqeLxxLJ
 ---------------------------------------------------
-  ✓ Transfers 1 token. (472ms)
+  ✓ Transfers 1 token. (430ms)
 
 
 fetchCounter     => { bump: 255, count: 1 }
 fetchPayment     => { bump: 255, count: 1 }
-updatePayment_tx => YjqggBFQrav8mEV9iaAwbDS4fUDxQc3ATnwt9gxkX9ZcFmnfVnxUG89GioB7vaZ2bSuufUNNxEqhVaZhLnnSZ9U
+updatePayment_tx => 65c9R9bMin15xj9VzGEPv2Pc6vx5a9dZpfZ3Hcdct7gFgDFgSf1PWuSM1MT13byRnN58qjPcQDTNXvcLD2Bwyb87
 ---------------------------------------------------
-  ✓ Update payment. (437ms)
+  ✓ Update payment. (479ms)
 
 
-12 passing (4s)
+12 passing (5s)
 
-✨  Done in 10.48s.
+✨  Done in 10.49s.
 */
