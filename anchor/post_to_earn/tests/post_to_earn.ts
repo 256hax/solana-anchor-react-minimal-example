@@ -13,6 +13,9 @@ describe('post_to_earn', async() => {
 
   let pda = null;
   let bump = null;
+  let pdaPayment = null;
+  let bumpPayment = null;
+
   let mint = null;
 
   // User
@@ -24,6 +27,9 @@ describe('post_to_earn', async() => {
   const admin = Keypair.generate();
   let adminTokenAccount = null;
   let adminTokenBalance = null;
+
+  // Payment
+  let transferAmount = null;
 
   it('Gets a PDA.', async () => {
     // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
@@ -42,6 +48,25 @@ describe('post_to_earn', async() => {
 
     assert.ok(pda);
     assert.ok(bump);
+  });
+
+  it('Gets a PDA for Payment.', async () => {
+    // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
+    const [_pdaPayment, _bumpPayment] = await PublicKey
+      .findProgramAddress(
+        [
+          anchor.utils.bytes.utf8.encode("payment"),
+          provider.wallet.publicKey.toBuffer()
+        ],
+        program.programId
+      );
+
+    // Important
+    pdaPayment = _pdaPayment;
+    bumpPayment = _bumpPayment;
+
+    assert.ok(pdaPayment);
+    assert.ok(bumpPayment);
   });
 
   it('Creates a counter account.', async () => {
@@ -63,6 +88,28 @@ describe('post_to_earn', async() => {
     console.log('bump         =>', bump);
     console.log('fetchCounter =>', fetchCounter);
     console.log('create_tx    =>', create_tx);
+    console.log('---------------------------------------------------');
+  });
+
+  it('Creates a payment account.', async () => {
+    const createPayment_tx = await program.rpc.createPayment(
+      {
+        accounts: {
+          user: provider.wallet.publicKey,
+          payment: pdaPayment,
+          systemProgram: SystemProgram.programId
+        }
+      }
+    );
+
+    let fetchPayment = await program.account.payment.fetch(pdaPayment);
+    assert.ok(fetchPayment);
+
+    console.log('\n');
+    console.log('pdaPayment   =>', pdaPayment.toString());
+    console.log('bump         =>', bump);
+    console.log('fetchPayment =>', fetchPayment);
+    console.log('createPayment_tx    =>', createPayment_tx);
     console.log('---------------------------------------------------');
   });
 
@@ -109,7 +156,7 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  it("Creates a userTokenAccount.", async () => {
+  it("Creates an userTokenAccount.", async () => {
     userTokenAccount = await getOrCreateAssociatedTokenAccount(
       connection,               // connection: Connection,
       provider.wallet.payer,    // payer: Signer,
@@ -125,7 +172,7 @@ describe('post_to_earn', async() => {
     console.log('---------------------------------------------------');
   });
 
-  it("Creates a adminTokenAccount.", async () => {
+  it("Creates an adminTokenAccount.", async () => {
     adminTokenAccount = await getOrCreateAssociatedTokenAccount(
       connection,     // connection: Connection,
       admin,          // payer: Signer,
@@ -171,6 +218,8 @@ describe('post_to_earn', async() => {
   // Read count in counter account then transfers counter amount same tokens.
   it("Transfers 1 token.", async () => {
     let fetchCounter = await program.account.counter.fetch(pda);
+    let fetchPayment = await program.account.payment.fetch(pdaPayment);
+    let transferAmount = fetchCounter.count - fetchPayment.count;
 
     const transfer_tx = await transfer(
       connection,                 // Connection
@@ -178,7 +227,7 @@ describe('post_to_earn', async() => {
       adminTokenAccount.address,  // From Address
       userTokenAccount.address,   // To Address
       admin.publicKey,            // Authority
-      fetchCounter.count,         // Transfer Amount
+      transferAmount,         // Transfer Amount
       []                          // Signers???
     );
 
@@ -190,41 +239,28 @@ describe('post_to_earn', async() => {
     console.log('userTokenBalance =>', userTokenBalance.value.amount);
     console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
     console.log('fetchCounter =>', fetchCounter);
+    console.log('fetchPayment =>', fetchPayment);
     console.log('transfer_tx =>', transfer_tx)
     console.log('---------------------------------------------------');
   });
 
-  // Increments count then transfers token.
-  it("Transfers 2 tokens.", async () => {
-    const increment_tx_2nd = await program.rpc.increment({
+  it("Update payment.", async () => {
+    const updatePayment_tx = await program.rpc.updatePayment({
       accounts: {
-        counter: pda,
         user: provider.wallet.publicKey,
+        payment: pdaPayment,
+        counter: pda,
       },
     });
 
     let fetchCounter = await program.account.counter.fetch(pda);
-
-    const transfer_tx_2nd = await transfer(
-      connection,                 // Connection
-      admin,                      // Payer
-      adminTokenAccount.address,  // From Address
-      userTokenAccount.address,   // To Address
-      admin.publicKey,            // Authority
-      fetchCounter.count,         // Transfer Amount
-      []                          // Signers???
-    );
-
-    userTokenBalance = await connection.getTokenAccountBalance(userTokenAccount.address);
-    adminTokenBalance = await connection.getTokenAccountBalance(adminTokenAccount.address);
-    assert.ok(fetchCounter.count === 2);
-    assert.ok(Number(userTokenBalance.value.amount) === 3);
+    let fetchPayment = await program.account.payment.fetch(pdaPayment);
+    assert.ok(fetchPayment.count === 1);
 
     console.log('\n');
-    console.log('userTokenBalance =>', userTokenBalance.value.amount);
-    console.log('adminTokenBalance =>', adminTokenBalance.value.amount);
     console.log('fetchCounter =>', fetchCounter);
-    console.log('transfer_tx_2nd =>', transfer_tx_2nd)
+    console.log('fetchPayment =>', fetchPayment);
+    console.log('updatePayment_tx =>', updatePayment_tx);
     console.log('---------------------------------------------------');
   });
 });
@@ -232,82 +268,4 @@ describe('post_to_earn', async() => {
 /*
 % anchor test
 
-post_to_earn
-  ✓ Gets PDA.
-
-
-pda          => Gr5Byc7RVyPuBYDvQH4fktcvYgVnBg1rU3VryjC7Mcfy
-bump         => 255
-fetchCounter => {
-authority: PublicKey {
-  _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
-},
-bump: 255,
-count: 0
-}
-create_tx    => 5vbJbFmJx7qYr39vxW2z2Lr3DN4ZVMai9RUtCQSnsYTAgg5gyemnefwAjCZuKcU3rwhJKafjukEysbuuqcU995hD
----------------------------------------------------
-  ✓ Creates counter accounts. (223ms)
-
-
-fetchCounter => {
-authority: PublicKey {
-  _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
-},
-bump: 255,
-count: 1
-}
-increment_tx => 4G3xK1G5vNfqoyJFMUwp5Tbt57GdbHaXPX6HTgcaCXuGpr4hgBJ3NBWxEacAmWKDtMtx3TAd6WH7V69naQjLN4Rw
----------------------------------------------------
-  ✓ Increments a count. (455ms)
-
-
-mint => BgTGDKL7kBGUydhEyRbrugHQVqBVxRAyumQJ4mM5EH5b
----------------------------------------------------
-  ✓ Creates a token. (454ms)
-
-
-providerTokenWallet => 4La4yibQ8sT2PTUMVZ3SPTfU47ZGNXekNfGhYZgqat9W
----------------------------------------------------
-  ✓ Creates a userTokenAccount. (450ms)
-
-
-userTokenBalance => 0
-adminTokenBalance => 0
-adminTokenAccount => 3KQXtVSop8KNPvqVP9XLRsHt3gktYMfFmJcTHY9BqavJ
----------------------------------------------------
-  ✓ Creates a adminTokenAccount. (455ms)
-
-
-userTokenBalance => 1000000000
-adminTokenBalance => 0
-mint_tx => 3srEALFMEQixnFZPCNPN5vSzRVNx6U7LY4rhWPqcjompyfzJG4pkCa9fYMrLAtE2NAYT2NV9vHj6iFfa3Hxfdta4
----------------------------------------------------
-  ✓ Mints tokens. (459ms)
-
-
-userTokenBalance => 999999999
-adminTokenBalance => 1
-transfer_tx => 1SvkJBCCF6LtYqsoH3o2Kiazz1P1fmGT7Rngv7PL1aZmXtAxWFYo7xqapPXvprbMRpqa1rcxk34bKEJcnQL8ohL
----------------------------------------------------
-  ✓ Transfers 1 tokens. (462ms)
-
-
-userTokenBalance => 999999997
-adminTokenBalance => 3
-fetchCounter => {
-authority: PublicKey {
-  _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
-},
-bump: 255,
-count: 2
-}
-transfer_tx_2nd => 3oWxbWVhiwG4zLvkYMRPfSP4ejyu1QVDGvWn61z7aEaeZGL4fXExze8zin4NR2SArghx4QapNVtSKsgMYsNQG62r
----------------------------------------------------
-  ✓ Transfers 2 tokens. (930ms)
-
-
-9 passing (4s)
-
-✨  Done in 10.16s.
 */
