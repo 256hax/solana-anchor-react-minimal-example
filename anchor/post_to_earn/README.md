@@ -5,4 +5,4 @@ Post to earn token minimal example.
 
 ## Reference
 - [The Anchor Book - PDAs](https://book.anchor-lang.com/chapter_3/PDAs.html)
-- [STEPN WHITEPAPER](hhttps://whitepaper.stepn.com/)
+- [STEPN WHITEPAPER](https://whitepaper.stepn.com/)
