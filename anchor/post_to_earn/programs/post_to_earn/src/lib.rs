@@ -83,10 +83,13 @@ pub struct Payment {
 pub struct CreatePayment<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
+    /// CHECK:
+    pub admin: AccountInfo<'info>,
     // space: 8 discriminator + 1 bump + 1 count
+    // seeds: user publickey and admin publickey
     #[account(
         init, payer = user, space = 8 + 1 + 1,
-        seeds = [b"payment", user.key().as_ref()], bump
+        seeds = [b"payment", user.key().as_ref(), admin.key().as_ref()], bump
     )]
     pub payment: Account<'info, Payment>,
     pub system_program: Program<'info, System>,
@@ -96,9 +99,11 @@ pub struct CreatePayment<'info> {
 #[derive(Accounts)]
 pub struct UpdatePayment<'info> {
     pub user: Signer<'info>,
+    /// CHECK:
+    pub admin: AccountInfo<'info>,
     #[account(
         mut,
-        seeds = [b"payment", user.key().as_ref()], bump = payment.bump
+        seeds = [b"payment", user.key().as_ref(), admin.key().as_ref()], bump = payment.bump
     )]
     pub payment: Account<'info, Payment>,
     #[account(

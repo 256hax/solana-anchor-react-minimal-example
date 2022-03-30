@@ -33,14 +33,13 @@ describe('post_to_earn', async() => {
 
   it('Gets a PDA for Counter.', async () => {
     // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
-    const [_pdaCounter, _bumpCounter] = await PublicKey
-      .findProgramAddress(
-        [
-          anchor.utils.bytes.utf8.encode("counter"),
-          provider.wallet.publicKey.toBuffer()
-        ],
-        program.programId
-      );
+    const [_pdaCounter, _bumpCounter] = await PublicKey.findProgramAddress(
+      [
+        anchor.utils.bytes.utf8.encode("counter"),
+        provider.wallet.publicKey.toBuffer()
+      ],
+      program.programId
+    );
 
     // Important
     pdaCounter = _pdaCounter;
@@ -56,14 +55,14 @@ describe('post_to_earn', async() => {
 
   it('Gets a PDA for Payment.', async () => {
     // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
-    const [_pdaPayment, _bumpPayment] = await PublicKey
-      .findProgramAddress(
-        [
-          anchor.utils.bytes.utf8.encode("payment"),
-          provider.wallet.publicKey.toBuffer()
-        ],
-        program.programId
-      );
+    const [_pdaPayment, _bumpPayment] = await PublicKey.findProgramAddress(
+      [
+        anchor.utils.bytes.utf8.encode("payment"),
+        provider.wallet.publicKey.toBuffer(),
+        admin.publicKey.toBuffer(),
+      ],
+      program.programId
+    );
 
     // Important
     pdaPayment = _pdaPayment;
@@ -102,6 +101,7 @@ describe('post_to_earn', async() => {
       {
         accounts: {
           user: provider.wallet.publicKey,
+          admin: admin.publicKey,
           payment: pdaPayment,
           systemProgram: SystemProgram.programId
         }
@@ -253,6 +253,7 @@ describe('post_to_earn', async() => {
     const updatePayment_tx = await program.rpc.updatePayment({
       accounts: {
         user: provider.wallet.publicKey,
+        admin: admin.publicKey,
         payment: pdaPayment,
         counter: pdaCounter,
       },
