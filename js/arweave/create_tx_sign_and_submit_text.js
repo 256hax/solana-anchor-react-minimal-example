@@ -27,6 +27,8 @@ async function main() {
     await uploader.uploadChunk();
     console.log(`${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`);
   }
+
+  console.log('URL =>', 'http://127.0.0.1:1984/' + transaction.id);
 }
 
 main();
@@ -74,4 +76,5 @@ Transaction => Transaction {
   }
 }
 100% complete, 1/1
+URL => http://127.0.0.1:1984/VODEaxULjXvZgxtB5dZhcvA_25VRgpSVIxW5ap5lLdw
 */

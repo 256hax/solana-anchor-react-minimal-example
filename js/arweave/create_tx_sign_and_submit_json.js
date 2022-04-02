@@ -15,11 +15,12 @@ async function main() {
   const airdrop = await arweave.api.get('/mint/' + address + '/100000000000000')
 
   // Upload File
-  const data = fs.readFileSync('./assets/dummy.pdf');
+  // Metaplex Token Metadatas Standard: https://docs.metaplex.com/token-metadata/specification
+  const data = fs.readFileSync('./assets/token_metadata_standard.json');
 
   // Transaction
   const transaction = await arweave.createTransaction({ data: data }, key);
-  transaction.addTag('Content-Type', 'application/pdf');
+  transaction.addTag('Content-Type', 'application/json');
   await arweave.transactions.sign(transaction, key);
   console.log('Transaction =>', transaction);
 
