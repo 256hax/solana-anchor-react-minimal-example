@@ -38,6 +38,9 @@ main();
 
 /*
 % npx arlocal
+arlocal started on port 1984
+
+% node <THIS FILE>
 Transaction => Transaction {
   format: 2,
   id: 'LHt4bAaZ_FI0KdOoAnvnKFcH3exYvnQaeuf7mgbErJo',

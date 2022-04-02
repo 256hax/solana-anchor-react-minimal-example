@@ -42,10 +42,7 @@ main();
 % npx arlocal
 arlocal started on port 1984
 
-Airdrop
-http://127.0.0.1:1984/mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000000000
-
-% node create_tx_sign_and_submit_file.js
+% node <THIS FILE>
 Transaction => Transaction {
   format: 2,
   id: 'eOeWvVlIigCmtGeqxVNjCmJwdQUcyDkvwkp9nT7AMg8',
