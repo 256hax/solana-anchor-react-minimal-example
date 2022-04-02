@@ -36,7 +36,8 @@ run();
 /*
 Blockchain Network
 - Arweave: testnet.redstone.tools
-- Metaplex: devnet
+- Solana: devnet
+- Metaplex Program: devnet
 
 STEP 1: Upload metadata to Arweave(testnet.redstone.tools).
 STEP 2: Get Transaction ID and replace "txId" value in this file.
