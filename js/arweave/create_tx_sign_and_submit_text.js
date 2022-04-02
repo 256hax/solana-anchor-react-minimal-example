@@ -28,7 +28,6 @@ async function main() {
     console.log(`${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`);
   }
 
-  console.log('URL =>', 'http://127.0.0.1:1984/' + transaction.id);
   console.log('-------------------------------------------------------------------');
   console.log('Get transaction    =>', 'http://127.0.0.1:1984/tx/' + transaction.id);
   console.log('Get data directly  =>', 'http://127.0.0.1:1984/' + transaction.id);
