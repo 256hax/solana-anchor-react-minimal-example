@@ -6,5 +6,5 @@
 ## Run
 ```
 % npm install
-% node [JS FILE]
+% node <JS FILE>
 ```

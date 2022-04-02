@@ -19,7 +19,6 @@ async function main() {
 
 main();
 
-
 /*
 % node <this JS file>
 metadata_pda => 4xHtfjprxBK423wfinNjdxiPJUWmNGnvct7ataYkkRvw

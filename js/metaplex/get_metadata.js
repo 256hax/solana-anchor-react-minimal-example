@@ -17,7 +17,7 @@ const run = async () => {
 run();
 
 /*
-% node get_metadata.js
+% node <THIS FILE>
 
 Metadata {
   pubkey: PublicKey {
