@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS"
+  },  
+  "dependencies": {
+    "@metaplex/js": "^4.12.0",
+    "@solana/web3.js": "^1.37.0"
+  }
+}
