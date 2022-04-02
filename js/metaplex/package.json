@@ -1,6 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "@metaplex/js": "^4.11.7"
+    "@metaplex/js": "^4.12.0"
   }
 }
