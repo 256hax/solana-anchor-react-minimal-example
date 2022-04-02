@@ -17,7 +17,6 @@ async function main() {
 
 main();
 
-
 /*
 % node generate_key_file.js
 Generated Key File => /Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/js/arweave/key.json

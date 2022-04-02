@@ -29,7 +29,9 @@ async function main() {
     console.log(`${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`);
   }
 
-  console.log('URL =>', 'http://127.0.0.1:1984/' + transaction.id);
+  console.log('-------------------------------------------------------------------');
+  console.log('Get Transaction    =>', 'http://127.0.0.1:1984/tx/' + transaction.id);
+  console.log('Get Data Directly  =>', 'http://127.0.0.1:1984/' + transaction.id);
 }
 
 main();
@@ -68,5 +70,7 @@ Transaction => Transaction {
   }
 }
 100% complete, 1/1
-URL => http://127.0.0.1:1984/NSLV8IPs49DcFWyJ_UAGjTWXOYLd8c4oIxQmYia041E
+-------------------------------------------------------------------
+Get Transaction   => http://127.0.0.1:1984/tx/NSLV8IPs49DcFWyJ_UAGjTWXOYLd8c4oIxQmYia041E
+Get Data Directly => http://127.0.0.1:1984/NSLV8IPs49DcFWyJ_UAGjTWXOYLd8c4oIxQmYia041E
 */

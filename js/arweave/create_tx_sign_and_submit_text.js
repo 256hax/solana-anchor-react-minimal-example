@@ -29,6 +29,9 @@ async function main() {
   }
 
   console.log('URL =>', 'http://127.0.0.1:1984/' + transaction.id);
+  console.log('-------------------------------------------------------------------');
+  console.log('Get transaction    =>', 'http://127.0.0.1:1984/tx/' + transaction.id);
+  console.log('Get data directly  =>', 'http://127.0.0.1:1984/' + transaction.id);
 }
 
 main();
@@ -36,15 +39,9 @@ main();
 
 /*
 % npx arlocal
-arlocal started on port 1984
-
-Airdrop
-http://127.0.0.1:1984/mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000000000
-
-% node create_tx_sign_and_submit_text.js
 Transaction => Transaction {
   format: 2,
-  id: 'VODEaxULjXvZgxtB5dZhcvA_25VRgpSVIxW5ap5lLdw',
+  id: 'LHt4bAaZ_FI0KdOoAnvnKFcH3exYvnQaeuf7mgbErJo',
   last_tx: '',
   owner: '1UlWuBtbDi17XX1EquMp322muLYTb8PtK3oSm3eYPo0e-zQkuv0SZ1hD3dsLOxlOmb8snhm8vN2wpN2GeGAPNyXBuip-KBfufGeO5hZVyvAU6KQj4fn5_nMp-BjSEMNzCfTEOgaqZxFDzWDXwwSCySEkcrN8Ufmc5Lkf4ekVtjpaTHjvQly46M8U4RPI8qu8yJrr1rCdYzWjEa_awv1JVwHGZIWrzGV-wP1lv1_OTkc4HiA2tvNMWydDRqO-zYbej4qUKE-u2ch5JfPmif9ccXXgGD2dsH6GrONNKoD-T2l1cCD41u6gG1H7KXCvshFbDdbJ57WLFshAnwD3GRa_Z-76jss_pFCcR_0ICn3e3xBlvNfRcclMyZ017TTOcb2u5R-yU4JXjqhD0tDdchj_vJZkMeJ8F9fMGNlkKV6LWiwHQPB19iTL2FAJWtpCZgs-8hNKcdmmZtpFxul5DufNL20Z4lgXtuOBXIwyiKCo_-8aZLtXiB0-dtsW--exR_b2I4dpb5eOiQ3OHjjkRAYStFcMTgNBMi_FvxqVexSwIcDJuPvIMtFcRlxPeN5jJs-HG_LLehCGhZY0GF9NR4BLykYTf21pM_iyPOqOpIA_ynzLs_E3o8_xEdF_2HNsdyr0H01-ehca4U9zi04XilsUK3ruhFIAprc9coYZ7wqJ91s',
   tags: [],
@@ -63,7 +60,7 @@ Transaction => Transaction {
   ],
   data_root: 'GQunzmbwk2_JPU7oJOmLrTMvj8v_7BJaF0weyjVn5Nc',
   reward: '172931616',
-  signature: 'yw5Du4y5OI0RiHYyBQWinYksbDREl7jcOTvrskdCgFBQnyKFDRg_q7btaqFsJ7EbcoKUN7hz4uNzmr7nLkAIlM66Bvk5o95BZ5RZ1QeGtu1nZKFcruDo_cCAwx_RF4m2yNm1peXbaMnlqyjEhJSTS3sgcc0l250be_fA-JmaSd6UAytJDhWaYqN-I0LgDtS19R8Hr_o5XYH-NKENUrv9e4pJh88oTpkIJTaaP3KIi3finB7eu0fEAaqGN0yDIgR6vDR_6c4og0hxoAtuxEH2--jEzzUIbk1uUq_qvnK1Da314yanM6PZHZtsvjLaqkH3rJTlRe54FAnFE9DxYAuHX8AXSMGltpmUsGscQH8o74IA4JEOl7eYo_2E3mt151N36d44AQ0J9J3_QDZQJXQAiKKQmJOyar1i71cnhA7FA5NvK_AdAPqj4n3p7ijV-PUjoWF8MXg-FkRnWJT4m1GnCZc190u937LbA2kN91eZw2AahFd8kbRs0KWG253FT9T8-RJEElxfbyBrU3JvfSlOiZ_2HwgrbGj5v_GBkV9qGh57oNEirrT2bbnabMt6_IHiz7BJp2xhEomCFRb2SQNRNi9EjUqJYBm8oP5jKwfm13Mv-zYwDjmYD1ao5FP2Nunah8PTrhCzdPuF2-WXQZFVjoz2QnnmVnOxkENXdHuRA0I',
+  signature: 'V15VxBaproIyMngOLM-V05p2dQ9eJ4xUHkbecAc2hUkyz2fQfePkskgVDjt6WDuBXqJsDMc35PhlhcAt9uf1i_LPOkXBfh7zM3JSeW3J9PwUyGq1QhZgD1f_e86Qdo8Zfq2-nSq-aGX_TVpmLOr96_VX2Di2jhifaswDo2BzcU8UaKrKT-QHVs1N6Jk4pp1HGrjT5ZpQgnLni7yjaL3jj8wbDkFDWDd1cM5FCpZA7cJ3-qlBtWSQLtJbTSn9JkXDmt2vKtNykI7A7sh3gHAj2KxqLLkukxiVqs5HJN08rmmclcmxyfizlL7AwgDkBAce484nx1BbIcR0jw6hKGoIc-sMCXXHwEK0HrCH98thZLZJ3DQg8M3MPytcpQAVNfjzweCbV8B0Zj4ap8uZ0HYCyIZNGIzv7-65ukTULSpgyPqUR8X5hdnLywnFTXBmq4n0BD0lbzZXPsYyGvn-DzTNRnZkTQ8S88ewGLSfC-ESyLnDLxzLY0Qw2JOn2NhBa9eN5GGbUTvlhc3EhqC8E-ixpQw5gwMJ42hxRT9596cgP_oMC_1hs9VJrNF4MI0fIRYHP5xYrQOqMn2u9Mjx8OcV1GMFBrUgM4isAUmnjhKBY9BpxFinQOAMj6JTQV5uDRNiVdrTrZMJvlYuC1G-gLjIhhNVGz_5Ghnub-qqKPFb5iY',
   chunks: {
     data_root: Uint8Array(32) [
        25, 11, 167, 206, 102, 240, 147, 111,
@@ -76,5 +73,8 @@ Transaction => Transaction {
   }
 }
 100% complete, 1/1
-URL => http://127.0.0.1:1984/VODEaxULjXvZgxtB5dZhcvA_25VRgpSVIxW5ap5lLdw
+URL => http://127.0.0.1:1984/LHt4bAaZ_FI0KdOoAnvnKFcH3exYvnQaeuf7mgbErJo
+-------------------------------------------------------------------
+Get transaction    => http://127.0.0.1:1984/tx/LHt4bAaZ_FI0KdOoAnvnKFcH3exYvnQaeuf7mgbErJo
+Get data directly  => http://127.0.0.1:1984/LHt4bAaZ_FI0KdOoAnvnKFcH3exYvnQaeuf7mgbErJo
 */

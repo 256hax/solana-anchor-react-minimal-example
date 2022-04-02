@@ -26,7 +26,6 @@ async function main() {
 
 main();
 
-
 /*
 % node get_tx_data.js
 Transaction Data =>

@@ -31,6 +31,9 @@ async function main() {
   }
 
   console.log('URL =>', 'http://127.0.0.1:1984/' + transaction.id);
+  console.log('-------------------------------------------------------------------');
+  console.log('Get transaction    =>', 'http://127.0.0.1:1984/tx/' + transaction.id);
+  console.log('Get data directly  =>', 'http://127.0.0.1:1984/' + transaction.id);
 }
 
 main();
@@ -46,28 +49,31 @@ http://127.0.0.1:1984/mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000
 % node create_tx_sign_and_submit_file.js
 Transaction => Transaction {
   format: 2,
-  id: 'NSLV8IPs49DcFWyJ_UAGjTWXOYLd8c4oIxQmYia041E',
+  id: 'eOeWvVlIigCmtGeqxVNjCmJwdQUcyDkvwkp9nT7AMg8',
   last_tx: '',
   owner: '1UlWuBtbDi17XX1EquMp322muLYTb8PtK3oSm3eYPo0e-zQkuv0SZ1hD3dsLOxlOmb8snhm8vN2wpN2GeGAPNyXBuip-KBfufGeO5hZVyvAU6KQj4fn5_nMp-BjSEMNzCfTEOgaqZxFDzWDXwwSCySEkcrN8Ufmc5Lkf4ekVtjpaTHjvQly46M8U4RPI8qu8yJrr1rCdYzWjEa_awv1JVwHGZIWrzGV-wP1lv1_OTkc4HiA2tvNMWydDRqO-zYbej4qUKE-u2ch5JfPmif9ccXXgGD2dsH6GrONNKoD-T2l1cCD41u6gG1H7KXCvshFbDdbJ57WLFshAnwD3GRa_Z-76jss_pFCcR_0ICn3e3xBlvNfRcclMyZ017TTOcb2u5R-yU4JXjqhD0tDdchj_vJZkMeJ8F9fMGNlkKV6LWiwHQPB19iTL2FAJWtpCZgs-8hNKcdmmZtpFxul5DufNL20Z4lgXtuOBXIwyiKCo_-8aZLtXiB0-dtsW--exR_b2I4dpb5eOiQ3OHjjkRAYStFcMTgNBMi_FvxqVexSwIcDJuPvIMtFcRlxPeN5jJs-HG_LLehCGhZY0GF9NR4BLykYTf21pM_iyPOqOpIA_ynzLs_E3o8_xEdF_2HNsdyr0H01-ehca4U9zi04XilsUK3ruhFIAprc9coYZ7wqJ91s',
-  tags: [ Tag { name: 'Q29udGVudC1UeXBl', value: 'YXBwbGljYXRpb24vcGRm' } ],
+  tags: [ Tag { name: 'Q29udGVudC1UeXBl', value: 'YXBwbGljYXRpb24vanNvbg' } ],
   target: '',
   quantity: '0',
-  data_size: '6300',
-  data: <Buffer 25 50 44 46 2d 31 2e 33 0a 25 c4 e5 f2 e5 eb a7 f3 a0 d0 c4 c6 0a 33 20 30 20 6f 62 6a 0a 3c 3c 20 2f 46 69 6c 74 65 72 20 2f 46 6c 61 74 65 44 65 63 ... 6250 more bytes>,
-  data_root: 'iwIZmYf6jJB1yyjwg_YdNdisCQjW2yUtF_JraI69nYQ',
-  reward: '12380331600',
-  signature: 'mkmbh2iiKX26QE1TKQKgq9zaXH-bOM635qnH6gB7lWqAqLGT_KZnqtdMyMdgwO6b_Ivn8lHzFAlPGrhVrKYnQq3WhY1PCfnZsgYBZmQZiRYRePR-ebM3Zr1AihBnNpefK5UQUXZDoHB5QpCE7ibspUHWrZVS2KEGS1UMvpNrLFssmGCL2QTRfHOIlS8uWHUttn33LP-ZaLsO_lIVLhQiDjkb7efN2YvUvI-bDu1L2eKhIUOpaUwojgo5wrwWdMAQuf2wdErd01ruKZQ7faxKFIBPBisGDj2OhExrIfRxF8L0qjSQkFo4J_DVlnpteutYxz6hqOone9BHDOdhyefZOUvHdrEZbJl9nKuGeyCQ8dmorPxBPu9CeU60jmhVvPlLZ0JuOdLuzUNj2tdRCFRIfQDj0z3CgpYNJnfnNIZw7gLQUatWJsMD-LsZqYdkO5Dek-ZubGmNWgZXCvVj4YPal030mBajRvlVPFBtvWFpR42NvxGIOgNrx5_SBVApfCIXr9aqsel6VQul4lTNtVAmiohyS4nwroKR-XwkhR3Pu2SeKAKfsw1KtghZuv2Do7QodgOKnTK5_qA9qFufXRLKUfbHfHMYklBJbGVhgYSGRTiXx1vBvDZ8b4-CSropinq1t6rv5HkRg_fBcEzrDINHSqukmwxnjfuuHoPckiwHuIs',
+  data_size: '1198',
+  data: <Buffer 7b 0a 20 20 22 6e 61 6d 65 22 3a 20 22 53 6f 6c 61 6e 61 41 72 74 50 72 6f 6a 65 63 74 20 23 31 22 2c 0a 20 20 22 64 65 73 63 72 69 70 74 69 6f 6e 22 ... 1148 more bytes>,
+  data_root: 'YVFQDs6Pd6fHFFy8IkkRf6_pHwUzCf-k6wUde-ejGZ8',
+  reward: '2354228136',
+  signature: 'bEp5zgTImGyg_lK_d9E7JBjc3IQQs9Ix7IlqEJJYPKeGhyBlgUMhoNP3OzID0Xb0DpqlBxHSavAIlq7wh444SX6KEtUXnSP0A79a1wSQTa5c9B9jzdkuPVeRlbaT9Djh6ILgaPwH_39-YpmHP6utqn6ZlFgXCGOB6BMkP5IAO1pbGrgtumGhtOaQ2ZyszuoTcZmO2WE2aY-turGtHo0hdPGIREjJy5ySuSo3dwc_p25yI4eJvVHrf7Lr1K1IHpciJ8paulPjl3L_vMoknw28xrF19erEuq0lZ1_XlnQ4DGY8YmKaPr_4qK4oQlNpgBPhAKum857e9H49xaOgeHo8uVJJRsLjHydgiy71y_wp4r6S894Af3ntzqPgOrud0XvGnh0RnWQoBfcBByo-sFtCphiLlvk95SbEGKHLvFM6Wy5fIPoKrEsEH5QZgoHySM7gof40IVA8J0rSPlCj96R6Fti6zPqLZ37TRxgChrBvNgDJW64258O0m87mOFYY28DYDabhs1KH622UfyCcLrVxZiR3Gn8rfBAp86-4dzcKkXOJmYA5nHDEEB52ZwerWa2FSPzU-Nz6H9Z4-3QJ5umbaeBiaUPGntGuUmwaO_yVJ2weDCnqy4Uujm7JOvM7nKQAhPpVDPSyXDnBgEbG0OgcpnZMKl7R0Q8xgjuDMZ7e_G8',
   chunks: {
     data_root: Uint8Array(32) [
-      139,   2,  25, 153, 135, 250, 140, 144,
-      117, 203,  40, 240, 131, 246,  29,  53,
-      216, 172,   9,   8, 214, 219,  37,  45,
-       23, 242, 107, 104, 142, 189, 157, 132
+       97,  81, 80,  14, 206, 143, 119, 167,
+      199,  20, 92, 188,  34,  73,  17, 127,
+      175, 233, 31,   5,  51,   9, 255, 164,
+      235,   5, 29, 123, 231, 163,  25, 159
     ],
     chunks: [ [Object] ],
     proofs: [ [Object] ]
   }
 }
 100% complete, 1/1
-URL => http://127.0.0.1:1984/NSLV8IPs49DcFWyJ_UAGjTWXOYLd8c4oIxQmYia041E
+URL => http://127.0.0.1:1984/eOeWvVlIigCmtGeqxVNjCmJwdQUcyDkvwkp9nT7AMg8
+-------------------------------------------------------------------
+Get transaction    => http://127.0.0.1:1984/tx/eOeWvVlIigCmtGeqxVNjCmJwdQUcyDkvwkp9nT7AMg8
+Get data directly  => http://127.0.0.1:1984/eOeWvVlIigCmtGeqxVNjCmJwdQUcyDkvwkp9nT7AMg8
 */

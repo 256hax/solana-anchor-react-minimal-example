@@ -13,7 +13,6 @@ async function main() {
 
 main();
 
-
 /*
 % node generate_wallet_and_key.js
 {
