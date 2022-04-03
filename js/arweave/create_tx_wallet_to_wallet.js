@@ -40,7 +40,7 @@ arlocal started on port 1984
 Airdrop
 http://127.0.0.1:1984/mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000000000
 
-% node create_tx_wallet_to_wallet.js
+% node <THIS FILE>
 Transaction => Transaction {
   format: 2,
   id: 'W7xq5WcnMmwWmWS-RZvHkS0DJ633ovPcNYVuZ9NE75o',

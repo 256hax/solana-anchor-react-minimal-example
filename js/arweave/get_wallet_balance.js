@@ -35,7 +35,7 @@ Source: https://docs.arweave.org/developers/server/http-api#ar-and-winston
 % npx arlocal
 arlocal started on port 1984
 
-% node get_wallet_balance.js
+% node <THIS FILE>
 Walle Address: 96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI
 0 Winston
 0.000000000000 AR

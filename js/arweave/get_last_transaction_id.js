@@ -20,6 +20,6 @@ main();
 % npx arlocal
 arlocal started on port 1984
 
-% node get_last_transaction_id.js
+% node <THIS FILE>
 (empty)
 */

@@ -44,7 +44,7 @@ main();
 
 
 /*
-% node arlocal_builtin_example.js
+% node <THIS FILE>
 arlocal started on port 1985
 [2022/2/9 23:13:59]   <-- GET /mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000000000
 [2022/2/9 23:13:59]   --> GET /mint/96JyNRHl2a8-cF_w-p5KPN9O5cTxp4J1oESbR2_V8zI/100000000000000 200 23ms 15b

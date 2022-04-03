@@ -29,7 +29,7 @@ main();
 % npx arlocal
 arlocal started on port 1984
 
-% node create_tx_and_sign.js
+% node <THIS FILE>
 Transaction {
  format: 2,
  id: 'e6Gc2teEnknB5GeYKxCEMAhTowgAwx-xSnT07wXwsiU',

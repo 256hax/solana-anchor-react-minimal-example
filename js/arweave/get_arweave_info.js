@@ -14,6 +14,6 @@ request(options, function (error, response, body) {
 });
 
 /*
-% node get_arweave_info.js
+% node <THIS FILE>
 Arweave network height is: 869003
 */

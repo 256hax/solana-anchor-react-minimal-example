@@ -27,7 +27,7 @@ async function main() {
 main();
 
 /*
-% node get_tx_data.js
+% node <THIS FILE>
 Transaction Data =>
 <!DOCTYPE html>
 <html lang="en">

@@ -18,6 +18,9 @@ async function main() {
 main();
 
 /*
-% node generate_key_file.js
+% npx arlocal
+arlocal started on port 1984
+
+% node <THIS FILE>
 Generated Key File => /Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/js/arweave/key.json
 */

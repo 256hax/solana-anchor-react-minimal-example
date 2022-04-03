@@ -26,7 +26,7 @@ main();
 % npx arlocal
 arlocal started on port 1984
 
-% node create_tx_with_tags.js
+% node <THIS FILE>
 Transaction {
   format: 2,
   id: '',
