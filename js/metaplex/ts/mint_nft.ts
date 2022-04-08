@@ -1,4 +1,4 @@
-// Ref:
+// Ref: https://solanacookbook.com/references/nfts.html#mint-the-nft
 import { actions, utils, programs, NodeWallet} from '@metaplex/js';
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import * as fs from 'fs';
@@ -16,7 +16,11 @@ const run = async () => {
 
   // const uri = 'http://127.0.0.1:1984/';
   const uri = 'https://testnet.redstone.tools/';
-  const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY'; // Replace your Transction ID in Arweave
+  // Note:
+  //  Uploaded Arweave data need to comply Token Metadata Starndard.
+  //  Details: https://docs.metaplex.com/token-metadata/specification
+  //  Data Example: arweave.net/3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E
+  const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY'; // Replace your Arweave Transction ID
 
   const mintNFTResponse = await actions.mintNFT({
     connection,
