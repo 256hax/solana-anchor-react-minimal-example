@@ -11,28 +11,28 @@ export function UploadMetadata() {
   const [transactionId, setTransactionId] = useState('not yet sent');
   const [blockId, setBlockId] = useState('not yet mined');
 
-  // Metadata - common
-  const [valueName, setName] = useState('SMB #1355');
-  const [valueSymbol, setSymbol] = useState('SMB');
-  const [valueDescription, setDescription] = useState('SMB is a collection of 5000 randomly generated 24x24 pixels NFTs on the Solana Blockchain. Each SolanaMonkey is unique and comes with different type and attributes varying in rarity.');
-  const [valueSellerFeeBasisPoints, setSellerFeeBasisPoints] = useState('500');
-  const [valueImage, setImage] = useState('https://arweave.net/wGChHSDTXTP9oAtTaYh9s8j1MRE0IPmYtH5greqWwZ4');
-  const [valueExternalUrl, setExternalUrl] = useState('https://solanamonkey.business/');
-  const [valueCollectionName, setCollectionName] = useState('SMB Gen2"');
-  const [valueCollectionFamily, setCollectionFamily] = useState('SMB');
-  // Metadata - attributes
-  const [valueAttributes0TraitType, setAttributes0TraitType] = useState('Attributes Count');
-  const [valueAttributes0Value, setAttributes0Value] = useState('2');
-  // Metadata - properties
-  const [valuePropertiesFiles0Uri, setPropertiesFiles0Uri] = useState('https://arweave.net/wGChHSDTXTP9oAtTaYh9s8j1MRE0IPmYtH5greqWwZ4');
-  const [valuePropertiesFiles0Type, setPropertiesFiles0Type] = useState('image/png');
-  const [valuePropertiesFiles1Uri, setPropertiesFiles1Uri] = useState('https://cdn.solanamonkey.business/gen2/1355.png');
-  const [valuePropertiesFiles1type, setPropertiesFiles1type] = useState('image/png');
-  const [valuePropertiesFiles1cdn, setPropertiesFiles1cdn] = useState('true');
-  const [valuePropertiesFilesCategory, setPropertiesFilesCategory] = useState('image');
-  const [valuePropertiesCreatorsAddress, setPropertiesCreatorsAddress] = useState('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
-  const [valuePropertiesCreatorsVerified, setPropertiesCreatorsVerified] = useState('true');
-  const [valuePropertiesCreatorsShare, setPropertiesCreatorsShare] = useState('100');
+  // Metadata - summary
+  const [valueName, setName] = useState('');
+  const [valueSymbol, setSymbol] = useState('');
+  const [valueDescription, setDescription] = useState('');
+  const [valueSellerFeeBasisPoints, setSellerFeeBasisPoints] = useState('');
+  const [valueImage, setImage] = useState('');
+  const [valueExternalUrl, setExternalUrl] = useState('');
+  // Metadata - collection
+  const [valueCollectionName, setCollectionName] = useState('');
+  const [valueCollectionFamily, setCollectionFamily] = useState('');
+  // Metadata - atrributes
+  const [valueAttributes0TraitType, setAttributes0TraitType] = useState('');
+  const [valueAttributes0Value, setAttributes0Value] = useState('');
+  const [valuePropertiesFiles0Uri, setPropertiesFiles0Uri] = useState('');
+  const [valuePropertiesFiles0Type, setPropertiesFiles0Type] = useState('');
+  const [valuePropertiesFiles1Uri, setPropertiesFiles1Uri] = useState('');
+  const [valuePropertiesFiles1type, setPropertiesFiles1type] = useState('');
+  const [valuePropertiesFiles1cdn, setPropertiesFiles1cdn] = useState('');
+  const [valuePropertiesFilesCategory, setPropertiesFilesCategory] = useState('');
+  const [valuePropertiesCreatorsAddress, setPropertiesCreatorsAddress] = useState('');
+  const [valuePropertiesCreatorsVerified, setPropertiesCreatorsVerified] = useState<boolean>(true);
+  const [valuePropertiesCreatorsShare, setPropertiesCreatorsShare] = useState('');
 
   const arweave = Arweave.init({
     host: '127.0.0.1',
@@ -100,7 +100,6 @@ export function UploadMetadata() {
     };
 
     const data = JSON.stringify(inputMetadata);
-    console.log(data);
 
     const transaction = await arweave.createTransaction({ data: data });
     await arweave.transactions.sign(transaction);
@@ -146,12 +145,12 @@ export function UploadMetadata() {
         <fieldset>
           <p>
             <label>Name:
-              <input type="text" defaultValue={valueName} onChange={event => setName(event.target.value)} />
+              <input type="text" defaultValue="SMB #1355" onChange={event => setName(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Symbol:
-              <input type="text" defaultValue={valueSymbol} onChange={event => setSymbol(event.target.value)} />
+              <input type="text" defaultValue="SMB" onChange={event => setSymbol(event.target.value)} />
             </label>
           </p>
           <p>
@@ -161,94 +160,94 @@ export function UploadMetadata() {
           </p>
           <p>
             <label>Seller Fee Basis Points:
-              <input type="text" defaultValue={valueSellerFeeBasisPoints} onChange={event => setSellerFeeBasisPoints(event.target.value)} />
+              <input type="text" defaultValue="500" onChange={event => setSellerFeeBasisPoints(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Image:
-              <input type="text" defaultValue={valueImage} onChange={event => setImage(event.target.value)} />
+              <input type="text" defaultValue="https://arweave.net/wGChHSDTXTP9oAtTaYh9s8j1MRE0IPmYtH5greqWwZ4" onChange={event => setImage(event.target.value)} />
             </label>
           </p>
           <p>
             <label>External URL:
-              <input type="text" defaultValue={valueExternalUrl} onChange={event => setExternalUrl(event.target.value)} />
+              <input type="text" defaultValue="https://solanamonkey.business/" onChange={event => setExternalUrl(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Collection Name:
-              <input type="text" defaultValue={valueCollectionName} onChange={event => setCollectionName(event.target.value)} />
+              <input type="text" defaultValue="SMB Gen2" onChange={event => setCollectionName(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Collection Family:
-              <input type="text" defaultValue={valueCollectionFamily} onChange={event => setCollectionFamily(event.target.value)} />
+              <input type="text" defaultValue="SMB" onChange={event => setCollectionFamily(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Attributes Trait Type:
-              <input type="text" defaultValue={valueAttributes0TraitType} onChange={event => setAttributes0TraitType(event.target.value)} />
+              <input type="text" defaultValue="Attributes Count" onChange={event => setAttributes0TraitType(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Attributes Trait Value:
-              <input type="text" defaultValue={valueAttributes0Value} onChange={event => setAttributes0Value(event.target.value)} />
+              <input type="text" defaultValue="2" onChange={event => setAttributes0Value(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Properties Files URI:
-              <input type="text" defaultValue={valuePropertiesFiles0Uri} onChange={event => setPropertiesFiles0Uri(event.target.value)} />
+              <input type="text" defaultValue="https://arweave.net/wGChHSDTXTP9oAtTaYh9s8j1MRE0IPmYtH5greqWwZ4" onChange={event => setPropertiesFiles0Uri(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Properties Files Type:
-              <input type="text" defaultValue={valuePropertiesFiles0Type} onChange={event => setPropertiesFiles0Type(event.target.value)} />
+              <input type="text" defaultValue="image/png" onChange={event => setPropertiesFiles0Type(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Properties Files URI:
-              <input type="text" defaultValue={valuePropertiesFiles1Uri} onChange={event => setPropertiesFiles1Uri(event.target.value)} />
+              <input type="text" defaultValue="https://cdn.solanamonkey.business/gen2/1355.png" onChange={event => setPropertiesFiles1Uri(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Properties Files Type:
-              <input type="text" defaultValue={valuePropertiesFiles1type} onChange={event => setPropertiesFiles1type(event.target.value)} />
+              <input type="text" defaultValue="image/png" onChange={event => setPropertiesFiles1type(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Properties Files CDN:
-              <input type="text" defaultValue={valuePropertiesFiles1cdn} onChange={event => setPropertiesFiles1cdn(event.target.value)} />
+              <input type="text" defaultValue="true" onChange={event => setPropertiesFiles1cdn(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Properties Files Category:
-              <input type="text" defaultValue={valuePropertiesFilesCategory} onChange={event => setPropertiesFilesCategory(event.target.value)} />
+              <input type="text" defaultValue="image" onChange={event => setPropertiesFilesCategory(event.target.value)} />
             </label>
           </p>
         </fieldset>
         <fieldset>
           <p>
             <label>Properties Creators Address:
-              <input type="text" defaultValue={valuePropertiesCreatorsAddress} onChange={event => setPropertiesCreatorsAddress(event.target.value)} />
+              <input type="text" defaultValue="HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg" onChange={event => setPropertiesCreatorsAddress(event.target.value)} />
             </label>
           </p>
           <p>
             <label>Properties Creators Verified:
-              <input type="checkbox" defaultValue={valuePropertiesCreatorsVerified} onChange={event => setPropertiesCreatorsVerified(event.target.value)} />
+              <input type="checkbox" checked={valuePropertiesCreatorsVerified} onChange={event => setPropertiesCreatorsVerified(!valuePropertiesCreatorsVerified)} />
             </label>
           </p>
           <p>
             <label>Properties Creators Share:
-              <input type="text" defaultValue={valuePropertiesCreatorsShare} onChange={event => setPropertiesCreatorsShare(event.target.value)} />
+              <input type="text" defaultValue="100" onChange={event => setPropertiesCreatorsShare(event.target.value)} />
             </label>
           </p>
         </fieldset>
