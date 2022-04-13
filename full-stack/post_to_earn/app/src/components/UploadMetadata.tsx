@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Arweave from 'arweave';
+import { arTransactionIdContext } from '../providers/ArTransactionId';
 
 // For "Property 'arweaveWallet' does not exist on type 'Window'." error.
 interface Window {
@@ -8,7 +9,8 @@ interface Window {
 declare var window: Window
 
 export function UploadMetadata() {
-  const [transactionId, setTransactionId] = useState('not yet sent');
+  const { valArTransactionId, setNewArTransactionId } = useContext(arTransactionIdContext);
+
   const [blockId, setBlockId] = useState('not yet mined');
 
   // Metadata - summary
@@ -103,7 +105,7 @@ export function UploadMetadata() {
 
     const transaction = await arweave.createTransaction({ data: data });
     await arweave.transactions.sign(transaction);
-    setTransactionId(transaction.id);
+    setNewArTransactionId(transaction.id);
     console.log('Transaction =>', transaction);
 
     const uploader = await arweave.transactions.getUploader(transaction);
@@ -117,20 +119,20 @@ export function UploadMetadata() {
     const response = await arweave.api.get('mine/');
     console.log(response);
 
-    const transaction = await arweave.transactions.get(transactionId);
+    const transaction = await arweave.transactions.get(valArTransactionId);
     setBlockId(transaction.block);
   }
 
   async function getTransaction() {
-    const transaction = await arweave.transactions.get(transactionId);
+    const transaction = await arweave.transactions.get(valArTransactionId);
     console.log(transaction);
   }
 
   async function getTransactionData() {
-    const tx_api_get_base64 = await arweave.api.get('/tx/' + transactionId + '/data');
+    const tx_api_get_base64 = await arweave.api.get('/tx/' + valArTransactionId + '/data');
     console.log('Base64 Data =>', tx_api_get_base64.data);
 
-    const tx_api_get_decoded = await arweave.api.get('/' + transactionId);
+    const tx_api_get_decoded = await arweave.api.get('/' + valArTransactionId);
     console.log('Decoded Data =>', tx_api_get_decoded.data);
   }
 
@@ -260,9 +262,9 @@ export function UploadMetadata() {
         <button onClick={getTransactionData}>Get Transaction Data</button>
         <div>
           Sent Transaction:
-          <div>Transaction ID: {transactionId}
-            <a href={'http://127.0.0.1:1984/tx/' + transactionId} target="_blank">[tx]</a>
-            <a href={'http://127.0.0.1:1984/' + transactionId} target="_blank">[data]</a>
+          <div>Transaction ID: {valArTransactionId}
+            <a href={'http://127.0.0.1:1984/tx/' + valArTransactionId} target="_blank">[tx]</a>
+            <a href={'http://127.0.0.1:1984/' + valArTransactionId} target="_blank">[data]</a>
           </div>
           <div>Block ID: {blockId}</div>
         </div>
