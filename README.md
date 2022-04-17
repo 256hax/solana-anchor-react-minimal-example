@@ -30,6 +30,7 @@ I recommend to use localnet with Transaction Explorer.
 # Reference
 ## Solana
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
+- [Docs - Phantom](https://docs.phantom.app/)
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [npm - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
@@ -37,6 +38,7 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - Latest - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js)
 - [GitHub - v0.1.8 - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/program/src/instruction.rs)
 - [GitHub - v0.1.8 - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/js/client/token.js)
+- [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
 
 ## Anchor
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
