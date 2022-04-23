@@ -26,7 +26,7 @@ export const SendOneLamportToRandomAddress: FC = () => {
 
     return (
         <button onClick={onClick} disabled={!publicKey}>
-            Send 1 lamport to a random address!
+            Send 0.1 SOL to a random address!
         </button>
     );
 };
