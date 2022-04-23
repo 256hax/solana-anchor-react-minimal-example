@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
-import { actions, utils, programs, NodeWallet} from '@metaplex/js';
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { Program, BN, IdlAccounts, AnchorProvider, getProvider } from "@project-serum/anchor";
+import React, { useContext } from 'react';
+import { actions } from '@metaplex/js';
+import { clusterApiUrl, Connection, } from '@solana/web3.js';
+import { AnchorProvider } from "@project-serum/anchor";
 import { arTransactionIdContext } from '../providers/ArTransactionId';
 
 // For "Property 'solana' does not exist on type 'Window & typeof globalThis'" error.
@@ -27,6 +27,7 @@ export const MintNft = () => {
 
   async function sendTransaction() {
     const provider = await getProvider();
+    // const txId = valArTransactionId;
 
     // Note:
     //  Uploading Arweave json data need to comply Token Metadata Starndard(Metaplex).
@@ -39,18 +40,15 @@ export const MintNft = () => {
     // --- Testnet ---
     // Note: Tesnet powered by https://redstone.finance/
     const uri = 'https://testnet.redstone.tools/';
-    // const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY';
-    const txId = valArTransactionId;
+    const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY'; // Stub
 
     // --- Mainnet ---
     // const uri = 'https://arweave.net/';
-    // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E';
-
-    console.log(provider.wallet);
+    // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E'; // Can't use this(creators addr doesn't match).
 
     const mintNFTResponse = await actions.mintNFT({
       connection,
-      wallet: provider.wallet,
+      wallet: provider.wallet, // It need to match your wallet and creators address(uploaded Arweave).
       uri: uri + txId,
       maxSupply: 1
     });
