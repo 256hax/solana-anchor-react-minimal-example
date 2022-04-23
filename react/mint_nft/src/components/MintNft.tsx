@@ -45,7 +45,7 @@ export function MintNft() {
 
     const mintNFTResponse = await actions.mintNFT({
       connection,
-      wallet: provider.wallet.publicKey,
+      wallet: provider.wallet,
       uri: uri + txId,
       maxSupply: 1
     });
