@@ -46,17 +46,17 @@ export const MintNft = () => {
     // const uri = 'https://arweave.net/';
     // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E'; // Can't use this(creators addr doesn't match).
 
-    const mintNFTResponse = await actions.mintNFT({
+    const mintNftResponse = await actions.mintNFT({
       connection,
-      wallet: provider.wallet, // It need to match your wallet and creators address(uploaded Arweave).
+      wallet: provider.wallet, // It need to match your wallet and creators address in Metadata.
       uri: uri + txId,
       maxSupply: 1
     });
 
-    console.log('mintNFTResponse =>', mintNFTResponse);
-    console.log('mint =>', mintNFTResponse.mint.toString());
-    console.log('metadata =>', mintNFTResponse.metadata.toString());
-    console.log('edition =>', mintNFTResponse.edition.toString());
+    console.log('mintNftResponse =>', mintNftResponse);
+    console.log('mint =>', mintNftResponse.mint.toString());
+    console.log('metadata =>', mintNftResponse.metadata.toString());
+    console.log('edition =>', mintNftResponse.edition.toString());
   }
 
   return(
