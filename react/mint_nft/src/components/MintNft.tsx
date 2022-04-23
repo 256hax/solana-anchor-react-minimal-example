@@ -13,7 +13,9 @@ declare var window: Window
 // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // Localnet
 const connection = new Connection(clusterApiUrl('devnet'), 'confirmed'); // Devnet
 
-export function MintNft() {
+export const MintNft = () => {
+  const { valArTransactionId, setNewArTransactionId } = useContext(arTransactionIdContext);
+
   async function getProvider() {
     const wallet = window.solana;
 
@@ -27,20 +29,23 @@ export function MintNft() {
     const provider = await getProvider();
 
     // Note:
-    //  Uploaded Arweave data need to comply Token Metadata Starndard.
+    //  Uploading Arweave json data need to comply Token Metadata Starndard(Metaplex).
     //  Details: https://docs.metaplex.com/token-metadata/specification
-    //  Data Example: arweave.net/3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E
+    //  Example: https://arweave.net/3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E
 
     // --- Localnet ---
     // const uri = 'http://127.0.0.1:1984/'; // Localnet
 
     // --- Testnet ---
-    // const uri = 'https://testnet.redstone.tools/';
+    // Note: Tesnet powered by https://redstone.finance/
+    const uri = 'https://testnet.redstone.tools/';
     // const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY';
+    const txId = valArTransactionId;
 
     // --- Mainnet ---
-    const uri = 'https://arweave.net/';
-    const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E';
+    // const uri = 'https://arweave.net/';
+    // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E';
+
     console.log(provider.wallet);
 
     const mintNFTResponse = await actions.mintNFT({

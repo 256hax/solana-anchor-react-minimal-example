@@ -4,7 +4,7 @@ interface Window {
 }
 declare var window: Window
 
-export function Arconnect() {
+export const Arconnect = () => {
   async function connectWallet() {
     if (window.arweaveWallet) {
       // Permissions: https://github.com/th8ta/ArConnect#permissions
