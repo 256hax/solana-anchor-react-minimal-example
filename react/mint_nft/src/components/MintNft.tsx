@@ -10,10 +10,10 @@ interface Window {
 }
 declare var window: Window
 
-// const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // Localnet
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed'); // Devnet
-
 export const MintNft = () => {
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // Localnet
+  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed'); // Devnet
+
   const { valArTransactionId, setNewArTransactionId } = useContext(arTransactionIdContext);
 
   async function getProvider() {
@@ -27,12 +27,13 @@ export const MintNft = () => {
 
   async function sendTransaction() {
     const provider = await getProvider();
-    // const txId = valArTransactionId;
 
     // Note:
     //  Uploading Arweave json data need to comply Token Metadata Starndard(Metaplex).
     //  Details: https://docs.metaplex.com/token-metadata/specification
     //  Example: https://arweave.net/3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E
+
+    // const txId = valArTransactionId; // Use this
 
     // --- Localnet ---
     // const uri = 'http://127.0.0.1:1984/'; // Localnet
@@ -44,11 +45,11 @@ export const MintNft = () => {
 
     // --- Mainnet ---
     // const uri = 'https://arweave.net/';
-    // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E'; // Can't use this(creators addr doesn't match).
+    // const txId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E'; // Can't use this(because creators addr doesn't match for you).
 
     const mintNftResponse = await actions.mintNFT({
       connection,
-      wallet: provider.wallet, // It need to match your wallet and creators address in Metadata.
+      wallet: provider.wallet, // It need to match your wallet and creators address of Metadata.
       uri: uri + txId,
       maxSupply: 1
     });
