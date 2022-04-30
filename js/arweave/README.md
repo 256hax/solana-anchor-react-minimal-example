@@ -19,7 +19,7 @@ Second terminal:
 
 ## Note
 ### Airdrop
-You should get airdrop AR when you submit.
+You should get airdrop AR before submit transaction.
 
 Start ArLocal:
 ```
