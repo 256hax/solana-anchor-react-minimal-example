@@ -17,7 +17,7 @@ function App() {
   async function connectWallet() {
     if (window.arweaveWallet) {
       // Permissions: https://github.com/th8ta/ArConnect#permissions
-      const response = await window.arweaveWallet.connect([
+      await window.arweaveWallet.connect([
           'ACCESS_ADDRESS',
           'SIGN_TRANSACTION'
       ]);
@@ -128,7 +128,7 @@ function App() {
           <button onClick={getTransaction}>Get Transaction</button>
           <button onClick={getTransactionData}>Get Transaction Data</button>
           <div>
-            Sent Transaction =>
+            Sent Transaction:&npsp;
             <div>Transaction ID: {transactionId}
               <a href={'http://127.0.0.1:1984/tx/' + transactionId} target="_blank">[tx]</a>
               <a href={'http://127.0.0.1:1984/' + transactionId} target="_blank">[data]</a>
