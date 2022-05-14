@@ -1,1 +1,1 @@
-Move to [solana-react-mint-nft-example](https://github.com/256hax/solana-react-mint-nft-example)
+Move to [ solana-arweave-react-mint-nft-example](https://github.com/256hax/solana-arweave-react-mint-nft-example)
