@@ -1,37 +1,47 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#stakeprogram
-const web3 = require("@solana/web3.js");
+import {
+  Keypair,
+  PublicKey,
+  Connection,
+  clusterApiUrl,
+  StakeProgram,
+  Authorized,
+  Lockup,
+  sendAndConfirmTransaction,
+  LAMPORTS_PER_SOL,
+} from '@solana/web3.js';
 
 async function main() {
   // Fund a key to create transactions
-  let fromPublicKey = web3.Keypair.generate();
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
+  let fromPublicKey = Keypair.generate();
+  let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  // let connection = new Connection('http://localhost:8899', 'confirmed');
 
 
   let airdropSignature = await connection.requestAirdrop(
       fromPublicKey.publicKey,
-      web3.LAMPORTS_PER_SOL,
+      LAMPORTS_PER_SOL,
   );
   await connection.confirmTransaction(airdropSignature);
 
 
   // Create Account
-  let stakeAccount = web3.Keypair.generate();
+  let stakeAccount = Keypair.generate();
 
-  let authorizedAccount = web3.Keypair.generate();
+  let authorizedAccount = Keypair.generate();
   /* Note: This is the minimum amount for a stake account -- Add additional Lamports for staking
       For example, we add 50 lamports as part of the stake */
-  let lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(web3.StakeProgram.space)) + 50;
-  const getMinimumBalanceForRentExemption_web3_StakeProgram_space = await connection.getMinimumBalanceForRentExemption(web3.StakeProgram.space);
+  let lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(StakeProgram.space)) + 50;
+  const getMinimumBalanceForRentExemption_web3_StakeProgram_space = await connection.getMinimumBalanceForRentExemption(StakeProgram.space);
 
-  let createAccountTransaction = web3.StakeProgram.createAccount({
+  let createAccountTransaction = StakeProgram.createAccount({
       fromPubkey: fromPublicKey.publicKey,
-      authorized: new web3.Authorized(authorizedAccount.publicKey, authorizedAccount.publicKey),
+      authorized: new Authorized(authorizedAccount.publicKey, authorizedAccount.publicKey),
       lamports: lamportsForStakeAccount,
-      lockup: new web3.Lockup(0, 0, fromPublicKey.publicKey),
+      lockup: new Lockup(0, 0, fromPublicKey.publicKey),
       stakePubkey: stakeAccount.publicKey
   });
-  const create_new_stake_account_tx = await web3.sendAndConfirmTransaction(connection, createAccountTransaction, [fromPublicKey, stakeAccount]);
+  const create_new_stake_account_tx = await sendAndConfirmTransaction(connection, createAccountTransaction, [fromPublicKey, stakeAccount]);
 
 
   // Check that stake is available
@@ -47,32 +57,32 @@ async function main() {
   let voteAccount = voteAccounts.current.concat(
       voteAccounts.delinquent,
   )[0];
-  let votePubkey = new web3.PublicKey(voteAccount.votePubkey);
+  let votePubkey = new PublicKey(voteAccount.votePubkey);
 
   // We can then delegate our stake to the voteAccount
-  let delegateTransaction = web3.StakeProgram.delegate({
+  let delegateTransaction = StakeProgram.delegate({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
       votePubkey: votePubkey,
   });
-  const delegateTransaction_tx = await web3.sendAndConfirmTransaction(connection, delegateTransaction, [fromPublicKey, authorizedAccount]);
+  const delegateTransaction_tx = await sendAndConfirmTransaction(connection, delegateTransaction, [fromPublicKey, authorizedAccount]);
 
   // To withdraw our funds, we first have to deactivate the stake
-  let deactivateTransaction = web3.StakeProgram.deactivate({
+  let deactivateTransaction = StakeProgram.deactivate({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
   });
-  const deactivateTransaction_tx = await web3.sendAndConfirmTransaction(connection, deactivateTransaction, [fromPublicKey, authorizedAccount]);
+  const deactivateTransaction_tx = await sendAndConfirmTransaction(connection, deactivateTransaction, [fromPublicKey, authorizedAccount]);
 
   // Once deactivated, we can withdraw our funds
-  let withdrawTransaction = web3.StakeProgram.withdraw({
+  let withdrawTransaction = StakeProgram.withdraw({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
       toPubkey: fromPublicKey.publicKey,
       lamports: stakeBalance,
   });
 
-  const withdrawTransaction_tx = await web3.sendAndConfirmTransaction(connection, withdrawTransaction, [fromPublicKey, authorizedAccount]);
+  const withdrawTransaction_tx = await sendAndConfirmTransaction(connection, withdrawTransaction, [fromPublicKey, authorizedAccount]);
 
 
   console.log('stakeAccount             =>', stakeAccount.publicKey.toString());
@@ -91,16 +101,16 @@ async function main() {
 main();
 
 /*
-% node <THIS JS FILE>
-stakeAccount             => 3Xjk6pDDzDUdYj4THKaFsUZibvsBbMsHT2SEf9h8h6Ct
-authorizedAccount        => 7zJrrAxV2WGFuqXCVnfeN3o6cCYAmP5mBRApr3k5Btfm
-create_account_tx        => 4nHU9u9ohdKBi1aek9Qrnp15FAwc3gVDP3eKTRPzbGxCMV24BF8ZAL2yq7uUUoJ4ewhMmG19K9thxbWVUYDcNX3k
+% % ts-node <THIS FILE>
+stakeAccount             => GjpM5DZ24UCzQTHwcaNQikD4x92QZN732TbzEVFL7s9x
+authorizedAccount        => Chcgef3qVUFtAgG7q7H8Xa5L4mJeLUMWUUYyqaYYpAD2
+create_account_tx        => 32LGEoo9yZ2Vg4woLbNonmHybyTvZ9x2ZL3cmXSzQvwByTRD3iA9FfHCGJFLUzyjoix14ZUQ9rRfh2jAWGymeFB6
 StakeProgram_space       => 2282880
 Add lamports for stake   => 50
 Stake balance            => 2282930
 Stake State              => inactive
-votePubkey               => 7fA78DUbi72jmBB3hkkRnYZa76aNfM71BV4jgFa1dFjQ
-delegateTransaction_tx   => 2bJnheZeb5BasVueRJicDrVRHYeTHDq9bqgmdVcS2JBsSewWyFm8xGdn3JJnVtgkHhTpYWPsRXRYCtja49ciSht8
-deactivateTransaction_tx => YLVTP4sLbCfYYFDomj52hkWZuZoJqtYCpoLA1uohEpQZ1miCAknwW9pG6Ggqoe6qvEBg5jCxVWTTKavspacGxsL
-withdrawTransaction_tx   => 4XKgdzsnQ9SrA95jUN86ddDa5rmqE7dgKPMPHGoKesU6LejbwLWoBtQYRjcfmDZDKpWijV14QyWGAaNbrTY2cGEF
+votePubkey               => F95vVhuyAjAtmXbg2EnNVWKkD5yQsDS5S83Uw1TUDcZm
+delegateTransaction_tx   => 2kvoc3j6QAMdFwWzzLUyA4TeW8Z574J7kwJ6XPRmoa5Y9Vf57vPQT1YSPQN6B814SBsiQyyokGyrmevA4QdaGFT7
+deactivateTransaction_tx => 4pDG8bpqvkp32xTfockSgnCy3xUFJZvugV8aA3hA3myK25d3xcC9Jrrcm5ZcUkxDBfTRdxPmgHB22uax53rYC8FY
+withdrawTransaction_tx   => 3BBCzb7KGmduH4PZPYQ8jbeRMeLfMaJ7oZPp9vQeFSFna7AB9X6HCVaAoMUDjNueKQQoEHBpSNaFFNSEUPk8irVR
 */

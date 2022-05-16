@@ -15,11 +15,18 @@ const run = async () => {
   await connection.confirmTransaction(feePayerAirdropSignature);
 
   // const uri = 'http://127.0.0.1:1984/';
-  const uri = 'https://testnet.redstone.tools/';
+  const uri = 'https://testnet.redstone.tools/'; // Powered by Redstone Finance
+  // const uri = 'https://www.arweave.run/';
+
   // Note:
   //  Uploaded Arweave data need to comply Token Metadata Starndard.
   //  Details: https://docs.metaplex.com/token-metadata/specification
   //  Data Example: arweave.net/3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E
+  //  Tutorial: https://solanacookbook.com/references/nfts.html#how-to-create-an-nft
+  //
+  // Important:
+  //  You cannot mint an NFT with a different creator that your wallet. If you run into creator issues, make sure your metadata lists you as the creator.
+
   const txId = 'vUOW3yPQiLBnVhU1XpyBeHeraxP9C4_OLkioHMCxhQY'; // Replace your Arweave Transction ID
 
   const mintNFTResponse = await actions.mintNFT({
