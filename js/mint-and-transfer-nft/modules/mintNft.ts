@@ -1,7 +1,5 @@
 // Ref: https://solanacookbook.com/references/nfts.html#mint-the-nft
-import fs from 'fs';
 import { actions, NodeWallet} from '@metaplex/js';
-import { Keypair } from '@solana/web3.js';
 import { mintNftType } from '../types/solana';
 import { airdrop } from '../helpers/solana';
 import { getArweaveTransactionUrl } from '../helpers/arweave';

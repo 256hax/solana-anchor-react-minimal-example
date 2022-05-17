@@ -1,4 +1,4 @@
-import { Connection, Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { clusterType } from '../types/solana';
 
 export const solanaCluster = {
