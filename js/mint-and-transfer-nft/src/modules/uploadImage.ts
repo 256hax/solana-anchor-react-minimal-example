@@ -3,10 +3,10 @@ import { uploadImageType } from '../types/arweave';
 import { airdrop } from '../helpers/arweave';
 
 export const uploadImage:uploadImageType = async(arweave) => {
-  // Airdrop
   const key = JSON.parse(fs.readFileSync('./keys/arweave.key.json', 'utf-8'));
-  const address = await arweave.wallets.jwkToAddress(key);
-  airdrop(arweave, address);
+
+  // const address = await arweave.wallets.jwkToAddress(key);
+  // airdrop(arweave, address);
 
   // Upload File
   const data = fs.readFileSync('./assets/irasutoya-art.png');

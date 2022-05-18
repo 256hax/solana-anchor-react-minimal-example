@@ -4,10 +4,10 @@ import { airdrop, getArweaveTransactionUrl } from '../helpers/arweave';
 import { initMetadata } from '../helpers/metadata';
 
 export const uploadMetadata: uploadMetadataType = async(arweave, uploadImageTx, keypair) => {
-  // Airdrop
   const key = JSON.parse(fs.readFileSync('./keys/arweave.key.json', 'utf-8'));
   const address = await arweave.wallets.jwkToAddress(key);
-  airdrop(arweave, address);
+
+  // airdrop(arweave, address);
 
   // Upload File
   const solanaCreatorsAddress = keypair.publicKey.toString();

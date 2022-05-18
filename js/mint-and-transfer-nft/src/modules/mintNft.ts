@@ -5,7 +5,7 @@ import { airdrop } from '../helpers/solana';
 import { getArweaveTransactionUrl } from '../helpers/arweave';
 
 export const mintNft: mintNftType = async(connection, keypair, arweave, uploadMetadataTx) => {
-  airdrop(connection, keypair.publicKey);
+  // airdrop(connection, keypair.publicKey);
 
   // Note:
   //  Uploaded Arweave data need to comply Token Metadata Starndard.
