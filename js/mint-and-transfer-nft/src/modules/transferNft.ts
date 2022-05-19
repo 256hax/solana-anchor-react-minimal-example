@@ -2,7 +2,7 @@
 import { clusterApiUrl, Connection, Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 // @ts-ignore
 import { getOrCreateAssociatedTokenAccount, transfer } from '@solana/spl-token';
-// import { actions } from '@metaplex/js';
+// import { actions, NodeWallet } from '@metaplex/js';
 import { transferNftType } from '../types/solana';
 import { airdrop } from '../helpers/solana';
 
@@ -21,27 +21,31 @@ export const transferNft: transferNftType = async(connection, keypair, mintNftAd
   );
 
   const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-      connection,
-      fromWallet,
-      mint,
-      fromWallet.publicKey
+    connection,
+    fromWallet,
+    mint,
+    fromWallet.publicKey
   );
 
   const signature_tx = await transfer(
-      connection,
-      fromWallet,
-      fromTokenAccount.address,
-      toTokenAccount.address,
-      fromWallet.publicKey,
-      1,
-      []
+    connection,
+    fromWallet,
+    fromTokenAccount.address,
+    toTokenAccount.address,
+    fromWallet.publicKey,
+    1,
+    []
   );
 
+  //
+  // or you can use following instead transfer function.
+  // Don't forget import @metaplex/js.
+  //
   // const signature_tx = await actions.sendToken({
   //   connection: connection,
-  //   wallet: fromWallet,
+  //   wallet: new NodeWallet(fromWallet), // Use Metaplex NodeWallet
   //   source: fromTokenAccount.address,
-  //   destination: toTokenAccount.address,
+  //   destination: toWallet.publicKey, // Not TokenAccount here
   //   mint: mint,
   //   amount: 1,
   // });

@@ -24,12 +24,12 @@ const main = async() => {
   console.log('\n--- Upload Image to Arweave ---')
   const uploadImageTx = await uploadImage(arweave);
   console.log('uploadImageTx =>', uploadImageTx);
-  await _sleep(1000); // 1000 == 1 sec
+  await _sleep(2000); // 1000 == 1 sec
 
   console.log('\n--- Upload Metadata to Arweave ---')
   const uploadMetadataTx = await uploadMetadata(arweave, uploadImageTx, keypair);
   console.log('uploadMetadataTx =>', uploadMetadataTx);
-  await _sleep(1000); // 1000 == 1 sec
+  await _sleep(2000); // 1000 == 1 sec
 
 
   // --- Solana ---
@@ -37,7 +37,7 @@ const main = async() => {
   // const uploadMetadataTx = 'yKVqBc07-ebllukkU_8GtfuK4CARds_Q_g9sKAynUg4'; // Stub
   const mintNftAddress = await mintNft(connection, keypair, arweave, uploadMetadataTx);
   console.log('mintNftAddress =>', mintNftAddress);
-  await _sleep(1000); // 1000 == 1 sec
+  await _sleep(2000); // 1000 == 1 sec
 
   console.log('\n--- Transfer NFT to Someone ---')
   // const mintNftAddress = 'HVGfUEAQa2savpas6LEoBQ64KkTfBtiG55pWwstM8B47'; // Stub
