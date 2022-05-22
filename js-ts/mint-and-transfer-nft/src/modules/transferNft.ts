@@ -4,7 +4,7 @@ import { clusterApiUrl, Connection, Keypair, PublicKey, LAMPORTS_PER_SOL } from 
 import { getOrCreateAssociatedTokenAccount, transfer } from '@solana/spl-token';
 // import { actions, NodeWallet } from '@metaplex/js';
 import { transferNftType } from '../types/solana';
-import { airdrop } from '../helpers/solana';
+// import { airdrop } from '../helpers/solana';
 
 export const transferNft: transferNftType = async(connection, keypair, mintNftAddress) => {
   const fromWallet = keypair;

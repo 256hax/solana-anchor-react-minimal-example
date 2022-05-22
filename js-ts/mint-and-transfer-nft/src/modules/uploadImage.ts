@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { uploadImageType } from '../types/arweave';
-import { airdrop } from '../helpers/arweave';
+// import { airdrop } from '../helpers/arweave';
 
 export const uploadImage:uploadImageType = async(arweave) => {
   const key = JSON.parse(fs.readFileSync('./keys/arweave.key.json', 'utf-8'));

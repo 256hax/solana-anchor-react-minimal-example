@@ -6,6 +6,7 @@ import { uploadMetadata } from './modules/uploadMetadata';
 import { solanaCluster, initSolana } from './helpers/solana';
 import { mintNft } from './modules/mintNft';
 import { transferNft } from './modules/transferNft';
+import { mintEdition } from './modules/mintEdition';
 
 const main = async() => {
   const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,6 +19,13 @@ const main = async() => {
   const connection = initSolana(solanaCluster.devnet);
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./keys/solana.key.json', 'utf8')));
   const keypair = Keypair.fromSecretKey(secretKey);
+  let maxSupply: number;
+
+
+  // --- Stub ---
+  // const uploadMetadataTx = 'yKVqBc07-ebllukkU_8GtfuK4CARds_Q_g9sKAynUg4';
+  // const nftAddressMint = 'HVGfUEAQa2savpas6LEoBQ64KkTfBtiG55pWwstM8B47';
+  // const nftAddressMintMultipleSupply = '6EGepQSWaSCVrZNiwMNvMzMu6zRLsbr35cK1TX5pb7GF';
 
 
   // --- Arweave ---
@@ -25,6 +33,7 @@ const main = async() => {
   const uploadImageTx = await uploadImage(arweave);
   console.log('uploadImageTx =>', uploadImageTx);
   await _sleep(2000); // 1000 == 1 sec
+
 
   console.log('\n--- Upload Metadata to Arweave ---')
   const uploadMetadataTx = await uploadMetadata(arweave, uploadImageTx, keypair);
@@ -34,14 +43,27 @@ const main = async() => {
 
   // --- Solana ---
   console.log('\n--- Mint NFT on Solana ---')
-  // const uploadMetadataTx = 'yKVqBc07-ebllukkU_8GtfuK4CARds_Q_g9sKAynUg4'; // Stub
-  const mintNftAddress = await mintNft(connection, keypair, arweave, uploadMetadataTx);
-  console.log('mintNftAddress =>', mintNftAddress);
+  maxSupply = 1;
+  const nftAddressMint = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
+  console.log('NFT Address =>', nftAddressMint);
   await _sleep(2000); // 1000 == 1 sec
 
+
   console.log('\n--- Transfer NFT to Someone ---')
-  // const mintNftAddress = 'HVGfUEAQa2savpas6LEoBQ64KkTfBtiG55pWwstM8B47'; // Stub
-  const transferNftTx = await transferNft(connection, keypair, mintNftAddress);
+  const transferNftTx = await transferNft(connection, keypair, nftAddressMint);
+  await _sleep(2000); // 1000 == 1 sec
+
+
+  console.log('\n--- Mint Edition from Master Edition ---')
+  console.log('\n Mint Master Edition(Multiple Supply)')
+  maxSupply = 3;
+  const nftAddressMintMultipleSupply = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
+  console.log('Master Edition Address(Original NFT) =>', nftAddressMintMultipleSupply);
+  await _sleep(2000); // 1000 == 1 sec
+
+  console.log('\n Mint Edition(Copy NFT from Master Edition)')
+  const editionAddressMint = await mintEdition(connection, keypair, nftAddressMintMultipleSupply);
+  console.log('Edition Address(Copy NFT) =>', editionAddressMint);
 };
 
 main();
@@ -54,35 +76,37 @@ main();
 33% complete, 1/3
 66% complete, 2/3
 100% complete, 3/3
-uploadImageTx => TNPNv4IMp-Yluiyfr5XPBe2ubog-vsbSLuNg5cH2Mjk
+uploadImageTx => HyohvURBv-Vy5eWen4JzItfO05qE-RbRSioAr_Ib90g
 
 --- Upload Metadata to Arweave ---
 100% complete, 1/1
-uploadMetadataTx => N6Xs31rRbhVzyC7OrOTpxUHaj3hI2oSHRLi_-ed7IKs
+uploadMetadataTx => TEmp0-ldEHNi11hE1-NFkW0DuYcyQKb-ih3E2Cvp4JY
 
 --- Mint NFT on Solana ---
-mintNFTResponse => {
-  txId: '5dYP7QcKQ6ioMm71X9bGZBcmu8Jhfb7ma91M6pfAdupAhHrRS3B1ZRwQSCb88ERVXWSZX83ZjhJ5fJ66nNG6qwGX',
-  mint: PublicKey {
-    _bn: <BN: d0705452c6fcf2cb56e8b32489f5217769afd32c85038882da51b09a974cb7ff>
-  },
-  metadata: PublicKey {
-    _bn: <BN: e28ab4de2ab1b2578052bd6b0fb33c203e76bda99b8ab8ad3a81343bdfbb91d6>
-  },
-  edition: PublicKey {
-    _bn: <BN: 514d6344993a5dde77476a177a202c83be2c4c97102b5a271eb3511b36d9e11>
-  }
-}
-mint => F2f9TXBKz8n4ru79yPAYhFeQcrqncMbm5qqZipTorhiE
-metadata => GFKp83cNxuNPJbWdi5ZRpNLrjLbbEsaEt8ngLMUbEF2V
-edition => LqU4eswFbeEyc4RVphdhpEVzwCxCAjEwA8CpvQtreyv
-mintNftAddress => F2f9TXBKz8n4ru79yPAYhFeQcrqncMbm5qqZipTorhiE
+mint => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
+metadata => 4AFzWun8xd3L3TTCxVWrhW6g1CpDQyVyBee4KJSc7kRW
+edition => B8KPSJ2eu4x8Wsk5A3aejTbyvQaAnpzFbexYXAoX2cu7
+NFT Address => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
 
 --- Transfer NFT to Someone ---
 fromWallet.publicKey     => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-toWallet.publicKey       => H7s58dVSoiiCk1vi8kAi2V6S5d82sQbJzK6qzmSAkJ5o
-fromTokenAccount.address => A1KVhoM33vitRirPsnpR621VFdWiD6Sem5fJz93pVs9Q
-toTokenAccount.address   => 9QzTPnP72TC8HLDuN2gKGFydrGAnXSRG9wqaCJxd5bsM
-mint address             => F2f9TXBKz8n4ru79yPAYhFeQcrqncMbm5qqZipTorhiE
-transfer tx              => vocKeff9TCK3EtcjSGpc61Ye5Y9kVG5pUPSkepYynpphBY2Pga9TsH5NsmgTWBztYRW81ZETRhu3rbwo7kz3BLH
+toWallet.publicKey       => 2bwx4y3MshhuT3FCyfjTF1BhjJLzB9Sqw6awqwLVLgSP
+fromTokenAccount.address => 2fgPWdQjrNhU2gtyh4EpZ9Q6KdxUKG2VF5W51fYn7c42
+toTokenAccount.address   => 4omgCY2HNV1T8odUbPpMVF2ZX9WpdcDyVvnYL1MBQoYj
+mint address             => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
+transfer tx              => 5QBMUYb7ggzKT95EKTbrnR1amAyvEZuXP3hm6sfxTPpr98PgeSb8msWGpUdTC1UrHpLFwhs5mmhE8pf7EdPmHYms
+
+--- Mint Edition from Master Edition ---
+
+ Mint Master Edition(Multiple Supply)
+mint => AvXJvB6FUS8s7T67K5wBQFPRXU2RfMtNSztuo9tBYgoc
+metadata => 6f2TAdG34FK4Yod1tCtnXazLuvw4htBHTZXFZuuU8NRw
+edition => 5YGCcL4u1cXmB8qgPZqTLjiNV4JXioJSbJt1Ln7NJ2Dx
+Master Edition Address(Original NFT) => AvXJvB6FUS8s7T67K5wBQFPRXU2RfMtNSztuo9tBYgoc
+
+ Mint Edition(Copy NFT from Master Edition)
+mint => 2pzXnzdv8mTCgUUXr1yLztQ4DH3NjvZPaHYJj1bWMy4v
+metadata => AcxkYkEAxB6zFkMMgKSW9L7dGNqXYshpRcWNGGzDZeUP
+edition => HN4xccXtbTsiBiFYhUZ7EgsyrDfGZxc5yKK6jwYejxKA
+Edition Address(Copy NFT) => 2pzXnzdv8mTCgUUXr1yLztQ4DH3NjvZPaHYJj1bWMy4v
 */

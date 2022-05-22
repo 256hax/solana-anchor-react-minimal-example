@@ -1,10 +1,10 @@
 // Ref: https://solanacookbook.com/references/nfts.html#mint-the-nft
 import { actions, NodeWallet} from '@metaplex/js';
 import { mintNftType } from '../types/solana';
-import { airdrop } from '../helpers/solana';
+// import { airdrop } from '../helpers/solana';
 import { getArweaveTransactionUrl } from '../helpers/arweave';
 
-export const mintNft: mintNftType = async(connection, keypair, arweave, uploadMetadataTx) => {
+export const mintNft: mintNftType = async(connection, keypair, arweave, uploadMetadataTx, maxSupply) => {
   // airdrop(connection, keypair.publicKey);
 
   // Note:
@@ -22,10 +22,9 @@ export const mintNft: mintNftType = async(connection, keypair, arweave, uploadMe
     connection,
     wallet: new NodeWallet(keypair),
     uri: uri,
-    maxSupply: 1
+    maxSupply: maxSupply
   });
 
-  console.log('mintNFTResponse =>', mintNFTResponse);
   console.log('mint =>', mintNFTResponse.mint.toString());
   console.log('metadata =>', mintNFTResponse.metadata.toString());
   console.log('edition =>', mintNFTResponse.edition.toString());
