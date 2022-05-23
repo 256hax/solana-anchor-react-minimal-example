@@ -1,6 +1,7 @@
 import fs from 'fs';
-import { Keypair } from '@solana/web3.js';
+import { Keypair, PublicKey } from '@solana/web3.js';
 import { arweaveCluster, initArweave } from './helpers/arweave';
+
 import { uploadImage } from './modules/uploadImage';
 import { uploadMetadata } from './modules/uploadMetadata';
 import { solanaCluster, initSolana } from './helpers/solana';
@@ -11,8 +12,9 @@ import { mintEdition } from './modules/mintEdition';
 const main = async() => {
   const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+
   // --- Config Arweave ---
-  const arweave = initArweave(arweaveCluster.testnet);
+  const arweave = initArweave(arweaveCluster.testnet_redstone);
 
 
   // --- Config Solana ---
@@ -22,48 +24,80 @@ const main = async() => {
   let maxSupply: number;
 
 
-  // --- Stub ---
-  // const uploadMetadataTx = 'yKVqBc07-ebllukkU_8GtfuK4CARds_Q_g9sKAynUg4';
-  // const nftAddressMint = 'HVGfUEAQa2savpas6LEoBQ64KkTfBtiG55pWwstM8B47';
-  // const nftAddressMintMultipleSupply = '6EGepQSWaSCVrZNiwMNvMzMu6zRLsbr35cK1TX5pb7GF';
+  // --- Resoponse ---
+  let uploadImageTx: string; // Arweave Image Tx ID
+  let uploadMetadataTx: string; // Arweave Metadata Tx ID
+  let nftAddressMint: string; // Solana NFT One Supply Master Edition Address
+  let nftAddressMintMultipleSupply: string;  // Solana NFT Multiple Supply Master Edition Address
+  let editionAddressMint: string; // Solana NFT Edition Address
 
 
   // --- Arweave ---
   console.log('\n--- Upload Image to Arweave ---')
-  const uploadImageTx = await uploadImage(arweave);
+  uploadImageTx = await uploadImage(arweave);
   console.log('uploadImageTx =>', uploadImageTx);
   await _sleep(2000); // 1000 == 1 sec
 
 
   console.log('\n--- Upload Metadata to Arweave ---')
-  const uploadMetadataTx = await uploadMetadata(arweave, uploadImageTx, keypair);
-  console.log('uploadMetadataTx =>', uploadMetadataTx);
-  await _sleep(2000); // 1000 == 1 sec
+  const uploadImageTxStatus = await arweave.transactions.getStatus(uploadImageTx);
+
+  if(uploadImageTxStatus.status == 200) { // 200: Exist data in Arweave
+    uploadMetadataTx = await uploadMetadata(arweave, uploadImageTx, keypair);
+    console.log('uploadMetadataTx =>', uploadMetadataTx);
+    await _sleep(2000); // 1000 == 1 sec
+  } else {
+    console.log('Error: Arweave Transaction ID not found. Try to change Arweave cluster.')
+    console.log('uploadImageTxStatus =>', uploadImageTxStatus);
+    return;
+  }
 
 
   // --- Solana ---
   console.log('\n--- Mint NFT on Solana ---')
   maxSupply = 1;
-  const nftAddressMint = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
-  console.log('NFT Address =>', nftAddressMint);
-  await _sleep(2000); // 1000 == 1 sec
+  const uploadMetadataTxStatus = await arweave.transactions.getStatus(uploadMetadataTx);
+
+  if(uploadMetadataTxStatus.status == 200) {
+    nftAddressMint = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
+    console.log('NFT Address =>', nftAddressMint);
+    await _sleep(2000); // 1000 == 1 sec
+  } else {
+    console.log('Error: Arweave Transaction ID not found. Try to change Arweave cluster.')
+    console.log('uploadMetadataTxStatus =>', uploadMetadataTxStatus);
+    return;
+  }
 
 
   console.log('\n--- Transfer NFT to Someone ---')
-  const transferNftTx = await transferNft(connection, keypair, nftAddressMint);
-  await _sleep(2000); // 1000 == 1 sec
+  const nftAddressMintIsValid = PublicKey.isOnCurve(nftAddressMint);
+
+  if(nftAddressMintIsValid) {
+    await transferNft(connection, keypair, nftAddressMint);
+    await _sleep(2000); // 1000 == 1 sec
+  } else {
+    console.log('Error: Solana NFT Address Not Found.');
+    return;
+  }
 
 
   console.log('\n--- Mint Edition from Master Edition ---')
+
   console.log('\n Mint Master Edition(Multiple Supply)')
   maxSupply = 3;
-  const nftAddressMintMultipleSupply = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
+  nftAddressMintMultipleSupply = await mintNft(connection, keypair, arweave, uploadMetadataTx, maxSupply);
   console.log('Master Edition Address(Original NFT) =>', nftAddressMintMultipleSupply);
   await _sleep(2000); // 1000 == 1 sec
 
   console.log('\n Mint Edition(Copy NFT from Master Edition)')
-  const editionAddressMint = await mintEdition(connection, keypair, nftAddressMintMultipleSupply);
-  console.log('Edition Address(Copy NFT) =>', editionAddressMint);
+  const nftAddressMintMultipleSupplyStatus = PublicKey.isOnCurve(nftAddressMintMultipleSupply);
+  if(nftAddressMintMultipleSupplyStatus){
+    editionAddressMint = await mintEdition(connection, keypair, nftAddressMintMultipleSupply);
+    console.log('Edition Address(Copy NFT) =>', editionAddressMint);
+  } else {
+    console.log('Error: Solana NFT Address Not Found.');
+    return;
+  }
 };
 
 main();
@@ -76,37 +110,37 @@ main();
 33% complete, 1/3
 66% complete, 2/3
 100% complete, 3/3
-uploadImageTx => HyohvURBv-Vy5eWen4JzItfO05qE-RbRSioAr_Ib90g
+uploadImageTx => vrbvM9QDygSkbJY5fTNOFxsBXwLU1ZLeNO6UcTprT7E
 
 --- Upload Metadata to Arweave ---
 100% complete, 1/1
-uploadMetadataTx => TEmp0-ldEHNi11hE1-NFkW0DuYcyQKb-ih3E2Cvp4JY
+uploadMetadataTx => sK2Gx5XummSlanObPa840u81ryH_yf-4S0V2bSsu8kc
 
 --- Mint NFT on Solana ---
-mint => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
-metadata => 4AFzWun8xd3L3TTCxVWrhW6g1CpDQyVyBee4KJSc7kRW
-edition => B8KPSJ2eu4x8Wsk5A3aejTbyvQaAnpzFbexYXAoX2cu7
-NFT Address => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
+mint => Do3S7KCX74i6n5X8BsDwFrQctQkWrrCQAUf2meadaG2V
+metadata => 97qYBjWCQdyAgUfZYUNmYHj76JdLdKwLMCin1qHDUfiY
+edition => 3mf55ojFb15hiQJLd5xsA7b4r2CxEPuiYFWJL4rcMfTz
+NFT Address => Do3S7KCX74i6n5X8BsDwFrQctQkWrrCQAUf2meadaG2V
 
 --- Transfer NFT to Someone ---
 fromWallet.publicKey     => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-toWallet.publicKey       => 2bwx4y3MshhuT3FCyfjTF1BhjJLzB9Sqw6awqwLVLgSP
-fromTokenAccount.address => 2fgPWdQjrNhU2gtyh4EpZ9Q6KdxUKG2VF5W51fYn7c42
-toTokenAccount.address   => 4omgCY2HNV1T8odUbPpMVF2ZX9WpdcDyVvnYL1MBQoYj
-mint address             => 5eGi4q4MxkYqb3CimfAchaWSoeDC8vCcGWUR45NRoaZE
-transfer tx              => 5QBMUYb7ggzKT95EKTbrnR1amAyvEZuXP3hm6sfxTPpr98PgeSb8msWGpUdTC1UrHpLFwhs5mmhE8pf7EdPmHYms
+toWallet.publicKey       => HbQp5rXWPyhrrttZ5KcFdTexST1BeMgm46MFcc76TBfL
+fromTokenAccount.address => G2XrrS2LQjTmTaqkhXK4o5XNH1A8jn5CqHJpKaNWnBx3
+toTokenAccount.address   => 6pN82ouB1Dt9koVTBq53F7mgXBPcEk2Ga6Cwj6VtRaaN
+mint address             => Do3S7KCX74i6n5X8BsDwFrQctQkWrrCQAUf2meadaG2V
+transfer tx              => 3CHjw8pKKqCYDZRFsh5rmfT3AhaS2gY86ZHZtCJUQmegq6bJCj9JWZ3wU9okxPqhhLyUgJwBDQkTbWZRCAWcFR7K
 
 --- Mint Edition from Master Edition ---
 
  Mint Master Edition(Multiple Supply)
-mint => AvXJvB6FUS8s7T67K5wBQFPRXU2RfMtNSztuo9tBYgoc
-metadata => 6f2TAdG34FK4Yod1tCtnXazLuvw4htBHTZXFZuuU8NRw
-edition => 5YGCcL4u1cXmB8qgPZqTLjiNV4JXioJSbJt1Ln7NJ2Dx
-Master Edition Address(Original NFT) => AvXJvB6FUS8s7T67K5wBQFPRXU2RfMtNSztuo9tBYgoc
+mint => 34oLbyhPzHyAc76FY7eLoisuuYgafR5RTp4AKL18QD95
+metadata => CZnMcJUT9sNZi1Xz5mveTS19UbHXQS5J7LtaX8JX1gdY
+edition => Danp9nef675WueCndgQEYDTtciwpZPGKx5tovUfDkrQm
+Master Edition Address(Original NFT) => 34oLbyhPzHyAc76FY7eLoisuuYgafR5RTp4AKL18QD95
 
  Mint Edition(Copy NFT from Master Edition)
-mint => 2pzXnzdv8mTCgUUXr1yLztQ4DH3NjvZPaHYJj1bWMy4v
-metadata => AcxkYkEAxB6zFkMMgKSW9L7dGNqXYshpRcWNGGzDZeUP
-edition => HN4xccXtbTsiBiFYhUZ7EgsyrDfGZxc5yKK6jwYejxKA
-Edition Address(Copy NFT) => 2pzXnzdv8mTCgUUXr1yLztQ4DH3NjvZPaHYJj1bWMy4v
+mint => BLyQHToRkAcNyhQjZVrrk9by3Xd555CaorB5rr9w7WQW
+metadata => CnX9G2zHyE4pFVdkfwYLx5VK6tg5a9w2FXLQTAoH1rMV
+edition => FQVoiHrNBy6cki87xk86anvHohMzMVgNB6jhCN5SdS27
+Edition Address(Copy NFT) => BLyQHToRkAcNyhQjZVrrk9by3Xd555CaorB5rr9w7WQW
 */
