@@ -14,7 +14,7 @@ const main = async() => {
 
 
   // --- Config Arweave ---
-  const arweave = initArweave(arweaveCluster.testnet_redstone);
+  const arweave = initArweave(arweaveCluster.testnet);
 
 
   // --- Config Solana ---
@@ -25,7 +25,7 @@ const main = async() => {
 
 
   // --- Resoponse ---
-  let uploadImageTx: string; // Arweave Image Tx ID
+  let uploadImageTx: string = ''; // Arweave Image Tx ID
   let uploadMetadataTx: string; // Arweave Metadata Tx ID
   let nftAddressMint: string; // Solana NFT One Supply Master Edition Address
   let nftAddressMintMultipleSupply: string;  // Solana NFT Multiple Supply Master Edition Address
@@ -34,10 +34,15 @@ const main = async() => {
 
   // --- Arweave ---
   console.log('\n--- Upload Image to Arweave ---')
-  uploadImageTx = await uploadImage(arweave);
-  console.log('uploadImageTx =>', uploadImageTx);
-  await _sleep(2000); // 1000 == 1 sec
-
+  try {
+    uploadImageTx = await uploadImage(arweave);
+    console.log('uploadImageTx =>', uploadImageTx);
+    await _sleep(2000); // 1000 == 1 sec
+  } catch(e) {
+    console.log(e);
+    console.log('If "Unable to upload transaction", try to change Arweave cluster.');
+    return;
+  }
 
   console.log('\n--- Upload Metadata to Arweave ---')
   const uploadImageTxStatus = await arweave.transactions.getStatus(uploadImageTx);
@@ -73,7 +78,7 @@ const main = async() => {
   const nftAddressMintIsValid = PublicKey.isOnCurve(nftAddressMint);
 
   if(nftAddressMintIsValid) {
-    await transferNft(connection, keypair, nftAddressMint);
+    await transferNft(connection, keypair, nftAddressMint); // Do not remove "await"
     await _sleep(2000); // 1000 == 1 sec
   } else {
     console.log('Error: Solana NFT Address Not Found.');
