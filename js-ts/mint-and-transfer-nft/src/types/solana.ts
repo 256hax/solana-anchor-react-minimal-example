@@ -5,7 +5,7 @@ export type mintNftType = {
 };
 
 export type transferNftType = {
-  (connection: any, keypair:any, mintNftAddress: string): void
+  (connection: any, keypair:any, mintNftAddress: string): Promise<string>
 };
 
 export type mintEditionType = {

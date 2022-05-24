@@ -56,4 +56,6 @@ export const transferNft: transferNftType = async(connection, keypair, mintNftAd
   console.log('toTokenAccount.address   =>', toTokenAccount.address.toString());
   console.log('mint address             =>', mint.toString());
   console.log('transfer tx              =>', signature_tx);
+
+  return signature_tx;
 };

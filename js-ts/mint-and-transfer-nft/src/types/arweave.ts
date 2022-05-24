@@ -7,16 +7,19 @@ export type clusterType = {
 /*
   args:
     arweave: Arweave.init<object>
+    key: Arweave Key
+    data: File Path
 */
 export type uploadImageType = {
-  (arweave: any): Promise<string>
+  (arweave: any, key: any, data: any): Promise<string>
 };
 
 /*
   args:
     arweave: Arweave.init<object>
     uploadImageTx: Arweave transaction id (uploaded image)<string>
+    solanaCreatorsAddress: Creators Address(Public Key) in Solana
 */
 export type uploadMetadataType = {
-  (arweave: any, uploadImageTx: string, keypair: any): Promise<string>
+  (arweave: any, key: any, uploadImageTx: string, solanaCreatorsAddress: string): Promise<string>
 };

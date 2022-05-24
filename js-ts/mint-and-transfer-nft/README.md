@@ -10,11 +10,10 @@ This example running 4 steps.
 ## Run
 ```
 % npm install
-% cd src
-% ts-node main.ts
+% npm test
 ```
 
 ## Note
 If you've got error about Arweave, change Arweave cluster.  
 "www.arweave.run" cluster doesn't work sometimes.  
-"testnet.redstone.tools"(Powered by RedStone Finance) is better.
+"testnet.redstone.tools"(Powered by RedStone Finance) is better for use.
