@@ -1,12 +1,9 @@
 // Ref: https://solanacookbook.com/references/nfts.html#mint-the-nft
 import { actions, NodeWallet} from '@metaplex/js';
 import { mintNftType } from '../types/solana';
-// import { airdrop } from '../helpers/solana';
 import { getArweaveTransactionUrl } from '../helpers/arweave';
 
 export const mintNft: mintNftType = async(connection, keypair, arweave, uploadMetadataTx, maxSupply) => {
-  // airdrop(connection, keypair.publicKey);
-
   // Note:
   //  Uploaded Arweave data need to comply Token Metadata Starndard.
   //  Details: https://docs.metaplex.com/token-metadata/specification

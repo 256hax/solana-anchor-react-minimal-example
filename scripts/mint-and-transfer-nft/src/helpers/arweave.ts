@@ -47,7 +47,6 @@ export const airdrop = async(arweave: any, address: string) => {
   const balance = await arweave.wallets.getBalance(address)
 
   console.log('Done airdrop!');
-  console.log('Balance =>', balance);
 };
 
 /*
@@ -55,15 +54,6 @@ export const airdrop = async(arweave: any, address: string) => {
   args:
     arweaveApiConfig: arweave.api.config
     id: Arweave Transaction ID
-  Note:
-    console.log(arweave.api.config); =>
-      host: "www.arweave.run"
-      logger: ƒ log()
-      logging: false
-      port: 443
-      protocol: "https"
-      timeout: 20000
-      [[Prototype]]: Object
 */
 export const getArweaveTransactionUrl = (arweaveApiConfig: any, id: string): string => {
   const url =

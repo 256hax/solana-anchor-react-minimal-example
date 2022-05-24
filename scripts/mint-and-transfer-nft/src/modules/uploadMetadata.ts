@@ -1,6 +1,5 @@
-import fs from 'fs';
 import { uploadMetadataType } from '../types/arweave';
-import { airdrop, getArweaveTransactionUrl } from '../helpers/arweave';
+import { getArweaveTransactionUrl } from '../helpers/arweave';
 import { initMetadata } from '../helpers/metadata';
 
 export const uploadMetadata: uploadMetadataType = async(arweave, key, uploadImageTx, solanaCreatorsAddress) => {

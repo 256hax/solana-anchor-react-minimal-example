@@ -1,11 +1,11 @@
 import * as fs from 'fs';
-import { sleep } from '../../src/helpers/utils';
+import { sleep } from '../../helpers/utils';
 
-import { arweaveCluster, initArweave } from '../../src/helpers/arweave';
-import { solanaCluster, initSolana } from '../../src/helpers/solana';
+import { arweaveCluster, initArweave } from '../../helpers/arweave';
+import { solanaCluster, initSolana } from '../../helpers/solana';
 import { Keypair, PublicKey } from '@solana/web3.js';
-import { mintNft } from '../../src/modules/mintNft';
-import { transferNft } from '../../src/modules/transferNft';
+import { mintNft } from '../../modules/mintNft';
+import { transferNft } from '../../modules/transferNft';
 
 // --- Config Arweave ---
 const arweave = initArweave(arweaveCluster.testnet_redstone);
@@ -16,7 +16,7 @@ const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./src/keys/solana.k
 const keypair = Keypair.fromSecretKey(secretKey);
 
 
-jest.setTimeout(20000); // 1000 = 1sec
+jest.setTimeout(30000); // 1000 = 1sec
 
 describe('transferNft', () => {
   it('Transfer NFT to Someone', async() => {

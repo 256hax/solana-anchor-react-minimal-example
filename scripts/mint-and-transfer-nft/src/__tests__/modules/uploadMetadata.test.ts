@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import { sleep } from '../../src/helpers/utils';
+import { sleep } from '../../helpers/utils';
 import { Keypair } from '@solana/web3.js';
-import { arweaveCluster, initArweave } from '../../src/helpers/arweave';
-import { uploadMetadata } from '../../src/modules/uploadMetadata';
+import { arweaveCluster, initArweave } from '../../helpers/arweave';
+import { uploadMetadata } from '../../modules/uploadMetadata';
 
 // --- Config Arweave ---
 const arweave = initArweave(arweaveCluster.testnet_redstone);
@@ -13,7 +13,8 @@ const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./src/keys/solana.k
 const keypair = Keypair.fromSecretKey(secretKey);
 const solanaCreatorsAddress = keypair.publicKey.toString()
 
-jest.setTimeout(20000); // 1000 = 1sec
+
+jest.setTimeout(30000); // 1000 = 1sec
 
 describe('uploadMetadata', () => {
   it('Upload Metadata to Arweave', async() => {

@@ -1,17 +1,13 @@
 // Source: https://github.com/solana-labs/solana-program-library/blob/master/token/js/examples/create_mint_and_transfer_tokens.ts
-import { clusterApiUrl, Connection, Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Keypair, PublicKey } from '@solana/web3.js';
 // @ts-ignore
 import { getOrCreateAssociatedTokenAccount, transfer } from '@solana/spl-token';
-// import { actions, NodeWallet } from '@metaplex/js';
 import { transferNftType } from '../types/solana';
-// import { airdrop } from '../helpers/solana';
 
 export const transferNft: transferNftType = async(connection, keypair, mintNftAddress) => {
   const fromWallet = keypair;
   const toWallet = Keypair.generate();
   const mint = new PublicKey(mintNftAddress);
-
-  // airdrop(connection, fromWallet.publicKey);
 
   const toTokenAccount = await getOrCreateAssociatedTokenAccount(
     connection,

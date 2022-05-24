@@ -1,10 +1,10 @@
 import * as fs from 'fs';
-import { sleep } from '../../src/helpers/utils';
+import { sleep } from '../../helpers/utils';
 
-import { arweaveCluster, initArweave } from '../../src/helpers/arweave';
-import { solanaCluster, initSolana } from '../../src/helpers/solana';
+import { arweaveCluster, initArweave } from '../../helpers/arweave';
+import { solanaCluster, initSolana } from '../../helpers/solana';
 import { Keypair } from '@solana/web3.js';
-import { mintNft } from '../../src/modules/mintNft';
+import { mintNft } from '../../modules/mintNft';
 
 // --- Config Arweave ---
 const arweave = initArweave(arweaveCluster.testnet_redstone);
@@ -13,6 +13,9 @@ const arweave = initArweave(arweaveCluster.testnet_redstone);
 const connection = initSolana(solanaCluster.devnet);
 const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./src/keys/solana.key.json', 'utf8')));
 const keypair = Keypair.fromSecretKey(secretKey);
+
+
+jest.setTimeout(30000); // 1000 = 1sec
 
 describe('mintNft', () => {
   it('Mint NFT on Solana', async() => {

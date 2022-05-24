@@ -1,14 +1,14 @@
 import * as fs from 'fs';
-import { sleep } from '../../src/helpers/utils';
-import { arweaveCluster, initArweave } from '../../src/helpers/arweave';
-import { uploadImage } from '../../src/modules/uploadImage';
+import { sleep } from '../../helpers/utils';
+import { arweaveCluster, initArweave } from '../../helpers/arweave';
+import { uploadImage } from '../../modules/uploadImage';
 
 const arweave = initArweave(arweaveCluster.testnet_redstone);
 const key = JSON.parse(fs.readFileSync('./src/keys/arweave.key.json', 'utf-8'));
 const data = fs.readFileSync('./src/assets/irasutoya-art.png');
 
 
-jest.setTimeout(20000); // 1000 = 1sec
+jest.setTimeout(30000); // 1000 = 1sec
 
 describe('uploadImage', () => {
   it('Upload Image to Arweave', async() => {

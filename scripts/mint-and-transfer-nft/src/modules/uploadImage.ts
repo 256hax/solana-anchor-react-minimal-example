@@ -1,6 +1,4 @@
-import fs from 'fs';
 import { uploadImageType } from '../types/arweave';
-// import { airdrop } from '../helpers/arweave';
 
 export const uploadImage:uploadImageType = async(arweave, key, data) => {
   const transaction = await arweave.createTransaction({ data: data }, key);
