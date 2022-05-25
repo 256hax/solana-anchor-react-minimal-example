@@ -7,9 +7,19 @@ This example running 4 steps.
 3. Mint NFT on Solana.
 4. Transfer NFT to someone on Solana.
 
-## Run
+## Setup
 ```
 % npm install
+```
+
+Token Faucet
+```
+% ts-node src/misc/helpers/arweaveAirdrop.ts
+% ts-node src/misc/helpers/solanaAirdrop.ts
+```
+
+## Run
+```
 % npm test
 ```
 

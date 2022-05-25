@@ -20,5 +20,4 @@ export const airdrop = async(connection: any, address: PublicKey) => {
   const balance = await connection.getBalance(address);
 
   console.log('Done airdrop!');
-  console.log('Balance =>', balance);
 }
