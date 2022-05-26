@@ -52,6 +52,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Metaplex
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
 - [Docs - Candy Machine Errors](https://docs.metaplex.com/candy-machine-v1/cm-errors)
+- [Docs - Metaboss](https://metaboss.rs/)
 - [npm - @metaplex/js](https://metaplex-foundation.github.io/js/)
 - [GttHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
 - [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)
@@ -63,4 +64,3 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - arweave-js](https://github.com/ArweaveTeam/arweave-js)
 - [GitHub - arlocal](https://github.com/textury/arlocal)
 - [GitHub - ArConnect](https://github.com/th8ta/ArConnect)
-- [Docs - Metaboss](https://metaboss.rs/)
