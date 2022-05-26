@@ -1,6 +1,6 @@
 /*
   Sleep Process
-    Args: msec<number>
+    Args: msec
     Return: void
 
     Note: 1000 msec == 1 sec

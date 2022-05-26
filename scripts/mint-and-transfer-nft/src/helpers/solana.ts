@@ -17,7 +17,7 @@ export const airdrop = async(connection: any, address: PublicKey) => {
   const aidropSignature = await connection.requestAirdrop(address, LAMPORTS_PER_SOL);
   await connection.confirmTransaction(aidropSignature);
 
-  const balance = await connection.getBalance(address);
+  await connection.getBalance(address);
 
   console.log('Done airdrop!');
 }

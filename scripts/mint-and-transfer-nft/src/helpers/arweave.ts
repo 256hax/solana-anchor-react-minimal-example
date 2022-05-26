@@ -35,16 +35,16 @@ export const initArweave = (cluster: clusterType) => {
 };
 
 /*
-  args:
-    arweave: Arweave.init<object>
-    address: public key<string>
+  Args:
+    arweave: Arweave.init
+    address: public key
 */
 export const airdrop = async(arweave: any, address: string) => {
   // 100_000_000_000_000 = 100 AR
   const amount = Number(100_000_000_000_000);
   await arweave.api.get('/mint/' + address + '/' + amount);
 
-  const balance = await arweave.wallets.getBalance(address)
+  await arweave.wallets.getBalance(address)
 
   console.log('Done airdrop!');
 };

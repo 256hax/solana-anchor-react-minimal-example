@@ -5,9 +5,9 @@ export type clusterType = {
 };
 
 /*
-  args:
-    arweave: Arweave.init<object>
-    key: Arweave Key
+  Args:
+    arweave: Arweave.init
+    key: Arweave Wallet Key
     data: File Path
 */
 export type uploadImageType = {
@@ -15,9 +15,10 @@ export type uploadImageType = {
 };
 
 /*
-  args:
-    arweave: Arweave.init<object>
-    uploadImageTx: Arweave transaction id (uploaded image)<string>
+  Args:
+    arweave: Arweave.init
+    key: Arweave Wallet Key
+    uploadImageTx: Arweave transaction id (uploaded image)
     solanaCreatorsAddress: Creators Address(Public Key) in Solana
 */
 export type uploadMetadataType = {
