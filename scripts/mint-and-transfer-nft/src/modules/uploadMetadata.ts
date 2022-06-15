@@ -1,6 +1,6 @@
 import { uploadMetadataType } from '../types/arweave';
 import { getArweaveTransactionUrl } from '../helpers/arweave';
-import { initMetadata } from '../helpers/metadata';
+import { initMetadata } from '../assets/metadata';
 
 export const uploadMetadata: uploadMetadataType = async(arweave, key, uploadImageTx, solanaCreatorsAddress) => {
   // Upload File
