@@ -7,9 +7,6 @@ const arweave = initArweave(arweaveCluster.testnet_redstone);
 const key = JSON.parse(fs.readFileSync('./src/keys/arweave.key.json', 'utf-8'));
 const data = fs.readFileSync('./src/assets/irasutoya-art.png');
 
-
-jest.setTimeout(30000); // 1000 = 1sec
-
 describe('uploadImage', () => {
   it('Upload Image to Arweave', async() => {
     try {

@@ -15,9 +15,6 @@ const connection = initSolana(solanaCluster.devnet);
 const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./src/keys/solana.key.json', 'utf8')));
 const keypair = Keypair.fromSecretKey(secretKey);
 
-
-jest.setTimeout(30000); // 1000 = 1sec
-
 describe('transferNft', () => {
   it('Transfer NFT to Someone', async() => {
     // https://testnet.redstone.tools/cLFj9qLySh1Mllb25-u6QRCuxzBhFij1Ye4Pc2C9dro

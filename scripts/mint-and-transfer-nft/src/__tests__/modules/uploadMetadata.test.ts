@@ -13,9 +13,6 @@ const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./src/keys/solana.k
 const keypair = Keypair.fromSecretKey(secretKey);
 const solanaCreatorsAddress = keypair.publicKey.toString()
 
-
-jest.setTimeout(30000); // 1000 = 1sec
-
 describe('uploadMetadata', () => {
   it('Upload Metadata to Arweave', async() => {
     // https://testnet.redstone.tools/cLFj9qLySh1Mllb25-u6QRCuxzBhFij1Ye4Pc2C9dro
