@@ -18,7 +18,13 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from 
     const toWallet = Keypair.generate();
 
     // Create new token mint
-    const mint = await createMint(connection, fromWallet, fromWallet.publicKey, null, 9);
+    const mint = await createMint(
+        connection,
+        fromWallet,
+        fromWallet.publicKey,
+        null,
+        9
+    );
 
     // Get the token account of the fromWallet address, and if it does not exist, create it
     const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
@@ -29,7 +35,12 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from 
     );
 
     // Get the token account of the toWallet address, and if it does not exist, create it
-    const toTokenAccount = await getOrCreateAssociatedTokenAccount(connection, fromWallet, mint, toWallet.publicKey);
+    const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        fromWallet,
+        mint,
+        toWallet.publicKey
+    );
 
     // Mint 1 new token to the "fromTokenAccount" account we just created
     const signature_mint = await mintTo(

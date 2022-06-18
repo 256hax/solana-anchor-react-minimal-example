@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "@solana/spl-token": "^0.2.0",
-    "@solana/web3.js": "^1.42.0",
+    "@solana/web3.js": "^1.44.1",
     "sleep": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/sleep": "^0.0.8"
   }
 }
