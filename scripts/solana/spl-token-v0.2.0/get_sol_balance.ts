@@ -7,7 +7,7 @@ async function main() {
 
   const myPubkey_balance = await connection.getBalance(myPubkey.publicKey);
 
-  console.log('--- Not airdrop ---');
+  console.log('--- My Balance ---');
   console.log('myPubkey_balance =>', myPubkey_balance);
 
   let airdropSignature = await connection.requestAirdrop(
@@ -18,7 +18,7 @@ async function main() {
 
   const airdropped_myPubkey_balance = await connection.getBalance(myPubkey.publicKey);
 
-  console.log('\n--- Airdropped ---');
+  console.log('\n--- My Balance after Airdropped ---');
   console.log('airdropped_myPubkey_balance =>', airdropped_myPubkey_balance);
 }
 
