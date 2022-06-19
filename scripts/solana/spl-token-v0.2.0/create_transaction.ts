@@ -36,7 +36,6 @@ export const main = async() => {
   );
 
   console.log('Signature -> ', signature);
-  return signature;
 };
 
 main();
