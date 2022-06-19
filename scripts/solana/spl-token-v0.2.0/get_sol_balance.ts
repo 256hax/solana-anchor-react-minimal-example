@@ -14,7 +14,14 @@ export const main = async() => {
       myPubkey.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
-  await connection.confirmTransaction(airdropSignature);
+
+  const latestBlockHash = await connection.getLatestBlockhash();
+
+  await connection.confirmTransaction({
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    signature: airdropSignature,
+  });
 
   const airdropped_myPubkey_balance = await connection.getBalance(myPubkey.publicKey);
 

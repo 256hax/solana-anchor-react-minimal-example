@@ -15,11 +15,21 @@ export const main = async() => {
     web3.LAMPORTS_PER_SOL,
   );
 
-  await connection.confirmTransaction(airdropSignature);
+  const latestBlockHash = await connection.getLatestBlockhash();
 
-  let allocateTransaction = new web3.Transaction({
-    feePayer: payer.publicKey
+  await connection.confirmTransaction({
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    signature: airdropSignature,
   });
+
+  const options: web3.TransactionBlockhashCtor = {
+    feePayer: payer.publicKey,
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+  };
+
+  let allocateTransaction = new web3.Transaction(options);
   let keys = [{pubkey: keypair.publicKey, isSigner: true, isWritable: true}];
   let params = { space: 100 };
 

@@ -21,7 +21,14 @@ export const main = async() => {
       payerA.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
-  await connection.confirmTransaction(airdropSignature);
+
+  let latestBlockHash = await connection.getLatestBlockhash();
+
+  await connection.confirmTransaction({
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    signature: airdropSignature,
+  });
 
   // For "Too Many Requests" error for Devnet
   console.log("sleep 10 sec...");
@@ -33,7 +40,14 @@ export const main = async() => {
       payerB.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
-  await connection.confirmTransaction(airdropSignaturePayerB);
+
+  latestBlockHash = await connection.getLatestBlockhash();
+
+  await connection.confirmTransaction({
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    signature: airdropSignaturePayerB,
+  });
 
   // For "Too Many Requests" error for Devnet
   console.log("sleep 10 sec...");
@@ -89,4 +103,3 @@ If you got following error, you should have more long sleep.
 Error: 429 Too Many Requests:  {"jsonrpc":"2.0","error":{"code": 429, "message":"Too requests for a specific RPC call, contact your app developer or support@rpcpool.com."}, "id": "99ff2fa9-c7db-4a49-b218-829b859a7f3f" }
 ```
 */
-async

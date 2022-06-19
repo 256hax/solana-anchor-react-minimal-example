@@ -11,8 +11,14 @@ export const main = async() => {
     const fromWallet = Keypair.generate();
     const fromAirdropSignature = await connection.requestAirdrop(fromWallet.publicKey, LAMPORTS_PER_SOL);
 
+    let latestBlockHash = await connection.getLatestBlockhash();
+
     // Wait for airdrop confirmation
-    await connection.confirmTransaction(fromAirdropSignature);
+    await connection.confirmTransaction({
+      blockhash: latestBlockHash.blockhash,
+      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+      signature: fromAirdropSignature,
+    });
 
     // Generate a new wallet to receive newly minted token
     const toWallet = Keypair.generate();

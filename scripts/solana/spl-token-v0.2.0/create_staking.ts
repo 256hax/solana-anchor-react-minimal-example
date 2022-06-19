@@ -22,9 +22,16 @@ export const main = async() => {
       fromPublicKey.publicKey,
       LAMPORTS_PER_SOL,
   );
-  await connection.confirmTransaction(airdropSignature);
 
+  const latestBlockHash = await connection.getLatestBlockhash();
 
+  await connection.confirmTransaction({
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    signature: airdropSignature,
+  });
+
+  
   // Create Account
   let stakeAccount = Keypair.generate();
 
