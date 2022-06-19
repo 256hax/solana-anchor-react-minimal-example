@@ -2,7 +2,7 @@
 import * as web3 from '@solana/web3.js';
 import nacl from 'tweetnacl';
 
-async function main() {
+export const main = async() => {
   /*
     --- Payer -------------------------------------------------------------
   */
@@ -75,11 +75,12 @@ async function main() {
 
   const tx_signature = await web3.sendAndConfirmRawTransaction(connection, rawTransaction);
   console.log('tx_signature =>', tx_signature);
-}
+};
 
 main();
+
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 The signatures were verifed: true
 tx_signature =>  3kKWgWqbcR43KtE7pKiM8Ktjm5zoGw4pohAsWgj8GkV11SeMLb8uHVfSBS4AhhoPF5SgK2dNsAPUZ9MAdWrtBoz3
 */

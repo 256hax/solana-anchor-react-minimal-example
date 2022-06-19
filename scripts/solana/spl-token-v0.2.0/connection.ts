@@ -1,7 +1,7 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#connection
 import * as web3 from "@solana/web3.js";
 
-async function main() {
+export const main = async() => {
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
   let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
@@ -16,11 +16,12 @@ async function main() {
 
   let slotLeader = await connection.getSlotLeader();
   console.log('slotLeader =>', slotLeader);
-}
+};
 
 main();
+
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 slog =>  97501255
 blockTime ->  1638185260
 block =>  {

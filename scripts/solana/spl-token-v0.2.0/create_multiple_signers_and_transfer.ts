@@ -3,7 +3,7 @@ import * as web3 from '@solana/web3.js';
 import nacl from 'tweetnacl';
 import sleep from 'sleep';
 
-async function main() {
+export const main = async() => {
   let payerA = web3.Keypair.generate();
   let payerB = web3.Keypair.generate();
   console.log('payerA Public Key -> ', payerA.publicKey.toString());
@@ -67,11 +67,12 @@ async function main() {
   );
 
   console.log('Signature -> ', signature);
-}
+};
 
 main();
+
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 payerA Public Key ->  ZeKo8prhWKSSmvPrsv3js7TXyxQfiyiYMcWs1NBG4Vm
 payerB Public Key ->  3fE3MAUwG45rYDH2RU8wsZDfterGjBxxffsLf24Ujiq8
 Airdopping to PayerA
@@ -88,3 +89,4 @@ If you got following error, you should have more long sleep.
 Error: 429 Too Many Requests:  {"jsonrpc":"2.0","error":{"code": 429, "message":"Too requests for a specific RPC call, contact your app developer or support@rpcpool.com."}, "id": "99ff2fa9-c7db-4a49-b218-829b859a7f3f" }
 ```
 */
+async

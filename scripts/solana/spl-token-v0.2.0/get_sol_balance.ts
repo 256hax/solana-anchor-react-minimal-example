@@ -1,7 +1,7 @@
 // Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getBalance
 import * as web3 from "@solana/web3.js";
 
-async function main() {
+export const main = async() => {
   let myPubkey = web3.Keypair.generate();
   let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
@@ -20,12 +20,12 @@ async function main() {
 
   console.log('\n--- My Balance after Airdropped ---');
   console.log('airdropped_myPubkey_balance =>', airdropped_myPubkey_balance);
-}
+};
 
 main();
 
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 --- Not airdrop ---
 myPubkey_balance => 0
 

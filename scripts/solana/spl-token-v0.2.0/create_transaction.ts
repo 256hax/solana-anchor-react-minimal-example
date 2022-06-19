@@ -1,7 +1,7 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
 import * as web3 from '@solana/web3.js';
 
-async function main() {
+export const main = async() => {
   // Airdrop SOL for paying transactions
   let payer = web3.Keypair.generate();
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
@@ -36,10 +36,12 @@ async function main() {
   );
 
   console.log('Signature -> ', signature);
-}
+  return signature;
+};
 
 main();
+
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 signature ->  4nRgQQEcW8qsA9f9v8sTg8LByxo7hv53xjir6xp27zXdNUB31cqen16DkMoX9tgCzPJm2MppnpTswB3ghMc1KiRW
 */

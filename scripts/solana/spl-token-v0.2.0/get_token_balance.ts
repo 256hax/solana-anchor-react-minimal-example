@@ -2,7 +2,7 @@
 import * as web3 from "@solana/web3.js";
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
 
-async function main() {
+export const main = async() => {
   let myPubkey = web3.Keypair.generate();
   let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
@@ -59,13 +59,12 @@ async function main() {
   console.log('\n--- Token Account Balance ---');
   const myTokenPubkeyBalanceMinted = await connection.getTokenAccountBalance(myTokenPubkey.address);
   console.log('myTokenPubkeyBalanceMinted.value.amount =>', myTokenPubkeyBalanceMinted.value.amount);
-
-}
+};
 
 main();
 
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 myPubkey => DKpXE8EE9XYP1nesLL8nmNcPiBP3LsYgzUh4Uwct1xfo
 
 --- Create Token Account ---

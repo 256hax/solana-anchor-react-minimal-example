@@ -11,7 +11,7 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 
-async function main() {
+export const main = async() => {
   // Fund a key to create transactions
   let fromPublicKey = Keypair.generate();
   let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
@@ -96,7 +96,7 @@ async function main() {
   console.log('delegateTransaction_tx   =>', delegateTransaction_tx);
   console.log('deactivateTransaction_tx =>', deactivateTransaction_tx);
   console.log('withdrawTransaction_tx   =>', withdrawTransaction_tx);
-}
+};
 
 main();
 

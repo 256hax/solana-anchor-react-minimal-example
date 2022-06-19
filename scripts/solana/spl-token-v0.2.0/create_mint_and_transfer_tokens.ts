@@ -2,7 +2,7 @@
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
 
-(async () => {
+export const main = async() => {
     // Connect to cluster
     let connection = new Connection('http://localhost:8899', 'confirmed');
     // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
@@ -72,7 +72,9 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from 
 
     console.log('mint tx                  =>', signature_mint);
     console.log('transfer tx              =>', signature_tx);
-})();
+};
+
+main();
 
 /*
 % ts-node <THIS FILE>

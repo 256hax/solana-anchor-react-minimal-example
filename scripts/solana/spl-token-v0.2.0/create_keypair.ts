@@ -2,38 +2,42 @@
 import {Keypair} from "@solana/web3.js";
 import * as fs from 'fs';
 
-// There are two ways to obtain a Keypair:
-//
-// --- 1. Generate a new Keypair ---
-// let keypair = Keypair.generate();
+export const main = async() => {
+  // There are two ways to obtain a Keypair:
+  //
+  // --- 1. Generate a new Keypair ---
+  // let keypair = Keypair.generate();
 
-// or
-// --- 2. Obtain a Keypair using the secret key ---
-const secretKey = Uint8Array.from([
-  202, 171, 192, 129, 150, 189, 204, 241, 142,  71, 205,
-  2,  81,  97,   2, 176,  48,  81,  45,   1,  96, 138,
-  220, 132, 231, 131, 120,  77,  66,  40,  97, 172,  91,
-  245,  84, 221, 157, 190,   9, 145, 176, 130,  25,  43,
-  72, 107, 190, 229,  75,  88, 191, 136,   7, 167, 109,
-  91, 170, 164, 186,  15, 142,  36,  12,  23
-]);
+  // or
+  // --- 2. Obtain a Keypair using the secret key ---
+  const secretKey = Uint8Array.from([
+    202, 171, 192, 129, 150, 189, 204, 241, 142,  71, 205,
+    2,  81,  97,   2, 176,  48,  81,  45,   1,  96, 138,
+    220, 132, 231, 131, 120,  77,  66,  40,  97, 172,  91,
+    245,  84, 221, 157, 190,   9, 145, 176, 130,  25,  43,
+    72, 107, 190, 229,  75,  88, 191, 136,   7, 167, 109,
+    91, 170, 164, 186,  15, 142,  36,  12,  23
+  ]);
 
-const keypair = Keypair.fromSecretKey(secretKey);
+  const keypair = Keypair.fromSecretKey(secretKey);
 
-console.log('--- From hard coding ---');
-console.log('Keypair => ', keypair);
-console.log('Wallet Address => ', keypair.publicKey.toString());
+  console.log('--- From hard coding ---');
+  console.log('Keypair => ', keypair);
+  console.log('Wallet Address => ', keypair.publicKey.toString());
 
 
-const secretKeyFromFile = new Uint8Array(JSON.parse(fs.readFileSync('../key.json', 'utf8')));
-const keypairFromFile = Keypair.fromSecretKey(secretKey);
+  const secretKeyFromFile = new Uint8Array(JSON.parse(fs.readFileSync('../key.json', 'utf8')));
+  const keypairFromFile = Keypair.fromSecretKey(secretKey);
 
-console.log('--- From file ---');
-console.log('Keypair => ', secretKeyFromFile);
-console.log('Wallet Address => ', keypairFromFile.publicKey.toString());
+  console.log('--- From file ---');
+  console.log('Keypair => ', secretKeyFromFile);
+  console.log('Wallet Address => ', keypairFromFile.publicKey.toString());
+};
+
+main();
 
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 --- From hard coding ---
 Keypair =>  Keypair {
   _keypair: {

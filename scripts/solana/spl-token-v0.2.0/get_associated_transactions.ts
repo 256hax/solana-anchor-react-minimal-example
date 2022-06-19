@@ -1,7 +1,7 @@
 // Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
 import * as web3 from '@solana/web3.js';
 
-async function main() {
+export const main = async() => {
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
   // let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
@@ -23,12 +23,12 @@ async function main() {
   const getParsedTransactions = await connection.getParsedTransactions(signatures);
   console.log("\n----------------------------------------------------------------------");
   console.log('getParsedTransactions =>', getParsedTransactions);
-}
+};
 
 main();
 
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 ----------------------------------------------------------------------
 getParsedTransaction => {
   blockTime: 1644156365,

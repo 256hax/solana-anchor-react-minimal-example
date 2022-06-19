@@ -1,9 +1,9 @@
 // Source: https://docs.solana.com/developing/clients/javascript-api#interacting-with-custom-programs
 import {struct,u32, ns64} from "@solana/buffer-layout";
 import {Buffer} from 'buffer';
-import web3 from "@solana/web3.js";
+import * as web3 from "@solana/web3.js";
 
-async function main() {
+export const main = async() => {
   let keypair = web3.Keypair.generate();
   let payer = web3.Keypair.generate();
 
@@ -46,11 +46,12 @@ async function main() {
   console.log('From => ', keypair.publicKey.toString());
   console.log('To => ', payer.publicKey.toString());
   console.log('Signature => ', signature);
-}
+};
 
 main();
+
 /*
-% node <THIS JS FILE>
+% ts-node <THIS JS FILE>
 From =>  FLjBZzd7qEmodu4WrTyiTXCaLsGUjjPRHRCMYAgZkp2c
 To =>  FNxQPD9aFpUVFEWkqfF6rwdNWQZhLXUehuvVGGc83DKX
 Signature => 5MhJWsX8Ru2CKe1tUH8KpPgDXUVRonYKT9aNYAUegw7fp152AKJKxjE878PB2C99crXPsPVG5368kfmyf6BMgzrF
