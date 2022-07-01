@@ -43,6 +43,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Anchor
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
 - [Docs - Anchor(no longer available)](https://project-serum.github.io/anchor/getting-started/introduction.html)
+- [Docs - Anchor Errors](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
 - [Rust - anchor_spl](https://docs.rs/anchor-spl/0.22.1/anchor_spl/index.html)
 - [npm - @project-serum/anchor](https://project-serum.github.io/anchor/ts/index.html)
@@ -56,8 +57,9 @@ I recommend to use localnet with Transaction Explorer.
 - [npm - @metaplex-foundation/mpl-token-metadata](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-metadata)
 - [GitHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
-- ~~ [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts) ~~ Sugar is an alternative
+- ~~ [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts) ~~ Metaplex Sugar is an alternative
 - [GitHub - Metaplex js-examples](https://github.com/metaplex-foundation/js-examples)
+- [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
 
 ## Arweave
 - [Docs - Arweave Developers](https://docs.arweave.org/developers/)

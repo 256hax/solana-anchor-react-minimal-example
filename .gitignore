@@ -33,6 +33,14 @@ package-lock.json
 build
 
 #----------------------------------
+# Metaplex Sugar
+#----------------------------------
+cache.json
+sugar.log
+test_item
+
+
+#----------------------------------
 # Editor Tool and Mac Config
 #----------------------------------
 .DS_Store
