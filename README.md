@@ -53,9 +53,10 @@ I recommend to use localnet with Transaction Explorer.
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
 - [Docs - Candy Machine Errors](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
-- [npm - @metaplex/js](https://metaplex-foundation.github.io/js/)
-- [GttHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
-- [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)
+- [npm - @metaplex-foundation/mpl-token-metadata](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-metadata)
+- [GitHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
+- [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
+- ~~ [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts) ~~ Sugar is an alternative
 - [GitHub - Metaplex js-examples](https://github.com/metaplex-foundation/js-examples)
 
 ## Arweave
