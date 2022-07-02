@@ -5,6 +5,10 @@ For experiment purpose only.
 ## How To Run
 It's depends on Framework(ex: Anchor, React, JS...). Check README.md at each directories.
 
+## Wallet Key
+I set up id.json at each directories for Wallet.  
+Feel free to use that for only Devnet/Testnet. I expect you can easy to start minimal examples.
+
 ## Tools
 ### User-friendly Transaction Explorer
 I recommend to use localnet with Transaction Explorer.
