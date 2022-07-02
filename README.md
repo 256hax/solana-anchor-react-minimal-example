@@ -36,7 +36,7 @@ I recommend to use localnet with Transaction Explorer.
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
 - [Docs - Phantom](https://docs.phantom.app/)
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
-- [npm - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
+- [API - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
 - [GitHub - Latest - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
 - [GitHub - Latest - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js)
@@ -46,19 +46,17 @@ I recommend to use localnet with Transaction Explorer.
 
 ## Anchor
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
-- [Docs - Anchor(no longer available)](https://project-serum.github.io/anchor/getting-started/introduction.html)
 - [Docs - Anchor Errors](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
 - [Rust - anchor_spl](https://docs.rs/anchor-spl/0.22.1/anchor_spl/index.html)
-- [npm - @project-serum/anchor](https://project-serum.github.io/anchor/ts/index.html)
-- [npm - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
-- [GitHub - project-serum/anchor](https://github.com/project-serum/anchor)
+- [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
+- [GitHub - anchor](https://github.com/coral-xyz/anchor)
 
 ## Metaplex
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
 - [Docs - Candy Machine Errors](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
-- [npm - @metaplex-foundation/mpl-token-metadata](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-metadata)
+- [API - @metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
 - [GitHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
 - ~~ [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts) ~~ Metaplex Sugar is an alternative
