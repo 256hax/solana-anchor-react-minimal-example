@@ -25,7 +25,7 @@ const main = async() => {
 main();
 
 /*
-% ts-node findByMint.ts
+% ts-node <THIS FILE>
 imageUrl => https://arweave.net/qo8ztaPtogwKDNmvMNpv_npI-TygP4JtLAKaNqGs6nY?ext=png
 
 ----------------------------------------------------------------

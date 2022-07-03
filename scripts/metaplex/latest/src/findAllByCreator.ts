@@ -21,7 +21,7 @@ const main = async() => {
 main();
 
 /*
-% ts-node findAllByCreator.ts
+% ts-node <THIS FILE>
 [
   Nft {
     metadataAccount: {

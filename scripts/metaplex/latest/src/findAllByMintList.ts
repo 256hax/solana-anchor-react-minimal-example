@@ -36,7 +36,7 @@ const main = async() => {
 main();
 
 /*
-% ts-node findAllByMintList.ts
+% ts-node <THIS FILE>
 nftA => Nft {
   metadataAccount: {
     publicKey: Pda {

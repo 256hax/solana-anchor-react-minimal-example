@@ -19,7 +19,7 @@ const main = async() => {
 main();
 
 /*
-% ts-node findAllByCandyMachine.ts
+% ts-node <THIS FILE>
 [
   Nft {
     metadataAccount: {
