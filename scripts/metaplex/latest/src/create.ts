@@ -1,7 +1,6 @@
 // Ref: https://github.com/metaplex-foundation/js#create
 import { Metaplex, keypairIdentity, bundlrStorage, useMetaplexFile } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import * as fs from 'fs';
 
 const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
@@ -17,9 +16,9 @@ const main = async() => {
   const latestBlockHash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
+      blockhash: latestBlockHash.blockhash,
+      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+      signature: airdropSignature,
   });
 
   // const balance = await connection.getBalance(wallet.publicKey);
@@ -32,9 +31,9 @@ const main = async() => {
   const metaplex = Metaplex.make(connection)
       .use(keypairIdentity(wallet))
       .use(bundlrStorage({
-        address: 'https://devnet.bundlr.network',
-        providerUrl: 'https://api.devnet.solana.com',
-        timeout: 60000,
+          address: 'https://devnet.bundlr.network',
+          providerUrl: 'https://api.devnet.solana.com',
+          timeout: 60000,
       }));
 
   const { uri } = await metaplex.nfts().uploadMetadata({
@@ -50,6 +49,8 @@ const main = async() => {
       maxSupply: 1,
   });
 
+  const nftMetadata = await nft.metadataTask.run();
+
   console.log('nft =>', nft);
   console.log('Mint Address =>', nft.mint.toString());
 };
@@ -61,8 +62,8 @@ main();
 nft => Nft {
   metadataAccount: {
     publicKey: Pda {
-      _bn: <BN: 8cb04292f83f0e6b549b1dcb1a680bcdd7ea322574cba9ffaa0a07a98ea17d3b>,
-      bump: 254
+      _bn: <BN: ab153c4f2b65b50faadb8adddf480049942848bf57206d02a899f24211536afe>,
+      bump: 255
     },
     exists: true,
     data: Metadata {
@@ -83,7 +84,7 @@ nft => Nft {
     owner: PublicKey {
       _bn: <BN: b7065b1e3d17c45389d527f6b04c3cd58b86c731aa0fdb549b6d1bc03f82946>
     },
-    rentEpoch: 336
+    rentEpoch: 337
   },
   metadataTask: Task {
     status: 'successful',
@@ -110,7 +111,7 @@ nft => Nft {
       executable: false,
       lamports: 2853600,
       owner: [PublicKey],
-      rentEpoch: 336
+      rentEpoch: 337
     },
     error: undefined,
     callback: [AsyncFunction (anonymous)],
@@ -122,14 +123,14 @@ nft => Nft {
     }
   },
   updateAuthority: PublicKey {
-    _bn: <BN: 90ee6ac3e5d2971f8011199245126f2a874039f51b26d012064e555987fd0e2a>
+    _bn: <BN: 3f68e540edcf52983e54288ff38e1932cf65870441469979d37f031917839746>
   },
   mint: PublicKey {
-    _bn: <BN: 626a4b967a3fdf73971729ea040088feabe698e2c5c98c307f2110e0fd6c2f69>
+    _bn: <BN: c4426447c25cdc99feb232bcbd148e8e6ff822cf7023bb031c025c0bfc6b6f93>
   },
   name: 'My NFT',
   symbol: '',
-  uri: 'https://arweave.net/KJaN6_zeXxwiflQePJrYasxpshidj2w_rtlIrDzTLJQ',
+  uri: 'https://arweave.net/ctS9cPTAlG_kjckWFisB2IXoQFHhjRtbeMvadoSz_5Q',
   sellerFeeBasisPoints: 500,
   creators: [ { address: [PublicKey], verified: true, share: 100 } ],
   primarySaleHappened: false,
@@ -139,5 +140,5 @@ nft => Nft {
   collection: null,
   uses: null
 }
-Mint Address => 7dAxpgsiNMGfzDsK21mnL99Ea7JsArCR4dCGofPraBsv
+Mint Address => ED7dJeQoj8KvR3qVSaPHa8ssyRj4zjFMBv8pBnwwguu4
 */

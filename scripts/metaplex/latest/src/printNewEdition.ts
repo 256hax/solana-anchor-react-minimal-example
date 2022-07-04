@@ -1,7 +1,6 @@
 // Ref: https://github.com/metaplex-foundation/js#printnewedition
 import { Metaplex, keypairIdentity, bundlrStorage, useMetaplexFile } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import * as fs from 'fs';
 
 const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
@@ -53,24 +52,36 @@ const main = async() => {
 
   const { nft: printedNft } = await metaplex.nfts().printNewEdition(nft.mint);
 
-  console.log('nft =>', nft);
-  console.log('Mint Address =>', nft.mint.toString());
+  const nftEdition = await nft.editionTask.run();
+  
+  console.log('printedNft =>', printedNft);
+  console.log('Edition Mint Address =>', printedNft.mint.toString());
+  console.log('nftEdition =>', nftEdition);
 
-  // TODO: Get Edition Mint Address
-  //
-  // Edition Mint Address getting flow:
-  //  Mint Address > Mint Authority > Latest TX > Mint Address
+  if (printedNft.isOriginal()) { // false
+    const currentSupply = nft.originalEdition?.supply;
+    const maxSupply = nft.originalEdition?.maxSupply;
+    console.log('currentSupply =>', currentSupply.toString());
+    console.log('maxSupply =>', maxSupply.toString());
+  }
+
+  if (printedNft.isPrint()) { // true
+    const parentEdition = printedNft.printEdition?.parent;
+    const editionNumber = printedNft.printEdition?.edition;
+    console.log('parentEdition =>', parentEdition?.toString());
+    console.log('editionNumber =>', editionNumber?.toString());
+  }
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-nft => Nft {
+printedNft => Nft {
   metadataAccount: {
     publicKey: Pda {
-      _bn: <BN: 19e921fcd9f74634409c897f5f98270c09927d12601c12939b9083024776a27f>,
-      bump: 254
+      _bn: <BN: b1ec4bee06002ab5afe1fd58380128e8d93aeb91b3c80fffbf3f338ce98ac482>,
+      bump: 252
     },
     exists: true,
     data: Metadata {
@@ -79,9 +90,9 @@ nft => Nft {
       mint: [PublicKey],
       data: [Object],
       primarySaleHappened: false,
-      isMutable: true,
+      isMutable: false,
       editionNonce: 255,
-      tokenStandard: 0,
+      tokenStandard: 3,
       collection: null,
       uses: null,
       collectionDetails: null
@@ -91,7 +102,7 @@ nft => Nft {
     owner: PublicKey {
       _bn: <BN: b7065b1e3d17c45389d527f6b04c3cd58b86c731aa0fdb549b6d1bc03f82946>
     },
-    rentEpoch: 336
+    rentEpoch: 337
   },
   metadataTask: Task {
     status: 'successful',
@@ -114,11 +125,11 @@ nft => Nft {
     result: {
       publicKey: [Pda],
       exists: true,
-      data: [MasterEditionV2],
+      data: [Edition],
       executable: false,
-      lamports: 2853600,
+      lamports: 2568240,
       owner: [PublicKey],
-      rentEpoch: 336
+      rentEpoch: 337
     },
     error: undefined,
     callback: [AsyncFunction (anonymous)],
@@ -130,22 +141,38 @@ nft => Nft {
     }
   },
   updateAuthority: PublicKey {
-    _bn: <BN: b243c245bf324976ed858734516a48f64ef882daaf6c4ba4931a9314d56ffab6>
+    _bn: <BN: 548ba4485b7c331dd1b2c5182d17c7164259b18892da65ec220b78a5363779d9>
   },
   mint: PublicKey {
-    _bn: <BN: 8924614c843438363f907b00cb2216b66a7586e5c672704fe078f1afcb42ccd6>
+    _bn: <BN: 6d99e4ae546395ed46f9b85c52259e47f4a8a568508d508897a0efc3a133a51d>
   },
   name: 'My NFT',
   symbol: '',
-  uri: 'https://arweave.net/uo8acsAwJZrGOXiRCK7ncYvUf17AY7HuurEBcGrs7xg',
+  uri: 'https://arweave.net/kqsADrSE-8k3B6toRtCHLYYHbACB9xLlpNDO39Ixgjk',
   sellerFeeBasisPoints: 500,
   creators: [ { address: [PublicKey], verified: true, share: 100 } ],
   primarySaleHappened: false,
-  isMutable: true,
+  isMutable: false,
   editionNonce: 255,
-  tokenStandard: 0,
+  tokenStandard: 3,
   collection: null,
   uses: null
 }
-Mint Address => AEM2hcht3tGTe4WJteAP9BMVW5omUkr4CwwnWQRB8Lhb
+Edition Mint Address => 8NqYVr2ByBaPtVHx94YNqtumRGU1Qxq6CwNfdVN4eiKn
+nftEdition => {
+  publicKey: Pda {
+    _bn: <BN: ee9af5ebcc6902d316403828b3591631a0c0d35d2b99a070ae2c3484c4233c84>,
+    bump: 254
+  },
+  exists: true,
+  data: MasterEditionV2 { key: 6, supply: <BN: 0>, maxSupply: <BN: a> },
+  executable: false,
+  lamports: 2853600,
+  owner: PublicKey {
+    _bn: <BN: b7065b1e3d17c45389d527f6b04c3cd58b86c731aa0fdb549b6d1bc03f82946>
+  },
+  rentEpoch: 337
+}
+parentEdition => H4R5eESqLhBdhuhzku5KgUe6bYvy5eTuaESNS2kbH9rB
+editionNumber => 1
 */

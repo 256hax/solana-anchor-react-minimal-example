@@ -1,7 +1,6 @@
 // Ref: https://github.com/metaplex-foundation/js#update
 import { Metaplex, keypairIdentity, bundlrStorage, useMetaplexFile } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import * as fs from 'fs';
 
 const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
@@ -17,9 +16,9 @@ const main = async() => {
   const latestBlockHash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
+      blockhash: latestBlockHash.blockhash,
+      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+      signature: airdropSignature,
   });
 
   // const balance = await connection.getBalance(wallet.publicKey);
@@ -32,9 +31,9 @@ const main = async() => {
   const metaplex = Metaplex.make(connection)
       .use(keypairIdentity(wallet))
       .use(bundlrStorage({
-        address: 'https://devnet.bundlr.network',
-        providerUrl: 'https://api.devnet.solana.com',
-        timeout: 60000,
+          address: 'https://devnet.bundlr.network',
+          providerUrl: 'https://api.devnet.solana.com',
+          timeout: 60000,
       }));
 
   const { uri } = await metaplex.nfts().uploadMetadata({

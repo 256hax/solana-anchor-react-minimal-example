@@ -13,27 +13,39 @@ const main = async() => {
   const mint = new PublicKey("BZAqzSiRyF1kQKhHN9z1o7WEJvr3tBkAL7tbDmMEM7A1");
 
   const nft = await metaplex.nfts().findByMint(mint);
-  const imageUrl = nft.metadata.image;
-  // const supply = nft.originalEdition.supply;
-  // const maxSupply = nft.originalEdition.maxSupply;
 
-  console.log('imageUrl =>', imageUrl);
-  console.log('\n----------------------------------------------------------------');
+  const nftMetadata = await nft.metadataTask.run();
+
   console.log('nft =>', nft);
+  console.log('NFT Image =>', nft.metadata.image);
+  console.log('Mint Address =>', nft.mint.toString());
+  console.log('nftMetadata =>', nftMetadata);
+  
+  if (nft.isOriginal()) { // true
+    const currentSupply = nft.originalEdition?.supply;
+    const maxSupply = nft.originalEdition?.maxSupply;
+    console.log('currentSupply =>', currentSupply.toString());
+    console.log('maxSupply =>', maxSupply.toString());
+    
+  }
+
+  if (nft.isPrint()) { // false
+    const parentEdition = nft.printEdition?.parent;
+    const editionNumber = nft.printEdition?.edition;
+    console.log('parentEdition =>', parentEdition);
+    console.log('editionNumber =>', editionNumber);
+  }
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-imageUrl => https://arweave.net/qo8ztaPtogwKDNmvMNpv_npI-TygP4JtLAKaNqGs6nY?ext=png
-
-----------------------------------------------------------------
 nft => Nft {
   metadataAccount: {
     publicKey: Pda {
-      _bn: <BN: c3c5e6a1b194a824b031f37ffa888b97e6446c216ea9100afa90ac6178375473>,
-      bump: 255
+      _bn: <BN: 7630157cc5f2f80c0fafaf6cab335297a4ad486b27220e53900ccf4e046ab060>,
+      bump: 254
     },
     exists: true,
     data: Metadata {
@@ -59,17 +71,15 @@ nft => Nft {
   metadataTask: Task {
     status: 'successful',
     result: {
-      name: 'OddKey Spawnoki - Genesis',
-      symbol: 'ODKY',
-      description: 'The Spawnoki Genesis NFT is a limited giveaway mint. They are the first NFT to come from legendary partners Steve Aoki and Todd McFarlane to make way for the launch of their marketplace: https://oddkey.com/',
-      seller_fee_basis_points: 1000,
-      image: 'https://arweave.net/qo8ztaPtogwKDNmvMNpv_npI-TygP4JtLAKaNqGs6nY?ext=png',
-      animation_url: 'https://arweave.net/HBqyr2Pnamm6k5or9ts5umU6UelJxJ0h33FI-nD9ESM?ext=mp4',
-      external_url: 'https://oddkey.com/',
-      properties: [Object],
-      collection: '99oRvHGHmUZz9XDZyZBmtzQ3LR3eVbcpiDPCPpvyzXaF',
-      uses: null,
-      attributes: [Array]
+      name: 'SMB #2756',
+      symbol: 'SMB',
+      description: 'SMB is a collection of 5000 randomly generated 24x24 pixels NFTs on the Solana Blockchain. Each SolanaMonkey is unique and comes with different type and attributes varying in rarity.',
+      seller_fee_basis_points: 600,
+      image: 'https://arweave.net/ovSe7hNSNMYGQU55V8pOfIsIlZ4KIQNip6g25AnMu9s',
+      external_url: 'https://solanamonkey.business/',
+      collection: [Object],
+      attributes: [Array],
+      properties: [Object]
     },
     error: undefined,
     callback: [Function (anonymous)],
@@ -89,7 +99,7 @@ nft => Nft {
       executable: false,
       lamports: 2853600,
       owner: [PublicKey],
-      rentEpoch: 323
+      rentEpoch: 324
     },
     error: undefined,
     callback: [AsyncFunction (anonymous)],
@@ -101,19 +111,16 @@ nft => Nft {
     }
   },
   updateAuthority: PublicKey {
-    _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    _bn: <BN: 843b97104c1984ecff17a9fb451b5b60911ed41f5c56351f4d92eceddb5c23e2>
   },
   mint: PublicKey {
-    _bn: <BN: 3bada9465610efb26cbca09c52a21c877e4fb184aef430a80b38325871dde77a>
+    _bn: <BN: 9cd2962810fe4d5032860bf58bb681dd3d409498b15dedb3e5b89e9c2fbe5752>
   },
-  name: 'OddKey - Spawnoki #2124',
-  symbol: 'ODKY',
-  uri: 'https://arweave.net/W-20MpV-N1l6e_vxWxjmGfFnGkiiUDn7GJAsgYmJ6fU',
-  sellerFeeBasisPoints: 1000,
-  creators: [
-    { address: [PublicKey], verified: true, share: 0 },
-    { address: [PublicKey], verified: false, share: 100 }
-  ],
+  name: 'SMB #2756',
+  symbol: 'SMB',
+  uri: 'https://arweave.net/Z57LxpnPAgYfWEABs1gfKhyFUtR3x9Pln_9h959sFog',
+  sellerFeeBasisPoints: 600,
+  creators: [ { address: [PublicKey], verified: true, share: 100 } ],
   primarySaleHappened: true,
   isMutable: true,
   editionNonce: 254,
@@ -121,9 +128,36 @@ nft => Nft {
   collection: {
     verified: true,
     key: PublicKey {
-      _bn: <BN: 791ea3d957bdbb99cec0c7163965ee07424a2b655434aaa6acc3192d1693b608>
+      _bn: <BN: 67e55ab262f537c60026656df7011acd610d91f5ecb5e3c07a97131c1f2b0ce>
     }
   },
   uses: null
 }
+NFT Image => https://arweave.net/ovSe7hNSNMYGQU55V8pOfIsIlZ4KIQNip6g25AnMu9s
+Mint Address => BZAqzSiRyF1kQKhHN9z1o7WEJvr3tBkAL7tbDmMEM7A1
+nftMetadata => {
+  name: 'SMB #2756',
+  symbol: 'SMB',
+  description: 'SMB is a collection of 5000 randomly generated 24x24 pixels NFTs on the Solana Blockchain. Each SolanaMonkey is unique and comes with different type and attributes varying in rarity.',
+  seller_fee_basis_points: 600,
+  image: 'https://arweave.net/ovSe7hNSNMYGQU55V8pOfIsIlZ4KIQNip6g25AnMu9s',
+  external_url: 'https://solanamonkey.business/',
+  collection: { name: 'SMB Gen2', family: 'SMB' },
+  attributes: [
+    { trait_type: 'Attributes Count', value: 3 },
+    { trait_type: 'Type', value: 'Skeleton' },
+    { trait_type: 'Clothes', value: 'Pirate Vest' },
+    { trait_type: 'Ears', value: 'None' },
+    { trait_type: 'Mouth', value: 'Pipe' },
+    { trait_type: 'Eyes', value: 'None' },
+    { trait_type: 'Hat', value: 'Pirate Hat' }
+  ],
+  properties: {
+    files: [ [Object], [Object] ],
+    category: 'image',
+    creators: [ [Object] ]
+  }
+}
+currentSupply => 0
+maxSupply => 0
 */
