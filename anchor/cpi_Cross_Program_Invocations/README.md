@@ -26,3 +26,9 @@ Replace declare_id to [puppet-master publickey] at
 - `puppet_master = "[puppet publickey]"
 ` in Anchor.toml
 - `declare_id!([puppet-master publickey])` in programs/puppet-master/src/lib.rs
+
+## Run
+```
+% npm i
+% anchor test
+```
