@@ -17,7 +17,7 @@ i128        The 128-bit signed integer type.
 isize       The pointer-sized signed integer type.
 pointer    Raw, unsafe pointers, *const T, and *mut T.
 reference  References, both shared and mutable.
-slice      A dynamically-sized view into a contiguous sequence, [T].
+slice      A dynamically-sized view into a contiguous sequence, [T]. Contiguous here means that elements are laid out so that every element is the same distance from its neighbors.
 str        String slices.
 tuple      A finite heterogeneous sequence, (T, U, ..).
 u8         The 8-bit unsigned integer type.
