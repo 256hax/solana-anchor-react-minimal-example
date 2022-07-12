@@ -60,7 +60,7 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
 - [GitHub - Metaplex js](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
-- ~~ [GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts) ~~ Metaplex Sugar is an alternative
+- ~~[GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)~~ Metaplex Sugar is an alternative
 - [GitHub - Metaplex js-examples](https://github.com/metaplex-foundation/js-examples)
 - [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
 
