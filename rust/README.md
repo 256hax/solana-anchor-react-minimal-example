@@ -1,3 +1,6 @@
+## Tutorials
+[Tour of Rust](https://tourofrust.com/)
+
 ## Types
 [Primitive Types](https://doc.rust-lang.org/std/index.html#primitives)
 
