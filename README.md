@@ -53,6 +53,7 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 
 ## Metaplex
+- [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
 - [Docs - Candy Machine Errors](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
