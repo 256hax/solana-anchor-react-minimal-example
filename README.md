@@ -45,6 +45,7 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
 
 ## Anchor
+- [Docs - Anchor(Installation, Core Concept, Guides, References)](https://www.anchor-lang.com/)
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
 - [Docs - Anchor Errors](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
