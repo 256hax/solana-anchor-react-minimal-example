@@ -1,7 +1,7 @@
 import * as anchor from "@project-serum/anchor";
-import { Program, SystemProgram } from "@project-serum/anchor";
+import { Program } from "@project-serum/anchor";
 import { Counter } from "../target/types/counter";
-import * as assert from 'assert';
+import { assert } from 'chai';
 
 describe("counter", () => {
   // anchor.setProvider(anchor.AnchorProvider.env());
