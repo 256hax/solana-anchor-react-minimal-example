@@ -1,27 +1,7 @@
 # Anchor Examples
 
 ## Source
-[project-serum/anchor](https://github.com/project-serum/anchor)
-[Tutorials](https://github.com/project-serum/anchor/tree/master/examples/tutorial)
-[Tests(Examples)](https://github.com/project-serum/anchor/tree/master/tests)
-
-## Reference
-### programs(Rust)
-- [solana_program](https://docs.rs/solana-program/latest/solana_program/)
-- [anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
-- [anchor_spl](https://docs.rs/anchor-spl/latest/anchor_spl/)
-
-### tests(JS/TS)
-- [@solana/web3.js](https://solana-labs.github.io/solana-web3.js/#solana-javascript-api)
-- [@solana/spl-token](https://github.com/solana-labs/solana-program-library/blob/master/token/js/client/token.js)
-- [@project-serum/serum](https://github.com/project-serum/serum-ts/tree/master/packages/serum)
-- [@project-serum/anchor](https://project-serum.github.io/anchor/ts/index.html)
-- [@project-serum/common](https://github.com/project-serum/serum-ts/tree/master/packages/common)
-
-## Tested Version
-- rustc 1.59.0 (9d1b2106e 2022-02-23)
-- solana-cli 1.9.9 (src:450404f8; feat:3246413280)
-- anchor-cli 0.22.1
+[coral-xyz/anchor](https://github.com/coral-xyz/anchor/tree/master/examples/tutorial)
 
 ## Run
 at each directory:
