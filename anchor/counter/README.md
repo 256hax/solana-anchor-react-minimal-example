@@ -4,6 +4,6 @@
 
 ## Run
 ```
-% yarn
+% npm i
 % anchor test
 ```
