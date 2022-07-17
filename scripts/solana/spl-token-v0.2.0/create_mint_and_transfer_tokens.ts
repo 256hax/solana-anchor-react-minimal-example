@@ -25,19 +25,19 @@ export const main = async() => {
 
     // Create new token mint
     const mint = await createMint(
-        connection,
-        fromWallet,
-        fromWallet.publicKey,
-        null,
-        9
+        connection, // connection
+        fromWallet, // payer
+        fromWallet.publicKey, // mintAuthority
+        null, // freezeAuthority
+        9 // decimals
     );
 
     // Get the token account of the fromWallet address, and if it does not exist, create it
     const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        fromWallet,
-        mint,
-        fromWallet.publicKey
+        connection, // connection
+        fromWallet, // payer
+        mint, // mint
+        fromWallet.publicKey // owner
     );
 
     // Get the token account of the toWallet address, and if it does not exist, create it
@@ -50,24 +50,24 @@ export const main = async() => {
 
     // Mint 1 new token to the "fromTokenAccount" account we just created
     const signature_mint = await mintTo(
-        connection,
-        fromWallet,
-        mint,
-        fromTokenAccount.address,
-        fromWallet.publicKey,
-        1000000000,
-        []
+        connection, // connection
+        fromWallet, // payer
+        mint, // mint
+        fromTokenAccount.address, // destination
+        fromWallet.publicKey, // authority
+        1000000000, // amount
+        [] // signer(s)
     );
 
     // Transfer the new token to the "toTokenAccount" we just created
     const signature_tx = await transfer(
-        connection,
-        fromWallet,
-        fromTokenAccount.address,
-        toTokenAccount.address,
-        fromWallet.publicKey,
-        1000000000,
-        []
+        connection, // connection
+        fromWallet, // payer
+        fromTokenAccount.address, // source
+        toTokenAccount.address, // destination
+        fromWallet.publicKey, // owner
+        1000000000, // amount
+        [] // signer
     );
 
     console.log('fromWallet.publicKey     =>', fromWallet.publicKey.toString());
