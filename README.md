@@ -36,6 +36,7 @@ I recommend to use localnet with Transaction Explorer.
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
 - [Docs - Phantom](https://docs.phantom.app/)
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
+- [Rust - spl_token](https://docs.rs/spl-token/latest/spl_token/)
 - [API - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
 - [GitHub - Latest - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
@@ -49,7 +50,7 @@ I recommend to use localnet with Transaction Explorer.
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
 - [Docs - Anchor Errors](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
-- [Rust - anchor_spl](https://docs.rs/anchor-spl/0.22.1/anchor_spl/index.html)
+- [Rust - anchor_spl](https://docs.rs/anchor-spl/latest/anchor_spl/index.html)
 - [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 
