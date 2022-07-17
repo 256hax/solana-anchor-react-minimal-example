@@ -1,26 +1,15 @@
 # Escrow
 ## Source(Anchor Escrow Example)
-[anchor escrow](https://github.com/project-serum/anchor/tree/master/tests/escrow)
-
-## anchor-cli Available Version
-Available for fixed version. Look at the each directory name.
-
-## How To Downgrade Version
-ex) downgrade to v0.19.0
-
-```
- % cargo install --git https://github.com/project-serum/anchor --tag v0.19.0 anchor-cli --locked --force
-```
+[anchor escrow](https://github.com/coral-xyz/anchor/tree/master/tests/escrow)
 
 ## Run
-at each directory:
 ```
 % npm install
 % anchor test
 ```
 
 ## Escrow Outline
-Escrow overview(my hypothesis).
+Escrow overview(hypothesis).
 ![Escrow Overview](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/escrow-overview.png?raw=true)
 
 Look at the Escrow section for more details.  
