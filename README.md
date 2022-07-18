@@ -38,6 +38,7 @@ I recommend to use localnet with Transaction Explorer.
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [Rust - spl_token](https://docs.rs/spl-token/latest/spl_token/)
 - [API - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
+- [API - @solana/spl-token](https://solana-labs.github.io/solana-program-library/token/js/)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
 - [GitHub - Latest - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
 - [GitHub - Latest - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js/src/actions)
