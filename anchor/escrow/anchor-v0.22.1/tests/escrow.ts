@@ -57,12 +57,18 @@ describe("escrow", () => {
     initializerTokenAccountA = await mintA.createAccount(
       provider.wallet.publicKey // owner
     );
-    takerTokenAccountA = await mintA.createAccount(provider.wallet.publicKey);
+
+    takerTokenAccountA = await mintA.createAccount(
+      provider.wallet.publicKey
+    );
 
     initializerTokenAccountB = await mintB.createAccount(
       provider.wallet.publicKey
     );
-    takerTokenAccountB = await mintB.createAccount(provider.wallet.publicKey);
+
+    takerTokenAccountB = await mintB.createAccount(
+      provider.wallet.publicKey
+    );
 
     // Source: https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/js/client/token.js#L1027
     await mintA.mintTo(
