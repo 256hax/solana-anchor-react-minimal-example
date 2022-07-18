@@ -1,7 +1,7 @@
 import * as anchor from "@project-serum/anchor";
 import { Program, BN, IdlAccounts } from "@project-serum/anchor";
 import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { TOKEN_PROGRAM_ID, createMint, getOrCreateAssociatedTokenAccount, mintTo, getAccount } from "@solana/spl-token";
+import { TOKEN_PROGRAM_ID, createMint, getOrCreateAssociatedTokenAccount, createAccount, mintTo, getAccount } from "@solana/spl-token";
 import { assert } from "chai";
 import { Escrow } from "../target/types/escrow";
 
@@ -28,6 +28,7 @@ describe("escrow", () => {
   const escrowAccount = Keypair.generate();
   const payer = Keypair.generate();
   const mintAuthority = Keypair.generate();
+  const taker = Keypair.generate();
 
   it("Initialize escrow state", async () => {
     // Generate a new wallet keypair and airdrop SOL
@@ -76,14 +77,16 @@ describe("escrow", () => {
       connection,
       payer,
       mintA,
-      provider.wallet.publicKey
+      // provider.wallet.publicKey
+      taker.publicKey
     );
 
     const takerTokenAccountB = await getOrCreateAssociatedTokenAccount(
       connection,
       payer,
       mintB,
-      provider.wallet.publicKey
+      // provider.wallet.publicKey
+      taker.publicKey
     );
 
     initializerTokenAccountAPubkey = initializerTokenAccountA.address;
@@ -106,24 +109,50 @@ describe("escrow", () => {
       connection,
       payer,
       mintB,
-      initializerTokenAccountBPubkey,
+      takerTokenAccountBPubkey,
       mintAuthority,
       takerAmount,
       []
     );
 
-    const initializerTokenAccountABalance = await connection.getTokenAccountBalance(initializerTokenAccountAPubkey);
-    const takerTokenAccountBBalance = await connection.getTokenAccountBalance(takerTokenAccountBPubkey);
+    const _initializerTokenAccountA = await getAccount(
+      connection,
+      initializerTokenAccountAPubkey
+    );
+    const _initializerTokenAccountB = await getAccount(
+      connection,
+      initializerTokenAccountBPubkey
+    );
+    const _takerTokenAccountA = await getAccount(
+      connection,
+      takerTokenAccountAPubkey
+    );
+    const _takerTokenAccountB = await getAccount(
+      connection,
+      takerTokenAccountBPubkey
+    );
 
     assert.strictEqual(
-      Number(initializerTokenAccountABalance.value.amount),
+      Number(_initializerTokenAccountA.amount),
       initializerAmount
     );
 
     assert.strictEqual(
-      Number(takerTokenAccountBBalance.value.amount),
+      Number(_takerTokenAccountB.amount),
       takerAmount
     );
+
+    console.log('\n-------------------------------------------------------------------------');
+    console.log('programId                        =>', program.programId.toString());
+    console.log('initializerTokenAccountAPubkey   =>', initializerTokenAccountAPubkey.toString());
+    console.log('initializerTokenAccountBPubkey   =>', initializerTokenAccountBPubkey.toString());
+    console.log('takerTokenAccountAPubkey         =>', takerTokenAccountAPubkey.toString());
+    console.log('takerTokenAccountBPubkey         =>', takerTokenAccountBPubkey.toString());
+    console.log('_initializerTokenAccountA.amount =>', _initializerTokenAccountA.amount);
+    console.log('_initializerTokenAccountB.amount =>', _initializerTokenAccountB.amount);
+    console.log('_takerTokenAccountA.amount       =>', _takerTokenAccountA.amount);
+    console.log('_takerTokenAccountB.amount       =>', _takerTokenAccountB.amount);
+    console.log('-------------------------------------------------------------------------');
   });
 
   it("Initialize escrow", async () => {
@@ -151,7 +180,22 @@ describe("escrow", () => {
 
     pda = _pda;
 
-    const _initializerTokenAccountA = await getAccount(connection, initializerTokenAccountAPubkey);
+    const _initializerTokenAccountA = await getAccount(
+      connection,
+      initializerTokenAccountAPubkey
+    );
+    const _initializerTokenAccountB = await getAccount(
+      connection,
+      initializerTokenAccountBPubkey
+    );
+    const _takerTokenAccountA = await getAccount(
+      connection,
+      takerTokenAccountAPubkey
+    );
+    const _takerTokenAccountB = await getAccount(
+      connection,
+      takerTokenAccountBPubkey
+    );
 
     const _escrowAccount: EscrowAccount =
       await program.account.escrowAccount.fetch(escrowAccount.publicKey);
@@ -179,54 +223,69 @@ describe("escrow", () => {
       )
     );
 
-
-    console.log('programId =>', program.programId.toString());
-    console.log('initializerTokenAccountAPubkey =>', initializerTokenAccountAPubkey.toString());
-    console.log('initializerTokenAccountBPubkey =>', initializerTokenAccountBPubkey.toString());
-    console.log('takerTokenAccountAPubkey =>', takerTokenAccountAPubkey.toString());
-    console.log('takerTokenAccountBPubkey =>', takerTokenAccountBPubkey.toString());
-    console.log('pda =>', pda.toString());
-    console.log('_initializerTokenAccountA.owner =>', _initializerTokenAccountA.owner.toString());    
+    console.log('\n-------------------------------------------------------------------------');
+    console.log('pda                              =>', pda.toString());
+    console.log('_initializerTokenAccountA.owner  =>', _initializerTokenAccountA.owner.toString());
+    console.log('_escrowAccount.initializerKey    =>', _escrowAccount.initializerKey.toString());
+    console.log('_escrowAccount.initializerAmount =>', _escrowAccount.initializerAmount.toNumber());
+    console.log('_escrowAccount.takerAmount       =>', _escrowAccount.takerAmount.toNumber());
+    console.log('_initializerTokenAccountA.amount =>', _initializerTokenAccountA.amount);
+    console.log('_initializerTokenAccountB.amount =>', _initializerTokenAccountB.amount);
+    console.log('_takerTokenAccountA.amount       =>', _takerTokenAccountA.amount);
+    console.log('_takerTokenAccountB.amount       =>', _takerTokenAccountB.amount);
+    console.log('-------------------------------------------------------------------------');
   });
 
-  // it("Exchange escrow", async () => {
-  //   await program.rpc.exchange({
-  //     accounts: {
-  //       taker: provider.wallet.publicKey,
-  //       takerDepositTokenAccount: takerTokenAccountB,
-  //       takerReceiveTokenAccount: takerTokenAccountA,
-  //       pdaDepositTokenAccount: initializerTokenAccountA,
-  //       initializerReceiveTokenAccount: initializerTokenAccountB,
-  //       initializerMainAccount: provider.wallet.publicKey,
-  //       escrowAccount: escrowAccount.publicKey,
-  //       pdaAccount: pda,
-  //       tokenProgram: TOKEN_PROGRAM_ID,
-  //     },
-  //   });
+  it("Exchange escrow", async () => {
+    await program.methods
+      .exchange()
+      .accounts({
+        taker: taker.publicKey,
+        takerDepositTokenAccount: takerTokenAccountBPubkey,
+        takerReceiveTokenAccount: takerTokenAccountAPubkey,
+        pdaDepositTokenAccount: initializerTokenAccountAPubkey,
+        initializerReceiveTokenAccount: initializerTokenAccountBPubkey,
+        initializerMainAccount: provider.wallet.publicKey,
+        escrowAccount: escrowAccount.publicKey,
+        pdaAccount: pda,
+        tokenProgram: TOKEN_PROGRAM_ID,
+      })
+      .signers([taker])
+      .rpc()
 
-  //   let _takerTokenAccountA = await mintA.getAccountInfo(takerTokenAccountA);
-  //   let _takerTokenAccountB = await mintB.getAccountInfo(takerTokenAccountB);
-  //   let _initializerTokenAccountA = await mintA.getAccountInfo(
-  //     initializerTokenAccountA
-  //   );
-  //   let _initializerTokenAccountB = await mintB.getAccountInfo(
-  //     initializerTokenAccountB
-  //   );
+    const _initializerTokenAccountA = await getAccount(
+      connection,
+      initializerTokenAccountAPubkey
+    );
+    const _initializerTokenAccountB = await getAccount(
+      connection,
+      initializerTokenAccountBPubkey
+    );
+    const _takerTokenAccountA = await getAccount(
+      connection,
+      takerTokenAccountAPubkey
+    );
+    const _takerTokenAccountB = await getAccount(
+      connection,
+      takerTokenAccountBPubkey
+    );
 
-  //   // Check that the initializer gets back ownership of their token account.
-  //   assert.isTrue(_takerTokenAccountA.owner.equals(provider.wallet.publicKey));
+    console.log('\n-------------------------------------------------------------------------');
+    console.log('_initializerTokenAccountA.amount =>', _initializerTokenAccountA.amount);
+    console.log('_initializerTokenAccountB.amount =>', _initializerTokenAccountB.amount);
+    console.log('_takerTokenAccountA.amount       =>', _takerTokenAccountA.amount);
+    console.log('_takerTokenAccountB.amount       =>', _takerTokenAccountB.amount);
+    console.log('-------------------------------------------------------------------------');
+    
+    // Check that the initializer gets back ownership of their token account.
+    assert.isTrue(_takerTokenAccountA.owner.equals(taker.publicKey));
 
-  //   assert.strictEqual(
-  //     _takerTokenAccountA.amount.toNumber(),
-  //     initializerAmount
-  //   );
-  //   assert.strictEqual(_initializerTokenAccountA.amount.toNumber(), 0);
-  //   assert.strictEqual(
-  //     _initializerTokenAccountB.amount.toNumber(),
-  //     takerAmount
-  //   );
-  //   assert.strictEqual(_takerTokenAccountB.amount.toNumber(), 0);
-  // });
+    // Check that the values in the escrow account match what we expect.
+    assert.strictEqual(Number(_initializerTokenAccountA.amount), 0);
+    assert.strictEqual(Number(_initializerTokenAccountB.amount), takerAmount);
+    assert.strictEqual(Number(_takerTokenAccountA.amount), initializerAmount);
+    assert.strictEqual(Number(_takerTokenAccountB.amount), 0);
+  });
 
   // let newEscrow = Keypair.generate();
 
@@ -288,3 +347,48 @@ describe("escrow", () => {
   //   );
   // });
 });
+
+/*
+% anchor test
+
+  escrow
+
+-------------------------------------------------------------------------
+programId                        => 73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep
+initializerTokenAccountAPubkey   => D48DD4vgqeoG1A7kYyrQrjQjYkzZEr6NdbkjZ5imFuPt
+initializerTokenAccountBPubkey   => BqLtcyKRErCZct4BPC6HsUcMvXy5uKjYyxtZChQUMNuv
+takerTokenAccountAPubkey         => HSrxadbu1RhXavLcHAPjaVxUaz6jdW63mgX4XxxEaUKK
+takerTokenAccountBPubkey         => GxDqHcWW1XdFZJRrFExq2aWXEavRkCMfEhWoLQEr6VqX
+_initializerTokenAccountA.amount => 500n
+_initializerTokenAccountB.amount => 0n
+_takerTokenAccountA.amount       => 0n
+_takerTokenAccountB.amount       => 1000n
+-------------------------------------------------------------------------
+    ✔ Initialize escrow state (3805ms)
+
+-------------------------------------------------------------------------
+pda                              => Gr7oUdUHYnDRdd3Dhqhnnd334cczAQBGWsJF8Pku8SHu
+_initializerTokenAccountA.owner  => Gr7oUdUHYnDRdd3Dhqhnnd334cczAQBGWsJF8Pku8SHu
+_escrowAccount.initializerKey    => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+_escrowAccount.initializerAmount => 500
+_escrowAccount.takerAmount       => 1000
+_initializerTokenAccountA.amount => 500n
+_initializerTokenAccountB.amount => 0n
+_takerTokenAccountA.amount       => 0n
+_takerTokenAccountB.amount       => 1000n
+-------------------------------------------------------------------------
+    ✔ Initialize escrow (464ms)
+
+-------------------------------------------------------------------------
+_initializerTokenAccountA.amount => 0n
+_initializerTokenAccountB.amount => 1000n
+_takerTokenAccountA.amount       => 500n
+_takerTokenAccountB.amount       => 0n
+-------------------------------------------------------------------------
+    ✔ Exchange escrow (447ms)
+
+
+  3 passing (5s)
+
+✨  Done in 10.84s.
+*/
