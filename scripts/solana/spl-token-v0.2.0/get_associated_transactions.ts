@@ -5,10 +5,15 @@ export const main = async() => {
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
   // let connection = new web3.Connection('http://localhost:8899', 'confirmed');
 
+  // For Devnet
   const nft_mint_signature = '9hDPtgqmAAJHKaDKj4xbEJQz9r32jvStJf2b96pPyqnqDDxXeYXEXgMatMCQcoHZ7fEr1HmfgrYgp45iEP9LtJH';
   const sol_transfer_signature = '5zeWmoxnYQUk1AA5re2cqpvqZsMqvnAapZztfnvdeifLTNFy2utG8fcdrxhmegCaqgdWUNmpC5hWt28JaEpiw2Mv';
   const signatures = [nft_mint_signature, sol_transfer_signature];
 
+  // For Mainnet-beta
+  // const nft_mint_signature = '5SCJ8ZEZa9nPFgvAzU9ZZn7R7ohpZFUj3X8M9sMqfnfCJN5pMa8ezKtV6pymnw7vXSnw6AzV96CLk3nY4yACqYe2';
+  // const sol_transfer_signature = 'pWSN9hp2MYhUvWc1n85Uo39Ft8eaYehwmRnPzM4o7fWGxoCSZrr8Rh3dWTfQJ4QEJnPVPgft3GUFEzi5FNp1XUV';
+  // const signatures = [nft_mint_signature, sol_transfer_signature];
 
   // [Note] If you want to decode, use JSON.stringify.
   // ex) JSON.stringify(<RESPONSE JSON DATA>, null, 2)
