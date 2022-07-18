@@ -2,6 +2,9 @@
 ## Source(Anchor Escrow Example)
 [anchor escrow](https://github.com/coral-xyz/anchor/tree/master/tests/escrow)
 
+## Version
+Look at package.json for Solana/Anchor Web3.js.
+
 ## Run
 ```
 % npm install
