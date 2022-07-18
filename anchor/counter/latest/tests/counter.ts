@@ -27,7 +27,7 @@ describe("counter", () => {
       systemProgram: anchor.web3.SystemProgram.programId,
     })
     .signers([counter])
-    .rpc();
+    .rpc()
 
     let counterAccount = await program.account.counter.fetch(counter.publicKey);
 
@@ -36,12 +36,12 @@ describe("counter", () => {
   });
 
   it("Updates a counter", async () => {
-    await program.rpc.increment({
-      accounts: {
+    await program.methods.increment()
+      .accounts({
         counter: counter.publicKey,
         authority: provider.wallet.publicKey,
-      },
-    });
+      })
+      .rpc()
 
     const counterAccount = await program.account.counter.fetch(
       counter.publicKey

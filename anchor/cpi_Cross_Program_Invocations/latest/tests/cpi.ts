@@ -18,22 +18,22 @@ describe("cpi", () => {
 
     // Initialize a new puppet account.
     const newPuppetAccount = anchor.web3.Keypair.generate();
-    const tx = await puppet.rpc.initialize({
-      accounts: {
+    const tx = await puppet.methods.initialize()
+      .accounts({
         puppet: newPuppetAccount.publicKey,
         user: provider.wallet.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
-      },
-      signers: [newPuppetAccount],
-    });
+      })
+      .signers([newPuppetAccount])
+      .rpc()
 
     // Invoke the puppet master to perform a CPI to the puppet.
-    await puppetMaster.rpc.pullStrings(new anchor.BN(111), {
-      accounts: {
+    await puppetMaster.methods.pullStrings(new anchor.BN(111))
+      .accounts({
         puppet: newPuppetAccount.publicKey,
         puppetProgram: puppet.programId,
-      },
-    });
+      })
+      .rpc()
 
     // Check the state updated.
     const puppetAccount = await puppet.account.data.fetch(newPuppetAccount.publicKey);
