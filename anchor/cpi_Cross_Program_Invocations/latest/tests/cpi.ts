@@ -18,7 +18,8 @@ describe("cpi", () => {
 
     // Initialize a new puppet account.
     const newPuppetAccount = anchor.web3.Keypair.generate();
-    const tx = await puppet.methods.initialize()
+    const tx = await puppet.methods
+      .initialize()
       .accounts({
         puppet: newPuppetAccount.publicKey,
         user: provider.wallet.publicKey,
@@ -28,7 +29,8 @@ describe("cpi", () => {
       .rpc()
 
     // Invoke the puppet master to perform a CPI to the puppet.
-    await puppetMaster.methods.pullStrings(new anchor.BN(111))
+    await puppetMaster.methods
+      .pullStrings(new anchor.BN(111))
       .accounts({
         puppet: newPuppetAccount.publicKey,
         puppetProgram: puppet.programId,

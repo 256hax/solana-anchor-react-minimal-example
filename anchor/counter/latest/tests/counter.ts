@@ -18,7 +18,8 @@ describe("counter", () => {
   const program = anchor.workspace.Counter as Program<Counter>;
 
   it("Creates a counter", async () => {
-    await program.methods.create(
+    await program.methods
+    .create(
       provider.wallet.publicKey
     )
     .accounts({
@@ -36,7 +37,8 @@ describe("counter", () => {
   });
 
   it("Updates a counter", async () => {
-    await program.methods.increment()
+    await program.methods
+      .increment()
       .accounts({
         counter: counter.publicKey,
         authority: provider.wallet.publicKey,
