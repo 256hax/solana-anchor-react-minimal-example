@@ -8,6 +8,12 @@
       "type": "shell",
       "command": "anchor test",
       "problemMatcher": []
+    },
+    {
+      "label": "anchor test --skip-local-validator",
+      "type": "shell",
+      "command": "anchor test --skip-local-validator",
+      "problemMatcher": []
     }
   ]
 }
