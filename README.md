@@ -35,6 +35,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Solana
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
 - [Docs - Phantom](https://docs.phantom.app/)
+- [Docs - Solana Errors List](https://github.com/solana-labs/solana/blob/master/sdk/src/transaction/error.rs)
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [Rust - spl_token](https://docs.rs/spl-token/latest/spl_token/)
 - [API - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
@@ -49,7 +50,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Anchor
 - [Docs - Anchor(Installation, Core Concept, Guides, References)](https://www.anchor-lang.com/)
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
-- [Docs - Anchor Errors](https://anchor.so/errors)
+- [Docs - Anchor Errors List](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
 - [Rust - anchor_spl](https://docs.rs/anchor-spl/latest/anchor_spl/index.html)
 - [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
@@ -58,7 +59,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Metaplex
 - [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
-- [Docs - Candy Machine Errors](https://docs.metaplex.com/candy-machine-v1/cm-errors)
+- [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
 - [API - @metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
 - [GitHub - Metaplex](https://github.com/metaplex-foundation/metaplex)
