@@ -1,5 +1,5 @@
 // Ref: https://github.com/metaplex-foundation/js#uploadmetadata
-import { Metaplex, keypairIdentity, bundlrStorage, useMetaplexFile } from "@metaplex-foundation/js";
+import { Metaplex, keypairIdentity, bundlrStorage, toMetaplexFile } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as fs from 'fs';
 
@@ -8,7 +8,7 @@ const main = async() => {
   const wallet = Keypair.generate();
 
 
-  // airdrop
+  // --- Airdrop ---
   let airdropSignature = await connection.requestAirdrop(
       wallet.publicKey,
       LAMPORTS_PER_SOL,
@@ -24,7 +24,7 @@ const main = async() => {
 
   // const balance = await connection.getBalance(wallet.publicKey);
   // console.log(balance);
-  // End airdrop
+  // --- End Airdrop ---
 
   
   // Ref:
@@ -39,21 +39,18 @@ const main = async() => {
 
   // Ref:
   //  MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
-  const file = useMetaplexFile('The content of my file', 'my-file.txt');
+  const file = toMetaplexFile('The content of my file', 'my-file.txt');
 
-  const { uri, metadata } = await metaplex.nfts().uploadMetadata({
-      name: "My NFT",
-      image: await file,
-  });
+  const { uri } = await metaplex
+      .nfts()
+      .uploadMetadata({
+          name: "My NFT Metadata",
+          description: "My description",
+          image: await file,
+      })
+      .run();
 
-  console.log(metadata.image);
   console.log(uri);
 };
 
 main();
-
-/*
-% ts-node <THIS FILE>
-https://arweave.net/Ki9skgYNSjCH70Ni1VT60s0eJQ2zuAu5uf1KrMAIa10
-https://arweave.net/VsZwNEUQ4y48uLEznvyIrOfYjWFGAomMizIfiz43ZuE
-*/
