@@ -41,6 +41,9 @@ test_item
 
 
 #----------------------------------
-# Editor Tool and Mac Config
+# Editor Tools and etc
 #----------------------------------
 .DS_Store
+*.pptx
+*.xlsx
+!Solana_Blockchain_Outline_Figure.pptx
