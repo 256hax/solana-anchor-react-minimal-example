@@ -1,5 +1,5 @@
 // Ref: https://github.com/metaplex-foundation/js#create
-import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/js";
+import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const main = async() => {
@@ -53,7 +53,7 @@ const main = async() => {
       uri: uri,
       name: "My NFT",
       sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: 1,
+      maxSupply: toBigNumber(1),
   })
   .run();
 
