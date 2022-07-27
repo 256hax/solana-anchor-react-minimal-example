@@ -1,6 +1,6 @@
 // Source: https://github.com/solana-labs/solana-program-library/blob/895747f29fd38fc61961ffc1bc5c73dab57bba1a/token/js/examples/create_mint_and_transfer_tokens.ts
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, setAuthority, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 export const main = async() => {
     // Connect to cluster
@@ -70,25 +70,47 @@ export const main = async() => {
         [] // signer
     );
 
-    console.log('fromWallet.publicKey     =>', fromWallet.publicKey.toString());
-    console.log('toWallet.publicKey       =>', toWallet.publicKey.toString());
-    console.log('fromTokenAccount.address =>', fromTokenAccount.address.toString());
-    console.log('toTokenAccount.address   =>', toTokenAccount.address.toString());
-    console.log('mint address             =>', mint.toString());
+    // Set new authority
+    // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
+    const randomWallet = Keypair.generate();
 
-    console.log('mint tx                  =>', signature_mint);
-    console.log('transfer tx              =>', signature_tx);
+    const signature_authority_tx = await setAuthority(
+        connection, // connection
+        // provider.wallet.publicKey, // payer
+        fromWallet, // payer
+        mint, // account
+        fromWallet.publicKey, // currentAuthority
+        0, // authorityType
+        randomWallet.publicKey, // newAuthority
+        [fromWallet], // multiSigners
+        {}, // (Optional) confirmOptions
+        TOKEN_PROGRAM_ID, // ProgramId
+      );
+  
+
+    console.log('fromWallet.publicKey       =>', fromWallet.publicKey.toString());
+    console.log('toWallet.publicKey         =>', toWallet.publicKey.toString());
+    console.log('fromTokenAccount.address   =>', fromTokenAccount.address.toString());
+    console.log('toTokenAccount.address     =>', toTokenAccount.address.toString());
+    console.log('mint address               =>', mint.toString());
+
+    console.log('mint tx                    =>', signature_mint);
+    console.log('transfer tx                =>', signature_tx);
+    console.log('randomWallet.publicKey     =>', randomWallet.publicKey.toString());
+    console.log('signature_authority_tx     =>', signature_authority_tx);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-fromWallet.publicKey     => E8ruGTpYznxpDYN1NkJGhu1AqFdLMDdBHfgwkLAEDbgQ
-toWallet.publicKey       => Autv5u8xDR5HE5eQvVUaB7EK5tYgEXGhSqTEs2ekbtMc
-fromTokenAccount.address => 87i6GeegZipqEgKu5VVUHCCnhoZiQupSANGvtaXMGHQK
-toTokenAccount.address   => 2zrGKH8G18RtDdHKESeQmuNwVbBtxTyUPUXT4yPAkRJg
-mint address             => 4pBgXj5toMJuQtaoDucK2kNxuQkgF9faTTw5fwrS4rDq
-mint tx                  => 5wK51k27m6kL61oGwTdDxc7LpUzD3zadNnhxue3DJqWQTJd4fzAGRx9UMukTN3XEbnsdSN4Fb2piqwgCBT2t6GNB
-transfer tx              => 49XwFww2QNSfZ2mAJ6YRy9j8KMcShXNLf7SgwPJZvd3QLeBCVe5ayMoP2NUFoU8C3SmEbd9pLfGHzUDpNMxJLoMa
+fromWallet.publicKey       => EjnVvfwM5iF3ivzxsq3uGU2FpB9YbfZyVTULDg2XeVpt
+toWallet.publicKey         => 5BTTb2Y1bWnSDG1mnVwgcufJxjAKJf8ia82kgsXLjk4
+fromTokenAccount.address   => 74Qv22jMjKSD3YAPr9ivzYD6qiKNVPVtLshyHVsgtNNj
+toTokenAccount.address     => 7ZiXyEVwMbXU9XpdMY4uyakHSFVwa8EKY9qdVZbKLMBa
+mint address               => 5muWuFzrqmQZxeLDwug4xm1Thqu5dqKEjd1KQeYe91AD
+mint tx                    => XVDwhywmGyo2KvSdygc8Vth3QfUMFGsQKbVcHwY4vzZYrVWtwXmZbriTX6qgJjY3S3Wf2DeAQa9Z7WijScxcyh9
+transfer tx                => 3PMj74a9qAphZL2ZhdVHmG8xS9PFxjTxSYeAtDGbYMDFVGGyhDszoAcAWfSaMiZHMbCRpRkUVzCYvZFiJGGfz8mk
+randomWallet.publicKey     => BVPGofCf7YUMwU4nK8a3nC8deX6i7vvaqVaU7tkxRnRi
+signature_authority_tx     => 63hduoWh47DDYEVBHWVMKWokgVdJGp1u9pa8pTQCo9qbNBMLxPmTUY4HHhbFGYyvNEc8WWPNbTfgViEcGWWWVEzx
 */
