@@ -70,22 +70,35 @@ export const main = async() => {
         [] // signer
     );
 
-    // Set new authority
+    // Set new authority for Mint Account
     // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
     const randomWallet = Keypair.generate();
 
-    const signature_authority_tx = await setAuthority(
+    const mint_rand_auth_tx = await setAuthority(
         connection, // connection
-        // provider.wallet.publicKey, // payer
         fromWallet, // payer
         mint, // account
         fromWallet.publicKey, // currentAuthority
-        0, // authorityType
+        0, // authorityType. MintTokens = 0, FreezeAccount = 1, AccountOwner = 2, CloseAccount = 3
         randomWallet.publicKey, // newAuthority
         [fromWallet], // multiSigners
         {}, // (Optional) confirmOptions
         TOKEN_PROGRAM_ID, // ProgramId
-      );
+    );
+
+    // Set new authority for Token Account
+    // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
+    const token_acc_rand_auth_tx = await setAuthority(
+        connection, // connection
+        fromWallet, // payer
+        fromTokenAccount.address, // account
+        fromWallet.publicKey, // currentAuthority
+        2, // authorityType. MintTokens = 0, FreezeAccount = 1, AccountOwner = 2, CloseAccount = 3
+        randomWallet.publicKey, // newAuthority
+        [fromWallet], // multiSigners
+        {}, // (Optional) confirmOptions
+        TOKEN_PROGRAM_ID, // ProgramId
+    );
   
 
     console.log('fromWallet.publicKey       =>', fromWallet.publicKey.toString());
@@ -97,20 +110,22 @@ export const main = async() => {
     console.log('mint tx                    =>', signature_mint);
     console.log('transfer tx                =>', signature_tx);
     console.log('randomWallet.publicKey     =>', randomWallet.publicKey.toString());
-    console.log('signature_authority_tx     =>', signature_authority_tx);
+    console.log('mint_rand_auth_tx          =>', mint_rand_auth_tx);
+    console.log('token_acc_rand_auth_tx     =>', token_acc_rand_auth_tx);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-fromWallet.publicKey       => EjnVvfwM5iF3ivzxsq3uGU2FpB9YbfZyVTULDg2XeVpt
-toWallet.publicKey         => 5BTTb2Y1bWnSDG1mnVwgcufJxjAKJf8ia82kgsXLjk4
-fromTokenAccount.address   => 74Qv22jMjKSD3YAPr9ivzYD6qiKNVPVtLshyHVsgtNNj
-toTokenAccount.address     => 7ZiXyEVwMbXU9XpdMY4uyakHSFVwa8EKY9qdVZbKLMBa
-mint address               => 5muWuFzrqmQZxeLDwug4xm1Thqu5dqKEjd1KQeYe91AD
-mint tx                    => XVDwhywmGyo2KvSdygc8Vth3QfUMFGsQKbVcHwY4vzZYrVWtwXmZbriTX6qgJjY3S3Wf2DeAQa9Z7WijScxcyh9
-transfer tx                => 3PMj74a9qAphZL2ZhdVHmG8xS9PFxjTxSYeAtDGbYMDFVGGyhDszoAcAWfSaMiZHMbCRpRkUVzCYvZFiJGGfz8mk
-randomWallet.publicKey     => BVPGofCf7YUMwU4nK8a3nC8deX6i7vvaqVaU7tkxRnRi
-signature_authority_tx     => 63hduoWh47DDYEVBHWVMKWokgVdJGp1u9pa8pTQCo9qbNBMLxPmTUY4HHhbFGYyvNEc8WWPNbTfgViEcGWWWVEzx
+fromWallet.publicKey       => CSyFrHrGa1XRxphmXE9EtJzUgGBpm1bX166PGSFKwnM4
+toWallet.publicKey         => 5e4LFx4o5nJA9gaweE1iKEC1aL5ELMY7oAsbNZKuvadG
+fromTokenAccount.address   => AEQmpEmT9MmMTDAfx7jv76Vqv8d3ZaRn6rzpQcRZNJ5K
+toTokenAccount.address     => 7txFE1FvcrfNzoMcjZeA5uxFc95iwQ7nvBNZSNqeo3Zk
+mint address               => 5482WN9J8je5qvDg8SRkeST8uAAuR4qXPC76HkqQTkvd
+mint tx                    => 3twy8ntB5fPH6Tqw8NiXRJDybSKx28ZcV2zoGhN6QEjcu88fnLbSJ4vgYZUvrLmzcBdBnsw8HoJHQrLCkBMzjj7f
+transfer tx                => 3CQ1mvJDgNWAYefcqJfmm2Gj1CRow27qKDDzidTcGe3WhWNSBWv5FAcjz6G5SpSvYwSeSxVZf2XKNAUY2Ygo7jMd
+randomWallet.publicKey     => 2QB6vsBPtPBw4ukeHgjBhBZbRRr97sosaronGUb2uJ6Y
+mint_rand_auth_tx          => 44UgTv2AiPVBkong3tmLnJhY8JE9BoD2bVwpAzqHpWD6WbU2aREYkcNjEVAo5zzKS8NoNGRt6cUUZbhcR28k26Sj
+token_acc_rand_auth_tx     => 3MZ2h9vceZ4V1qe1RA812uKNRfQQaBxrHa2HyJG3RE6HvN1phmp8pJ15Nh9GdCkteg9naT4i9bFTcgocw1sNAuWj
 */
