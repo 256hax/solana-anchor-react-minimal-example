@@ -99,7 +99,7 @@ describe("token", () => {
       .rpc()
 
     const accountInfo = await getAccount(connection, fromToken.address);
-    assert.equal(BigInt(1000), accountInfo.amount);
+    assert.equal(accountInfo.amount, BigInt(1000));
 
     const fromTokenAccountInfo = await getAccount(connection, fromToken.address);
     const toTokenAccountInfo = await getAccount(connection, toToken.address);
@@ -123,8 +123,8 @@ describe("token", () => {
 
     const fromTokenAccountInfo = await getAccount(connection, fromToken.address);
     const toTokenAccountInfo = await getAccount(connection, toToken.address);
-    assert.equal(BigInt(600), fromTokenAccountInfo.amount)
-    assert.equal(BigInt(400), toTokenAccountInfo.amount)
+    assert.equal(fromTokenAccountInfo.amount, BigInt(600))
+    assert.equal(toTokenAccountInfo.amount, BigInt(400))
 
     console.log('\n--- Transfers ----------------------------');
     console.log('fromToken balance  =>', fromTokenAccountInfo.amount);
@@ -145,7 +145,7 @@ describe("token", () => {
 
     const fromTokenAccountInfo = await getAccount(connection, fromToken.address);
     const toTokenAccountInfo = await getAccount(connection, toToken.address);
-    assert.equal(BigInt(1), toTokenAccountInfo.amount)
+    assert.equal(toTokenAccountInfo.amount, BigInt(1));
 
     console.log('\n--- Burns ----------------------------');
     console.log('fromToken balance  =>', fromTokenAccountInfo.amount);
@@ -168,7 +168,7 @@ describe("token", () => {
       .rpc()
 
     const mintInfo = await getMint(connection, mint);
-    assert.equal(newMintAuthority.publicKey.toString(), mintInfo.mintAuthority.toString());
+    assert.equal(mintInfo.mintAuthority.toString(), newMintAuthority.publicKey.toString());
   });
 });
 
