@@ -168,7 +168,7 @@ describe("token", () => {
       .rpc()
 
     const mintInfo = await getMint(connection, mint);
-    assert.equal(newMintAuthority.publicKey.toString(), mintInfo.mintAuthority.toString());
+    assert.equal(mintInfo.mintAuthority.toString(), newMintAuthority.publicKey.toString());
   });
 });
 
