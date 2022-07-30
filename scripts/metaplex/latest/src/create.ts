@@ -34,6 +34,7 @@ const main = async() => {
           address: 'https://devnet.bundlr.network',
           providerUrl: 'https://api.devnet.solana.com',
           timeout: 60000,
+      // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
       }));
 
   const { uri } = await metaplex
@@ -48,18 +49,18 @@ const main = async() => {
   // Ref:
   //  The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
-  .nfts()
-  .create({
-      uri: uri,
-      name: "My NFT",
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(1),
-  })
-  .run();
+      .nfts()
+      .create({
+          uri: uri,
+          name: "My NFT",
+          sellerFeeBasisPoints: 500, // Represents 5.00%.
+          maxSupply: toBigNumber(1),
+      })
+      .run();
 
   console.log('uri =>', uri);
   console.log('nft =>', nft);
-  console.log('Mint Address =>', nft.mint.address.toString());
+  console.log('Mint Address =>', nft.mintAddress.toString());
 };
 
 main();
