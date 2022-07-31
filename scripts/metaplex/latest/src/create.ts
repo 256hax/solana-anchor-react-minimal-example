@@ -34,8 +34,8 @@ const main = async() => {
           address: 'https://devnet.bundlr.network',
           providerUrl: 'https://api.devnet.solana.com',
           timeout: 60000,
-      // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
       }));
+      // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
   const { uri } = await metaplex
       .nfts()
