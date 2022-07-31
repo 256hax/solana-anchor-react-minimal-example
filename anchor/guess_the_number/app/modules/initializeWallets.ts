@@ -3,29 +3,25 @@ import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web
 export const initializeWallets = async(connection: any) => {
   const taker1Wallet = Keypair.generate();
   const taker2Wallet = Keypair.generate();
+  const rewardWallet = Keypair.generate();
 
-  // Generate a new wallet keypair and airdrop SOL
-  let airdropSignature = await connection.requestAirdrop(taker1Wallet.publicKey, LAMPORTS_PER_SOL);
-  let latestBlockHash = await connection.getLatestBlockhash();
+  const wallets = [taker1Wallet, taker2Wallet, rewardWallet];
 
-  // Wait for airdrop confirmation
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  })
+  let latestBlockHash;
+  let airdropSignature;
 
+  for(const w of wallets) {
+    // Generate a new wallet keypair and airdrop SOL
+    airdropSignature = await connection.requestAirdrop(w.publicKey, LAMPORTS_PER_SOL);
+    latestBlockHash = await connection.getLatestBlockhash();
 
-  // Generate a new wallet keypair and airdrop SOL
-  airdropSignature = await connection.requestAirdrop(taker2Wallet.publicKey, LAMPORTS_PER_SOL);
-  latestBlockHash = await connection.getLatestBlockhash();
+    // Wait for airdrop confirmation
+    await connection.confirmTransaction({
+      blockhash: latestBlockHash.blockhash,
+      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+      signature: airdropSignature,
+    })
+  };
 
-  // Wait for airdrop confirmation
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  })
-
-  return [taker1Wallet, taker1Wallet];
+  return [taker1Wallet, taker2Wallet, rewardWallet];
 }
