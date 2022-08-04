@@ -54,3 +54,8 @@ const main = async() => {
 };
 
 main();
+
+/*
+% ts-node <THIS FILE>
+https://arweave.net/SnmeBK3sJRF0Q8rLXweNKtiQyfRhQI0d0HqSjC5QF4U
+*/
