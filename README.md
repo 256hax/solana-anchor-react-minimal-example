@@ -59,6 +59,7 @@ I recommend to use localnet with Transaction Explorer.
 ## Metaplex
 - [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
 - [Docs - Metaplex Docs](https://docs.metaplex.com/)
+- [Docs - Token Metadata(Accounts, Instructions, Collections)](https://docs.metaplex.com/programs/token-metadata/)
 - [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
 - [Rust - mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
