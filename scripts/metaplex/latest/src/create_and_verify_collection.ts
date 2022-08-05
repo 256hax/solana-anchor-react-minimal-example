@@ -32,8 +32,7 @@ const main = async () => {
   // --- End Airdrop ---
 
 
-  // Ref:
-  //  bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
+  // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
     .use(bundlrStorage({
@@ -56,8 +55,7 @@ const main = async () => {
    })
     .run();
 
-  // Ref:
-  //  The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
+  // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft: collectionNft } = await metaplex
     .nfts()
     .create({
@@ -94,8 +92,7 @@ const main = async () => {
    })
     .run();
 
-  // Ref:
-  //  The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
+  // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
     .nfts()
     .create({

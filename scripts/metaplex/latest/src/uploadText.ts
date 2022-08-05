@@ -27,8 +27,7 @@ const main = async() => {
   // --- End Airdrop ---
 
   
-  // Ref:
-  //  bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
+  // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
       .use(keypairIdentity(wallet))
       .use(bundlrStorage({
@@ -37,8 +36,7 @@ const main = async() => {
         timeout: 60000,
       }));
 
-  // Ref:
-  //  MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
+  // Ref: MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
   const file = toMetaplexFile('The content of my file', 'my-file.txt');
 
   const { uri } = await metaplex
