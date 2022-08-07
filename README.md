@@ -58,8 +58,8 @@ I recommend to use localnet with Transaction Explorer.
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 
 ## Metaplex
-- [Docs - Metaplex Docs](https://docs.metaplex.com/)
-- [Docs - Token Metadata(Accounts, Instructions, Collections)](https://docs.metaplex.com/programs/token-metadata/)
+- [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/)
+- [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
 - [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
 - [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
