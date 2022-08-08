@@ -57,13 +57,14 @@ I recommend to use localnet with Transaction Explorer.
 - [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 
-## Metaplex
+## Metaplex/NFT
 - [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/)
 - [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
 - [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
 - [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
 - [Rust - mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
+- [Rust - metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
 - [API - @metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
 - [GitHub - Metaplex js](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
