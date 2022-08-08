@@ -1,0 +1,10 @@
+[package]
+name = "get-account-nft"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+metaboss_lib = "0.0.4"
+solana-client = "1.11.5"
