@@ -13,7 +13,7 @@ pub mod transferpg {
         Ok(())
     }
 
-    pub fn deposit(ctx: Context<Desposit>, amount: u64) -> Result<()> {
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
         let from = &ctx.accounts.vault.to_account_info();
         let to = &ctx.accounts.wallet.to_account_info();
         transfer_service_fee_lamports(
@@ -23,17 +23,6 @@ pub mod transferpg {
         )?;
         Ok(())
     }
-
-    // pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
-    //     let from = &ctx.accounts.wallet.to_account_info();
-    //     let to = &ctx.accounts.vault.to_account_info();
-    //     transfer_service_fee_lamports(
-    //         from,
-    //         to,
-    //         amount
-    //     )?;
-    //     Ok(())
-    // }
 }
 
 #[derive(Accounts)]
@@ -55,7 +44,7 @@ pub struct Initialize<'info> {
 }
 
 #[derive(Accounts)]
-pub struct Desposit<'info> {
+pub struct Withdraw<'info> {
     #[account(mut, has_one = authority, seeds = [b"vault".as_ref()], bump)]
     vault: Account<'info, Vault>,
     #[account(mut)]
@@ -64,17 +53,6 @@ pub struct Desposit<'info> {
     wallet: AccountInfo<'info>,
     system_program: Program<'info, System>,
 }
-
-// #[derive(Accounts)]
-// pub struct Withdraw<'info> {
-//     #[account(mut, has_one = authority, seeds = [b"vault".as_ref()], bump)]
-//     vault: Account<'info, Vault>,
-//     #[account(mut)]
-//     authority: Signer<'info>,
-//     /// CHECK:
-//     wallet: AccountInfo<'info>,
-//     system_program: Program<'info, System>,
-// }
 
 #[account]
 pub struct Vault {

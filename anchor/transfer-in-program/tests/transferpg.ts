@@ -57,25 +57,7 @@ describe("transferpg", () => {
     _pda = pda;
   });
   
-  it("Deposit to PDA", async () => {
-    const pda = _pda;
-
-    const tx = await program.methods
-      .deposit(new BN(LAMPORTS_PER_SOL * 0.001))
-      .accounts({
-        vault: pda,
-        authority: provider.wallet.publicKey,
-        wallet: provider.wallet.publicKey,
-      })
-      .rpc()
-
-    const balance = await provider.connection.getBalance(pda);
-    console.log('\n-------------------------------------------------');
-    console.log('tx =>', tx);
-    console.log('balance of pda =>', balance);
-  });
-
-  // it("Withdraw from PDA", async () => {
+  // it("Deposit to PDA", async () => {
   //   const pda = _pda;
 
   //   const tx = await program.methods
@@ -92,4 +74,22 @@ describe("transferpg", () => {
   //   console.log('tx =>', tx);
   //   console.log('balance of pda =>', balance);
   // });
+
+  it("Withdraw from PDA", async () => {
+    const pda = _pda;
+
+    const tx = await program.methods
+      .withdraw(new BN(LAMPORTS_PER_SOL * 0.001))
+      .accounts({
+        vault: pda,
+        authority: provider.wallet.publicKey,
+        wallet: provider.wallet.publicKey,
+      })
+      .rpc()
+
+    const balance = await provider.connection.getBalance(pda);
+    console.log('\n-------------------------------------------------');
+    console.log('tx =>', tx);
+    console.log('balance of pda =>', balance);
+  });
 });
