@@ -4,12 +4,33 @@ declare_id!("73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep");
 
 #[program]
 pub mod transferpg {
-    // use anchor_lang::solana_program::{program::invoke, system_instruction};
+    use anchor_lang::solana_program::{ program::invoke, system_instruction };
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         ctx.accounts.vault.authority = ctx.accounts.authority.key();
         ctx.accounts.vault.bump = *ctx.bumps.get("vault").unwrap();
+        Ok(())
+    }
+
+    pub fn deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
+        let from_account_info = &ctx.accounts.wallet.to_account_info();
+        let to_account_info = &ctx.accounts.vault.to_account_info();
+        let system_program_account_info = &ctx.accounts.system_program.to_account_info();
+
+        invoke(
+            &system_instruction::transfer(
+                &from_account_info.key(),
+                &to_account_info.key(),
+                amount,
+            ),
+            &[
+                from_account_info.clone(),
+                to_account_info.clone(),
+                system_program_account_info.clone(),
+            ],
+            // &[&[b"escrow", &[bump_seed]]],
+        )?;
         Ok(())
     }
 
@@ -40,6 +61,17 @@ pub struct Initialize<'info> {
     vault: Account<'info, Vault>,
     #[account(mut)]
     authority: Signer<'info>,
+    system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct Deposit<'info> {
+    #[account(mut, has_one = authority, seeds = [b"vault".as_ref()], bump)]
+    vault: Account<'info, Vault>,
+    #[account(mut)]
+    authority: Signer<'info>,
+    /// CHECK:
+    wallet: AccountInfo<'info>,
     system_program: Program<'info, System>,
 }
 

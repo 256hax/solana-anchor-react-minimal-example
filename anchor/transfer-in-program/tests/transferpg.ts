@@ -27,63 +27,46 @@ describe("transferpg", () => {
       })
       .rpc()
 
-
     const balanceBefore = await provider.connection.getBalance(pda);
     console.log('\n-------------------------------------------------');
     console.log('provider =>', provider.wallet.publicKey.toString());
     console.log('pda =>', pda.toString());
-    console.log('balance of pda before airdrop =>', balanceBefore);
+    console.log('balance of pda =>', balanceBefore);
 
+    const balance = await provider.connection.getBalance(pda);
+    console.log('\n-------------------------------------------------');
+    console.log('tx =>', tx);
 
-    // --- Airdrop ---
-    const airdropSignature = await connection.requestAirdrop(pda, LAMPORTS_PER_SOL);
+    _pda = pda;
+  });
+  
+  it("Deposit to PDA", async () => {
+    const pda = _pda;
 
-    let latestBlockHash = await connection.getLatestBlockhash();
-
-    // Wait for airdrop confirmation
-    await connection.confirmTransaction({
-      blockhash: latestBlockHash.blockhash,
-      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-      signature: airdropSignature,
-    });
-    // --- End Airdrop ---
-
+    const tx = await program.methods
+      .deposit(new BN(LAMPORTS_PER_SOL * 0.001))
+      .accounts({
+        wallet: provider.wallet.publicKey, // from
+        vault: pda, // to
+        authority: provider.wallet.publicKey, // authority
+      })
+      .rpc()
 
     const balance = await provider.connection.getBalance(pda);
     console.log('\n-------------------------------------------------');
     console.log('tx =>', tx);
     console.log('balance of pda =>', balance);
-
-    _pda = pda;
   });
-  
-  // it("Deposit to PDA", async () => {
-  //   const pda = _pda;
-
-  //   const tx = await program.methods
-  //     .deposit(new BN(LAMPORTS_PER_SOL * 0.001))
-  //     .accounts({
-  //       vault: provider.wallet.publicKey,
-  //       authority: provider.wallet.publicKey,
-  //       wallet: pda,
-  //     })
-  //     .rpc()
-
-  //   const balance = await provider.connection.getBalance(pda);
-  //   console.log('\n-------------------------------------------------');
-  //   console.log('tx =>', tx);
-  //   console.log('balance of pda =>', balance);
-  // });
 
   it("Withdraw from PDA", async () => {
     const pda = _pda;
 
     const tx = await program.methods
-      .withdraw(new BN(LAMPORTS_PER_SOL * 0.001))
+      .withdraw(new BN(LAMPORTS_PER_SOL * 0.0001))
       .accounts({
-        vault: pda,
-        authority: provider.wallet.publicKey,
-        wallet: provider.wallet.publicKey,
+        vault: pda, // from
+        wallet: provider.wallet.publicKey, // to
+        authority: provider.wallet.publicKey, // authority
       })
       .rpc()
 
