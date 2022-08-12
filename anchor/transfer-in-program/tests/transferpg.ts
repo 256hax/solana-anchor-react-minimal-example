@@ -16,12 +16,12 @@ describe("transferpg", () => {
   let _pda: PublicKey;
 
   it("Initialize account", async () => {
-    const [pda, nonce] = await PublicKey.findProgramAddress([encode("vault")], program.programId);
+    const [pda, nonce] = await PublicKey.findProgramAddress([encode("pda")], program.programId);
 
     const tx = await program.methods
       .initialize()
       .accounts({
-        vault: pda,
+        pda: pda,
         authority: provider.wallet.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
       })
@@ -47,7 +47,7 @@ describe("transferpg", () => {
       .deposit(new BN(LAMPORTS_PER_SOL * 0.001))
       .accounts({
         wallet: provider.wallet.publicKey, // from
-        vault: pda, // to
+        pda: pda, // to
         authority: provider.wallet.publicKey, // authority
       })
       .rpc()
@@ -64,7 +64,7 @@ describe("transferpg", () => {
     const tx = await program.methods
       .withdraw(new BN(LAMPORTS_PER_SOL * 0.0001))
       .accounts({
-        vault: pda, // from
+        pda: pda, // from
         wallet: provider.wallet.publicKey, // to
         authority: provider.wallet.publicKey, // authority
       })

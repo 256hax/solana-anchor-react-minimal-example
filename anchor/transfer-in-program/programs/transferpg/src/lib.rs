@@ -8,34 +8,35 @@ pub mod transferpg {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        ctx.accounts.vault.authority = ctx.accounts.authority.key();
-        ctx.accounts.vault.bump = *ctx.bumps.get("vault").unwrap();
+        ctx.accounts.pda.authority = ctx.accounts.authority.key();
+        ctx.accounts.pda.bump = *ctx.bumps.get("pda").unwrap();
         Ok(())
     }
 
+    // Ref: https://solanacookbook.com/references/accounts.html#how-to-sign-with-a-pda
     pub fn deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
-        let from_account_info = &ctx.accounts.wallet.to_account_info();
-        let to_account_info = &ctx.accounts.vault.to_account_info();
-        let system_program_account_info = &ctx.accounts.system_program.to_account_info();
+        let from = &ctx.accounts.wallet.to_account_info();
+        let to = &ctx.accounts.pda.to_account_info();
+        let system_program = &ctx.accounts.system_program.to_account_info();
 
         invoke(
             &system_instruction::transfer(
-                &from_account_info.key(),
-                &to_account_info.key(),
+                &from.key(),
+                &to.key(),
                 amount,
             ),
             &[
-                from_account_info.clone(),
-                to_account_info.clone(),
-                system_program_account_info.clone(),
+                from.clone(),
+                to.clone(),
+                system_program.clone(),
             ],
-            // &[&[b"escrow", &[bump_seed]]],
         )?;
         Ok(())
     }
 
+    // Ref: https://solanacookbook.com/references/programs.html#how-to-transfer-sol-in-a-program
     pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
-        let from = &ctx.accounts.vault.to_account_info();
+        let from = &ctx.accounts.pda.to_account_info();
         let to = &ctx.accounts.wallet.to_account_info();
         transfer_service_fee_lamports(
             from,
@@ -54,11 +55,11 @@ pub struct Initialize<'info> {
         payer = authority, 
         space = 8 + 8 + 32 + 1,
         seeds = [
-            b"vault".as_ref()
+            b"pda".as_ref()
         ],
         bump
     )]
-    vault: Account<'info, Vault>,
+    pda: Account<'info, Pda>,
     #[account(mut)]
     authority: Signer<'info>,
     system_program: Program<'info, System>,
@@ -66,8 +67,8 @@ pub struct Initialize<'info> {
 
 #[derive(Accounts)]
 pub struct Deposit<'info> {
-    #[account(mut, has_one = authority, seeds = [b"vault".as_ref()], bump)]
-    vault: Account<'info, Vault>,
+    #[account(mut, has_one = authority, seeds = [b"pda".as_ref()], bump)]
+    pda: Account<'info, Pda>,
     #[account(mut)]
     authority: Signer<'info>,
     /// CHECK:
@@ -77,8 +78,8 @@ pub struct Deposit<'info> {
 
 #[derive(Accounts)]
 pub struct Withdraw<'info> {
-    #[account(mut, has_one = authority, seeds = [b"vault".as_ref()], bump)]
-    vault: Account<'info, Vault>,
+    #[account(mut, has_one = authority, seeds = [b"pda".as_ref()], bump)]
+    pda: Account<'info, Pda>,
     #[account(mut)]
     authority: Signer<'info>,
     /// CHECK:
@@ -87,7 +88,7 @@ pub struct Withdraw<'info> {
 }
 
 #[account]
-pub struct Vault {
+pub struct Pda {
     authority: Pubkey,
     bump: u8,
 }
