@@ -1,11 +1,11 @@
-import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 export const initializeWallets = async(connection: any) => {
+  const payerWallet = Keypair.generate();
   const taker1Wallet = Keypair.generate();
   const taker2Wallet = Keypair.generate();
-  const rewardWallet = Keypair.generate();
 
-  const wallets = [taker1Wallet, taker2Wallet, rewardWallet];
+  const wallets = [payerWallet, taker1Wallet, taker2Wallet];
 
   let latestBlockHash;
   let airdropSignature;
@@ -23,5 +23,5 @@ export const initializeWallets = async(connection: any) => {
     })
   };
 
-  return [taker1Wallet, taker2Wallet, rewardWallet];
-}
+  return [payerWallet, taker1Wallet, taker2Wallet];
+};
