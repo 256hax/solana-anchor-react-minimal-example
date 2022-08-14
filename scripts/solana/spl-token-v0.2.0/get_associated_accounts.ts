@@ -1,6 +1,6 @@
 // Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
 import * as web3 from '@solana/web3.js';
-import { getAccount } from '@solana/spl-token';
+import { getAccount, getAssociatedTokenAddress } from '@solana/spl-token';
 
 async function main() {
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
@@ -55,6 +55,11 @@ async function main() {
   console.log("\n----------------------------------------------------------------------");
   console.log('getAccountInfoByAddress =>', getAccountInfoByAddress);
   console.log('getAccountInfoByAddress.owner =>', getAccountInfoByAddress.owner.toString());
+
+  const getAssociatedTokenAddressResult = await getAssociatedTokenAddress(my_token_mint_address, ph_ed_address);
+  console.log("\n----------------------------------------------------------------------");
+  console.log('getAssociatedTokenAddressResult =>', getAssociatedTokenAddressResult);
+  console.log('getAssociatedTokenAddressResult =>', getAssociatedTokenAddressResult.toString());
 }
 
 main();
@@ -176,4 +181,10 @@ getAccountInfoByAddress => {
   closeAuthority: null
 }
 getAccountInfoByAddress.owner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+
+----------------------------------------------------------------------
+getAssociatedTokenAddressResult => PublicKey {
+  _bn: <BN: eab0e2b91c70b4c37e15e7c604367ffc01f25e959f67d2de1d1f67664347d243>
+}
+getAssociatedTokenAddressResult => Go8qiBxm1L5hs2AbCRmAoS4RcWW2ThYnuUSC6gQf8y2J
 */
