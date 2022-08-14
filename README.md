@@ -27,9 +27,11 @@ I recommend to use localnet with Transaction Explorer.
 [Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
 
 ### Example Image (Draft)
-![Yield Farming](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/outline-example-dex.png?raw=true)
+![STEPN ON/OFF Chain](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-screenshot.png?raw=true)  
 
-![System Architecure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/outline-example-system-architecture.png?raw=true)
+![STEPN Mapping System](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-mapping-system.png?raw=true)  
+
+![Magic Eden Escrow](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/magiceden-accounts.png?raw=true)
 
 # Reference
 ## Solana
