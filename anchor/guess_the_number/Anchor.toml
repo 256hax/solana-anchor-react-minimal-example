@@ -8,7 +8,8 @@ guess = "73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+# cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

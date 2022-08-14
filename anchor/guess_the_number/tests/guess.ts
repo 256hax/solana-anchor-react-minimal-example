@@ -18,12 +18,12 @@ describe("Guess the number", () => {
   let metaplex;
 
   let payer: Keypair = provider.wallet.payer;
-  let taker1: Keypair;
-  let taker2: Keypair;
+  let taker1: Keypair; // BBCkTVFxZbLPar5YpjqBzymPkcZvT7RMuDK59bbaPTd4
+  let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
   // let hackerWallet: Keypair; TODO
 
-  let nft1;
-  let nft2;
+  let nft1: PublicKey;
+  let nft2: PublicKey;
 
   it("Initialize wallets", async () => {
     [taker1, taker2] = await initializeWallets(connection);
@@ -32,10 +32,9 @@ describe("Guess the number", () => {
     const taker1Balance = await connection.getBalance(taker1.publicKey);
     const taker2Balance = await connection.getBalance(taker2.publicKey);
 
-    // assert.equal(payerBalance, LAMPORTS_PER_SOL);
     assert.isAtLeast(payerBalance, LAMPORTS_PER_SOL);
-    assert.equal(taker1Balance, LAMPORTS_PER_SOL);
-    assert.equal(taker2Balance, LAMPORTS_PER_SOL);
+    assert.isAtLeast(taker1Balance, LAMPORTS_PER_SOL);
+    assert.isAtLeast(taker2Balance, LAMPORTS_PER_SOL);
 
     console.log('payer =>', payer.publicKey.toString());
     console.log('taker1 =>', taker1.publicKey.toString());
@@ -48,32 +47,32 @@ describe("Guess the number", () => {
   // Set NFTs by payer
   //--------------------------------------------------
   
-  it("Create NFTs", async () => {
-    // --- Metaplex Settings ---
-    const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
-    metaplex = Metaplex.make(connectionMetaplex)
-      .use(keypairIdentity(payer))
-      .use(bundlrStorage({
-          address: 'https://devnet.bundlr.network',
-          providerUrl: 'https://api.devnet.solana.com',
-          timeout: 60000,
-      }));
-      // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
+  // it("Create NFTs", async () => {
+  //   // --- Metaplex Settings ---
+  //   const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
+  //   metaplex = Metaplex.make(connectionMetaplex)
+  //     .use(keypairIdentity(payer))
+  //     .use(bundlrStorage({
+  //         address: 'https://devnet.bundlr.network',
+  //         providerUrl: 'https://api.devnet.solana.com',
+  //         timeout: 60000,
+  //     }));
+  //     // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
-    const [uri1, _nft1, uri2, _nft2] = await createNfts(metaplex);
+  //   const [uri1, _nft1, uri2, _nft2] = await createNfts(metaplex);
 
-    nft1 = _nft1;
-    nft2 = _nft2;
+  //   nft1 = _nft1.address;
+  //   nft2 = _nft2.address;
 
-    console.log('uri1 =>', uri1);
-    console.log('Mint Address1 =>', nft1.mintAddress.toString());
-    console.log('uri2 =>', uri2);
-    console.log('Mint Address2 =>', nft2.mintAddress.toString());
-  });
+  //   console.log('uri1 =>', uri1);
+  //   console.log('Mint Address1 =>', nft1.toString());
+  //   console.log('uri2 =>', uri2);
+  //   console.log('Mint Address2 =>', nft2.toString());
+  // });
 
-  it("Set reward", async () => {
-    // TODO: Set and lock reward in Rust
-  });
+  // it("Set reward", async () => {
+  //   // TODO: Set and lock reward in Rust
+  // });
  
 
 
@@ -82,15 +81,14 @@ describe("Guess the number", () => {
   //--------------------------------------------------
 
   it("Mint NFTs by taker", async () => {
-    // nft1 = '882hK4r2cdMzwLaQa1kGNxR6hQTvGyfGYYScwsJ1s7ZL'; // Stub
-    // nft2 = 'FHEumZvdSWbY8MTMXWAuJ5QwjCsFyk8VDEm8jnYeuxXo'; // Stub
+    nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF'); // Stub
+    nft2 = new PublicKey('DAJRyGCbjR2Tv8BP8WVqfRTm8TA891ZpjbFb8gkehiW2'); // Stub
 
-    // metaplex js mintTo
-    // const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1.address);
-    // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft1.address);
+    const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
+    const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
-    // console.log('signatureNft1 =>', signatureNft1);
-    // console.log('signatureNft2 =>', signatureNft2);
+    console.log('signatureNft1 =>', signatureNft1);
+    console.log('signatureNft2 =>', signatureNft2);
   });
 
   it("Set an answer by takers", async () => {
