@@ -10,27 +10,27 @@ export const transferNft: transferNftType = async(connection, keypair, mintNftAd
   const mint = new PublicKey(mintNftAddress);
 
   const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-    connection,
-    fromWallet,
-    mint,
-    toWallet.publicKey
+    connection, // connection
+    fromWallet, // payer
+    mint, // mint address
+    toWallet.publicKey // owner
   );
 
   const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-    connection,
-    fromWallet,
-    mint,
-    fromWallet.publicKey
+    connection, // connection
+    fromWallet, // payer
+    mint, // mint address
+    fromWallet.publicKey // owner
   );
 
   const signature_tx = await transfer(
-    connection,
-    fromWallet,
-    fromTokenAccount.address,
-    toTokenAccount.address,
-    fromWallet.publicKey,
-    1,
-    []
+    connection, // connection
+    fromWallet, // payer
+    fromTokenAccount.address, // source
+    toTokenAccount.address, // destination
+    fromWallet.publicKey, // owner
+    1, // amount
+    [] // signer
   );
 
   //
