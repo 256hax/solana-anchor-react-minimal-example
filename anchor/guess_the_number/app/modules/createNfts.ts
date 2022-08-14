@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { sleep } from 'sleep';
 
 export const createNfts = async (metaplex: any) => {
+  // --- NFT Number 1 ---
   const bufferImage1 = fs.readFileSync('./app/assets/images/number_1.png');
   const fileImage1 = toMetaplexFile(bufferImage1, 'number_1.png');
   const { uri: uri1 } = await metaplex
@@ -15,7 +16,7 @@ export const createNfts = async (metaplex: any) => {
     })
     .run();
 
-  sleep.sleep(1); // 1 = 1sec. for too many request
+  sleep(1); // 1 = 1sec. for too many request
 
   const { nft: nft1 } = await metaplex
     .nfts()
@@ -27,6 +28,10 @@ export const createNfts = async (metaplex: any) => {
     })
     .run();
   
+  sleep(1); // 1 = 1sec. for too many request
+
+
+  // --- NFT Number 2 ---
   const bufferImage2 = fs.readFileSync('./app/assets/images/number_2.png');
   const fileImage2 = toMetaplexFile(bufferImage2, 'number_2.png');
   const { uri: uri2 } = await metaplex
@@ -37,6 +42,8 @@ export const createNfts = async (metaplex: any) => {
       image: fileImage2,
     })
     .run();
+
+  sleep(1); // 1 = 1sec. for too many request
 
   const { nft: nft2 } = await metaplex
     .nfts()

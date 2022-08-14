@@ -1,8 +1,10 @@
 import { Keypair, PublicKey } from '@solana/web3.js';
 
-export type setRewardType = {
+export type mintNftType = {
   (
     connection: any,
-    payerWallet: Keypair,
+    payer: Keypair,
+    takerPublicKey: PublicKey,
+    mint: PublicKey,
   ): Promise<string>
 };

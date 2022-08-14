@@ -1,14 +1,14 @@
 import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { sleep } from 'sleep';
 
 export const initializeWallets = async(connection: any) => {
-  const payerWallet = Keypair.generate();
-  const taker1Wallet = Keypair.generate();
-  const taker2Wallet = Keypair.generate();
+  const taker1 = Keypair.generate();
+  const taker2 = Keypair.generate();
 
-  const wallets = [payerWallet, taker1Wallet, taker2Wallet];
+  const wallets = [taker1, taker2];
 
-  let latestBlockHash;
-  let airdropSignature;
+  let latestBlockHash: any;
+  let airdropSignature: any;
 
   for(const w of wallets) {
     // Generate a new wallet keypair and airdrop SOL
@@ -21,7 +21,9 @@ export const initializeWallets = async(connection: any) => {
       lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
       signature: airdropSignature,
     })
+
+    sleep(1); // 1 = 1sec. for too many request
   };
 
-  return [payerWallet, taker1Wallet, taker2Wallet];
+  return [taker1, taker2];
 };
