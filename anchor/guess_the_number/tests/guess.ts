@@ -112,8 +112,8 @@ describe("Guess the number", () => {
   });
 
   it("Set an answer by takers", async () => {
-    const [taker1Signature, taker1Answers] = await mockSetAnswer(program, taker1, nft1);
-    const [taker2Signature, taker2Answers] = await mockSetAnswer(program, taker2, nft2);
+    const [taker1Signature, taker1Answers] = await mockSetAnswer(connection, program, taker1, nft1);
+    const [taker2Signature, taker2Answers] = await mockSetAnswer(connection, program, taker2, nft2);
 
     console.log('taker1Signature =>', taker1Signature);
     console.log('taker1Answers =>', taker1Answers);

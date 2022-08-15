@@ -6,9 +6,9 @@ declare_id!("73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep");
 pub mod guess {
     use super::*;
 
-    pub fn create_user_answers(ctx: Context<CreateUserAnswers>, mint: Pubkey, answer: String) -> Result<()> {
+    pub fn create_user_answers(ctx: Context<CreateUserAnswers>, token_account: Pubkey, answer: String) -> Result<()> {
         let user_answers = &mut ctx.accounts.user_answers;
-        user_answers.mint = mint;
+        user_answers.token_account = token_account;
         user_answers.answer = answer;
         user_answers.bump = *ctx.bumps.get("user_answers").unwrap();
         Ok(())
@@ -17,7 +17,7 @@ pub mod guess {
 
 #[account]
 pub struct UserAnswers {
-    mint: Pubkey,
+    token_account: Pubkey, // NFT token account (=owner)
     answer: String,
     bump: u8,
 }
