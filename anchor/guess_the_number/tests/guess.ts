@@ -8,6 +8,10 @@ import { initializeWallets } from '../app/modules/initializeWallets';
 import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
 
+import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
+import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
+import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
+
 describe("Guess the number", () => {
   // --- Anchor Settings ---
   const provider = anchor.AnchorProvider.env();
@@ -28,6 +32,9 @@ describe("Guess the number", () => {
   it("Initialize wallets", async () => {
     [taker1, taker2] = await initializeWallets(connection);
 
+    // [Localnet]
+    await mockInitializeWallets(connection, taker1, taker2);
+
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
     const taker2Balance = await connection.getBalance(taker2.publicKey);
@@ -47,28 +54,33 @@ describe("Guess the number", () => {
   // Set NFTs by payer
   //--------------------------------------------------
   
-  // it("Create NFTs", async () => {
-  //   // --- Metaplex Settings ---
-  //   const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
-  //   metaplex = Metaplex.make(connectionMetaplex)
-  //     .use(keypairIdentity(payer))
-  //     .use(bundlrStorage({
-  //         address: 'https://devnet.bundlr.network',
-  //         providerUrl: 'https://api.devnet.solana.com',
-  //         timeout: 60000,
-  //     }));
-  //     // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
+  it("Create NFTs", async () => {
+    // // [Devnet]
+    // // --- Metaplex Settings ---
+    // const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
+    // metaplex = Metaplex.make(connectionMetaplex)
+    //   .use(keypairIdentity(payer))
+    //   // .use(bundlrStorage({
+    //   //     address: 'https://devnet.bundlr.network',
+    //   //     providerUrl: 'https://api.devnet.solana.com',
+    //   //     timeout: 60000,
+    //   // }));
+    //   .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
-  //   const [uri1, _nft1, uri2, _nft2] = await createNfts(metaplex);
+    // const [uri1, _nft1, uri2, _nft2] = await createNfts(metaplex);
+    // nft1 = _nft1.address;
+    // nft2 = _nft2.address;
 
-  //   nft1 = _nft1.address;
-  //   nft2 = _nft2.address;
+    // [Localnet]
+    const [uri1, _nft1, uri2, _nft2] = await mockCreateNfts(connection, payer);
+    nft1 = new PublicKey(_nft1);
+    nft2 = new PublicKey(_nft2);
 
-  //   console.log('uri1 =>', uri1);
-  //   console.log('Mint Address1 =>', nft1.toString());
-  //   console.log('uri2 =>', uri2);
-  //   console.log('Mint Address2 =>', nft2.toString());
-  // });
+    console.log('uri1 =>', uri1);
+    console.log('Mint Address1 =>', nft1.toString());
+    console.log('uri2 =>', uri2);
+    console.log('Mint Address2 =>', nft2.toString());
+  });
 
   // it("Set reward", async () => {
   //   // TODO: Set and lock reward in Rust
@@ -81,12 +93,18 @@ describe("Guess the number", () => {
   //--------------------------------------------------
 
   it("Mint NFTs by taker", async () => {
-    nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF'); // Stub
-    nft2 = new PublicKey('DAJRyGCbjR2Tv8BP8WVqfRTm8TA891ZpjbFb8gkehiW2'); // Stub
+    // // [Devnet] Stub
+    // nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF');
+    // nft2 = new PublicKey('DAJRyGCbjR2Tv8BP8WVqfRTm8TA891ZpjbFb8gkehiW2');
 
-    const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
-    const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
+    // // [Devnet]
+    // const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
+    // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
+    // [Localnet]
+    const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
+    const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
+    
     console.log('signatureNft1 =>', signatureNft1);
     console.log('signatureNft2 =>', signatureNft2);
   });
@@ -98,11 +116,11 @@ describe("Guess the number", () => {
 
 
   //--------------------------------------------------
-  // Announcement
+  // Announcement by payer
   //--------------------------------------------------
 
-  it("Reveal correct(an NFT) by payer", async () => {
-  });
+  // it("Reveal correct an NFT by payer", async () => {
+  // });
   
   it("Calculate and security check", async () => {
     // - Find correct answer using Metaplex JS(findByMint)
@@ -119,10 +137,9 @@ describe("Guess the number", () => {
   // Close by payer
   //--------------------------------------------------
 
-  it("Burn taker's NFT", async () => {
+  it("Burn all of taker's NFT", async () => {
   });
 
-  it("Return authority to taker's NFT", async () => {
-    // If need it
+  it("Close PDA", async () => {
   });
 });
