@@ -7,10 +7,12 @@ import { assert, expect } from 'chai';
 import { initializeWallets } from '../app/modules/initializeWallets';
 import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
+import { setAnswer } from '../app/modules/setAnswer';
 
 import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
+import { setAnswer as mockSetAnswer } from '../app/modules/mock/setAnswer';
 
 describe("Guess the number", () => {
   // --- Anchor Settings ---
@@ -110,7 +112,13 @@ describe("Guess the number", () => {
   });
 
   it("Set an answer by takers", async () => {
-    // Change set authority from taker to payer (JS)
+    const [taker1Signature, taker1Answers] = await mockSetAnswer(program, taker1, nft1);
+    const [taker2Signature, taker2Answers] = await mockSetAnswer(program, taker2, nft2);
+
+    console.log('taker1Signature =>', taker1Signature);
+    console.log('taker1Answers =>', taker1Answers);
+    console.log('taker2Signature =>', taker2Signature);
+    console.log('taker2Answers =>', taker2Answers);
   });
 
 
