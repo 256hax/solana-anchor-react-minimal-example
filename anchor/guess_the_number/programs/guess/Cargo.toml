@@ -16,6 +16,9 @@ cpi = ["no-entrypoint"]
 default = []
 
 [dependencies]
-anchor-lang = "0.25.0"
+# following versions get "error[E0658]: destructuring assignments are unstable. _ = TokenInstruction::unpack(&expect[0..2])" error.
+# anchor-lang = "0.25.0"
 # anchor-spl = "0.25.0"
-# spl-token = "~3.3.0"
+anchor-lang = "0.24.2"
+anchor-spl = "0.24.2"
+spl-token = "~3.3.0"
