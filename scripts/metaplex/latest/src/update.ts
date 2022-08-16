@@ -46,14 +46,14 @@ const main = async() => {
 
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
-  .nfts()
-  .create({
-      uri: uri,
-      name: "My NFT",
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: 1,
-  })
-  .run();
+      .nfts()
+      .create({
+          uri: uri,
+          name: "My NFT",
+          sellerFeeBasisPoints: 500, // Represents 5.00%.
+          maxSupply: 1,
+      })
+      .run();
 
   const { nft: updatedNft } = await metaplex
       .nfts()
