@@ -10,11 +10,15 @@ pub mod guess {
         ctx: Context<CreateUserAnswers>,
         token_account: Pubkey,
         answer: String,
+        bump: u8,
     ) -> Result<()> {
         let user_answers = &mut ctx.accounts.user_answers;
         user_answers.token_account = token_account;
         user_answers.answer = answer;
-        user_answers.bump = *ctx.bumps.get("user_answers").unwrap();
+
+        // user_answers.bump = *ctx.bumps.get("user_answers").unwrap();
+        // Following code is reducing cpu consumpotion but unsecure.
+        user_answers.bump = bump;
         Ok(())
     }
 }

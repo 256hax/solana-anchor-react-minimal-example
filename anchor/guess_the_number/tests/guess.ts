@@ -15,7 +15,8 @@ import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
 import {
-  setAnswerCreatePda as mockSetAnswerCreatePda,
+  createPda as mockCreatePda,
+  setAuthorityEscrow as mockSetAuthorityEscrow,
 } from '../app/modules/mock/setAnswer';
 
 
@@ -35,6 +36,8 @@ describe("Guess the number", () => {
 
   let nft1: PublicKey;
   let nft2: PublicKey;
+
+  const pdaSeed = 'user-answers';
 
   it("Initialize wallets", async () => {
     [taker1, taker2] = await initializeWallets(connection);
@@ -59,7 +62,6 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Set NFTs by payer
   //--------------------------------------------------
-  
   it("Create NFTs", async () => {
     // // [Devnet]
     // // --- Metaplex Settings ---
@@ -82,6 +84,9 @@ describe("Guess the number", () => {
     nft1 = new PublicKey(_nft1);
     nft2 = new PublicKey(_nft2);
 
+    assert(nft1 != null);
+    assert(nft2 != null);
+
     console.log('uri1 =>', uri1);
     console.log('Mint Address1 =>', nft1.toString());
     console.log('uri2 =>', uri2);
@@ -96,7 +101,6 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Actions for NFT by taker
   //--------------------------------------------------
-
   it("Mint NFTs by taker", async () => {
     // // [Devnet] Stub
     // nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF');
@@ -109,37 +113,80 @@ describe("Guess the number", () => {
     // [Localnet]
     const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
     const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
-    
+
+    assert(signatureNft1 != null);
+    assert(signatureNft2 != null);
+
     console.log('signatureNft1 =>', signatureNft1);
     console.log('signatureNft2 =>', signatureNft2);
   });
 
-  it("Set an answer by takers", async () => {
-    const [taker1Signature, taker1Answers] = await mockSetAnswerCreatePda(
+  it("Create PDA for answer by takers", async () => {
+    const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await mockCreatePda(
       connection,
       program,
       taker1,
       nft1,
+      pdaSeed,
     );
-
-    const [taker2Signature, taker2Answers] = await mockSetAnswerCreatePda(
+    const [signatureTaker2, fetchUserAnswersTaker2, tokenAccountTaker2] = await mockCreatePda(
       connection,
       program,
       taker2,
       nft2,
+      pdaSeed,
     );
 
-    console.log('taker1Signature =>', taker1Signature);
-    console.log('taker1Answers =>', taker1Answers);
-    console.log('taker2Signature =>', taker2Signature);
-    console.log('taker2Answers =>', taker2Answers);
+    assert.equal(
+      fetchUserAnswersTaker1.tokenAccount.toString(),
+      tokenAccountTaker1.address.toString()
+    );
+    assert.equal(
+      fetchUserAnswersTaker2.tokenAccount.toString(),
+      tokenAccountTaker2.address.toString()
+    );
+
+    console.log('signatureTaker1 =>', signatureTaker1);
+    console.log('AnswersPdaTaker1 =>', fetchUserAnswersTaker1);
+    console.log('signatureTaker2 =>', signatureTaker2);
+    console.log('AnswersPdaTaker2 =>', fetchUserAnswersTaker2);
   });
 
+  it("Set Authority for Token Account(NFT) by takers", async () => {
+    const [signatureTaker1, tokenAccountInfoTaker1] = await mockSetAuthorityEscrow(
+      connection,
+      program,
+      taker1,
+      payer.publicKey,
+      pdaSeed,
+    );
+    const [signatureTaker2, tokenAccountInfoTaker2] = await mockSetAuthorityEscrow(
+      connection,
+      program,
+      taker2,
+      payer.publicKey,
+      pdaSeed,
+    );
+
+    assert.equal(
+      tokenAccountInfoTaker1.owner.toString(),
+      payer.publicKey.toString()
+    );
+    assert.equal(
+      tokenAccountInfoTaker2.owner.toString(),
+      payer.publicKey.toString()
+    );
+
+    console.log('signatureTaker1 =>', signatureTaker1);
+    console.log('tokenAccountInfoTaker1.owner =>', tokenAccountInfoTaker1.owner.toString());
+    console.log('signatureTaker2 =>', signatureTaker2);
+    console.log('tokenAccountInfoTaker2.owner =>', tokenAccountInfoTaker2.owner.toString());
+  });
+    
 
   //--------------------------------------------------
   // Announcement by payer
   //--------------------------------------------------
-
   // it("Reveal correct an NFT by payer", async () => {
   // });
   
@@ -156,7 +203,6 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Close by payer
   //--------------------------------------------------
-
   it("Burn all of taker's NFT", async () => {
   });
 

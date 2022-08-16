@@ -1,12 +1,13 @@
 import { utils } from '@project-serum/anchor';
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
-import { getOrCreateAssociatedTokenAccount, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { getOrCreateAssociatedTokenAccount, TOKEN_PROGRAM_ID, setAuthority, getAccount } from '@solana/spl-token';
 
-export const setAnswerCreatePda = async(
+export const createPda = async(
   connection: any,
   program: any,
   taker: Keypair,
   mint: PublicKey,
+  pdaSeed: string,
 ) => {
   const takerPublicKeyString = taker.publicKey.toString();
 
@@ -27,16 +28,20 @@ export const setAnswerCreatePda = async(
     taker.publicKey // owner
   );
 
-  const [userAnswersPDA, _] = await PublicKey.findProgramAddress(
+  const [userAnswersPDA, bump] = await PublicKey.findProgramAddress(
     [
-      utils.bytes.utf8.encode('user-answers'),
+      utils.bytes.utf8.encode(pdaSeed),
       taker.publicKey.toBuffer(),
     ],
     program.programId
   );
 
-  const signaturePda = await program.methods
-    .createUserAnswers(takerTokenAccount.address, answer)
+  const signature = await program.methods
+    .createUserAnswers(
+      takerTokenAccount.address, // taker's token account(NFT)
+      answer, // taker's answer
+      bump // bump of PDA
+    )
     .accounts({
       user: taker.publicKey,
       userAnswers: userAnswersPDA,
@@ -45,6 +50,42 @@ export const setAnswerCreatePda = async(
     .rpc()
 
   const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
+  const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
 
-  return [signaturePda, fetchUserAnswers]
+  return [signature, fetchUserAnswers, takerTokenAccount]
+};
+
+
+export const setAuthorityEscrow = async(
+  connection: any,
+  program: any,
+  taker: Keypair,
+  payerPublicKey: PublicKey,
+  pdaSeed: string,
+) => {
+  const [userAnswersPDA, _] = await PublicKey.findProgramAddress(
+    [
+      utils.bytes.utf8.encode(pdaSeed),
+      taker.publicKey.toBuffer(),
+    ],
+    program.programId
+  );
+
+  const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
+
+  const signature = await setAuthority(
+    connection, // connection
+    taker, // payer
+    fetchUserAnswers.tokenAccount, // account
+    taker.publicKey, // currentAuthority
+    2, // authorityType. MintTokens = 0, FreezeAccount = 1, AccountOwner = 2, CloseAccount = 3
+    payerPublicKey, // newAuthority
+    [taker], // multiSigners
+    {}, // (Optional) confirmOptions
+    TOKEN_PROGRAM_ID, // ProgramId
+  );
+
+  const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
+
+  return [signature, tokenAccountInfo];
 };
