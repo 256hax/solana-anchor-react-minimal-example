@@ -1,9 +1,12 @@
 import { utils } from '@project-serum/anchor';
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
-import { getOrCreateAssociatedTokenAccount } from '@solana/spl-token';
+import { getOrCreateAssociatedTokenAccount, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-export const setAnswer = async(
-  connection: any, program: any, taker: Keypair, mint: PublicKey
+export const setAnswerCreatePda = async(
+  connection: any,
+  program: any,
+  taker: Keypair,
+  mint: PublicKey,
 ) => {
   const takerPublicKeyString = taker.publicKey.toString();
 
@@ -32,7 +35,7 @@ export const setAnswer = async(
     program.programId
   );
 
-  const signature = await program.methods
+  const signaturePda = await program.methods
     .createUserAnswers(takerTokenAccount.address, answer)
     .accounts({
       user: taker.publicKey,
@@ -43,5 +46,5 @@ export const setAnswer = async(
 
   const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
 
-  return [signature, fetchUserAnswers]
+  return [signaturePda, fetchUserAnswers]
 };

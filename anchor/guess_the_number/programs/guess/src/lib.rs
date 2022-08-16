@@ -6,7 +6,11 @@ declare_id!("73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep");
 pub mod guess {
     use super::*;
 
-    pub fn create_user_answers(ctx: Context<CreateUserAnswers>, token_account: Pubkey, answer: String) -> Result<()> {
+    pub fn create_user_answers(
+        ctx: Context<CreateUserAnswers>,
+        token_account: Pubkey,
+        answer: String,
+    ) -> Result<()> {
         let user_answers = &mut ctx.accounts.user_answers;
         user_answers.token_account = token_account;
         user_answers.answer = answer;
@@ -15,9 +19,21 @@ pub mod guess {
     }
 }
 
+#[derive(AnchorSerialize, AnchorDeserialize)]
+pub enum AuthorityType {
+    /// Authority to mint new tokens
+    MintTokens,
+    /// Authority to freeze any account associated with the Mint
+    FreezeAccount,
+    /// Owner of a given token account
+    AccountOwner,
+    /// Authority to close a token account
+    CloseAccount,
+}
+
 #[account]
 pub struct UserAnswers {
-    token_account: Pubkey, // NFT token account (=owner)
+    token_account: Pubkey, // Token Account of User(Original Owner)
     answer: String,
     bump: u8,
 }
@@ -34,4 +50,16 @@ pub struct CreateUserAnswers<'info> {
     )]
     pub user_answers: Account<'info, UserAnswers>,
     pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct SetAuthorityEscrow<'info> {
+    #[account(signer)]
+    /// CHECK:
+    pub current_authority: AccountInfo<'info>,
+    #[account(mut)]
+    /// CHECK:
+    pub account_or_mint: AccountInfo<'info>,
+    /// CHECK:
+    pub token_program: AccountInfo<'info>,
 }

@@ -4,15 +4,20 @@ import { Guess } from "../target/types/guess";
 import { Connection, clusterApiUrl, PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { Metaplex, keypairIdentity, bundlrStorage, mockStorage, toMetaplexFile, toMetaplexFileFromBrowser, toBigNumber } from "@metaplex-foundation/js";
 import { assert, expect } from 'chai';
+
 import { initializeWallets } from '../app/modules/initializeWallets';
 import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
 import { setAnswer } from '../app/modules/setAnswer';
 
+// --- Mock ---
 import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
-import { setAnswer as mockSetAnswer } from '../app/modules/mock/setAnswer';
+import {
+  setAnswerCreatePda as mockSetAnswerCreatePda,
+} from '../app/modules/mock/setAnswer';
+
 
 describe("Guess the number", () => {
   // --- Anchor Settings ---
@@ -26,7 +31,7 @@ describe("Guess the number", () => {
   let payer: Keypair = provider.wallet.payer;
   let taker1: Keypair; // BBCkTVFxZbLPar5YpjqBzymPkcZvT7RMuDK59bbaPTd4
   let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
-  // let hackerWallet: Keypair; TODO
+  // let hackerWallet: Keypair; // TODO
 
   let nft1: PublicKey;
   let nft2: PublicKey;
@@ -49,7 +54,6 @@ describe("Guess the number", () => {
     console.log('taker1 =>', taker1.publicKey.toString());
     console.log('taker2 =>', taker2.publicKey.toString());
   });
-  
 
 
   //--------------------------------------------------
@@ -89,7 +93,6 @@ describe("Guess the number", () => {
   // });
  
 
-
   //--------------------------------------------------
   // Actions for NFT by taker
   //--------------------------------------------------
@@ -112,15 +115,25 @@ describe("Guess the number", () => {
   });
 
   it("Set an answer by takers", async () => {
-    const [taker1Signature, taker1Answers] = await mockSetAnswer(connection, program, taker1, nft1);
-    const [taker2Signature, taker2Answers] = await mockSetAnswer(connection, program, taker2, nft2);
+    const [taker1Signature, taker1Answers] = await mockSetAnswerCreatePda(
+      connection,
+      program,
+      taker1,
+      nft1,
+    );
+
+    const [taker2Signature, taker2Answers] = await mockSetAnswerCreatePda(
+      connection,
+      program,
+      taker2,
+      nft2,
+    );
 
     console.log('taker1Signature =>', taker1Signature);
     console.log('taker1Answers =>', taker1Answers);
     console.log('taker2Signature =>', taker2Signature);
     console.log('taker2Answers =>', taker2Answers);
   });
-
 
 
   //--------------------------------------------------
@@ -138,7 +151,6 @@ describe("Guess the number", () => {
   it("Transfer reward to winner by program", async () => {
     // using Rust
   });
-
 
 
   //--------------------------------------------------
