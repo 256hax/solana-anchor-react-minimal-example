@@ -2,7 +2,12 @@ import { clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL } from 
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, setAuthority, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { PublicKeyString } from '@metaplex-foundation/js';
 
-export const mintNfts  = async(connection: any, payer: Keypair, takerPublicKey: PublicKey, mint: PublicKey) => {
+export const mintNfts  = async(
+  connection: any,
+  payer: Keypair,
+  toPublicKey: PublicKey,
+  mint: PublicKey,
+) => {
   const payerTokenAccount = await getOrCreateAssociatedTokenAccount(
     connection, // connection
     payer, // payer
@@ -10,11 +15,11 @@ export const mintNfts  = async(connection: any, payer: Keypair, takerPublicKey: 
     payer.publicKey // owner
   );
 
-  const takerTokenAccount = await getOrCreateAssociatedTokenAccount(
+  const toTokenAccount = await getOrCreateAssociatedTokenAccount(
     connection, // connection
     payer, // payer
     mint, // mint address
-    takerPublicKey // owner
+    toPublicKey // owner
   );
 
   // Mint 1 new token to the "fromTokenAccount" account we just created
@@ -32,7 +37,7 @@ export const mintNfts  = async(connection: any, payer: Keypair, takerPublicKey: 
     connection, // connection
     payer, // payer
     payerTokenAccount.address, // source
-    takerTokenAccount.address, // destination
+    toTokenAccount.address, // destination
     payer.publicKey, // owner
     1, // amount
     [] // signer

@@ -34,6 +34,7 @@ describe("Guess the number", () => {
   let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
   // let hackerWallet: Keypair; // TODO
 
+  let nftQ: PublicKey;
   let nft1: PublicKey;
   let nft2: PublicKey;
 
@@ -80,16 +81,17 @@ describe("Guess the number", () => {
     // nft2 = _nft2.address;
 
     // [Localnet]
-    const [uri1, _nft1, uri2, _nft2] = await mockCreateNfts(connection, payer);
+    const [uriQ, _nftQ, uri1, _nft1, uri2, _nft2] = await mockCreateNfts(connection, payer);
+    nftQ = new PublicKey(_nftQ);
     nft1 = new PublicKey(_nft1);
     nft2 = new PublicKey(_nft2);
 
+    assert(nftQ != null);
     assert(nft1 != null);
     assert(nft2 != null);
 
-    console.log('uri1 =>', uri1);
+    console.log('Mint AddressQ =>', nftQ.toString());
     console.log('Mint Address1 =>', nft1.toString());
-    console.log('uri2 =>', uri2);
     console.log('Mint Address2 =>', nft2.toString());
   });
 
@@ -101,7 +103,7 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Actions for NFT by taker
   //--------------------------------------------------
-  it("Mint NFTs by taker", async () => {
+  it("Mint NFTs by payer/takers", async () => {
     // // [Devnet] Stub
     // nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF');
     // nft2 = new PublicKey('DAJRyGCbjR2Tv8BP8WVqfRTm8TA891ZpjbFb8gkehiW2');
@@ -111,12 +113,15 @@ describe("Guess the number", () => {
     // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
     // [Localnet]
+    const signatureNftQ = await mockMintNfts(connection, payer, payer.publicKey, nftQ);
     const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
     const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
 
+    assert(signatureNftQ != null);
     assert(signatureNft1 != null);
     assert(signatureNft2 != null);
 
+    console.log('signatureNftQ =>', signatureNftQ);
     console.log('signatureNft1 =>', signatureNft1);
     console.log('signatureNft2 =>', signatureNft2);
   });
@@ -139,17 +144,17 @@ describe("Guess the number", () => {
 
     assert.equal(
       fetchUserAnswersTaker1.tokenAccount.toString(),
-      tokenAccountTaker1.address.toString()
+      tokenAccountTaker1.address.toString(),
     );
     assert.equal(
       fetchUserAnswersTaker2.tokenAccount.toString(),
-      tokenAccountTaker2.address.toString()
+      tokenAccountTaker2.address.toString(),
     );
 
     console.log('signatureTaker1 =>', signatureTaker1);
-    console.log('AnswersPdaTaker1 =>', fetchUserAnswersTaker1);
+    console.log('AnswersPdaTaker1.answer =>', fetchUserAnswersTaker1.answer);
     console.log('signatureTaker2 =>', signatureTaker2);
-    console.log('AnswersPdaTaker2 =>', fetchUserAnswersTaker2);
+    console.log('AnswersPdaTaker2.answer =>', fetchUserAnswersTaker2.answer);
   });
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
@@ -170,11 +175,11 @@ describe("Guess the number", () => {
 
     assert.equal(
       tokenAccountInfoTaker1.owner.toString(),
-      payer.publicKey.toString()
+      payer.publicKey.toString(),
     );
     assert.equal(
       tokenAccountInfoTaker2.owner.toString(),
-      payer.publicKey.toString()
+      payer.publicKey.toString(),
     );
 
     console.log('signatureTaker1 =>', signatureTaker1);
