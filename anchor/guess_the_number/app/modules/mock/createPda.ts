@@ -32,26 +32,27 @@ export const createPda = async(
     [
       utils.bytes.utf8.encode(pdaSeed),
       taker.publicKey.toBuffer(),
+      mint.toBuffer(),
     ],
     program.programId
   );
 
   const signature = await program.methods
     .createUserAnswers(
-      takerTokenAccount.address, // token account of user(original owner of NFT)
-      mint, // mint address(NFT)
+      takerTokenAccount.address,
+      mint, // taker's token account(NFT)
       answer, // taker's answer
       bump // bump of PDA
     )
     .accounts({
       user: taker.publicKey,
+      mint: mint,
       userAnswers: userAnswersPDA,
     })
     .signers([taker])
     .rpc()
 
   const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
-  const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
 
   return [signature, fetchUserAnswers, takerTokenAccount]
 };

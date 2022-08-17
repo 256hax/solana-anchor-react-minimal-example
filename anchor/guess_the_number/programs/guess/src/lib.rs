@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_spl::token::{TokenAccount, Mint};
 
 declare_id!("73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep");
 
@@ -37,11 +38,13 @@ pub struct UserAnswers {
 pub struct CreateUserAnswers<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
+    pub mint: Account<'info, Mint>,
     // space: 8 discriminator + 32 publickey + 32 publickey + 200 answer + 1 bump
     #[account(
         init,
         payer = user,
-        space = 8 + 32 + 32 + 200 + 1, seeds = [b"user-answers", user.key().as_ref()], bump
+        space = 8 + 32 + 32 + 200 + 1,
+        seeds = [b"user-answers", user.key().as_ref(), mint.key().as_ref()], bump
     )]
     pub user_answers: Account<'info, UserAnswers>,
     pub system_program: Program<'info, System>,

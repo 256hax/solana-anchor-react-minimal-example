@@ -6,6 +6,7 @@ export const setAuthorityEscrow = async(
   connection: any,
   program: any,
   taker: Keypair,
+  mint: PublicKey,
   payerPublicKey: PublicKey,
   pdaSeed: string,
 ) => {
@@ -13,6 +14,7 @@ export const setAuthorityEscrow = async(
     [
       utils.bytes.utf8.encode(pdaSeed),
       taker.publicKey.toBuffer(),
+      mint.toBuffer(),
     ],
     program.programId
   );

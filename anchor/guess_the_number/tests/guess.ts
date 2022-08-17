@@ -142,10 +142,6 @@ describe("Guess the number", () => {
       fetchUserAnswersTaker1.tokenAccount.toString(),
       tokenAccountTaker1.address.toString(),
     );
-    assert.equal(
-      fetchUserAnswersTaker2.tokenAccount.toString(),
-      tokenAccountTaker2.address.toString(),
-    );
 
     console.log('signatureTaker1 =>', signatureTaker1);
     console.log('AnswersPdaTaker1.answer =>', fetchUserAnswersTaker1.answer);
@@ -158,6 +154,7 @@ describe("Guess the number", () => {
       connection,
       program,
       taker1,
+      nft1,
       payer.publicKey,
       pdaSeed,
     );
@@ -165,16 +162,13 @@ describe("Guess the number", () => {
       connection,
       program,
       taker2,
+      nft2,
       payer.publicKey,
       pdaSeed,
     );
 
     assert.equal(
       tokenAccountInfoTaker1.owner.toString(),
-      payer.publicKey.toString(),
-    );
-    assert.equal(
-      tokenAccountInfoTaker2.owner.toString(),
       payer.publicKey.toString(),
     );
 
@@ -185,31 +179,31 @@ describe("Guess the number", () => {
   });
     
 
-  //--------------------------------------------------
-  // Announcement by payer
-  //--------------------------------------------------
-  it("Reveal correct an NFT by payer", async () => {
-    const [signature, nftQName, nftQPrize] = mockRevealNft();
+  // //--------------------------------------------------
+  // // Announcement by payer
+  // //--------------------------------------------------
+  // it("Reveal correct an NFT by payer", async () => {
+  //   const [signature, nftQName, nftQPrize] = mockRevealNft();
 
-    assert.equal(nftQName, 'Number 1');
-    assert.equal(nftQPrize, 0.01);
+  //   assert.equal(nftQName, 'Number 1');
+  //   assert.equal(nftQPrize, 0.01);
 
-    console.log('signature =>', signature);
-  });
+  //   console.log('signature =>', signature);
+  // });
   
-  it("Calculate and security check", async () => {
-  });
+  // it("Calculate and security check", async () => {
+  // });
   
-  it("Transfer reward to winner by program", async () => {
-  });
+  // it("Transfer reward to winner by program", async () => {
+  // });
 
 
-  //--------------------------------------------------
-  // Close by payer
-  //--------------------------------------------------
-  it("Burn all of taker's NFT", async () => {
-  });
+  // //--------------------------------------------------
+  // // Close by payer
+  // //--------------------------------------------------
+  // it("Burn all of taker's NFT", async () => {
+  // });
 
-  it("Close PDA", async () => {
-  });
+  // it("Close PDA", async () => {
+  // });
 });
