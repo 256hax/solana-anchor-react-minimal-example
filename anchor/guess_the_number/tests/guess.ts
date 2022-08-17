@@ -14,10 +14,9 @@ import { setAnswer } from '../app/modules/setAnswer';
 import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
-import {
-  createPda as mockCreatePda,
-  setAuthorityEscrow as mockSetAuthorityEscrow,
-} from '../app/modules/mock/setAnswer';
+import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
+import { setAuthorityEscrow as mockSetAuthorityEscrow } from '../app/modules/mock/setAuthorityEscrow';
+import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
 
 
 describe("Guess the number", () => {
@@ -37,6 +36,7 @@ describe("Guess the number", () => {
   let nftQ: PublicKey;
   let nft1: PublicKey;
   let nft2: PublicKey;
+  let nftQMetadata: any;
 
   const pdaSeed = 'user-answers';
 
@@ -95,10 +95,6 @@ describe("Guess the number", () => {
     console.log('Mint Address2 =>', nft2.toString());
   });
 
-  // it("Set reward", async () => {
-  //   // TODO: Set and lock reward in Rust
-  // });
- 
 
   //--------------------------------------------------
   // Actions for NFT by taker
@@ -192,16 +188,19 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Announcement by payer
   //--------------------------------------------------
-  // it("Reveal correct an NFT by payer", async () => {
-  // });
+  it("Reveal correct an NFT by payer", async () => {
+    const [signature, nftQName, nftQPrize] = mockRevealNft();
+
+    assert.equal(nftQName, 'Number 1');
+    assert.equal(nftQPrize, 0.01);
+
+    console.log('signature =>', signature);
+  });
   
   it("Calculate and security check", async () => {
-    // - Find correct answer using Metaplex JS(findByMint)
-    // - Security check using Metaplex JS(owerner == payer)
   });
   
   it("Transfer reward to winner by program", async () => {
-    // using Rust
   });
 
 

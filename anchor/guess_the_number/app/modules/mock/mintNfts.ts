@@ -1,6 +1,5 @@
-import { clusterApiUrl, Connection, PublicKey, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, setAuthority, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { PublicKeyString } from '@metaplex-foundation/js';
+import { PublicKey, Keypair } from '@solana/web3.js';
+import { getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
 
 export const mintNfts  = async(
   connection: any,

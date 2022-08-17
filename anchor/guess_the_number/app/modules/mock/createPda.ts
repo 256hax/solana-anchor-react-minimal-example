@@ -38,7 +38,8 @@ export const createPda = async(
 
   const signature = await program.methods
     .createUserAnswers(
-      takerTokenAccount.address, // taker's token account(NFT)
+      takerTokenAccount.address, // token account of user(original owner of NFT)
+      mint, // mint address(NFT)
       answer, // taker's answer
       bump // bump of PDA
     )
@@ -53,39 +54,4 @@ export const createPda = async(
   const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
 
   return [signature, fetchUserAnswers, takerTokenAccount]
-};
-
-
-export const setAuthorityEscrow = async(
-  connection: any,
-  program: any,
-  taker: Keypair,
-  payerPublicKey: PublicKey,
-  pdaSeed: string,
-) => {
-  const [userAnswersPDA, _] = await PublicKey.findProgramAddress(
-    [
-      utils.bytes.utf8.encode(pdaSeed),
-      taker.publicKey.toBuffer(),
-    ],
-    program.programId
-  );
-
-  const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
-
-  const signature = await setAuthority(
-    connection, // connection
-    taker, // payer
-    fetchUserAnswers.tokenAccount, // account
-    taker.publicKey, // currentAuthority
-    2, // authorityType. MintTokens = 0, FreezeAccount = 1, AccountOwner = 2, CloseAccount = 3
-    payerPublicKey, // newAuthority
-    [taker], // multiSigners
-    {}, // (Optional) confirmOptions
-    TOKEN_PROGRAM_ID, // ProgramId
-  );
-
-  const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
-
-  return [signature, tokenAccountInfo];
 };
