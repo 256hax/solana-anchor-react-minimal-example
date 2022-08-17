@@ -10,11 +10,12 @@ import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
 import { setAnswer } from '../app/modules/setAnswer';
 
-// --- Mock ---
+// --- [Localnet(Mock)] ---
 import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
 import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
+import { updateToOriginalOwner as mockUpdateToOriginalOwner } from '../app/modules/mock/updateToOriginalOwner';
 import { setAuthorityEscrow as mockSetAuthorityEscrow } from '../app/modules/mock/setAuthorityEscrow';
 import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
 
@@ -43,7 +44,7 @@ describe("Guess the number", () => {
   it("Initialize wallets", async () => {
     [taker1, taker2] = await initializeWallets(connection);
 
-    // [Localnet]
+    // [Localnet(Mock)]
     await mockInitializeWallets(connection, taker1, taker2);
 
     const payerBalance = await connection.getBalance(payer.publicKey);
@@ -80,7 +81,7 @@ describe("Guess the number", () => {
     // nft1 = _nft1.address;
     // nft2 = _nft2.address;
 
-    // [Localnet]
+    // [Localnet(Mock)]
     const [uriQ, _nftQ, uri1, _nft1, uri2, _nft2] = await mockCreateNfts(connection, payer);
     nftQ = new PublicKey(_nftQ);
     nft1 = new PublicKey(_nft1);
@@ -108,7 +109,7 @@ describe("Guess the number", () => {
     // const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
     // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
-    // [Localnet]
+    // [Localnet(Mock)]
     const signatureNftQ = await mockMintNfts(connection, payer, payer.publicKey, nftQ);
     const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
     const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
@@ -149,6 +150,15 @@ describe("Guess the number", () => {
     console.log('AnswersPdaTaker2.answer =>', fetchUserAnswersTaker2.answer);
   });
 
+  it("Update NFT to original owner by payer", async () => {
+    const nft = await mockUpdateToOriginalOwner(
+      connection,
+      taker1.publicKey,
+      nft1,
+      payer,
+    );
+  });
+
   it("Set Authority for Token Account(NFT) by takers", async () => {
     const [signatureTaker1, tokenAccountInfoTaker1] = await mockSetAuthorityEscrow(
       connection,
@@ -177,7 +187,7 @@ describe("Guess the number", () => {
     console.log('signatureTaker2 =>', signatureTaker2);
     console.log('tokenAccountInfoTaker2.owner =>', tokenAccountInfoTaker2.owner.toString());
   });
-    
+
 
   // //--------------------------------------------------
   // // Announcement by payer
