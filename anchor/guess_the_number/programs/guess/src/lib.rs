@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::{TokenAccount, Mint};
+use anchor_spl::token::{ Mint };
 
 declare_id!("73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep");
 
