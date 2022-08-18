@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import { sleep } from 'sleep';
 
 export const createNfts = async (metaplex: any, metadata: any) => {
-  // --- NFT Number 1 ---
   const bufferImage = fs.readFileSync(metadata.filePath);
   const fileImage = toMetaplexFile(bufferImage, metadata.fileName);
   const { uri: uri } = await metaplex
@@ -30,5 +29,5 @@ export const createNfts = async (metaplex: any, metadata: any) => {
   
   sleep(1); // 1 = 1sec. for too many request
 
-  return nft;
+  return nft.mintAddress;
 };

@@ -22,7 +22,6 @@ import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
 
 
 describe("Guess the number", () => {
-  // --- Anchor Settings ---
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
   const connection = provider.connection;
@@ -33,7 +32,7 @@ describe("Guess the number", () => {
   let payer: Keypair = provider.wallet.payer;
   let taker1: Keypair; // BBCkTVFxZbLPar5YpjqBzymPkcZvT7RMuDK59bbaPTd4
   let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
-  // let hackerWallet: Keypair; // TODO
+  // let hacker: Keypair; // TODO
 
   let nftQ: PublicKey;
   let nft1: PublicKey;
@@ -70,16 +69,16 @@ describe("Guess the number", () => {
   // Set NFTs by payer
   //--------------------------------------------------
   it("Create NFTs", async () => {
-    // [Devnet]
-    // --- Metaplex Settings ---
     const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
     metaplex = Metaplex.make(connectionMetaplex)
       .use(keypairIdentity(payer))
+      // [Localnet(Mock)]
       // .use(bundlrStorage({
       //     address: 'https://devnet.bundlr.network',
       //     providerUrl: 'https://api.devnet.solana.com',
       //     timeout: 60000,
       // }));
+      // [Localnet(Mock)]
       .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
     const metadataQ = {
@@ -104,19 +103,15 @@ describe("Guess the number", () => {
     };
 
 
-    // // [Devnet]
-    // const _nftQ = await createNfts(metaplex, metadataQ);
-    // const _nft1 = await createNfts(metaplex, metadata1);
-    // const _nft2 = await createNfts(metaplex, metadata2);
+    // [Devnet]
+    // nftQ = await createNfts(metaplex, metadataQ);
+    // nft1 = await createNfts(metaplex, metadata1);
+    // nft2 = await createNfts(metaplex, metadata2);
 
-    // // [Localnet(Mock)]
-    const _nftQ = await mockCreateNfts(connection, payer);
-    const _nft1 = await mockCreateNfts(connection, payer);
-    const _nft2 = await mockCreateNfts(connection, payer);
-
-    nftQ = new PublicKey(_nftQ);
-    nft1 = new PublicKey(_nft1);
-    nft2 = new PublicKey(_nft2);
+    // [Localnet(Mock)]
+    nftQ = await mockCreateNfts(connection, payer);
+    nft1 = await mockCreateNfts(connection, payer);
+    nft2 = await mockCreateNfts(connection, payer);
 
     assert(nftQ != null);
     assert(nft1 != null);
@@ -128,21 +123,21 @@ describe("Guess the number", () => {
   });
 
 
-  //--------------------------------------------------
-  // Actions for NFT by taker
-  //--------------------------------------------------
+  // //--------------------------------------------------
+  // // Actions for NFT by taker
+  // //--------------------------------------------------
   it("Mint NFTs by payer/takers", async () => {
     // // [Devnet] Stub
     // nftQ = new PublicKey('CSfsbjH5ZuXbRwAiJMPvZ64NeCEbKcqS3b3mofQyx9Ti');
     // nft1 = new PublicKey('8wAbcNmay9eim4himdsPgVmXz7oTo2bvXH86MTVaBt7H');
     // nft2 = new PublicKey('Cw77bJj4Z6ugrgRuEHBvhFMAnAygeEYWGEnZ1CznR4ba');
 
-    // // [Devnet]
+    // [Devnet]
     // const signatureNftQ = await mintNfts(connection, payer, payer.publicKey, nftQ);
     // const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
     // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
-    // [Localnet(Mock)]
+    // // [Localnet(Mock)]
     const signatureNftQ = await mockMintNfts(connection, payer, payer.publicKey, nftQ);
     const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
     const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
@@ -157,7 +152,7 @@ describe("Guess the number", () => {
   });
 
   it("Create PDA for answer by takers", async () => {
-    // // [Devnet]
+    // [Devnet]
     // const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await createPda(
     //   metaplex,
     //   connection,
@@ -174,7 +169,6 @@ describe("Guess the number", () => {
     //   nft2,
     //   pdaSeed,
     // );
-
 
     // [Localnet(Mock)]
     const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await mockCreatePda(
@@ -204,20 +198,23 @@ describe("Guess the number", () => {
   });
 
   it("Update NFT to original owner by payer", async () => {
-    // [Locanet(Mock)]
-    const taker1OriginalOwner = await mockUpdateToOriginalOwner(
-      taker1.publicKey,
-      nft1,
-      payer,
-    );
-    const taker2OriginalOwner = await mockUpdateToOriginalOwner(
-      taker2.publicKey,
-      nft2,
-      payer,
-    );
+    // [Devnet]
 
-    assert.equal(taker1OriginalOwner.toString(), taker1.publicKey.toString());
-    assert.equal(taker2OriginalOwner.toString(), taker2.publicKey.toString());
+
+    // [Locanet(Mock)]
+    // const taker1OriginalOwner = await mockUpdateToOriginalOwner(
+    //   taker1.publicKey,
+    //   nft1,
+    //   payer,
+    // );
+    // const taker2OriginalOwner = await mockUpdateToOriginalOwner(
+    //   taker2.publicKey,
+    //   nft2,
+    //   payer,
+    // );
+
+    // assert.equal(taker1OriginalOwner.toString(), taker1.publicKey.toString());
+    // assert.equal(taker2OriginalOwner.toString(), taker2.publicKey.toString());
   });
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
@@ -254,14 +251,14 @@ describe("Guess the number", () => {
   // //--------------------------------------------------
   // // Announcement by payer
   // //--------------------------------------------------
-  // it("Reveal correct an NFT by payer", async () => {
-  //   const [signature, nftQName, nftQPrize] = mockRevealNft();
+  it("Reveal correct an NFT by payer", async () => {
+    const [signature, nftQName, nftQPrize] = mockRevealNft();
 
-  //   assert.equal(nftQName, 'Number 1');
-  //   assert.equal(nftQPrize, 0.01);
+    assert.equal(nftQName, 'Number 1');
+    assert.equal(nftQPrize, 0.01);
 
-  //   console.log('signature =>', signature);
-  // });
+    console.log('signature =>', signature);
+  });
   
   // it("Calculate and security check", async () => {
   // });
