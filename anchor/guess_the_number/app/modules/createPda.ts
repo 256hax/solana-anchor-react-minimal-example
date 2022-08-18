@@ -4,7 +4,7 @@ import { getOrCreateAssociatedTokenAccount, TOKEN_PROGRAM_ID, setAuthority, getA
 import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/js";
 
 export const createPda = async(
-  metaplex: any,
+  metaplex: Metaplex,
   connection: any,
   program: any,
   taker: Keypair,

@@ -3,7 +3,7 @@ import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from 
 import * as fs from 'fs';
 import { sleep } from 'sleep';
 
-export const createNfts = async (metaplex: any, metadata: any) => {
+export const createNfts = async (metaplex: Metaplex, metadata: any) => {
   const bufferImage = fs.readFileSync(metadata.filePath);
   const fileImage = toMetaplexFile(bufferImage, metadata.fileName);
   const { uri: uri } = await metaplex
@@ -12,6 +12,12 @@ export const createNfts = async (metaplex: any, metadata: any) => {
       name: metadata.name,
       description: metadata.description,
       image: fileImage,
+      attributes: [
+        {
+          trait_type: "Original Owner",
+          value: ""
+        }
+      ]
     })
     .run();
 
