@@ -34,6 +34,7 @@ const main = async() => {
           providerUrl: 'https://api.devnet.solana.com',
           timeout: 60000,
       }));
+      // [Mock]
       // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
   const { uri } = await metaplex
@@ -55,6 +56,10 @@ const main = async() => {
           maxSupply: toBigNumber(1),
       })
       .run();
+
+  // [Mock] Use following if active ".use(mockStorage())".
+  // const fakeNft = await metaplex.storage().download(uri);
+  // console.log('fakeNft =>', fakeNft.buffer.toString());
 
   console.log('uri =>', uri);
   console.log('nft =>', nft);
