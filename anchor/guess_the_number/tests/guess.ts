@@ -11,6 +11,7 @@ import { mintNfts } from '../app/modules/mintNfts';
 import { createPda } from '../app/modules/createPda';
 import { updateToOriginalOwner } from '../app/modules/updateToOriginalOwner';
 import { setAuthorityEscrow } from '../app/modules/setAuthorityEscrow';
+import { revealNft } from '../app/modules/revealNft';
 
 // --- [Localnet(Mock)] ---
 import { airdrop as mockAirdrop } from '../app/modules/mock/airdrop';
@@ -42,9 +43,9 @@ describe("Guess the number", () => {
 
   it("Initialize wallets", async () => {
     const taker1SecretKeyPath = './app/assets/keys/taker1.key.json';
-    const taker2SecretKeyPath = './app/assets/keys/taker2.key.json';
+    // const taker2SecretKeyPath = './app/assets/keys/taker2.key.json';
     taker1 = await initializeWallets(taker1SecretKeyPath);
-    taker2 = await initializeWallets(taker2SecretKeyPath);
+    // taker2 = await initializeWallets(taker2SecretKeyPath);
 
     // [Localnet(Mock)]
     // await mockAirdrop(connection, taker1.publicKey);
@@ -52,15 +53,15 @@ describe("Guess the number", () => {
 
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
-    const taker2Balance = await connection.getBalance(taker2.publicKey);
+    // const taker2Balance = await connection.getBalance(taker2.publicKey);
 
     assert.isAtLeast(payerBalance, LAMPORTS_PER_SOL);
     assert.isAtLeast(taker1Balance, LAMPORTS_PER_SOL);
-    assert.isAtLeast(taker2Balance, LAMPORTS_PER_SOL);
+    // assert.isAtLeast(taker2Balance, LAMPORTS_PER_SOL);
 
     console.log('payer =>', payer.publicKey.toString());
     console.log('taker1 =>', taker1.publicKey.toString());
-    console.log('taker2 =>', taker2.publicKey.toString());
+    // console.log('taker2 =>', taker2.publicKey.toString());
   });
 
 
@@ -94,16 +95,16 @@ describe("Guess the number", () => {
       fileName: 'number_1.png'
     };
 
-    const metadata2 = {
-      name: 'Number 2',
-      description: 'This is 2!',
-      filePath: './app/assets/images/number_2.png',
-      fileName: 'number_2.png'
-    };
+    // const metadata2 = {
+    //   name: 'Number 2',
+    //   description: 'This is 2!',
+    //   filePath: './app/assets/images/number_2.png',
+    //   fileName: 'number_2.png'
+    // };
 
 
     // [Devnet]
-    // nftQ = await createNfts(metaplex, metadataQ);
+    nftQ = await createNfts(metaplex, metadataQ);
     nft1 = await createNfts(metaplex, metadata1);
     // nft2 = await createNfts(metaplex, metadata2);
 
@@ -112,11 +113,11 @@ describe("Guess the number", () => {
     // nft1 = await mockCreateNfts(connection, payer);
     // nft2 = await mockCreateNfts(connection, payer);
 
-    // assert(nftQ != null);
+    assert(nftQ != null);
     assert(nft1 != null);
     // assert(nft2 != null);
 
-    // console.log('Mint AddressQ =>', nftQ.toString());
+    console.log('Mint AddressQ =>', nftQ.toString());
     console.log('Mint Address1 =>', nft1.toString());
     // console.log('Mint Address2 =>', nft2.toString());
   });
@@ -132,7 +133,7 @@ describe("Guess the number", () => {
     // nft2 = new PublicKey('Cw77bJj4Z6ugrgRuEHBvhFMAnAygeEYWGEnZ1CznR4ba');
 
     // [Devnet]
-    // const signatureNftQ = await mintNfts(connection, payer, payer.publicKey, nftQ);
+    const signatureNftQ = await mintNfts(connection, payer, payer.publicKey, nftQ);
     const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
     // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
@@ -141,11 +142,11 @@ describe("Guess the number", () => {
     // const signatureNft1 = await mockMintNfts(connection, payer, taker1.publicKey, nft1);
     // const signatureNft2 = await mockMintNfts(connection, payer, taker2.publicKey, nft2);
 
-    // assert(signatureNftQ != null);
+    assert(signatureNftQ != null);
     assert(signatureNft1 != null);
     // assert(signatureNft2 != null);
 
-    // console.log('signatureNftQ =>', signatureNftQ);
+    console.log('signatureNftQ =>', signatureNftQ);
     console.log('signatureNft1 =>', signatureNft1);
     // console.log('signatureNft2 =>', signatureNft2);
   });
@@ -255,13 +256,25 @@ describe("Guess the number", () => {
   // Announcement by payer
   //--------------------------------------------------
   it("Reveal correct an NFT by payer", async () => {
+    // [Devnet]
+    const attributes = [
+      {
+        "trait_type": 'Prize(SOL)',
+        "value": 0.01
+      }
+    ];
+
+    const [nftQName, nftQPrize] = await revealNft(
+      metaplex,
+      nftQ,
+      attributes,
+    );
+
     // [Localnet(Mock)]
     // const [signature, nftQName, nftQPrize] = mockRevealNft();
 
-    // assert.equal(nftQName, 'Number 1');
-    // assert.equal(nftQPrize, 0.01);
-
-    // console.log('signature =>', signature);
+    assert.equal(nftQName, 'Number 1');
+    assert.equal(nftQPrize, '0.01');
   });
   
   // it("Calculate and security check", async () => {
