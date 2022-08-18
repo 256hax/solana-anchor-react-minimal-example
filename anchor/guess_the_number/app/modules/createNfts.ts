@@ -3,26 +3,26 @@ import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from 
 import * as fs from 'fs';
 import { sleep } from 'sleep';
 
-export const createNfts = async (metaplex: any) => {
+export const createNfts = async (metaplex: any, metadata: any) => {
   // --- NFT Number 1 ---
-  const bufferImage1 = fs.readFileSync('./app/assets/images/number_1.png');
-  const fileImage1 = toMetaplexFile(bufferImage1, 'number_1.png');
-  const { uri: uri1 } = await metaplex
+  const bufferImage = fs.readFileSync(metadata.filePath);
+  const fileImage = toMetaplexFile(bufferImage, metadata.fileName);
+  const { uri: uri } = await metaplex
     .nfts()
     .uploadMetadata({
-      name: "Number 1 Metadata",
-      description: "This is 1!",
-      image: fileImage1,
+      name: metadata.name,
+      description: metadata.description,
+      image: fileImage,
     })
     .run();
 
   sleep(1); // 1 = 1sec. for too many request
 
-  const { nft: nft1 } = await metaplex
+  const { nft: nft } = await metaplex
     .nfts()
     .create({
-      uri: uri1,
-      name: "Number 1",
+      uri: uri,
+      name: metadata.fileName,
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(1),
     })
@@ -30,30 +30,5 @@ export const createNfts = async (metaplex: any) => {
   
   sleep(1); // 1 = 1sec. for too many request
 
-
-  // --- NFT Number 2 ---
-  const bufferImage2 = fs.readFileSync('./app/assets/images/number_2.png');
-  const fileImage2 = toMetaplexFile(bufferImage2, 'number_2.png');
-  const { uri: uri2 } = await metaplex
-    .nfts()
-    .uploadMetadata({
-      name: "Number 2 Metadata",
-      description: "This is 2!",
-      image: fileImage2,
-    })
-    .run();
-
-  sleep(1); // 1 = 1sec. for too many request
-
-  const { nft: nft2 } = await metaplex
-    .nfts()
-    .create({
-      uri: uri2,
-      name: "Number 2",
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(1),
-    })
-    .run();
- 
-  return [uri1, nft1, uri2, nft2];
+  return nft;
 };

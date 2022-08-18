@@ -8,10 +8,11 @@ import { assert, expect } from 'chai';
 import { initializeWallets } from '../app/modules/initializeWallets';
 import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
+import { createPda } from '../app/modules/createPda';
 import { setAnswer } from '../app/modules/setAnswer';
 
 // --- [Localnet(Mock)] ---
-import { initializeWallets as mockInitializeWallets } from '../app/modules/mock/initializeWallets';
+import { airdrop as mockAirdrop } from '../app/modules/mock/airdrop';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
 import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
@@ -42,10 +43,14 @@ describe("Guess the number", () => {
   const pdaSeed = 'user-answers';
 
   it("Initialize wallets", async () => {
-    [taker1, taker2] = await initializeWallets(connection);
+    const taker1SecretKeyPath = './app/assets/keys/taker1.key.json';
+    const taker2SecretKeyPath = './app/assets/keys/taker2.key.json';
+    taker1 = await initializeWallets(taker1SecretKeyPath);
+    taker2 = await initializeWallets(taker2SecretKeyPath);
 
     // [Localnet(Mock)]
-    await mockInitializeWallets(connection, taker1, taker2);
+    await mockAirdrop(connection, taker1.publicKey);
+    await mockAirdrop(connection, taker2.publicKey);
 
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
@@ -65,24 +70,50 @@ describe("Guess the number", () => {
   // Set NFTs by payer
   //--------------------------------------------------
   it("Create NFTs", async () => {
+    // [Devnet]
+    // --- Metaplex Settings ---
+    const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
+    metaplex = Metaplex.make(connectionMetaplex)
+      .use(keypairIdentity(payer))
+      // .use(bundlrStorage({
+      //     address: 'https://devnet.bundlr.network',
+      //     providerUrl: 'https://api.devnet.solana.com',
+      //     timeout: 60000,
+      // }));
+      .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
+
+    const metadataQ = {
+      name: 'Q',
+      description: 'This is secret Q!',
+      filePath: './app/assets/images/question.png',
+      fileName: 'question.png'
+    };
+
+    const metadata1 = {
+      name: 'Number 1',
+      description: 'This is 1!',
+      filePath: './app/assets/images/number_1.png',
+      fileName: 'number_1.png'
+    };
+
+    const metadata2 = {
+      name: 'Number 2',
+      description: 'This is 2!',
+      filePath: './app/assets/images/number_2.png',
+      fileName: 'number_2.png'
+    };
+
+
     // // [Devnet]
-    // // --- Metaplex Settings ---
-    // const connectionMetaplex = new Connection(clusterApiUrl("devnet"));
-    // metaplex = Metaplex.make(connectionMetaplex)
-    //   .use(keypairIdentity(payer))
-    //   // .use(bundlrStorage({
-    //   //     address: 'https://devnet.bundlr.network',
-    //   //     providerUrl: 'https://api.devnet.solana.com',
-    //   //     timeout: 60000,
-    //   // }));
-    //   .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
+    // const _nftQ = await createNfts(metaplex, metadataQ);
+    // const _nft1 = await createNfts(metaplex, metadata1);
+    // const _nft2 = await createNfts(metaplex, metadata2);
 
-    // const [uri1, _nft1, uri2, _nft2] = await createNfts(metaplex);
-    // nft1 = _nft1.address;
-    // nft2 = _nft2.address;
+    // // [Localnet(Mock)]
+    const _nftQ = await mockCreateNfts(connection, payer);
+    const _nft1 = await mockCreateNfts(connection, payer);
+    const _nft2 = await mockCreateNfts(connection, payer);
 
-    // [Localnet(Mock)]
-    const [uriQ, _nftQ, uri1, _nft1, uri2, _nft2] = await mockCreateNfts(connection, payer);
     nftQ = new PublicKey(_nftQ);
     nft1 = new PublicKey(_nft1);
     nft2 = new PublicKey(_nft2);
@@ -102,10 +133,12 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   it("Mint NFTs by payer/takers", async () => {
     // // [Devnet] Stub
-    // nft1 = new PublicKey('6rR9KWvY17aQXv1c1TveYrUHPqy53hKE3ZoKXh8QLTwF');
-    // nft2 = new PublicKey('DAJRyGCbjR2Tv8BP8WVqfRTm8TA891ZpjbFb8gkehiW2');
+    // nftQ = new PublicKey('CSfsbjH5ZuXbRwAiJMPvZ64NeCEbKcqS3b3mofQyx9Ti');
+    // nft1 = new PublicKey('8wAbcNmay9eim4himdsPgVmXz7oTo2bvXH86MTVaBt7H');
+    // nft2 = new PublicKey('Cw77bJj4Z6ugrgRuEHBvhFMAnAygeEYWGEnZ1CznR4ba');
 
     // // [Devnet]
+    // const signatureNftQ = await mintNfts(connection, payer, payer.publicKey, nftQ);
     // const signatureNft1 = await mintNfts(connection, payer, taker1.publicKey, nft1);
     // const signatureNft2 = await mintNfts(connection, payer, taker2.publicKey, nft2);
 
@@ -124,6 +157,26 @@ describe("Guess the number", () => {
   });
 
   it("Create PDA for answer by takers", async () => {
+    // // [Devnet]
+    // const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await createPda(
+    //   metaplex,
+    //   connection,
+    //   program,
+    //   taker1,
+    //   nft1,
+    //   pdaSeed,
+    // );
+    // const [signatureTaker2, fetchUserAnswersTaker2, tokenAccountTaker2] = await createPda(
+    //   metaplex,
+    //   connection,
+    //   program,
+    //   taker2,
+    //   nft2,
+    //   pdaSeed,
+    // );
+
+
+    // [Localnet(Mock)]
     const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await mockCreatePda(
       connection,
       program,
@@ -151,16 +204,24 @@ describe("Guess the number", () => {
   });
 
   it("Update NFT to original owner by payer", async () => {
-    const originalOwner = await mockUpdateToOriginalOwner(
+    // [Locanet(Mock)]
+    const taker1OriginalOwner = await mockUpdateToOriginalOwner(
       taker1.publicKey,
       nft1,
       payer,
     );
+    const taker2OriginalOwner = await mockUpdateToOriginalOwner(
+      taker2.publicKey,
+      nft2,
+      payer,
+    );
 
-    assert.equal(originalOwner.toString(), taker1.publicKey.toString());
+    assert.equal(taker1OriginalOwner.toString(), taker1.publicKey.toString());
+    assert.equal(taker2OriginalOwner.toString(), taker2.publicKey.toString());
   });
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
+    // [Locanet(Mock)]
     const [signatureTaker1, tokenAccountInfoTaker1] = await mockSetAuthorityEscrow(
       connection,
       program,

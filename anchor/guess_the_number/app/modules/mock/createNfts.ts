@@ -3,9 +3,8 @@ import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from 
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, setAuthority, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 export const createNfts = async (connection: any, payer: Keypair) => {
-  const uriQ = 'https://example.com/question.jpg'; // not use
-  // use token instead of nft for stub
-  const nftQ = await createMint(
+  // use token instead of NFT for stub
+  const fakeNft = await createMint(
       connection, // connection
       payer, // payer
       payer.publicKey, // mintAuthority
@@ -13,25 +12,5 @@ export const createNfts = async (connection: any, payer: Keypair) => {
       0 // decimals
   );
 
-  const uri1 = 'https://example.com/image_1.jpg'; // not use
-  // use token instead of nft for stub
-  const nft1 = await createMint(
-    connection, // connection
-    payer, // payer
-    payer.publicKey, // mintAuthority
-    null, // freezeAuthority
-    0 // decimals
-  );
-
-  const uri2 = 'https://example.com/image_2.jpg'; // not use
-  // use token instead of nft for stub
-  const nft2 = await createMint(
-      connection, // connection
-      payer, // payer
-      payer.publicKey, // mintAuthority
-      null, // freezeAuthority
-      0 // decimals
-  );
-
-  return [uriQ, nftQ, uri1, nft1, uri2, nft2];
+  return fakeNft;
 };
