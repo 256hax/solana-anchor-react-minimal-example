@@ -14,5 +14,5 @@ export const revealNft = () => {
   const nftQPrize = 0.01;
   
 
-  return [signature, nftQName, nftQPrize]
+  return [signature, nftQName, nftQPrize];
 };

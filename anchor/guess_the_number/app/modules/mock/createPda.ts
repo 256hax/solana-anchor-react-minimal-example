@@ -54,5 +54,5 @@ export const createPda = async(
 
   const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
 
-  return [signature, fetchUserAnswers, takerTokenAccount]
+  return [signature, fetchUserAnswers, takerTokenAccount];
 };

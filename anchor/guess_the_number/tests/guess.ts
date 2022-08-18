@@ -151,12 +151,13 @@ describe("Guess the number", () => {
   });
 
   it("Update NFT to original owner by payer", async () => {
-    const nft = await mockUpdateToOriginalOwner(
-      connection,
+    const originalOwner = await mockUpdateToOriginalOwner(
       taker1.publicKey,
       nft1,
       payer,
     );
+
+    assert.equal(originalOwner.toString(), taker1.publicKey.toString());
   });
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
