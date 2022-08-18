@@ -10,6 +10,7 @@ import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
 import { createPda } from '../app/modules/createPda';
 import { updateToOriginalOwner } from '../app/modules/updateToOriginalOwner';
+import { setAuthorityEscrow } from '../app/modules/setAuthorityEscrow';
 
 // --- [Localnet(Mock)] ---
 import { airdrop as mockAirdrop } from '../app/modules/mock/airdrop';
@@ -17,7 +18,6 @@ import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
 import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
 import { updateToOriginalOwner as mockUpdateToOriginalOwner } from '../app/modules/mock/updateToOriginalOwner';
-import { setAuthorityEscrow as mockSetAuthorityEscrow } from '../app/modules/mock/setAuthorityEscrow';
 import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
 
 
@@ -221,16 +221,16 @@ describe("Guess the number", () => {
   });
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
-    // [Locanet(Mock)]
-    // const [signatureTaker1, tokenAccountInfoTaker1] = await mockSetAuthorityEscrow(
-    //   connection,
-    //   program,
-    //   taker1,
-    //   nft1,
-    //   payer.publicKey,
-    //   pdaSeed,
-    // );
-    // const [signatureTaker2, tokenAccountInfoTaker2] = await mockSetAuthorityEscrow(
+    // [Devnet] and [Locanet(Mock)]
+    const [signatureTaker1, tokenAccountInfoTaker1] = await setAuthorityEscrow(
+      connection,
+      program,
+      taker1,
+      nft1,
+      payer.publicKey,
+      pdaSeed,
+    );
+    // const [signatureTaker2, tokenAccountInfoTaker2] = await setAuthorityEscrow(
     //   connection,
     //   program,
     //   taker2,
@@ -239,21 +239,21 @@ describe("Guess the number", () => {
     //   pdaSeed,
     // );
 
-    // assert.equal(
-    //   tokenAccountInfoTaker1.owner.toString(),
-    //   payer.publicKey.toString(),
-    // );
+    assert.equal(
+      tokenAccountInfoTaker1.owner.toString(),
+      payer.publicKey.toString(),
+    );
 
-    // console.log('signatureTaker1 =>', signatureTaker1);
-    // console.log('tokenAccountInfoTaker1.owner =>', tokenAccountInfoTaker1.owner.toString());
+    console.log('signatureTaker1 =>', signatureTaker1);
+    console.log('tokenAccountInfoTaker1.owner =>', tokenAccountInfoTaker1.owner.toString());
     // console.log('signatureTaker2 =>', signatureTaker2);
     // console.log('tokenAccountInfoTaker2.owner =>', tokenAccountInfoTaker2.owner.toString());
   });
 
 
-  // //--------------------------------------------------
-  // // Announcement by payer
-  // //--------------------------------------------------
+  //--------------------------------------------------
+  // Announcement by payer
+  //--------------------------------------------------
   it("Reveal correct an NFT by payer", async () => {
     // [Localnet(Mock)]
     // const [signature, nftQName, nftQPrize] = mockRevealNft();
