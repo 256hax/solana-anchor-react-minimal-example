@@ -27,7 +27,7 @@ export const createNfts = async (metaplex: Metaplex, metadata: any) => {
     .nfts()
     .create({
       uri: uri,
-      name: metadata.fileName,
+      name: metadata.name,
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(1),
     })

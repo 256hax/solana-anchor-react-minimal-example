@@ -257,6 +257,8 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   it("Reveal correct an NFT by payer", async () => {
     // [Devnet]
+    const correctName = 'Number 1';
+
     const attributes = [
       {
         "trait_type": 'Prize(SOL)',
@@ -268,6 +270,7 @@ describe("Guess the number", () => {
       metaplex,
       nftQ,
       attributes,
+      correctName,
     );
 
     // [Localnet(Mock)]

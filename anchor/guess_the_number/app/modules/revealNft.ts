@@ -5,22 +5,24 @@ export const revealNft = async (
   metaplex: Metaplex,
   mint: PublicKey,
   attributes: any,
+  correctName: string,
 ) => {
   const nft = await metaplex.nfts().findByMint(mint).run();
 
   const { uri: newUri } = await metaplex
     .nfts()
     .uploadMetadata({
-        ...nft.json,
-        name: 'Number 1',
-        attributes
+      ...nft.json,
+      name: correctName,
+      attributes
     })
     .run();
-  
+
   const { nft: updatedNft } = await metaplex
     .nfts()
-    .update(nft, { 
-        uri: newUri
+    .update(nft, {
+      name: correctName,
+      uri: newUri
     })
     .run();
 
