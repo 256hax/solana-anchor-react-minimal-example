@@ -6,7 +6,7 @@ export const revealNft = async (
   mint: PublicKey,
   attributes: any,
   correctName: string,
-) => {
+): Promise<[string, string]> => {
   const nft = await metaplex.nfts().findByMint(mint).run();
 
   const { uri: newUri } = await metaplex
@@ -27,7 +27,7 @@ export const revealNft = async (
     .run();
 
   const prize = updatedNft.json.attributes.find(
-    (a: any) => a.trait_type === "Prize(SOL)"
+    (a: any) => a.trait_type === 'Prize(SOL)'
   );
 
   return [updatedNft.json.name, prize.value];

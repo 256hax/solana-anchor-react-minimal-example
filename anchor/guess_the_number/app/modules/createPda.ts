@@ -10,7 +10,7 @@ export const createPda = async(
   taker: Keypair,
   mint: PublicKey,
   pdaSeed: string,
-) => {
+): Promise<[String, any, PublicKey]> => {
   const nft = await metaplex.nfts().findByMint(mint).run();
 
   const takerTokenAccount = await getOrCreateAssociatedTokenAccount(
@@ -46,5 +46,5 @@ export const createPda = async(
 
   const fetchUserAnswers = await program.account.userAnswers.fetch(userAnswersPDA);
 
-  return [signature, fetchUserAnswers, takerTokenAccount];
+  return [signature, fetchUserAnswers, takerTokenAccount.address];
 };

@@ -3,7 +3,10 @@ import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from 
 import * as fs from 'fs';
 import { sleep } from 'sleep';
 
-export const createNfts = async (metaplex: Metaplex, metadata: any) => {
+export const createNfts = async (
+  metaplex: Metaplex,
+  metadata: any,
+): Promise<PublicKey> => {
   const bufferImage = fs.readFileSync(metadata.filePath);
   const fileImage = toMetaplexFile(bufferImage, metadata.fileName);
   const { uri: uri } = await metaplex
@@ -15,7 +18,7 @@ export const createNfts = async (metaplex: Metaplex, metadata: any) => {
     })
     .run();
 
-  sleep(1); // 1 = 1sec. for too many request
+  sleep(1); // 1 = 1sec. Avoid for too many request
 
   const { nft: nft } = await metaplex
     .nfts()
@@ -27,7 +30,9 @@ export const createNfts = async (metaplex: Metaplex, metadata: any) => {
     })
     .run();
   
-  sleep(1); // 1 = 1sec. for too many request
+  sleep(1); // 1 = 1sec. Avoid for too many request
 
-  return nft.mintAddress;
+  const mintAddress = nft.mintAddress;
+
+  return mintAddress;
 };

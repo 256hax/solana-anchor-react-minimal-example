@@ -9,7 +9,7 @@ export const setAuthorityEscrow = async(
   mint: PublicKey,
   payerPublicKey: PublicKey,
   pdaSeed: string,
-) => {
+): Promise<[string, PublicKey]> => {
   const [userAnswersPDA, _] = await PublicKey.findProgramAddress(
     [
       utils.bytes.utf8.encode(pdaSeed),
@@ -35,5 +35,5 @@ export const setAuthorityEscrow = async(
 
   const tokenAccountInfo = await getAccount(connection, fetchUserAnswers.tokenAccount);
 
-  return [signature, tokenAccountInfo];
+  return [signature, tokenAccountInfo.owner];
 };

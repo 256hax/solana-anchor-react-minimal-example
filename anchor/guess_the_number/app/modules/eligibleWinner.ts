@@ -5,7 +5,7 @@ export const eligibleWinner = async (
   metaplex: Metaplex,
   payerPublicKey: PublicKey,
   correctName: string,
-) => {
+): Promise<any> => {
   const nfts = await metaplex
     .nfts()
     .findAllByOwner(payerPublicKey)

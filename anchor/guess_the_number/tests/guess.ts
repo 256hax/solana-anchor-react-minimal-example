@@ -156,7 +156,7 @@ describe("Guess the number", () => {
 
     assert.equal(
       fetchUserAnswersTaker1.tokenAccount.toString(),
-      tokenAccountTaker1.address.toString(),
+      tokenAccountTaker1.toString(),
     );
 
     console.log('signatureTaker1 =>', signatureTaker1);
@@ -183,7 +183,7 @@ describe("Guess the number", () => {
 
   it("Set Authority for Token Account(NFT) by takers", async () => {
     // [Devnet] and [Locanet(Mock)]
-    const [signatureTaker1, tokenAccountInfoTaker1] = await setAuthorityEscrow(
+    const [signatureTaker1, tokenAccountOwnerTaker1] = await setAuthorityEscrow(
       connection,
       program,
       taker1,
@@ -193,12 +193,12 @@ describe("Guess the number", () => {
     );
   
     assert.equal(
-      tokenAccountInfoTaker1.owner.toString(),
+      tokenAccountOwnerTaker1.toString(),
       payer.publicKey.toString(),
     );
 
     console.log('signatureTaker1 =>', signatureTaker1);
-    console.log('tokenAccountInfoTaker1.owner =>', tokenAccountInfoTaker1.owner.toString());
+    console.log('tokenAccountInfoTaker1.owner =>', tokenAccountOwnerTaker1.toString());
   });
 
 
@@ -213,7 +213,6 @@ describe("Guess the number", () => {
         "value": 0.01
       }
     ];
-
     const [nftQName, nftQPrize] = await revealNft(
       metaplex,
       nftQ,
@@ -229,11 +228,14 @@ describe("Guess the number", () => {
   });
   
   it("Pickup eligible winner", async () => {
+    // [Devnet]
     winnerNfts = await eligibleWinner(
       metaplex,
       payer.publicKey,
       correctName,
     );
+
+    assert(winnerNfts != null);
   });
 
   it("Transfer reward to winner by payer", async () => {

@@ -1,7 +1,12 @@
+import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { getOrCreateAssociatedTokenAccount, transfer } from '@solana/spl-token';
-import { mintNftType } from '../types/guess';
 
-export const mintNfts: mintNftType  = async(connection, payer, takerPublicKey, mint) => {
+export const mintNfts = async(
+  connection: any,
+  payer: Keypair,
+  takerPublicKey: PublicKey,
+  mint: PublicKey,
+): Promise<string> => {
   const payerTokenAccount = await getOrCreateAssociatedTokenAccount(
     connection, // connection
     payer, // payer
