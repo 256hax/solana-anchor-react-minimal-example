@@ -26,7 +26,9 @@ export const revealNft = async (
     })
     .run();
 
-  const prize = updatedNft.json.attributes.find((a: any) => a.trait_type === "Prize(SOL)");
+  const prize = updatedNft.json.attributes.find(
+    (a: any) => a.trait_type === "Prize(SOL)"
+  );
 
   return [updatedNft.json.name, prize.value];
 };

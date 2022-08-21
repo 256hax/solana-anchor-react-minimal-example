@@ -12,12 +12,6 @@ export const createNfts = async (metaplex: Metaplex, metadata: any) => {
       name: metadata.name,
       description: metadata.description,
       image: fileImage,
-      attributes: [
-        {
-          trait_type: "Original Owner",
-          value: ""
-        }
-      ]
     })
     .run();
 
