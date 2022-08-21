@@ -13,6 +13,7 @@ import { updateToOriginalOwner } from '../app/modules/updateToOriginalOwner';
 import { setAuthorityEscrow } from '../app/modules/setAuthorityEscrow';
 import { revealNft } from '../app/modules/revealNft';
 import { eligibleWinner } from '../app/modules/eligibleWinner';
+import { pickupWinner } from '../app/modules/pickupWinner';
 import { transferReward } from '../app/modules/transferReward';
 
 // --- [Localnet(Mock)] ---
@@ -33,9 +34,9 @@ describe("Guess the number", () => {
   const program = anchor.workspace.Guess as Program<Guess>;
 
   // --- Users Setting ---
-  let payer: Keypair = provider.wallet.payer; // 88K2xdjhYggYAjWwvcU44XNbjLYYDKHvX87wHvspB9Py
+  let payer: Keypair = provider.wallet.payer; // HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
   let taker1: Keypair; // BBCkTVFxZbLPar5YpjqBzymPkcZvT7RMuDK59bbaPTd4
-  let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
+  // let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
   // let hacker: Keypair; // TODO
 
   // --- Metaplex Setting ---
@@ -54,17 +55,20 @@ describe("Guess the number", () => {
   // --- NFT Setting ---
   let nftQ: PublicKey;
   let nft1: PublicKey;
-  let nft2: PublicKey;
+  // let nft2: PublicKey;
   const pdaSeed = 'user-answers';
   const correctName = 'Number 1';
+  const prize = 0.0001; // SOL
   let winnerNfts: any;
+  let winnerPublicKey: PublicKey | null;
 
   it("Initialize wallets", async () => {
     const taker1SecretKeyPath = './keys/taker1.key.json';
     taker1 = await initializeWallets(taker1SecretKeyPath);
 
     // [Localnet(Mock)]
-    // await mockAirdrop(connection, taker1.publicKey);
+    // If you got "too many request", comment out following.
+    await mockAirdrop(connection, taker1.publicKey);
 
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
@@ -210,7 +214,7 @@ describe("Guess the number", () => {
     const attributes = [
       {
         "trait_type": 'Prize(SOL)',
-        "value": 0.01
+        "value": prize
       }
     ];
     const [nftQName, nftQPrize] = await revealNft(
@@ -224,7 +228,7 @@ describe("Guess the number", () => {
     // const [signature, nftQName, nftQPrize] = mockRevealNft();
 
     assert.equal(nftQName, 'Number 1');
-    assert.equal(nftQPrize, '0.01');
+    assert.equal(Number(nftQPrize), prize);
   });
   
   it("Pickup eligible winner", async () => {
@@ -236,22 +240,36 @@ describe("Guess the number", () => {
     );
 
     assert(winnerNfts != null);
+    console.log('winnerNfts.length =>', winnerNfts.length);
   });
 
-  it("Transfer reward to winner by payer", async () => {
-    // await transferReward(
-    //   payer,
-    //   winnerNfts,
-    // );
+  it("Pickup winner", async () => {
+    winnerPublicKey = await pickupWinner(
+      payer,
+      winnerNfts,
+    );
+
+    assert(winnerPublicKey != null);
+    console.log('winnerPublicKey =>', winnerPublicKey);
   });
 
+  it("Transfer reward to winner", async () => {
+    const signature = await transferReward(
+      connection,
+      payer,
+      winnerPublicKey,
+      prize,
+    );
 
-  // //--------------------------------------------------
-  // // Close by payer
-  // //--------------------------------------------------
+    console.log('signature =>', signature);
+  });
+
+  //--------------------------------------------------
+  // Close by payer
+  //--------------------------------------------------
   // it("Burn all of taker's NFT", async () => {
   // });
-
-  // it("Close PDA", async () => {
+  //
+  // it("Close taker's PDA", async () => {
   // });
 });

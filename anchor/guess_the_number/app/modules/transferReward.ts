@@ -1,21 +1,20 @@
-import { bundlrStorage, keypairIdentity, Metaplex } from "@metaplex-foundation/js";
-import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js";
-import axios from 'axios';
+import { Connection, clusterApiUrl, Keypair, PublicKey, Transaction, SystemProgram, sendAndConfirmTransaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 export const transferReward = async (
+  connection: any,
   payer: Keypair,
-  winnerNfts: any,
-) => {
-  const winnerNftsLength = winnerNfts.length;
-  const randomNumber = Math.floor(Math.random() * winnerNftsLength);
+  toPublicKey: PublicKey,
+  amount: number,
+): Promise<string> => {
+  let transaction = new Transaction();
 
-  const metadataUri = winnerNfts[randomNumber].uri;
+  transaction.add(SystemProgram.transfer({
+      fromPubkey: payer.publicKey,
+      toPubkey: toPublicKey,
+      lamports: LAMPORTS_PER_SOL * amount,
+  }));
 
-  const response = await axios.get(metadataUri);
-  
-  const originalOwner = response.data.attributes.find(
-    (a: any) => a.trait_type === "Original Owner"
-  );
-  console.log(originalOwner.value);
+  const signature = await sendAndConfirmTransaction(connection, transaction, [payer]) 
 
+  return signature;
 };

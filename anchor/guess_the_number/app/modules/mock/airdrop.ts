@@ -1,4 +1,5 @@
 import { PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import sleep from 'sleep';
 
 export const airdrop = async(connection: any, publicKey: PublicKey) => {
   let latestBlockHash: any;
@@ -12,4 +13,6 @@ export const airdrop = async(connection: any, publicKey: PublicKey) => {
     lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
     signature: airdropSignature,
   })
+
+  sleep.sleep(2); // 1 = 1sec
 };
