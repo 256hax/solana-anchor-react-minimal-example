@@ -1,4 +1,4 @@
-## Payer and PgoramID Key Pairs
+## Payer and ProgramID Key Pairs
 ### Sandbox Keys
 #### ProgramID
 73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep
