@@ -1,5 +1,5 @@
 import { getOrCreateAssociatedTokenAccount, transfer } from '@solana/spl-token';
-import { mintNftType } from '../types/mintNft';
+import { mintNftType } from '../types/guess';
 
 export const mintNfts: mintNftType  = async(connection, payer, takerPublicKey, mint) => {
   const payerTokenAccount = await getOrCreateAssociatedTokenAccount(
