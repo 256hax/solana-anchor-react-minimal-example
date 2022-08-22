@@ -6,6 +6,7 @@ import { Metaplex, keypairIdentity, bundlrStorage, mockStorage } from "@metaplex
 import { assert, expect } from 'chai';
 
 import { initializeWallets } from '../app/modules/initializeWallets';
+import { airdrop } from '../app/modules/airdrop';
 import { createNfts } from '../app/modules/createNfts';
 import { mintNfts } from '../app/modules/mintNfts';
 import { createPda } from '../app/modules/createPda';
@@ -17,7 +18,6 @@ import { pickupWinner } from '../app/modules/pickupWinner';
 import { transferReward } from '../app/modules/transferReward';
 
 // --- [Localnet(Mock)] ---
-import { airdrop as mockAirdrop } from '../app/modules/mock/airdrop';
 import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
 import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
 import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
@@ -68,7 +68,7 @@ describe("Guess the number", () => {
 
     // [Localnet(Mock)]
     // If you got "too many request", comment out following.
-    await mockAirdrop(connection, taker1.publicKey);
+    await airdrop(connection, taker1.publicKey);
 
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
@@ -115,10 +115,10 @@ describe("Guess the number", () => {
   });
 
 
-  // //--------------------------------------------------
-  // // Actions for NFT by taker
-  // //--------------------------------------------------
-  it("Mint NFTs by payer/takers", async () => {
+  //--------------------------------------------------
+  // Actions for NFT by payer/taker
+  //--------------------------------------------------
+  it("Mint NFTs by taker", async () => {
     // [Devnet] Stub
     // nftQ = new PublicKey('CSfsbjH5ZuXbRwAiJMPvZ64NeCEbKcqS3b3mofQyx9Ti');
     // nft1 = new PublicKey('32C56CDq2M5mKTPcjn67YnSMphocuiWztBsVjWUneH1K');
@@ -138,7 +138,7 @@ describe("Guess the number", () => {
     console.log('signatureNft1 =>', signatureNft1);
   });
 
-  it("Create PDA for answer by takers", async () => {
+  it("Create PDA for deposit NFT", async () => {
     // [Devnet]
     const [signatureTaker1, fetchUserAnswersTaker1, tokenAccountTaker1] = await createPda(
       metaplex,
@@ -167,6 +167,9 @@ describe("Guess the number", () => {
     console.log('AnswersPdaTaker1.answer =>', fetchUserAnswersTaker1.answer);
   });
 
+  // it("Withdraw taker's NFT", async () => {
+  // });
+
   it("Update NFT to original owner by payer", async () => {
     // [Devnet]
     const taker1OriginalOwner = await updateToOriginalOwner(
@@ -185,7 +188,7 @@ describe("Guess the number", () => {
     assert.equal(taker1OriginalOwner.toString(), taker1.publicKey.toString());
   });
 
-  it("Set Authority for Token Account(NFT) by takers", async () => {
+  it("Set Authority for Token Account(NFT) by taker", async () => {
     // [Devnet] and [Locanet(Mock)]
     const [signatureTaker1, tokenAccountOwnerTaker1] = await setAuthorityEscrow(
       connection,
@@ -209,7 +212,7 @@ describe("Guess the number", () => {
   //--------------------------------------------------
   // Announcement by payer
   //--------------------------------------------------
-  it("Reveal correct an NFT by payer", async () => {
+  it("Reveal correct an NFT", async () => {
     // [Devnet]
     const attributes = [
       {
