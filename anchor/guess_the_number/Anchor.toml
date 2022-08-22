@@ -1,0 +1,17 @@
+[features]
+seeds = false
+skip-lint = false
+[programs.localnet]
+guess = "73nne9bqtG4wJiey1spoFfSsstZzE8TwPyvUogP1yiep"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+# cluster = "localnet"
+cluster = "devnet"
+# wallet = "~/.config/solana/id.json"
+wallet = "./keys/payer.key.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
