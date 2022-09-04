@@ -2,7 +2,8 @@
   "dependencies": {
     "@solana/spl-token": "^0.2.0",
     "@solana/web3.js": "^1.50.1",
-    "sleep": "^6.3.0"
+    "sleep": "^6.3.0",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
     "@types/sleep": "^0.0.8"
