@@ -58,7 +58,8 @@ export const main = async() => {
 
   // Send and confirm transaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  await web3.sendAndConfirmTransaction(connection, transaction, [payer])
+  const tx = await web3.sendAndConfirmTransaction(connection, transaction, [payer]);
+  console.log('tx =>', tx);
 
   // Alternatively, manually construct the transaction
   let recentBlockhash = await connection.getRecentBlockhash();
@@ -91,7 +92,8 @@ export const main = async() => {
 main();
 
 /*
-% ts-node <THIS JS FILE>
+% ts-node <THIS FILE>
+tx => 5pkg1GEpJ4fXvotc7PHc4cRZ2psRyCsodFDpKFXXSCjz7DkkUXgRV57hsfdBnqakKUSYuGSveheKmuj2BEmgNMyH
 The signatures were verifed: true
-tx_signature =>  3kKWgWqbcR43KtE7pKiM8Ktjm5zoGw4pohAsWgj8GkV11SeMLb8uHVfSBS4AhhoPF5SgK2dNsAPUZ9MAdWrtBoz3
+tx_signature => 2qwSbtLtd4V3NNr3zFKZ62n18eo6wRi5CtqeEijkePnfe9dSiN2qjg3X3LpBghyi3gXKCcqWB3PgH7WVhjANgzoK
 */
