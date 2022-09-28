@@ -4,7 +4,7 @@ import { getAccount, getAssociatedTokenAddress } from '@solana/spl-token';
 
 async function main() {
   const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  // const connection = new web3.Connection('http://localhost:8899', 'confirmed');
+  // const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
   const ph_ed_address = new web3.PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg'); // REPLACE YOUR WALLET ADDRESS1
   const ph_ch_address = new web3.PublicKey('2SN6o2mb4DFBEgSNcDqcdN5HWqa38xyF6F6xtTQ3HRwn'); // REPLACE YOUR WALLET ADDRESS2

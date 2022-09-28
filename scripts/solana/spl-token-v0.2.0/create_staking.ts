@@ -15,7 +15,7 @@ export const main = async() => {
   // Fund a key to create transactions
   let fromPublicKey = Keypair.generate();
   let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  // let connection = new Connection('http://localhost:8899', 'confirmed');
+  // let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
 
   let airdropSignature = await connection.requestAirdrop(

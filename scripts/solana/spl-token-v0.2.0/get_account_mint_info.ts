@@ -4,7 +4,7 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, getAcc
 
 export const main = async() => {
     // Connect to cluster
-    let connection = new Connection('http://localhost:8899', 'confirmed');
+    let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
     // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
     // Generate a new wallet keypair and airdrop SOL

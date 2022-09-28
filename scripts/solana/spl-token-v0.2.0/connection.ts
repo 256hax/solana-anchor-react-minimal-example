@@ -3,7 +3,7 @@ import * as web3 from "@solana/web3.js";
 
 export const main = async() => {
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
+  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
   let slot = await connection.getSlot();
   console.log('slot => ', slot);

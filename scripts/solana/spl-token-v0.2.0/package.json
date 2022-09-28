@@ -6,6 +6,9 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "@types/sleep": "^0.0.8"
+    "@types/node": "^18.7.23",
+    "@types/node-fetch": "^2.6.2",
+    "@types/sleep": "^0.0.8",
+    "ts-node": "^10.9.1"
   }
 }

@@ -5,7 +5,7 @@ export const main = async() => {
   // Airdrop SOL for paying transactions
   let payer = web3.Keypair.generate();
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://localhost:8899', 'confirmed');
+  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
   let airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
