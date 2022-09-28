@@ -1,5 +1,4 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
-// import * as web3 from '@solana/web3.js';
 import {
   Keypair,
   Connection,
