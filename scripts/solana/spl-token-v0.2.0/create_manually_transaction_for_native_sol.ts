@@ -69,7 +69,9 @@ export const main = async() => {
   const tx = await sendAndConfirmTransaction(connection, transaction, [payer]);
   console.log('tx =>', tx);
 
-  // Alternatively, manually construct the transaction
+  /*
+    --- Alternatively, manually construct the transaction ----------------------------------------------------------
+  */
   let recentBlockhash = await connection.getRecentBlockhash();
   let manualTransaction = new Transaction({
       recentBlockhash: recentBlockhash.blockhash,
