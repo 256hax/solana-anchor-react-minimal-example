@@ -102,3 +102,10 @@ Signature ->  3xH1NUdQJXLNEqpZiDxbBf7KgJoc6XmZZKUTTwZCgG9Jcip5kCQbHHMALfi26jvdUc
 Signature(unavailble) => DummyfWTUVYSwTqiu9eidviC4nqTZZtJ7spT33wfuKtxG2813EwX3c7qo9qDfMHauqvPKpufGWsKRRxtqq5uH9j
 null
 */
+
+
+/*
+[Note]
+If you get unexpected response, try to use "connection.getSignatureStatus" instead of "connection.getParsedTransaction".
+I encoutered something wrong response(ex: always null) by "connection.getParsedTransaction".
+*/
