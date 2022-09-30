@@ -62,6 +62,12 @@ export const main = async() => {
 main();
 
 /*
+[Note]
+If you get unexpected response, try to use "connection.getParsedTransaction" instead of "connection.getSignatureStatus".
+I encoutered something wrong response(ex: always null) by "connection.getSignatureStatus".
+*/
+
+/*
 Case 1: Create TX then get status
 
 % ts-node <THIS FILE>
