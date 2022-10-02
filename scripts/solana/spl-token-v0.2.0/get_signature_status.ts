@@ -82,3 +82,9 @@ Signature ->  2uiGWNeeew8oAYCh2qHEY63tcK2U1qZFPwCtqXPKn2jhyM6X9SXHbKyg9wHHhfUVTf
 Signature(unavailble) => DummyfWTUVYSwTqiu9eidviC4nqTZZtJ7spT33wfuKtxG2813EwX3c7qo9qDfMHauqvPKpufGWsKRRxtqq5uH9j
 { context: { slot: 15104 }, value: null }
 */
+
+/*
+[Note]
+If you get unexpected response, try to use "connection.getSignatureStatus" or "connection.getParsedTransaction".
+I encoutered something wrong response(ex: always null) by "connection.getSignatureStatus".
+*/
