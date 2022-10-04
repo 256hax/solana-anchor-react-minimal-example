@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@solana/spl-token": "^0.3.5",
+    "@solana/web3.js": "^1.63.1",
+    "sleep": "^6.3.0",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.0",
+    "@types/node-fetch": "^2.6.2",
+    "@types/sleep": "^0.0.8",
+    "ts-node": "^10.9.1"
+  }
+}
