@@ -1,17 +1,17 @@
 # Solana x Anchor x React Minimal Example
-Solana x Anchor x React Minimal Examples. Solana x Anchor x React Minimal Example. And there are a few contents(Metaplex, Arweave JS and Outline Document).  
+Solana x Anchor x React Minimal Example. And there are a few contents(Metaplex, Arweave JS and Outline Document).  
 For experiment purpose only.
 
 ## How To Run
 It's depends on Framework(ex: Anchor, React, JS...). Check README.md at each directories.
 
 ## Wallet Key
-I set id.json at each directories for Wallet.  
-Feel free to use that for only Devnet/Testnet. I expect you can easy to start minimal examples.
+I set id.json(keypair of wallet) at each directories.  
+Feel free to use that for only Devnet/Testnet. I hope you can easy to start minimal examples.
 
 ## Tools
 ### User-friendly Transaction Explorer
-I recommend to use localnet with Transaction Explorer.
+I recommend to use localnet(localhost) with Transaction Explorer.
 
 1. Run local validator.
 ```
@@ -23,10 +23,10 @@ I recommend to use localnet with Transaction Explorer.
 3. Search Transaction Signature or public-key in Solana Explorer.
 [Solana Explorer (localhost:8899)](https://explorer.solana.com/?cluster=custom)
 
-## Outline Document (Draft)
+## Outline Document for Product/Project Manager
 [Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
 
-### Example Image (Draft)
+### Example Image
 ![STEPN ON/OFF Chain](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-screenshot.png?raw=true)  
 
 ![STEPN Mapping System](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-mapping-system.png?raw=true)  
