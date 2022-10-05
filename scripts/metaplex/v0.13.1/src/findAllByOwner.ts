@@ -7,13 +7,13 @@ const main = async() => {
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
-    .use(keypairIdentity(wallet))
-    .use(bundlrStorage());
+      .use(keypairIdentity(wallet))
+      .use(bundlrStorage());
 
   const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd");
   const myNfts = await metaplex
     .nfts()
-    .findAllByOwner({ owner: owenerPublicKey })
+    .findAllByOwner(owenerPublicKey)
     .run();
 
   console.log(myNfts);

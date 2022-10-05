@@ -7,12 +7,12 @@ const main = async() => {
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
-    .use(keypairIdentity(wallet))
-    .use(bundlrStorage());
+      .use(keypairIdentity(wallet))
+      .use(bundlrStorage());
 
-  const mintAddress = new PublicKey("EfMRGSVpFgnj7NSnjjiTQsbLJtyiTmMcvzHn1zqQVm3y");
+  const mintAddress = new PublicKey("BZAqzSiRyF1kQKhHN9z1o7WEJvr3tBkAL7tbDmMEM7A1");
 
-  const nft = await metaplex.nfts().findByMint({ mintAddress }).run();
+  const nft = await metaplex.nfts().findByMint(mintAddress).run();
 
   console.log('nft =>', nft);
   console.log('Mint Address =>', nft.mint.address.toString());

@@ -3,15 +3,15 @@ import { Metaplex, keypairIdentity, bundlrStorage, toMetaplexFile } from "@metap
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as fs from 'fs';
 
-const main = async () => {
+const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
   const wallet = Keypair.generate();
 
 
   // --- Airdrop ---
   let airdropSignature = await connection.requestAirdrop(
-    wallet.publicKey,
-    LAMPORTS_PER_SOL,
+      wallet.publicKey,
+      LAMPORTS_PER_SOL,
   );
 
   const latestBlockHash = await connection.getLatestBlockhash();
@@ -26,43 +26,34 @@ const main = async () => {
   // console.log(balance);
   // --- End Airdrop ---
 
-
+  
   // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
-    .use(keypairIdentity(wallet))
-    .use(bundlrStorage({
-      address: 'https://devnet.bundlr.network',
-      providerUrl: 'https://api.devnet.solana.com',
-      timeout: 60000,
-    }));
+      .use(keypairIdentity(wallet))
+      .use(bundlrStorage({
+        address: 'https://devnet.bundlr.network',
+        providerUrl: 'https://api.devnet.solana.com',
+        timeout: 60000,
+      }));
 
   // Ref: MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
-  // const file = toMetaplexFile('The content of my file', 'my-file.txt');
-  const file = toMetaplexFile('file-content', 'filename.jpg', {
-    uniqueName: 'my-unique-aws-key',
-  })
+  const file = toMetaplexFile('The content of my file', 'my-file.txt');
 
-  const { uri, metadata } = await metaplex
-    .nfts()
-    .uploadMetadata({
-      name: "My NFT Metadata",
-      description: "My description",
-      image: await file,
-    })
-    .run();
+  const { uri } = await metaplex
+      .nfts()
+      .uploadMetadata({
+          name: "My NFT Metadata",
+          description: "My description",
+          image: await file,
+      })
+      .run();
 
-  console.log('uri =>', uri);
-  console.log('metadata =>', metadata);
+  console.log(uri);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-uri => https://arweave.net/3wOD48yTpf_ypatJVsQSXHWBr-Qa3LB3hTvKpUXtgcM
-metadata => {
-  name: 'My NFT Metadata',
-  description: 'My description',
-  image: 'https://arweave.net/nj7fwpJmXjj-xB8jvyJw4zf4ogtVjTlVadFXK5usXgk'
-}
+https://arweave.net/SnmeBK3sJRF0Q8rLXweNKtiQyfRhQI0d0HqSjC5QF4U
 */
