@@ -51,7 +51,7 @@ const main = async () => {
     .uploadMetadata({
       name: "Collection NFT Metadata",
       description: "Collection description",
-      image: "https://placekitten.com/100/500",
+      image: "https://placekitten.com/200/300",
    })
     .run();
 
