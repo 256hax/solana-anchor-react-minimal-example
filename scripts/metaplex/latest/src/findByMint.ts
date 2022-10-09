@@ -10,9 +10,9 @@ const main = async() => {
     .use(keypairIdentity(wallet))
     .use(bundlrStorage());
 
-  const mintAddress = new PublicKey("EfMRGSVpFgnj7NSnjjiTQsbLJtyiTmMcvzHn1zqQVm3y");
+  const mint = new PublicKey("EfMRGSVpFgnj7NSnjjiTQsbLJtyiTmMcvzHn1zqQVm3y");
 
-  const nft = await metaplex.nfts().findByMint({ mintAddress }).run();
+  const nft = await metaplex.nfts().findByMint({ mintAddress: mint }).run();
 
   console.log('nft =>', nft);
   console.log('Mint Address =>', nft.mint.address.toString());
