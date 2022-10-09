@@ -3,6 +3,7 @@
 
 ## Run
 ```
+% ce <each PJ directory>
 % cd src
 % ts-node <each ts file>
 ```
