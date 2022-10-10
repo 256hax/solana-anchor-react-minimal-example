@@ -12,5 +12,5 @@ Then change your Network to Devnet in Wallet.
 
 ## Run
 ```
-% npm start
+% npm run dev
 ```
