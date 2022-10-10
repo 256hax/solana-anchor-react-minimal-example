@@ -4,35 +4,35 @@ import { Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/w
 import React, { FC, useCallback } from 'react';
 
 export const SendOneLamportToRandomAddress: FC = () => {
-    const { connection } = useConnection();
-    const { publicKey, sendTransaction } = useWallet();
+	const { connection } = useConnection();
+	const { publicKey, sendTransaction } = useWallet();
 
-    const onClick = useCallback(async () => {
-        if (!publicKey) throw new WalletNotConnectedError();
+	const onClick = useCallback( async() => {
+		if (!publicKey) throw new WalletNotConnectedError();
 
-        const transaction = new Transaction().add(
-            SystemProgram.transfer({
-                fromPubkey: publicKey,
-                toPubkey: Keypair.generate().publicKey,
-                lamports: LAMPORTS_PER_SOL * 0.1,
-            })
-        );
+		const transaction = new Transaction().add(
+			SystemProgram.transfer({
+				fromPubkey: publicKey,
+				toPubkey: Keypair.generate().publicKey,
+				lamports: LAMPORTS_PER_SOL * 0.01,
+			})
+		);
 
-        const signature = await sendTransaction(transaction, connection);
-        console.log(signature);
+		const signature = await sendTransaction(transaction, connection);
+		console.log(signature);
 
-        let latestBlockHash = await connection.getLatestBlockhash();
+		let latestBlockHash = await connection.getLatestBlockhash();
 
-        await connection.confirmTransaction({
-          blockhash: latestBlockHash.blockhash,
-          lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-          signature: signature,
-        });
-    }, [publicKey, sendTransaction, connection]);
+		await connection.confirmTransaction({
+			blockhash: latestBlockHash.blockhash,
+			lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+			signature: signature,
+		});
+	}, [publicKey, sendTransaction, connection]);
 
-    return (
-        <button onClick={onClick} disabled={!publicKey}>
-            Send 0.1 SOL to a random address!
-        </button>
-    );
+	return (
+		<button onClick={onClick} disabled={!publicKey}>
+			Send 0.01 SOL to a random address!
+		</button>
+	);
 };
