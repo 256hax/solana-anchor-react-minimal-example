@@ -66,7 +66,11 @@ export const main = async() => {
 
   // Send and confirm transaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  const tx = await sendAndConfirmTransaction(connection, transaction, [payer]);
+  const tx = await sendAndConfirmTransaction(
+    connection,
+    transaction,
+    [payer]
+  );
   console.log('tx =>', tx);
 
   /*
