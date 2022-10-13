@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@metaplex-foundation/js": "^0.17.1",
+    "@metaplex-foundation/mpl-token-metadata": "^2.3.3",
+    "@solana/web3.js": "^1.64.0",
+    "sleep": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/sleep": "^0.0.8",
+    "typescript": "^4.8.4"
+  }
+}
