@@ -68,10 +68,10 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Rust - mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
 - [Rust - metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
 - [API - @metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
-- [GitHub - Metaplex js](https://github.com/metaplex-foundation/js)
+- [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
+- [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
 - ~~[GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)~~ Metaplex Sugar is an alternative
-- [GitHub - Metaplex js-examples](https://github.com/metaplex-foundation/js-examples)
 - [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
 
 ## Arweave
