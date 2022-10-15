@@ -101,7 +101,7 @@ const network = clusterApiUrl('devnet');
 ### Image
 - [Anchor Docker Image](https://project-serum.github.io/anchor/getting-started/verification.html#images)  
 
-ex) Should replace to latest version.
+e.g. Should replace to latest version.
 ```
 docker pull projectserum/build:v0.19.0
 ```

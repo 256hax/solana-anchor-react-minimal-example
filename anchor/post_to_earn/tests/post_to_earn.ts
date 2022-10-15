@@ -32,7 +32,7 @@ describe('post_to_earn', async() => {
   let transferAmount = null;
 
   it('Gets a PDA for Counter.', async () => {
-    // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
+    // It need underscore vars. Shouldn't directly into vars(e.g. let pda; [pda, bump] = xxx;).
     const [_pdaCounter, _bumpCounter] = await PublicKey.findProgramAddress(
       [
         anchor.utils.bytes.utf8.encode("counter"),
@@ -54,7 +54,7 @@ describe('post_to_earn', async() => {
   });
 
   it('Gets a PDA for Payment.', async () => {
-    // It need underscore vars. Shouldn't directly into vars(ex: let pda; [pda, bump] = xxx;).
+    // It need underscore vars. Shouldn't directly into vars(e.g. let pda; [pda, bump] = xxx;).
     const [_pdaPayment, _bumpPayment] = await PublicKey.findProgramAddress(
       [
         anchor.utils.bytes.utf8.encode("payment"),

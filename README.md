@@ -3,7 +3,7 @@ Solana x Anchor x React Minimal Example. And there are a few contents(Metaplex, 
 For experiment purpose only.
 
 ## How To Run
-It's depends on Framework(ex: Anchor, React, JS...). Check README.md at each directories.
+It's depends on Framework(e.g. Anchor, React, JS...). Check README.md at each directories.
 
 ## Wallet Key
 I set id.json(keypair of wallet) at each directories.  

@@ -107,5 +107,5 @@ null
 /*
 [Note]
 If you get unexpected response, try to use "connection.getSignatureStatus" or "connection.getParsedTransaction".
-I encoutered something wrong response(ex: always null) by "connection.getSignatureStatus".
+I encoutered something wrong response(e.g. always null) by "connection.getSignatureStatus".
 */

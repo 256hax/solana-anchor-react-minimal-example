@@ -16,7 +16,7 @@ export const main = async() => {
   // const signatures = [nft_mint_signature, sol_transfer_signature];
 
   // [Note] If you want to decode, use JSON.stringify.
-  // ex) JSON.stringify(<RESPONSE JSON DATA>, null, 2)
+  // e.g. JSON.stringify(<RESPONSE JSON DATA>, null, 2)
 
   // getTransaction method is almost same result.
   const getParsedTransaction = await connection.getParsedTransaction(nft_mint_signature);

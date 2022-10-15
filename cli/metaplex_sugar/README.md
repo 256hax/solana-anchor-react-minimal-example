@@ -35,7 +35,7 @@ Get minted Signature then get Mint Address(check "Mint" element).
 
 ## Note
 - I recommend delete cache.json before change config or mint again.
-- Update tools(ex: sugar, metaboss) for latest.
+- Update tools(e.g. sugar, metaboss) for latest.
 
 ## Reference
 - [Sugar Command](https://docs.metaplex.com/sugar/asset-preparation-and-deployment)

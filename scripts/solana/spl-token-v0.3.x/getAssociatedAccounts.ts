@@ -18,7 +18,7 @@ async function main() {
 
 
   // [Note] If you want to decode, use JSON.stringify.
-  // ex) JSON.stringify(<RESPONSE JSON DATA>, null, 2)
+  // e.g. JSON.stringify(<RESPONSE JSON DATA>, null, 2)
 
   const getAccountInfo = await connection.getAccountInfo(metaplex_token_metadata_program_id);
   console.log("\n----------------------------------------------------------------------");

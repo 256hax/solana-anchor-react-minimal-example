@@ -35,5 +35,5 @@ path = "src/borsh.rs"
 Run with rust file:
 ```
 % cargo test -- --nocapture <FUNCTION NAME IN TEST FILE>
-ex) % cargo test -- --nocapture borsh_test_simple_struct
+e.g. % cargo test -- --nocapture borsh_test_simple_struct
 ```

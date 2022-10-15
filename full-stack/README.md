@@ -140,7 +140,7 @@ Copy your Phantom Wallet Address, then airdrop.
 ![Overview](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/overview.png?raw=true)
 
 ## Update Programs(Smart Contract)
-Update any programs(ex: lib.rs) and move to each example root directory.  
+Update any programs(e.g. lib.rs) and move to each example root directory.  
 Don't forget to run local cluster(solana-test-validator).
 
 ```
