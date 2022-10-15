@@ -21,6 +21,12 @@ const main = async() => {
 main();
 
 /*
+Note:
+If you got following error, you need to use Custom RPC(e.g. QuicNode) I think.
+"Server responded with 429 Too Many Requests.  Retrying after 500ms delay...".
+*/
+
+/*
 % ts-node <THIS FILE>
 
   {
