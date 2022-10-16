@@ -1,29 +1,36 @@
 // Ref: https://github.com/metaplex-foundation/js#findallbyowner
-import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/js";
+import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("mainnet-beta"));
+  // const connection = new Connection(clusterApiUrl("mainnet-beta"));
+  const connection = new Connection(clusterApiUrl("devnet"));
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
     .use(bundlrStorage());
 
-  const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd");
+  // const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd"); // mainnet
+  const owenerPublicKey = new PublicKey("HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg"); // devnet
   const myNfts = await metaplex
     .nfts()
     .findAllByOwner({ owner: owenerPublicKey });
 
   console.log(myNfts);
+
+  // // Mint Address List
+  // myNfts.map((nft:any) => {  
+  //   console.log(nft.mintAddress.toString());
+  // });
 };
 
 main();
 
 /*
 Note:
-If you got following error, you need to use Custom RPC(e.g. QuicNode) I think.
-"Server responded with 429 Too Many Requests.  Retrying after 500ms delay...".
+  If you got following error in Mainnet-beta, you need to use Custom RPC(e.g. QuicNode) I think.
+  "Server responded with 429 Too Many Requests.  Retrying after 500ms delay...".
 */
 
 /*
