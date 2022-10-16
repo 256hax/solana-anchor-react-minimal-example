@@ -28,7 +28,7 @@ If you got following error, you need to use Custom RPC(e.g. QuicNode) I think.
 
 /*
 % ts-node <THIS FILE>
-
+[
   {
     model: 'nft',
     lazy: true,
