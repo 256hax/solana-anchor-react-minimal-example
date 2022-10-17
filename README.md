@@ -49,6 +49,8 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - v0.1.8 - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/program/src/instruction.rs)
 - [GitHub - v0.1.8 - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/js/client/token.js)
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
+- [Support - Discord Solana](https://discord.com/invite/pquxPsq)
+- [Support - Stack Exchange Solana](https://solana.stackexchange.com/)
 
 ## Anchor
 - [Docs - Anchor(Installation, Core Concept, Guides, References)](https://www.anchor-lang.com/)
@@ -58,6 +60,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Rust - anchor_spl](https://docs.rs/anchor-spl/latest/anchor_spl/index.html)
 - [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
+- [Support - Discord Anchor](https://discord.com/invite/ZCHmqvXgDw)
 
 ## Metaplex/NFT
 - [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/)
@@ -73,6 +76,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
 - ~~[GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)~~ Metaplex Sugar is an alternative
 - [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
+- [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 
 ## Arweave
 - [Docs - Arweave Developers](https://docs.arweave.org/developers/)
@@ -80,3 +84,4 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - arweave-js](https://github.com/ArweaveTeam/arweave-js)
 - [GitHub - arlocal](https://github.com/textury/arlocal)
 - [GitHub - ArConnect](https://github.com/th8ta/ArConnect)
+- [Support - Discord Arweave](https://discord.com/invite/BXk8tq7)
