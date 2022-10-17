@@ -1,17 +1,6 @@
 # React Examples
 ## Run
-First Terminal:
-```
-% solana-test-validator
-```
-
-Second Terminal:
-```
-% npm install
-% npm start
-```
-
-Open Chrome with Phantom wallet.
+Look at each directories.
 
 ## Metaplex SDK JS
 If you implement Metaplex SDK JS with React, check following.
