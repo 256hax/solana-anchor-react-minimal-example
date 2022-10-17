@@ -46,8 +46,6 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
 - [GitHub - Latest - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
 - [GitHub - Latest - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js/src/actions)
-- [GitHub - v0.1.8 - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/program/src/instruction.rs)
-- [GitHub - v0.1.8 - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/blob/%40solana/spl-token%40v0.1.8/token/js/client/token.js)
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
 - [Support - Discord Solana](https://discord.com/invite/pquxPsq)
 - [Support - Stack Exchange Solana](https://solana.stackexchange.com/)
