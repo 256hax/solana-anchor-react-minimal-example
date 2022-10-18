@@ -36,7 +36,6 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 # Reference
 ## Solana
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
-- [Docs - Phantom](https://docs.phantom.app/)
 - [Docs - Solana Errors List](https://github.com/solana-labs/solana/blob/master/sdk/src/transaction/error.rs)
 - [Rust - solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [Rust - solana_sdk](https://docs.rs/solana-sdk/latest/solana_sdk/)
@@ -44,9 +43,8 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [API - @solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
 - [API - @solana/spl-token](https://solana-labs.github.io/solana-program-library/token/js/)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
-- [GitHub - Latest - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
-- [GitHub - Latest - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js/src/actions)
-- [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
+- [GitHub - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)
+- [GitHub - SPL Token JavaScript](https://github.com/solana-labs/solana-program-library/tree/master/token/js/src/actions)
 - [Support - Discord Solana](https://discord.com/invite/pquxPsq)
 - [Support - Stack Exchange Solana](https://solana.stackexchange.com/)
 
@@ -76,9 +74,14 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 
+## Wallet(e.g. Phantom)
+- [Docs - Phantom](https://docs.phantom.app/)
+- [API - @solana/wallet-adapter](https://solana-labs.github.io/wallet-adapter/)
+- [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
+
 ## Arweave
 - [Docs - Arweave Developers](https://docs.arweave.org/developers/)
-- [GraphQL - https://arweave.net/graphql](https://arweave.net/graphql)
+- [GraphQL - Arweave](https://arweave.net/graphql)
 - [GitHub - arweave-js](https://github.com/ArweaveTeam/arweave-js)
 - [GitHub - arlocal](https://github.com/textury/arlocal)
 - [GitHub - ArConnect](https://github.com/th8ta/ArConnect)
