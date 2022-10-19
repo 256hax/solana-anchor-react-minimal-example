@@ -25,7 +25,7 @@ export const SendTokenToRandomAddress: FC = () => {
 
   const [valueTakerPublicKey, setTakerPublicKey] = useState<string>(takerPublicKey.toString());
   const [valueTokenAddress, setTokenAddress] = useState<string>('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU');
-  const [valueAmount, setAmount] = useState<string>('0.00001');
+  const [valueAmount, setAmount] = useState<string>('1');
 
   // Ref: https://stackoverflow.com/questions/70224185/how-to-transfer-custom-spl-token-by-solana-web3-js-and-solana-sol-wallet-ad/
   const transferToken = useCallback(async () => {
@@ -57,7 +57,7 @@ export const SendTokenToRandomAddress: FC = () => {
           payerTokenAccount.address, // source
           takerTokenAccount.address, // destination
           publicKey, // owner
-          LAMPORTS_PER_SOL * Number(valueAmount),  // amount
+          Number(valueAmount),  // amount
           [], // multiSigners
           TOKEN_PROGRAM_ID // programId
         )
