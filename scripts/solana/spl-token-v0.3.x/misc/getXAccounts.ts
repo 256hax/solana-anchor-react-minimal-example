@@ -82,7 +82,7 @@ Delegation: (not set)
 Close authority: (not set)
 
 
-% node <THIS JS FILE>
+% ts-node <THIS FILE>
 ----------------------------------------------------------------------
 getAccountInfo => {
   data: <Buffer 02 00 00 00 05 e0 15 6c a7 d5 d4 e9 c8 42 21 bf 8a 4b d5 b6 bf 5e 54 4a 33 cd 53 cb 20 0b 23 49 3c b4 68 10>,
