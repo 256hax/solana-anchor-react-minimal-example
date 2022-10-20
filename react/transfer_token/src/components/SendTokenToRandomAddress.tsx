@@ -29,7 +29,6 @@ export const SendTokenToRandomAddress: FC = () => {
 
   // Ref: https://stackoverflow.com/questions/70224185/how-to-transfer-custom-spl-token-by-solana-web3-js-and-solana-sol-wallet-ad/
   const transferToken = useCallback(async () => {
-    
     try {
       if (!publicKey || !signTransaction) throw new WalletNotConnectedError()
       const takerPublicKey = new PublicKey(valueTakerPublicKey);
@@ -88,7 +87,7 @@ export const SendTokenToRandomAddress: FC = () => {
         </h2>
         <div>
           <p>
-            Visit <a href="https://usdcfaucet.com/" target="_blank">USDC Faucet</a> then, select SOL and input your Wallet Address, you'll get 1 USDC Token.
+            Visit <a href="https://usdcfaucet.com/" target="_blank">USDC Faucet</a> then, select SOL and input your Wallet Address, you'll get 1 USDC Token for Devnet.
           </p>
           <p>
             USDC Token Address: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU
@@ -133,7 +132,7 @@ export const SendTokenToRandomAddress: FC = () => {
           </button>
         </div>
       </div>
-
+      
     </div>
   );
 };
