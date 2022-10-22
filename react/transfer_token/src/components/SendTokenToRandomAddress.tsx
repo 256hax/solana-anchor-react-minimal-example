@@ -3,13 +3,11 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
 import { Keypair, Transaction, PublicKey } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { TOKEN_PROGRAM_ID, createTransferInstruction, getAssociatedTokenAddress } from '@solana/spl-token';
 
 // --- Custom Transaction for Solana Wallet Adapter ---
 // Use following instead of @solana/spl-token. Customize Signer instructions for Solana Wallet Adapter.
 import { getOrCreateAssociatedTokenAccount } from '../modules/getOrCreateAssociatedTokenAccount';
-import { createTransferInstruction } from '../modules/createTransferInstructions';
-import { getAssociatedTokenAddress } from '../modules/getAssociatedTokenAddress';
 
 // For "Property 'solana' does not exist on type 'Window & typeof globalThis'" error.
 interface Window {
@@ -38,7 +36,9 @@ export const SendTokenToRandomAddress: FC = () => {
 
       const mint = new PublicKey(valueTokenAddress);
 
-      // Create ATA if doesn't exist.
+      // --- Get or Create ATA ---
+      // Create ATA if it doesn't exist.
+      // Note: It's different "getOrCreateAssociatedTokenAccount" of @solana/spl-token.
       const payerTokenAccount = await getOrCreateAssociatedTokenAccount(
         connection, // connection
         publicKey, // payer publickey
@@ -67,13 +67,13 @@ export const SendTokenToRandomAddress: FC = () => {
   const transferToken = useCallback(async () => {
     if (!publicKey || !signTransaction) throw new WalletNotConnectedError();
     const takerPublicKey = new PublicKey(valueTakerPublicKey);
-
     const mint = new PublicKey(valueTokenAddress);
 
     // This is the optimal logic, considering TX fee, client-side computation, RPC roundtrips and guaranteed idempotent.
     // Sadly we can't do this atomically.
     let account
     try {
+      // --- Get ATA ---
       // We can check value of ATA before create ATA if you need.
       const payerTokenAccount = await getAssociatedTokenAddress(
         mint,
@@ -86,6 +86,8 @@ export const SendTokenToRandomAddress: FC = () => {
         takerPublicKey,
       );
       
+      // --- Create Instruction ---
+      // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createTransferInstruction
       const transaction = new Transaction().add(
         createTransferInstruction(
           payerTokenAccount, // source
@@ -97,12 +99,13 @@ export const SendTokenToRandomAddress: FC = () => {
         )
       );
 
+      // --- TX ---
 			const blockHash = await connection.getLatestBlockhash();
       transaction.feePayer = publicKey;
       transaction.recentBlockhash = blockHash.blockhash;
       const signed = await signTransaction(transaction);
-
       const tx = await connection.sendRawTransaction(signed.serialize());
+
       console.log('tx =>', tx);
     } catch (error: any) {
       console.log(`Transaction failed: ${error.message}`);
