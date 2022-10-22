@@ -37,6 +37,10 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  margin-top: 40px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
