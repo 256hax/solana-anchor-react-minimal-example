@@ -3,7 +3,12 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
 import { Keypair, Transaction, PublicKey } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID, createTransferInstruction, getAssociatedTokenAddress } from '@solana/spl-token';
+import {
+  TOKEN_PROGRAM_ID,
+  createTransferInstruction,
+  getAssociatedTokenAddress,
+  createAssociatedTokenAccountInstruction
+} from '@solana/spl-token';
 
 // --- Custom Transaction for Solana Wallet Adapter ---
 // Use following instead of @solana/spl-token. Customize Signer instructions for Solana Wallet Adapter.
@@ -29,11 +34,10 @@ export const SendTokenToRandomAddress: FC = () => {
   const [valueAmount, setAmount] = useState<string>('1');
 
   // Ref: https://stackoverflow.com/questions/70224185/how-to-transfer-custom-spl-token-by-solana-web3-js-and-solana-sol-wallet-ad/
-  const createATA = useCallback(async () => {
+  const createAta = useCallback(async () => {
     try {
       if (!publicKey || !signTransaction) throw new WalletNotConnectedError();
       const takerPublicKey = new PublicKey(valueTakerPublicKey);
-
       const mint = new PublicKey(valueTokenAddress);
 
       // --- Get or Create ATA ---
@@ -73,7 +77,9 @@ export const SendTokenToRandomAddress: FC = () => {
     // Sadly we can't do this atomically.
     let account
     try {
-      // --- Get ATA ---
+      // --------------------------------------------------
+      //  Get ATA
+      // --------------------------------------------------
       // We can check value of ATA before create ATA if you need.
       const payerTokenAccount = await getAssociatedTokenAddress(
         mint,
@@ -86,7 +92,9 @@ export const SendTokenToRandomAddress: FC = () => {
         takerPublicKey,
       );
       
-      // --- Create Instruction ---
+      // --------------------------------------------------
+      //  Create Transfer Instruction
+      // --------------------------------------------------
       // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createTransferInstruction
       const transaction = new Transaction().add(
         createTransferInstruction(
@@ -99,7 +107,9 @@ export const SendTokenToRandomAddress: FC = () => {
         )
       );
 
-      // --- TX ---
+      // --------------------------------------------------
+      //  Transaction
+      // --------------------------------------------------
 			const blockHash = await connection.getLatestBlockhash();
       transaction.feePayer = publicKey;
       transaction.recentBlockhash = blockHash.blockhash;
@@ -112,6 +122,90 @@ export const SendTokenToRandomAddress: FC = () => {
     }
   }, [publicKey, sendTransaction, connection]);
 
+
+  const createAtaAndTransfer = useCallback(async () => {
+    if (!publicKey || !signTransaction) throw new WalletNotConnectedError();
+    const takerPublicKey = new PublicKey(valueTakerPublicKey);
+    const mint = new PublicKey(valueTokenAddress);
+
+    const payerPublicKey = publicKey;
+
+    try {
+      // --------------------------------------------------
+      //  Get ATA
+      // --------------------------------------------------
+      const payerTokenAccount = await getAssociatedTokenAddress(
+        mint,
+        payerPublicKey,
+      );
+
+      const takerTokenAccount = await getAssociatedTokenAddress(
+        mint,
+        takerPublicKey,
+      );
+
+      // --------------------------------------------------
+      //  Get ATA Info
+      // --------------------------------------------------
+      // Return: Exist data: created ATA, Null: doesn't exist ATA (not created)
+      const payerAccountInfo = await connection.getAccountInfo(payerTokenAccount);
+      const takerAccountInfo = await connection.getAccountInfo(takerTokenAccount);
+
+      // --------------------------------------------------
+      //  Create ATA Instructions if doesn't exist
+      // --------------------------------------------------
+      let transaction = new Transaction();
+
+      if(!payerAccountInfo || !payerAccountInfo.data) {
+        transaction.add(
+          createAssociatedTokenAccountInstruction(
+            payerPublicKey, // payer
+            payerTokenAccount, // associatedToken
+            payerPublicKey, // owner
+            mint, // mint
+          )
+        );
+      }
+
+      if(!takerAccountInfo || !takerAccountInfo.data) {
+        transaction.add(
+          createAssociatedTokenAccountInstruction(
+            payerPublicKey, // payer
+            takerTokenAccount, // associatedToken
+            takerPublicKey, // owner
+            mint, // mint
+          )
+        );
+      }
+
+      // --------------------------------------------------
+      //  Create Trasfer Instruction
+      // --------------------------------------------------
+      transaction.add(
+        createTransferInstruction(
+          payerTokenAccount, // source
+          takerTokenAccount, // destination
+          payerPublicKey, // owner
+          Number(valueAmount),  // amount
+          [], // multiSigners
+          TOKEN_PROGRAM_ID // programId
+        )
+      );
+
+      // --------------------------------------------------
+      //  Transaction
+      // --------------------------------------------------
+      const blockHash = await connection.getLatestBlockhash();
+      transaction.feePayer = publicKey;
+      transaction.recentBlockhash = blockHash.blockhash;
+      const signed = await signTransaction(transaction);
+      const tx = await connection.sendRawTransaction(signed.serialize());
+
+      console.log('tx =>', tx);
+    } catch (error: any) {
+      console.log(`Transaction failed: ${error.message}`);
+    }
+  }, [publicKey, sendTransaction, connection]);
 
   return (
     <div className="main">
@@ -171,8 +265,8 @@ export const SendTokenToRandomAddress: FC = () => {
           <p>
             You need to create Payer/Taker ATA(Associated Token Address) first.
           </p>
-          <button onClick={createATA} disabled={!publicKey}>
-            Create ATA
+          <button onClick={createAta} disabled={!publicKey}>
+            Execute
           </button>
         </div>
       </div>
@@ -186,7 +280,23 @@ export const SendTokenToRandomAddress: FC = () => {
             Transfer token from Payer ATA to Taker ATA.
           </p>
           <button onClick={transferToken} disabled={!publicKey}>
-            Transfer Token
+            Execute
+          </button>
+        </div>
+      </div>
+
+      <hr />
+
+      <div>
+        <h2>
+          extra. Create ATA & Transfer
+        </h2>
+        <div className='submit'>
+          <p>
+          Create ATA and Transfer Token in One Transaction.
+          </p>
+          <button onClick={createAtaAndTransfer} disabled={!publicKey}>
+            Execute
           </button>
         </div>
       </div>

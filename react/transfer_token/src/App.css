@@ -56,3 +56,7 @@ div.submit {
 .submit button {
   width: 100%;
 }
+
+hr {
+  margin: 100px;
+}
