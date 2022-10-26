@@ -126,9 +126,8 @@ export const SendTokenToRandomAddress: FC = () => {
   const createAtaAndTransfer = useCallback(async () => {
     if (!publicKey || !signTransaction) throw new WalletNotConnectedError();
     const takerPublicKey = new PublicKey(valueTakerPublicKey);
-    const mint = new PublicKey(valueTokenAddress);
-
     const payerPublicKey = publicKey;
+    const mint = new PublicKey(valueTokenAddress);
 
     try {
       // --------------------------------------------------
