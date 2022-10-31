@@ -209,6 +209,33 @@ Note:
       _bn: <BN: 4404b7d2057be9ff749fbfe288c4e36c33ab2265713c7efe5a2514934d570090>,
       bump: 252
     }
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: b333a420bd281289419d5127272961b89a68177801bfc8a0c85068dfc41b282c>,
+      bump: 255
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: e461286b4fba04e090b21496275e7199e8d42194b18d596cffc8e4e4ea271859>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'Relguar NFT',
+    symbol: 'paper',
+    uri: 'https://arweave.net/2UPSQ5mtDE_3URIMhu7pqJx-J5PTiSlwOKNGadtvlk0',
+    isMutable: true,
+    primarySaleHappened: false,
+    sellerFeeBasisPoints: 500,
+    editionNonce: 252,
+    creators: [ [Object] ],
+    tokenStandard: 0,
+    collection: { verified: false, key: [PublicKey], address: [PublicKey] },
+    collectionDetails: null,
+    uses: null
   }
 ]
 */
