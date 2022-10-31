@@ -106,9 +106,9 @@ const main = async () => {
 
 
   // -----------------------------------------------------------------
-  //  Verify Collection
+  //  Create Verify Collection Instruction
   // -----------------------------------------------------------------
-  // // Ref: https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html#createVerifyCollectionInstruction
+  // Ref: https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html#createVerifyCollectionInstruction
   // const transaction = new Transaction();
   // transaction.add(
   //   createVerifyCollectionInstruction({
@@ -122,6 +122,9 @@ const main = async () => {
   // );
   // connection.sendTransaction(transaction, [wallet]);
 
+  // Ref:
+  //  Verifying NFTs in Collections: https://docs.metaplex.com/programs/token-metadata/certified-collections#verifying-nfts-in-collections
+  //  API References: https://metaplex-foundation.github.io/js/classes/js.NftClient.html#verifyCollection
   await metaplex
     .nfts()
     .verifyCollection({
