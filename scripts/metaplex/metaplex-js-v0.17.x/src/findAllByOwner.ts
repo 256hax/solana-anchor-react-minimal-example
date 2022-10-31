@@ -1,6 +1,7 @@
 // Ref: https://github.com/metaplex-foundation/js#findallbyowner
 import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
+// import util from 'util';
 
 const main = async() => {
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
@@ -19,7 +20,10 @@ const main = async() => {
 
   console.log(myNfts);
 
-  // // Mint Address List
+  // [Full logs]
+  // console.log(util.inspect(myNfts, { maxArrayLength: null }));
+
+  // [Mint Address List]
   // myNfts.map((nft:any) => {  
   //   console.log(nft.mintAddress.toString());
   // });
@@ -37,79 +41,103 @@ Note:
 % ts-node <THIS FILE>
 [
   {
-    model: 'nft',
-    lazy: true,
+    model: 'metadata',
     address: Pda {
-      _bn: <BN: fa5605d82c968ad49594bff17f1b097c3f924e088162596069663db9f10fdf1a>,
-      bump: 254
-    },
-    mintAddress: PublicKey {
-      _bn: <BN: 6e83c8e27340d18b14c5eeef6c2fc9169668bc0a8dd36d5cb71529d2294d6b7d>
-    },
-    updateAuthorityAddress: PublicKey {
-      _bn: <BN: 251ff03bd3649204bc3aa32ccc5af07dd3f2dc34a6e5065b767f310c957d6310>
-    },
-    name: 'OddKey Collection 2',
-    symbol: 'ODKY2',
-    uri: 'https://dvbojlobrcw4xiyu5o24huqcxdv6kmczjbiwg2ym4xh5aybtibyq.arweave.net/HULkrcGIrcujFOu1w9ICuOvlMFlIUWNrDOXP0GAzQHE',
-    isMutable: true,
-    primarySaleHappened: false,
-    sellerFeeBasisPoints: 0,
-    editionNonce: 255,
-    creators: [ [Object], [Object] ],
-    tokenStandard: null,
-    collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: fa5605d82c968ad49594bff17f1b097c3f924e088162596069663db9f10fdf1a>,
-      bump: 254
-    }
-  },
-  {
-    model: 'nft',
-    lazy: true,
-    address: Pda {
-      _bn: <BN: 45bbaaed37a0049c56bd1664497740a35b0cfd922c9fa5bc45f7f0f1087f938d>,
+      _bn: <BN: 8a7f38289150e0dc96e56f2d72ada9fc9673be53be4145d707d4788153b7665a>,
       bump: 255
     },
     mintAddress: PublicKey {
-      _bn: <BN: 2c9cbcf93e8bf7020235cac6ce1b191c473f4a52e10b16b5bb67c3d0d14bbcf1>
-    },
-    updateAuthorityAddress: PublicKey {
-      _bn: <BN: e125f02024b2aa3199a2d14643fb05229e0305ab3e8983a690800b41cf708ec6>
-    },
-    name: '_Official Solana NFT',
-    symbol: 'NFT',
-    uri: 'https://www.66312712367123.com/nft.txt',
-    isMutable: true,
-    primarySaleHappened: false,
-    sellerFeeBasisPoints: 0,
-    editionNonce: 255,
-    creators: [],
-    tokenStandard: null,
-    collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: 45bbaaed37a0049c56bd1664497740a35b0cfd922c9fa5bc45f7f0f1087f938d>,
-      bump: 255
-    }
-  },
-  {
-    model: 'nft',
-    lazy: true,
-    address: Pda {
-      _bn: <BN: e6d9c7cce9f2d25eb268f835740474e060cc752c9458d4cbafdd5f5a2d2fc4cc>,
-      bump: 254
-    },
-    mintAddress: PublicKey {
-      _bn: <BN: e3ac3c3fe8de8d61ef5bccdd185bf5acbb93f490209e9c42ddf98f60cd439ef6>
+      _bn: <BN: b2992f421c6f71ea407984f53169418f094d47f6d7d018dc742e12ef00006335>
     },
     updateAuthorityAddress: PublicKey {
       _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
     },
-    name: 'OddKey Test Collection',
-    symbol: 'ODKYT',
-    uri: 'https://arweave.net/CSDg44h609_C37vjaJP6y1U4TpICM9Z4-K0CldUZvnU',
+    json: null,
+    jsonLoaded: false,
+    name: 'OddKey - Spawnoki #1',
+    symbol: 'ODDKEY',
+    uri: 'https://arweave.net/2__klPsVDrTKL4GzFFJV00yVR04ZyT1HbVmYAYiA7mc',
+    isMutable: true,
+    primarySaleHappened: true,
+    sellerFeeBasisPoints: 1000,
+    editionNonce: 255,
+    creators: [ [Object], [Object] ],
+    tokenStandard: 0,
+    collection: null,
+    collectionDetails: null,
+    uses: null
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: 763e50573097a5f46483a5d7fa45cfd5541a6b167638213997f48df9e1a4f5fd>,
+      bump: 255
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: ee7518bfad97d794f65268a81bfda4373689cd1bf1a3b705e023530b2177654e>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'OddKey - Spawnoki #1',
+    symbol: 'ODDKEY',
+    uri: 'https://arweave.net/2__klPsVDrTKL4GzFFJV00yVR04ZyT1HbVmYAYiA7mc',
+    isMutable: true,
+    primarySaleHappened: true,
+    sellerFeeBasisPoints: 1000,
+    editionNonce: 255,
+    creators: [ [Object], [Object] ],
+    tokenStandard: 0,
+    collection: null,
+    collectionDetails: null,
+    uses: null
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: b336e55ddca2f09584b1bfcdbbe6b1dd75887e177a9fd541375b3cc186598a1b>,
+      bump: 254
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: 7be3692dc3ec0a0c63d38cdf6ea2f583d523a3efe4a7f23ccf229c47901d062f>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'OddKey Spawnoki - Genesis',
+    symbol: 'ODKY',
+    uri: 'https://arweave.net/IJ6wGFZ7X2VkGqWIPX94eUdAFKTwS6SA8xz7XuIi7l8',
+    isMutable: true,
+    primarySaleHappened: false,
+    sellerFeeBasisPoints: 1000,
+    editionNonce: 255,
+    creators: [ [Object], [Object] ],
+    tokenStandard: 0,
+    collection: null,
+    collectionDetails: null,
+    uses: null
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: 7724ecaf6fe8e9739077650a8eda1a6abbb1fdf1aae3d5c110dd5ef0368ddb4f>,
+      bump: 255
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: aabd41b9f36a619fa7832c7c24f53de2191b68e6ac4bb888a76d7c1d14661733>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'Spawn #301 Tribute Cover',
+    symbol: 'OK01',
+    uri: 'https://arweave.net/ds0S5IpAfVSjzwrk7XGU6GTi30jgrsF4UpQE0tOnbYI',
     isMutable: true,
     primarySaleHappened: false,
     sellerFeeBasisPoints: 1000,
@@ -117,99 +145,96 @@ Note:
     creators: [ [Object], [Object] ],
     tokenStandard: 0,
     collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: e6d9c7cce9f2d25eb268f835740474e060cc752c9458d4cbafdd5f5a2d2fc4cc>,
-      bump: 254
-    }
+    collectionDetails: null,
+    uses: null
   },
   {
-    model: 'nft',
-    lazy: true,
+    model: 'metadata',
     address: Pda {
-      _bn: <BN: 9a4ef4a2871fed2a5acece1c06fd60bcf59f3f17650b5f285bfdd616c7d98df6>,
-      bump: 254
+      _bn: <BN: c309ec8184591980d8731b651750eecc034021d2a284468b145abddbdb1841ad>,
+      bump: 255
     },
     mintAddress: PublicKey {
-      _bn: <BN: 630db066653cfd4543c2430813a718d7bbe4f0fa6fc770009ed8f9e6b9da7f6a>
+      _bn: <BN: e4f61865cf5fc0604515a56cba73fad1e8039e0d97042e27c6c3cdd2b1826bd9>
     },
     updateAuthorityAddress: PublicKey {
       _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
     },
-    name: 'Spawn #301 Tribute Cover',
+    json: null,
+    jsonLoaded: false,
+    name: 'Collection NFT',
+    symbol: 'OKT01',
+    uri: '',
+    isMutable: true,
+    primarySaleHappened: false,
+    sellerFeeBasisPoints: 0,
+    editionNonce: 255,
+    creators: [ [Object] ],
+    tokenStandard: 0,
+    collection: null,
+    collectionDetails: null,
+    uses: null
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: 7701fe4d075b43ec572fb63b8d635cbc4cf496dd7f1127b3a6c43b30f6fab96a>,
+      bump: 255
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: 4b06a2f542064782b19c432c7df7fcf13fb0859982a2b0ff50dcc7bae6357b0d>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'Collection NFT',
     symbol: 'TM02',
-    uri: 'https://arweave.net/ZtYu8R7UBYTnXXhaMaHwTTi-iYe9TO6j0jOgMcuJeTo',
+    uri: '',
     isMutable: true,
     primarySaleHappened: false,
-    sellerFeeBasisPoints: 1000,
+    sellerFeeBasisPoints: 0,
     editionNonce: 255,
-    creators: [ [Object], [Object], [Object] ],
+    creators: [ [Object] ],
     tokenStandard: 0,
     collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: 9a4ef4a2871fed2a5acece1c06fd60bcf59f3f17650b5f285bfdd616c7d98df6>,
-      bump: 254
-    }
+    collectionDetails: null,
+    uses: null
   },
   {
-    model: 'nft',
-    lazy: true,
+    model: 'metadata',
     address: Pda {
-      _bn: <BN: ccc9c7d1325df2c2dda51d2b54d079b6486fed72d769699dc8fad351a9669f89>,
+      _bn: <BN: f051b70ba874d66cabdc46982619f5595a9cde211b9779c8a614750a3f167797>,
       bump: 255
     },
     mintAddress: PublicKey {
-      _bn: <BN: 6d7224c3b9cf0f2e640f339216fdf96cd10accd12e3e35901e1c8c94c3db9590>
+      _bn: <BN: f0ed17662adc001013dfb5f47851d693fa31cbba3b8d80d4a671099bef3a6fab>
     },
     updateAuthorityAddress: PublicKey {
       _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
     },
-    name: 'Spawn #301 Record Breaker Cover',
-    symbol: 'TM01',
-    uri: 'https://arweave.net/-8SzhOSkaSVK5GbWdE-lTOXySBVE8pT8PnAkcTUSdVw',
+    json: null,
+    jsonLoaded: false,
+    name: 'Collection NFT',
+    symbol: 'TM02',
+    uri: '',
     isMutable: true,
     primarySaleHappened: false,
-    sellerFeeBasisPoints: 1000,
-    editionNonce: 255,
-    creators: [ [Object], [Object], [Object] ],
+    sellerFeeBasisPoints: 0,
+    editionNonce: 254,
+    creators: [ [Object] ],
     tokenStandard: 0,
     collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: ccc9c7d1325df2c2dda51d2b54d079b6486fed72d769699dc8fad351a9669f89>,
-      bump: 255
-    }
-  },
-  {
-    model: 'nft',
-    lazy: true,
-    address: Pda {
-      _bn: <BN: 4404b7d2057be9ff749fbfe288c4e36c33ab2265713c7efe5a2514934d570090>,
-      bump: 252
-    },
-    mintAddress: PublicKey {
-      _bn: <BN: 791ea3d957bdbb99cec0c7163965ee07424a2b655434aaa6acc3192d1693b608>
-    },
-    updateAuthorityAddress: PublicKey {
-      _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
-    },
-    name: 'OddKey Spawnoki - Genesis',
-    symbol: 'ODKY',
-    uri: 'https://arweave.net/V1pC20jyLLfV9nIWasgnWWhQwKw48Ayp3dWXsjZYDfQ',
-    isMutable: true,
-    primarySaleHappened: false,
-    sellerFeeBasisPoints: 1000,
-    editionNonce: 253,
-    creators: [ [Object], [Object] ],
-    tokenStandard: 0,
-    collection: null,
-    uses: null,
-    metadataAddress: Pda {
-      _bn: <BN: 4404b7d2057be9ff749fbfe288c4e36c33ab2265713c7efe5a2514934d570090>,
-      bump: 252
-    }
-  },
+    collectionDetails: null,
+    uses: null
+  }
+]
+*/
+
+/*
+% ts-node <THIS FILE>
+[
   {
     model: 'metadata',
     address: Pda {
@@ -234,6 +259,33 @@ Note:
     creators: [ [Object] ],
     tokenStandard: 0,
     collection: { verified: false, key: [PublicKey], address: [PublicKey] },
+    collectionDetails: null,
+    uses: null
+  },
+  {
+    model: 'metadata',
+    address: Pda {
+      _bn: <BN: a95929682845a74769127a854da97fb52a60b2d8c76d8a57c57f88852ecb7d3>,
+      bump: 255
+    },
+    mintAddress: PublicKey {
+      _bn: <BN: e58e03d4d3ef6c7cc8a8a135ffe8be806345aa58e4231b834de26556b5984f4d>
+    },
+    updateAuthorityAddress: PublicKey {
+      _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
+    },
+    json: null,
+    jsonLoaded: false,
+    name: 'Regular NFT',
+    symbol: 'paper',
+    uri: 'https://arweave.net/cVX2NRJkUG5CozVP3o54cLcwS86tte8ICFAmPMt0YrY',
+    isMutable: true,
+    primarySaleHappened: false,
+    sellerFeeBasisPoints: 500,
+    editionNonce: 254,
+    creators: [],
+    tokenStandard: 0,
+    collection: { verified: true, key: [PublicKey], address: [PublicKey] },
     collectionDetails: null,
     uses: null
   }
