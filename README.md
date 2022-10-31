@@ -67,6 +67,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Rust - mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
 - [Rust - metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
 - [API - @metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
+- [API - @metaplex-foundation/js](https://metaplex-foundation.github.io/js/modules/js.html)
 - [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
