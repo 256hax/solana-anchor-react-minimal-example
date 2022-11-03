@@ -1,0 +1,16 @@
+{
+  "name": "Art Collection",
+  "symbol": "ART",
+  "description": "Collection of Art.",
+  "image": "collection.png",
+  "attributes": [],
+  "properties": {
+    "files": [
+      {
+        "uri": "collection.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  }
+}

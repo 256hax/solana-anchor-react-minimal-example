@@ -1,0 +1,34 @@
+{
+  "name": "Portrait of Dora Maar",
+  "symbol": "ART",
+  "image": "0.png",
+  "external_url": "https://en.wikipedia.org/wiki/Portrait_of_Dora_Maar",
+  "properties": {
+    "files": [
+      {
+        "uri": "0.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  },
+  "description": "Portrait of Dora Maar (French: Portrait de Dora Maar) is a 1937 oil on canvas painting by Pablo Picasso. It depicts Dora Maar, (original name Henriette Theodora Markovitch), the painter's lover, seated on a chair. It is part of the collection of the Musée Picasso, in Paris, where it is considered to be one of Picasso's masterpieces.",
+  "attributes": [
+    {
+      "trait_type": "painter",
+      "value": "Picasso"
+    },
+    {
+      "trait_type": "color",
+      "value": "yellow"
+    },
+    {
+      "trait_type": "back-ground",
+      "value": "mosaic"
+    },
+    {
+      "trait_type": "frame",
+      "value": "picture-frame"
+    }
+  ]
+}
