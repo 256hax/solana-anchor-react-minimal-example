@@ -59,7 +59,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Support - Discord Anchor](https://discord.com/invite/ZCHmqvXgDw)
 
 ## Metaplex/NFT
-- [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/)
+- [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/accounts)
 - [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
 - [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
 - [Docs - Metaboss](https://metaboss.rs/)
@@ -71,9 +71,8 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
 - [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
-- ~~[GitHub - Metaplex candy-machine.ts](https://github.com/metaplex-foundation/metaplex/blob/master/js/packages/candy-machine-ui/src/candy-machine.ts)~~ Metaplex Sugar is an alternative
-- [GitHub - Metaplex CMv2 assets example](https://github.com/metaplex-foundation/metaplex/tree/master/js/packages/cli/example-assets)
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
+- [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
 ## Wallet(e.g. Phantom)
 - [Docs - Phantom](https://docs.phantom.app/)
