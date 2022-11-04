@@ -9,7 +9,7 @@ Mint NFT(s) CLI Tools by Metaplex.
 ```
 
 ## Run
-It's depend on Version of Sugar. Look at workspace_ooo directory.
+It's depend on version of Sugar. Check README at each directory.
 
 Sugar doesn't show mint address. Look at mint address in Signature. e.g.  
 ![sample mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/example_mint_address.png?raw=true)

@@ -1,7 +1,6 @@
 ## Run
 ### Mint
 ```
-% cd workspace_<Version of Sugar>
 % sugar validate
 % sugar launch
 % sugar mint

@@ -7,7 +7,6 @@ Sugar is an alternative to the current Metaplex Candy Machine CLI.
 ### Mint
 
 ```
-% cd workspace
 % sugar validate
 % sugar upload
 % sugar deploy
