@@ -3,14 +3,15 @@ import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/j
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("mainnet-beta"));
+  const connection = new Connection(clusterApiUrl("devnet"));
+  // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
     .use(bundlrStorage());
 
-  const mint = new PublicKey("EfMRGSVpFgnj7NSnjjiTQsbLJtyiTmMcvzHn1zqQVm3y");
+  const mint = new PublicKey("HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1");
 
   const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
 
@@ -23,6 +24,10 @@ const main = async() => {
 main();
 
 /*
+------------------------------------------------------------------------
+ Case1: Standard NFT
+------------------------------------------------------------------------
+
 % ts-node <THIS FILE>
 nft => {
   model: 'nft',
@@ -103,4 +108,75 @@ nft => {
 Mint Address => BZAqzSiRyF1kQKhHN9z1o7WEJvr3tBkAL7tbDmMEM7A1
 NFT metadataAddress => 8xMdmpKDkLNJDS6XJmZE7Fu8ca8cz28di9bU37L5dAuM
 NFT Image => https://arweave.net/Z57LxpnPAgYfWEABs1gfKhyFUtR3x9Pln_9h959sFog
+*/
+
+/*
+------------------------------------------------------------------------
+ Case2: Collection NFT
+------------------------------------------------------------------------
+
+% ts-node <THIS FILE>
+nft => {
+  model: 'nft',
+  updateAuthorityAddress: PublicKey {
+    _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
+  },
+  json: {
+    name: 'Art Collection',
+    symbol: 'ART',
+    description: 'Collection of Art.',
+    image: 'https://arweave.net/zb4WvvAwjJj7wvtZufWI_KfOdNOa5dxUmXO7vC1g-lg?ext=png',
+    attributes: [],
+    properties: { files: [Array], category: 'image' }
+  },
+  jsonLoaded: true,
+  name: 'Art Collection',
+  symbol: 'ART',
+  uri: 'https://arweave.net/pW5_R-CCFW3MaXX5iUqwMk6O3ZWQR_k8s0fpUyr9xWg',
+  isMutable: true,
+  primarySaleHappened: false,
+  sellerFeeBasisPoints: 0,
+  editionNonce: 253,
+  creators: [ { address: [PublicKey], verified: true, share: 100 } ],
+  tokenStandard: 0,
+  collection: null,
+  collectionDetails: { version: 'V1', size: <BN: 1> },
+  uses: null,
+  address: PublicKey {
+    _bn: <BN: f37df22acd57287869c0030ef9bc16085213ecd2999b10ed3c3691e03b7c6eb6>
+  },
+  metadataAddress: Pda {
+    _bn: <BN: 70f1ccdc4ae8366410ff19ce02b4dd10d6ce8a23f6486672c30e0b139514c484>,
+    bump: 255
+  },
+  mint: {
+    model: 'mint',
+    address: PublicKey {
+      _bn: <BN: f37df22acd57287869c0030ef9bc16085213ecd2999b10ed3c3691e03b7c6eb6>
+    },
+    mintAuthorityAddress: PublicKey {
+      _bn: <BN: c51bf3bda31cc083eaf26fafdb507ccb13dc3edde7eebff9922e13d133a6aaee>
+    },
+    freezeAuthorityAddress: PublicKey {
+      _bn: <BN: c51bf3bda31cc083eaf26fafdb507ccb13dc3edde7eebff9922e13d133a6aaee>
+    },
+    decimals: 0,
+    supply: { basisPoints: <BN: 1>, currency: [Object] },
+    isWrappedSol: false,
+    currency: { symbol: 'ART', decimals: 0, namespace: 'spl-token' }
+  },
+  edition: {
+    model: 'nftEdition',
+    isOriginal: true,
+    address: Pda {
+      _bn: <BN: c51bf3bda31cc083eaf26fafdb507ccb13dc3edde7eebff9922e13d133a6aaee>,
+      bump: 253
+    },
+    supply: <BN: 0>,
+    maxSupply: <BN: 0>
+  }
+}
+Mint Address => HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1
+NFT metadataAddress => 8btWfhbC1wEtGc5K2RVxYmDGG2pUaT7Mqeo8P7bXAW7D
+NFT Image => https://arweave.net/pW5_R-CCFW3MaXX5iUqwMk6O3ZWQR_k8s0fpUyr9xWg
 */
