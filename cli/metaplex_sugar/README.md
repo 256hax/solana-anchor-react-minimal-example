@@ -3,8 +3,9 @@ Mint NFT(s) CLI Tools by Metaplex.
 
 ## Run
 ### Setup
-[Metaplex Sugar](https://docs.metaplex.com/sugar/introduction)
+1. Install [Metaplex Sugar](https://docs.metaplex.com/sugar/introduction)
 
+2. Set RPC
 ```
 % solana config set --url devnet
 ```
@@ -19,7 +20,7 @@ Sugar doesn't show mint address. Check mint address from Solana Explorer or Sola
 Solana Explorer (Search "Mint" in page):  
 ![Solana Explorer mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_mint_address.png?raw=true)
 
-Solaneyes (Select "Minted NFTs" > Click NFT > Mint Address appear top of page):  
+Solaneyes (If you success for "sugar launch", Solaneyes URL apeear in your terminal):  
 ![Solaneyes mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_Solaneyes_minted_nft.png?raw=true)
 
 ### How to Nested Collections
