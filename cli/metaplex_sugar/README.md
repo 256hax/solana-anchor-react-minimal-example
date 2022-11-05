@@ -1,17 +1,19 @@
 ## Overview
 Mint NFT(s) CLI Tools by Metaplex.
 
-## Setup
+## Run
+### Setup
 [Metaplex Sugar](https://docs.metaplex.com/sugar/introduction)
 
 ```
 % solana config set --url devnet
 ```
 
-## Run
+### Run
 It's depend on version of Sugar. Check README at each directory.
 
-## NFT Mint Address
+## How to __
+### How to get NFT Mint Address
 Sugar doesn't show mint address. Check mint address from Solana Explorer or Solaneyes.
 
 Solana Explorer (Search "Mint" in page):  
@@ -20,7 +22,35 @@ Solana Explorer (Search "Mint" in page):
 Solaneyes (Select "Minted NFTs" > Click NFT > Mint Address appear top of page):  
 ![Solaneyes mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_Solaneyes_minted_nft.png?raw=true)
 
-## Command
+### How to Nested Collections
+1. Mint a Standard NFT(Name: NFT A).
+```
+% sugar launch
+% sugar mint
+```
+
+2. Create another Standard NFT(Name: NFT B) then, set collection NFT B to NFT A.
+```
+% sugar launch
+% sugar collection set <NFT A Mint Address>
+% sugar mint
+```
+
+NFT A will be Collection NFT.
+
+Source: [Metaplex Docs - Nested Collections](https://docs.metaplex.com/programs/token-metadata/certified-collections#nested-collections)
+
+![Nested Collections](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/Token-Metadata-Collections-Nested-Collection.png?raw=true)
+
+### How to Reset Sugar
+If you want to reset or re-run Sugar, delete cache.json.
+
+## Reference
+### Docs
+- [Sugar Metaplex Docs](https://docs.metaplex.com/developer-tools/sugar/)
+- [Metaboss Sign](https://metaboss.rs/sign.html)
+
+### Sugar Command
 ```
 % sugar -h
 sugar-cli 1.1.0
@@ -55,10 +85,3 @@ SUBCOMMANDS:
     verify            Verify uploaded data
     withdraw          Withdraw funds from candy machine account closing it
 ```
-
-## Note
-I recommend delete cache.json if you re-run Sugar.
-
-## Reference
-- [Sugar Metaplex Docs](https://docs.metaplex.com/developer-tools/sugar/)
-- [Metaboss Sign](https://metaboss.rs/sign.html)
