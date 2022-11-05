@@ -15,13 +15,15 @@ It's depend on version of Sugar. Check README at each directory.
 
 ## How to __
 ### How to get NFT Mint Address
-Sugar doesn't show mint address. Check mint address from Solana Explorer or Solaneyes.
+Sugar doesn't show mint address. Check mint address from Solana Explorer or Solaneyes, Metaplex JS.
 
-Solana Explorer (Search "Mint" in page):  
+#### Solana Explorer (Search "Mint" in page):  
 ![Solana Explorer mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_mint_address.png?raw=true)
 
-Solaneyes (If you success for "sugar launch", Solaneyes URL apeear in your terminal):  
+#### Solaneyes (If you success for "sugar launch", Solaneyes URL apeear in your terminal):  
 ![Solaneyes mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_Solaneyes_minted_nft.png?raw=true)
+
+#### Metaplex JS: [@metaplex-foundation/js - findMintedNfts](https://metaplex-foundation.github.io/js/classes/js.CandyMachinesV2Client.html#findMintedNfts)
 
 ### How to Nested Collections
 1. Mint a Standard NFT(Name: NFT A).
@@ -43,8 +45,12 @@ Source: [Metaplex Docs - Nested Collections](https://docs.metaplex.com/programs/
 
 ![Nested Collections](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/Token-Metadata-Collections-Nested-Collection.png?raw=true)
 
-### How to Reset Sugar
+### How to reset cache
 If you want to reset or re-run Sugar, delete cache.json.
+
+## Note
+### Bulk mint
+`sugar mint` will mint one NFT. If you need bulk mint, run `sugar mint -n <AMOUNT_OF_MINT>`.
 
 ## Reference
 ### Docs
