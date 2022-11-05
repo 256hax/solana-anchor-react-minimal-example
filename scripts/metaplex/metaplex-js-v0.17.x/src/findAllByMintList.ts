@@ -3,15 +3,18 @@ import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/j
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("mainnet-beta"));
+  const connection = new Connection(clusterApiUrl("devnet"));
+  // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
     .use(bundlrStorage());
 
-  const mintA = new PublicKey("51xeBTXTHK7MHv5Po3zW68rAgTAMv7KCXzz62xQfsQVP");
-  const mintB = new PublicKey("BZAqzSiRyF1kQKhHN9z1o7WEJvr3tBkAL7tbDmMEM7A1");
+  // Collection NFT
+  const mintA = new PublicKey("HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1");
+  // Standard NFT
+  const mintB = new PublicKey("HUkkvZ7tPniETALWppyNXCJ5hzEguWFtji8tPGvy1WKu");
 
   const [nftA, nftB] = await metaplex
     .nfts()
@@ -26,24 +29,52 @@ main();
 /*
 % ts-node <THIS FILE>
 nftA => {
-  model: 'nft',
-  lazy: true,
+  model: 'metadata',
   address: Pda {
-    _bn: <BN: c3c5e6a1b194a824b031f37ffa888b97e6446c216ea9100afa90ac6178375473>,
+    _bn: <BN: 70f1ccdc4ae8366410ff19ce02b4dd10d6ce8a23f6486672c30e0b139514c484>,
     bump: 255
   },
   mintAddress: PublicKey {
-    _bn: <BN: 3bada9465610efb26cbca09c52a21c877e4fb184aef430a80b38325871dde77a>
+    _bn: <BN: f37df22acd57287869c0030ef9bc16085213ecd2999b10ed3c3691e03b7c6eb6>
   },
   updateAuthorityAddress: PublicKey {
-    _bn: <BN: 2a95ca30b3993c66d0889d22486f5a52f2c66669109b60b475acf07621879ca0>
+    _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
   },
-  name: 'OddKey - Spawnoki #2124',
-  symbol: 'ODKY',
-  uri: 'https://arweave.net/W-20MpV-N1l6e_vxWxjmGfFnGkiiUDn7GJAsgYmJ6fU',
+  json: null,
+  jsonLoaded: false,
+  name: 'Art Collection',
+  symbol: 'ART',
+  uri: 'https://arweave.net/pW5_R-CCFW3MaXX5iUqwMk6O3ZWQR_k8s0fpUyr9xWg',
+  isMutable: true,
+  primarySaleHappened: false,
+  sellerFeeBasisPoints: 0,
+  editionNonce: 253,
+  creators: [ { address: [PublicKey], verified: true, share: 100 } ],
+  tokenStandard: 0,
+  collection: null,
+  collectionDetails: { version: 'V1', size: <BN: 1> },
+  uses: null
+}
+nftB => {
+  model: 'metadata',
+  address: Pda {
+    _bn: <BN: 4ee4c16e16e4052353d7c244ca859859ec709b459c8b285f80cd87ae4e0295a>,
+    bump: 249
+  },
+  mintAddress: PublicKey {
+    _bn: <BN: f4d726322024e7e44a585fbaeea019d827775cafc4bc8b6dca7f3c0b4afec8bc>
+  },
+  updateAuthorityAddress: PublicKey {
+    _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
+  },
+  json: null,
+  jsonLoaded: false,
+  name: 'Sunflowers',
+  symbol: 'ART',
+  uri: 'https://arweave.net/dB6XvvlJh-ka9cn7fqYbSbAYNOZHx2hpYTeQxhj3ScA',
   isMutable: true,
   primarySaleHappened: true,
-  sellerFeeBasisPoints: 1000,
+  sellerFeeBasisPoints: 500,
   editionNonce: 254,
   creators: [
     { address: [PublicKey], verified: true, share: 0 },
@@ -53,47 +84,13 @@ nftA => {
   collection: {
     verified: true,
     key: PublicKey {
-      _bn: <BN: 791ea3d957bdbb99cec0c7163965ee07424a2b655434aaa6acc3192d1693b608>
+      _bn: <BN: ce832bd60a3b31d17c5b2230d496c5b3bf42ec85d1c44dae5c6c853a25e9ff86>
+    },
+    address: PublicKey {
+      _bn: <BN: ce832bd60a3b31d17c5b2230d496c5b3bf42ec85d1c44dae5c6c853a25e9ff86>
     }
   },
-  uses: null,
-  metadataAddress: Pda {
-    _bn: <BN: c3c5e6a1b194a824b031f37ffa888b97e6446c216ea9100afa90ac6178375473>,
-    bump: 255
-  }
-}
-nftB => {
-  model: 'nft',
-  lazy: true,
-  address: Pda {
-    _bn: <BN: 7630157cc5f2f80c0fafaf6cab335297a4ad486b27220e53900ccf4e046ab060>,
-    bump: 254
-  },
-  mintAddress: PublicKey {
-    _bn: <BN: 9cd2962810fe4d5032860bf58bb681dd3d409498b15dedb3e5b89e9c2fbe5752>
-  },
-  updateAuthorityAddress: PublicKey {
-    _bn: <BN: 843b97104c1984ecff17a9fb451b5b60911ed41f5c56351f4d92eceddb5c23e2>
-  },
-  name: 'SMB #2756',
-  symbol: 'SMB',
-  uri: 'https://arweave.net/Z57LxpnPAgYfWEABs1gfKhyFUtR3x9Pln_9h959sFog',
-  isMutable: true,
-  primarySaleHappened: true,
-  sellerFeeBasisPoints: 600,
-  editionNonce: 254,
-  creators: [ { address: [PublicKey], verified: true, share: 100 } ],
-  tokenStandard: 0,
-  collection: {
-    verified: true,
-    key: PublicKey {
-      _bn: <BN: 67e55ab262f537c60026656df7011acd610d91f5ecb5e3c07a97131c1f2b0ce>
-    }
-  },
-  uses: null,
-  metadataAddress: Pda {
-    _bn: <BN: 7630157cc5f2f80c0fafaf6cab335297a4ad486b27220e53900ccf4e046ab060>,
-    bump: 254
-  }
+  collectionDetails: null,
+  uses: null
 }
 */
