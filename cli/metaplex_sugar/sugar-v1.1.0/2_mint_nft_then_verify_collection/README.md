@@ -23,3 +23,10 @@ Metaboss verify(Sign) command: ```metaboss sign one --keypair <PATH_TO_KEYPAIR> 
 ```
 % metaboss sign one --keypair ~/.config/solana/id.json --account 5pZHC5sUKj5w5d36ahNnqnsnNVSRK1eejvgMmPAaenJE
 ```
+
+## Another way
+If you have minted already, try following.
+[Metaboss - Collections](https://solana.fm/address/CJ2EqdKNhiBAXzeRL5ujHk5G8jZJabjU3kzGkGUCv3jL/metadata)
+
+## Reference
+[Metaplex Docs - collection](https://docs.metaplex.com/developer-tools/sugar/reference/commands#collection)
