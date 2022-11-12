@@ -1,3 +1,9 @@
+// Get RPC Name
+// 
+// Args:
+//  connectionRpc: RPC URL(Connection.rpcEndpoint from @solana/web3.js)
+// Return:
+//  RPC Name: string
 import { Connection, clusterApiUrl } from "@solana/web3.js";
 
 export const getRpcName = (
