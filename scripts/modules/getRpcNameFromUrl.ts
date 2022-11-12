@@ -6,7 +6,7 @@
 //  RPC Name: string
 import { Connection, clusterApiUrl } from "@solana/web3.js";
 
-export const getRpcName = (
+export const getRpcNameFromUrl = (
   connectionRpc: any
 ): (string | undefined) => {
   const devnet = 'https://api.devnet.solana.com';
@@ -31,15 +31,15 @@ export const main = () =>{
   let rpc: any;
 
   connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  rpc = getRpcName(connection.rpcEndpoint);
+  rpc = getRpcNameFromUrl(connection.rpcEndpoint);
   console.log(rpc);
 
   connection = new Connection(clusterApiUrl('testnet'), 'confirmed');
-  rpc = getRpcName(connection.rpcEndpoint);
+  rpc = getRpcNameFromUrl(connection.rpcEndpoint);
   console.log(rpc);
 
   connection = new Connection(clusterApiUrl('mainnet-beta'), 'confirmed');
-  rpc = getRpcName(connection.rpcEndpoint);
+  rpc = getRpcNameFromUrl(connection.rpcEndpoint);
   console.log(rpc);
 }
 
