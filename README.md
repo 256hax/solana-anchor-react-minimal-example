@@ -62,6 +62,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/accounts)
 - [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
 - [Docs - Candy Machine Errors List](https://docs.metaplex.com/candy-machine-v1/cm-errors)
+- [Docs - Sugar](https://docs.metaplex.com/developer-tools/sugar/)
 - [Docs - Metaboss](https://metaboss.rs/)
 - [Docs - Project Directory(Rust, SDKs, Tools, UIs, Deprecated)](https://github.com/metaplex-foundation/metaplex)
 - [Rust - mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
@@ -70,7 +71,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [API - @metaplex-foundation/js](https://metaplex-foundation.github.io/js/modules/js.html)
 - [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
-- [GitHub - Metaplex Sugar](https://github.com/metaplex-foundation/sugar)
+- [GitHub - Sugar](https://github.com/metaplex-foundation/sugar)
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 - [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
