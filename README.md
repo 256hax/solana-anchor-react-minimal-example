@@ -48,6 +48,9 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Support - Discord Solana](https://discord.com/invite/pquxPsq)
 - [Support - Stack Exchange Solana](https://solana.stackexchange.com/)
 
+## Solana Pay
+- [GitHub - solana-pay-minimal-example - 256hax](https://github.com/256hax/solana-pay-minimal-example)
+
 ## Anchor
 - [Docs - Anchor(Installation, Core Concept, Guides, References)](https://www.anchor-lang.com/)
 - [Docs - The Anchor Book](https://book.anchor-lang.com/)
