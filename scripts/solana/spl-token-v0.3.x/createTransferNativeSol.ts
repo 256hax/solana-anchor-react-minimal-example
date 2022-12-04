@@ -10,18 +10,18 @@ import {
 } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 
-export const main = async() => {
+export const main = async () => {
   /*
     --- Payer -------------------------------------------------------------
   */
   // Airdrop SOL for paying transactions
-  let payer = Keypair.generate();
+  const payer = Keypair.generate();
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
-  let airdropSignature = await connection.requestAirdrop(
-      payer.publicKey,
-      LAMPORTS_PER_SOL
+  const airdropSignature = await connection.requestAirdrop(
+    payer.publicKey,
+    LAMPORTS_PER_SOL
   );
 
   let latestBlockHash = await connection.getLatestBlockhash();
@@ -35,11 +35,11 @@ export const main = async() => {
   /*
     --- To ----------------------------------------------------------------
   */
-  let toAccount = Keypair.generate();
+  const toAccount = Keypair.generate();
 
-  let airdropSignatureToAccount = await connection.requestAirdrop(
-      toAccount.publicKey,
-      LAMPORTS_PER_SOL
+  const airdropSignatureToAccount = await connection.requestAirdrop(
+    toAccount.publicKey,
+    LAMPORTS_PER_SOL
   );
 
   latestBlockHash = await connection.getLatestBlockhash();
@@ -59,9 +59,9 @@ export const main = async() => {
 
   // Add an instruction to execute
   transaction.add(SystemProgram.transfer({
-      fromPubkey: payer.publicKey,
-      toPubkey: toAccount.publicKey,
-      lamports: 1000,
+    fromPubkey: payer.publicKey,
+    toPubkey: toAccount.publicKey,
+    lamports: 1000,
   }));
 
   // Send and confirm transaction
@@ -76,38 +76,39 @@ export const main = async() => {
   /*
     --- Alternatively, manually construct the transaction ----------------------------------------------------------
   */
-  let recentBlockhash = await connection.getRecentBlockhash();
+  latestBlockHash = await connection.getLatestBlockhash();
   let manualTransaction = new Transaction({
-      recentBlockhash: recentBlockhash.blockhash,
-      feePayer: payer.publicKey
+    blockhash: latestBlockHash.blockhash,
+    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    feePayer: payer.publicKey,
   });
+
   manualTransaction.add(SystemProgram.transfer({
-      fromPubkey: payer.publicKey,
-      toPubkey: toAccount.publicKey,
-      lamports: 1000,
+    fromPubkey: payer.publicKey,
+    toPubkey: toAccount.publicKey,
+    lamports: 1000,
   }));
 
-  let transactionBuffer = manualTransaction.serializeMessage();
-  let signature: any = nacl.sign.detached(transactionBuffer, payer.secretKey);
+  const transactionBuffer = manualTransaction.serializeMessage();
+  const manualSignature: any = nacl.sign.detached(transactionBuffer, payer.secretKey);
 
-  manualTransaction.addSignature(payer.publicKey, signature);
+  manualTransaction.addSignature(payer.publicKey, manualSignature);
 
   let isVerifiedSignature = manualTransaction.verifySignatures();
-  console.log(`The signatures were verifed: ${isVerifiedSignature}`)
+  console.log(`The signatures were verifed => ${isVerifiedSignature}`)
 
   // The signatures were verified: true
 
-  let rawTransaction = manualTransaction.serialize();
-
-  const tx_signature = await sendAndConfirmRawTransaction(connection, rawTransaction);
-  console.log('tx_signature =>', tx_signature);
+  // let rawTransaction = manualTransaction.serialize();
+  let manualTx = await connection.sendRawTransaction(manualTransaction.serialize());
+  console.log('manualTx =>', manualTx);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-tx => 5pkg1GEpJ4fXvotc7PHc4cRZ2psRyCsodFDpKFXXSCjz7DkkUXgRV57hsfdBnqakKUSYuGSveheKmuj2BEmgNMyH
-The signatures were verifed: true
-tx_signature => 2qwSbtLtd4V3NNr3zFKZ62n18eo6wRi5CtqeEijkePnfe9dSiN2qjg3X3LpBghyi3gXKCcqWB3PgH7WVhjANgzoK
+tx => 2cDFBXXhqp6EwMpdD4sBD643ZX12pqJg63NRyWMG8GYibLoh9wCG2PLChXByeCsozWMjoxYyy1oWCGdDfkQGVMyH
+The signatures were verifed => true
+manualTx => 5sJQe4WPmzBeDmW9suLQmDBVoVvdXnkghbgUCWpXQ5BZj271FZxoFPKqpR5aasiyRDWfCqttvdgTy4vYT8TUEcA
 */
