@@ -24,11 +24,11 @@ export const main = async () => {
     LAMPORTS_PER_SOL
   );
 
-  let latestBlockHash = await connection.getLatestBlockhash();
+  let latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignature,
   });
 
@@ -42,11 +42,11 @@ export const main = async () => {
     LAMPORTS_PER_SOL
   );
 
-  latestBlockHash = await connection.getLatestBlockhash();
+  latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignatureToAccount,
   });
 
@@ -76,10 +76,10 @@ export const main = async () => {
   /*
     --- Alternatively, manually construct the transaction ----------------------------------------------------------
   */
-  latestBlockHash = await connection.getLatestBlockhash();
+  latestBlockhash = await connection.getLatestBlockhash();
   let manualTransaction = new Transaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     feePayer: payer.publicKey,
   });
 

@@ -15,11 +15,11 @@ export const main = async() => {
       web3.LAMPORTS_PER_SOL,
   );
 
-  const latestBlockHash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignature,
   });
 

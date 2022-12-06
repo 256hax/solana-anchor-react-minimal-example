@@ -14,11 +14,11 @@ export const main = async () => {
     LAMPORTS_PER_SOL
   );
 
-  let latestBlockHash = await connection.getLatestBlockhash();
+  let latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignature,
   });
 

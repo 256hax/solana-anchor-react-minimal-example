@@ -25,12 +25,12 @@ export const main = async() => {
   const fromWallet = Keypair.generate();
   const fromAirdropSignature = await connection.requestAirdrop(fromWallet.publicKey, LAMPORTS_PER_SOL);
 
-  let latestBlockHash = await connection.getLatestBlockhash();
+  let latestBlockhash = await connection.getLatestBlockhash();
 
   // Wait for airdrop confirmation
   await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: fromAirdropSignature,
   });
 
