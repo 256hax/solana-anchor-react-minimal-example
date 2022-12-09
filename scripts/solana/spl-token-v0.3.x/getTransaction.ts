@@ -56,8 +56,10 @@ export const main = async () => {
   //   [payer]
   // );
 
-  // [Devnet] e.g. Send 1 SOL using Solana Pay on Devnet
-  // FolanaFM: https://solana.fm/tx/2cHg1vsvoM6P2zd6G1Fup3Few7gM9HAZ9bRbf53QzmsRUWxZmeRjS3DFQ7Dw4E9EpBWACK2j3K7iZiz7Ef5ZoCu7?cluster=devnet-solana
+  // [Devnet] Send SOL using createTransfer @sonana/pay (same as normal transfer
+  // const tx = '4GE4Qy39bepnrobtD1aKn7FDFPx175fNkiYYFYschLygP14r3WHiWjHR14zLx2HwQyxpiVf1xVS2fwaSJqoump5c';
+
+  // [Devnet] Send NFT using createTransfer @sonana/pay
   const tx = '2cHg1vsvoM6P2zd6G1Fup3Few7gM9HAZ9bRbf53QzmsRUWxZmeRjS3DFQ7Dw4E9EpBWACK2j3K7iZiz7Ef5ZoCu7';
 
   const getTx = await connection.getTransaction(tx, { commitment: "confirmed" });
@@ -85,7 +87,7 @@ main();
 
 /*
 --------------------------------------------------------------------
-Case1: SystemProgram.transfer logs
+Case1: Send SOL using createTransfer @sonana/pay
 --------------------------------------------------------------------
 % ts-node <THIS JS FILE>
 
@@ -155,7 +157,7 @@ postBalances(Current Balance, Sent Amount) => [ 998765000, 1230000, 1 ]
 
 /*
 --------------------------------------------------------------------
-Case2: Solana Pay(createTransfer) logs
+Case2: Send NFT using createTransfer @sonana/pay
 --------------------------------------------------------------------
 % ts-node <THIS JS FILE>
 
