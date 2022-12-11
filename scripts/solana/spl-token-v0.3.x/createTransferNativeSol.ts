@@ -6,14 +6,14 @@ import {
   Transaction,
   SystemProgram,
   sendAndConfirmTransaction,
-  sendAndConfirmRawTransaction
+  sendAndConfirmRawTransaction,
 } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 
 export const main = async () => {
-  /*
-    --- Payer -------------------------------------------------------------
-  */
+  // ---------------------------------------------------
+  //  Payer
+  // ---------------------------------------------------
   // Airdrop SOL for paying transactions
   const payer = Keypair.generate();
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
@@ -32,13 +32,13 @@ export const main = async () => {
     signature: airdropSignature,
   });
 
-  /*
-    --- To ----------------------------------------------------------------
-  */
-  const toAccount = Keypair.generate();
+  // ---------------------------------------------------
+  //  Taker
+  // ---------------------------------------------------
+  const taker = Keypair.generate();
 
-  const airdropSignatureToAccount = await connection.requestAirdrop(
-    toAccount.publicKey,
+  const airdropSignatureTaker = await connection.requestAirdrop(
+    taker.publicKey,
     LAMPORTS_PER_SOL
   );
 
@@ -47,20 +47,19 @@ export const main = async () => {
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-    signature: airdropSignatureToAccount,
+    signature: airdropSignatureTaker,
   });
 
-
-  /*
-    --- Transfer ----------------------------------------------------------
-  */
+  // ---------------------------------------------------
+  //  Transfer
+  // ---------------------------------------------------
   // Create Simple Transaction
   let transaction = new Transaction();
 
   // Add an instruction to execute
   transaction.add(SystemProgram.transfer({
     fromPubkey: payer.publicKey,
-    toPubkey: toAccount.publicKey,
+    toPubkey: taker.publicKey,
     lamports: 1000,
   }));
 
@@ -73,9 +72,9 @@ export const main = async () => {
   );
   console.log('tx =>', tx);
 
-  /*
-    --- Alternatively, manually construct the transaction ----------------------------------------------------------
-  */
+  // ---------------------------------------------------
+  //  Alternatively Way: manually construct the transaction
+  // ---------------------------------------------------
   latestBlockhash = await connection.getLatestBlockhash();
   let manualTransaction = new Transaction({
     blockhash: latestBlockhash.blockhash,
@@ -85,7 +84,7 @@ export const main = async () => {
 
   manualTransaction.add(SystemProgram.transfer({
     fromPubkey: payer.publicKey,
-    toPubkey: toAccount.publicKey,
+    toPubkey: taker.publicKey,
     lamports: 1000,
   }));
 
@@ -95,7 +94,7 @@ export const main = async () => {
   manualTransaction.addSignature(payer.publicKey, manualSignature);
 
   let isVerifiedSignature = manualTransaction.verifySignatures();
-  console.log(`The signatures were verifed => ${isVerifiedSignature}`)
+  console.log(`The signatures were verified => ${isVerifiedSignature}`)
 
   // The signatures were verified: true
 
