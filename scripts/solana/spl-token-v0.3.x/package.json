@@ -6,6 +6,7 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
+    "@types/bs58": "^4.0.1",
     "@types/node": "^18.8.0",
     "@types/node-fetch": "^2.6.2",
     "@types/sleep": "^0.0.8",
