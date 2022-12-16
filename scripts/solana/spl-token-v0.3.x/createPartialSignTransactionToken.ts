@@ -1,4 +1,4 @@
-// Source: https://solanacookbook.com/references/offline-transactions.html#sign-transaction
+// Ref: https://solanacookbook.com/references/offline-transactions.html#sign-transaction
 import {
   createTransferCheckedInstruction,
   getAssociatedTokenAddress,
@@ -15,6 +15,8 @@ import {
   PublicKey,
   SystemProgram,
   Transaction,
+  sendAndConfirmRawTransaction,
+  sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import base58 from "bs58";
 
@@ -36,17 +38,20 @@ export const main = async () => {
   // 
   // [Localnet]
   const aliceKeypair = Keypair.generate();
-
   const bobKeypair = Keypair.fromSecretKey(
     base58.decode(
       "4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp"
     )
   );
+  console.log('aliceKeypair.publicKey =>', aliceKeypair.publicKey.toString());
+  console.log('bobKeypair.publicKey =>', bobKeypair.publicKey.toString());
 
   // ------------------------------------------------------------------------
   //  Airdrop
   // ------------------------------------------------------------------------
-  let latestBlockhash = await connection.getLatestBlockhash();
+  let latestBlockhash: any;
+
+  latestBlockhash = await connection.getLatestBlockhash();
   const signatureAirdropAlice = await connection.requestAirdrop(aliceKeypair.publicKey, LAMPORTS_PER_SOL);
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
@@ -86,8 +91,9 @@ export const main = async () => {
     connection,
     bobKeypair, // Bob pays the fee to create it
     tokenAddress, // which token the account is for
-    aliceKeypair.publicKey // who the token account is for
+    bobKeypair.publicKey // who the token account is for
   );
+
 
   // Alice may not have a token account, so Bob creates one if not
   const aliceTokenAccount = await getOrCreateAssociatedTokenAccount(
@@ -110,6 +116,9 @@ export const main = async () => {
     [] // signer(s)
   );
 
+  console.log('bobTokenAccount =>', bobTokenAccount.address.toString());
+  console.log('aliceTokenAccount =>', aliceTokenAccount.address.toString());
+  
   // ------------------------------------------------------------------------
   //  Create Transaction
   // ------------------------------------------------------------------------
@@ -147,6 +156,7 @@ export const main = async () => {
 
   // Partial sign as Bob
   transaction.partialSign(bobKeypair);
+  // transaction.partialSign(aliceKeypair);
 
   // Serialize the transaction and convert to base64 to return it
   const serializedTransaction = transaction.serialize({
@@ -155,54 +165,25 @@ export const main = async () => {
   });
   const transactionBase64 = serializedTransaction.toString("base64");
 
-  console.log('\n transaction =>', transaction);
-  console.log('\n serializedTransaction =>', serializedTransaction);
-  console.log('\n transactionBase64 =>', transactionBase64);
-  
-  return transactionBase64;
-
   // The caller of this can convert it back to a transaction object:
   const recoveredTransaction = Transaction.from(
     Buffer.from(transactionBase64, "base64")
   );
+
+  // Partial sign as Alice
+  recoveredTransaction.partialSign(aliceKeypair);
+  
+  const sig = await connection.sendRawTransaction(recoveredTransaction.serialize())
+  console.log('signature =>', sig);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-
- transaction => Transaction {
-  signatures: [
-    { signature: null, publicKey: [PublicKey] },
-    {
-      signature: <Buffer 7a 18 2f 32 e4 29 61 6b 67 92 ff 79 40 6e d4 f4 27 ac e0 4f 34 a8 40 80 06 a6 f7 ac 7c bb 9e 56 b0 71 6b 18 8c a7 84 13 98 fd 54 63 a9 8f a5 30 b4 6e ... 14 more bytes>,
-      publicKey: [PublicKey]
-    }
-  ],
-  feePayer: PublicKey {
-    _bn: <BN: f19b27aaf6b14efd0f68f9e1d0faf030c1d0d6f8a647e8000ef4ba9594406cca>
-  },
-  instructions: [
-    TransactionInstruction {
-      keys: [Array],
-      programId: [PublicKey],
-      data: <Buffer 02 00 00 00 80 96 98 00 00 00 00 00>
-    },
-    TransactionInstruction {
-      keys: [Array],
-      programId: [PublicKey],
-      data: <Buffer 0c 40 42 0f 00 00 00 00 00 06>
-    }
-  ],
-  recentBlockhash: '2f2DbzNg4bwmAa1eBSUW9BYU9FheMaiLQZDm4KnmSpEA',
-  lastValidBlockHeight: 24246,
-  nonceInfo: undefined,
-  _message: undefined,
-  _json: undefined
-}
-
- serializedTransaction => <Buffer 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 342 more bytes>
-
- transactionBase64 => AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB6GC8y5Clha2eS/3lAbtT0J6zgTzSoQIAGpvesfLueVrBxaxiMp4QTmP1UY6mPpTC0bnUS/b3zTtKVc/78lBIMAgADBvGbJ6r2sU79D2j54dD68DDB0Nb4pkfoAA70upWUQGzK3zDmygmBwaZ37tb3y0ayqkQsqbehChDklLrepLm2lE9S0YQQFlSeKCvalCTmkVayYfOjuzKzrrTI8GIy9QvYLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFP/ju2xJjVsqwlMs+ggGGc4bKtdmjsPIcfe9L8m0n9YG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8AqRiZIlKsrz0HIsVvF3JxkhMgYLV6R+eDh8qn87K2EEJfAgMCAAEMAgAAAICWmAAAAAAABQQCBAIBCgxAQg8AAAAAAAY=
+aliceKeypair.publicKey => EHDs9TSrqUzPff3r2kBcNkaZ4V5wUS5NZTZfua3znedM
+bobKeypair.publicKey => G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+bobTokenAccount => 4M7JTyJLLoucwNtUj4uZoS4j5rfNvHzmves9GejVMKKH
+aliceTokenAccount => FJh5vMsAQ81JoS441Zyzqdsq6jUF2iX2cS8jnN96cLaw
+signature => 54m5Ff3iGXxVFytgZn19BfhmnJCQdGut69kx94BPJNvzoPU2HHhPrbEnndPynKAqTJbMasWsLWHEApbv9eyfzU4A
 */
