@@ -111,7 +111,7 @@ export const main = async () => {
   recoveredTransaction.partialSign(aliceKeypair);
   
   const sig = await connection.sendRawTransaction(recoveredTransaction.serialize())
-  console.log('sig =>', sig);
+  console.log('signature =>', sig);
 };
 
 main();
@@ -120,5 +120,5 @@ main();
 % ts-node <THIS FILE>
 aliceKeypair => EkEb2uF7C792LrRqNj81BsmMcdXAyDqz3FXQeYpRjC6E
 bobKeypair => 7aF8mCyxsdqWTaFvMhv1RXPEfT52yWsFYvC1NRYtE4cz
-sig => 5c3DPMeBAZkchc7Ztu4G334XRnLsYuwvrsx9DnGoUwotRhLcmavSECBRq9ED692VfzCt57sKV5jgdVjMSkHQ6y8M
+signature => 5c3DPMeBAZkchc7Ztu4G334XRnLsYuwvrsx9DnGoUwotRhLcmavSECBRq9ED692VfzCt57sKV5jgdVjMSkHQ6y8M
 */
