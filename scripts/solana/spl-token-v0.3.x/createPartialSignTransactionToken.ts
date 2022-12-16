@@ -158,6 +158,9 @@ export const main = async () => {
   transaction.partialSign(bobKeypair);
   // transaction.partialSign(aliceKeypair);
 
+  // ------------------------------------------------------------------------
+  //  Serialize Transaction
+  // ------------------------------------------------------------------------
   // Serialize the transaction and convert to base64 to return it
   const serializedTransaction = transaction.serialize({
     // We will need Alice to deserialize and sign the transaction
@@ -165,6 +168,12 @@ export const main = async () => {
   });
   const transactionBase64 = serializedTransaction.toString("base64");
 
+  // You can send data to anywhere.
+  // return transactionBase64;
+
+  // ------------------------------------------------------------------------
+  //  Recover Transaction
+  // ------------------------------------------------------------------------
   // The caller of this can convert it back to a transaction object:
   const recoveredTransaction = Transaction.from(
     Buffer.from(transactionBase64, "base64")
