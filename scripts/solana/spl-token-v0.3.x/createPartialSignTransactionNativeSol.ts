@@ -70,7 +70,6 @@ export const main = async () => {
     })
   );
 
-  transaction.partialSign(bobKeypair);
   // Transfer 0.01 SOL from Bob -> Alice
   transaction.add(
     SystemProgram.transfer({
@@ -82,6 +81,7 @@ export const main = async () => {
 
   // Partial sign as Bob
   // You need to sign at the end fo transaction.
+  transaction.partialSign(bobKeypair);
 
   // ------------------------------------------------------------------------
   //  Transaction Convert to Base64
@@ -108,7 +108,7 @@ export const main = async () => {
 
   // Partial sign as Alice
   recoveredTransaction.partialSign(aliceKeypair);
-
+  
   const sig = await connection.sendRawTransaction(recoveredTransaction.serialize())
   console.log('sig =>', sig);
 };
