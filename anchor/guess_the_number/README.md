@@ -47,3 +47,10 @@ HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 ```
 [98,156,147,246,99,55,15,21,117,4,187,166,115,166,221,79,86,46,184,19,41,37,75,55,204,195,46,174,200,1,165,117,105,225,67,215,130,231,154,212,253,226,213,42,232,7,156,93,50,132,187,17,73,172,85,5,165,191,201,12,32,175,212,84]
 ```
+
+## Error
+If you got following error, try again later or use custom RPC(e.g. QuickNode) instead of Solana Devnet RPC.
+
+```
+AccountNotFoundError: The account of type [MintAccount] was not found at the provided address [Hrp6ikfEJ2zbQMFgY4KpuX7DSkxMzsmv2LY3qTmLQUya].
+```
