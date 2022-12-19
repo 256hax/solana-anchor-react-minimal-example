@@ -12,7 +12,6 @@ Experiment purpose only.
 
 ## Run
 ```
-% solana config set --url devnet
 % npm i
 % anchor test
 ```
