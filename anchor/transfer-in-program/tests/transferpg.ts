@@ -16,7 +16,7 @@ describe("transferpg", () => {
   let _pda: PublicKey;
 
   it("Initialize account", async () => {
-    const [pda, nonce] = await PublicKey.findProgramAddress([encode("pda")], program.programId);
+    const [pda, nonce] = await PublicKey.findProgramAddressSync([encode("pda")], program.programId);
 
     const tx = await program.methods
       .initialize()
