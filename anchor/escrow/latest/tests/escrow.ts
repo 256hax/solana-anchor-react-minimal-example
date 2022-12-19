@@ -173,7 +173,7 @@ describe("escrow", () => {
       .rpc()
     
     // Get the PDA that is assigned authority to token account.
-    const [_pda, _nonce] = await PublicKey.findProgramAddress(
+    const [_pda, _nonce] = await PublicKey.findProgramAddressSync(
       [Buffer.from(anchor.utils.bytes.utf8.encode("escrow"))],
       program.programId
     );

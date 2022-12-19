@@ -11,7 +11,7 @@ describe('game', async () => {
   const program = anchor.workspace.Game as Program<Game>
 
   it('Sets and changes name!', async () => {
-    const [userStatsPDA, _] = await PublicKey.findProgramAddress(
+    const [userStatsPDA, _] = await PublicKey.findProgramAddressSync(
       [
         anchor.utils.bytes.utf8.encode('user-stats'),
         provider.wallet.publicKey.toBuffer(),

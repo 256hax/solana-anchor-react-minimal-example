@@ -18,7 +18,7 @@ describe("token", () => {
   const fromWallet = Keypair.generate();
   const toWallet = Keypair.generate();
 
-  it("Airdrop", async() => {
+  it("Airdrop", async () => {
     // --- Airdrop ---
     const fromWalletAirdropSignature = await connection.requestAirdrop(fromWallet.publicKey, LAMPORTS_PER_SOL);
 
@@ -50,6 +50,7 @@ describe("token", () => {
     // Create new token mint
     mint = await createMint(
       connection, // connection
+      // @ts-ignore
       provider.wallet.payer, // payer
       provider.wallet.publicKey, // mintAuthority
       null, // freezeAuthority
@@ -58,18 +59,20 @@ describe("token", () => {
 
     // Get the token account of the fromWallet address, and if it does not exist, create it
     fromToken = await getOrCreateAssociatedTokenAccount(
-        connection, // connection
-        provider.wallet.payer, // payer
-        mint, // mint
-        fromWallet.publicKey // owner.publicKey
+      connection, // connection
+      // @ts-ignore
+      provider.wallet.payer, // payer
+      mint, // mint
+      fromWallet.publicKey // owner.publicKey
     );
 
     // Get the token account of the toWallet address, and if it does not exist, create it
     toToken = await getOrCreateAssociatedTokenAccount(
-        connection,
-        provider.wallet.payer, // payer
-        mint,
-        toWallet.publicKey // owner.publicKey
+      connection,
+      // @ts-ignore
+      provider.wallet.payer, // payer
+      mint,
+      toWallet.publicKey // owner.publicKey
     );
 
     const fromTokenAccountInfo = await getAccount(connection, fromToken.address);
@@ -161,9 +164,9 @@ describe("token", () => {
         newMintAuthority.publicKey
       )
       .accounts({
-          accountOrMint: mint,
-          currentAuthority: provider.wallet.publicKey,
-          tokenProgram: TOKEN_PROGRAM_ID,
+        accountOrMint: mint,
+        currentAuthority: provider.wallet.publicKey,
+        tokenProgram: TOKEN_PROGRAM_ID,
       })
       .rpc()
 
