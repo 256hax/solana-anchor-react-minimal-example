@@ -6,7 +6,7 @@ import { PostToEarn } from '../target/types/post_to_earn';
 import { assert } from 'chai';
 
 describe('post_to_earn', async() => {
-  const provider = anchor.Provider.local();
+  const provider = anchor.AnchorProvider.local();
   const connection = provider.connection
   anchor.setProvider(provider);
   const program = anchor.workspace.PostToEarn as Program<PostToEarn>;
@@ -33,7 +33,7 @@ describe('post_to_earn', async() => {
 
   it('Gets a PDA for Counter.', async () => {
     // It need underscore vars. Shouldn't directly into vars(e.g. let pda; [pda, bump] = xxx;).
-    const [_pdaCounter, _bumpCounter] = await PublicKey.findProgramAddress(
+    const [_pdaCounter, _bumpCounter] = await PublicKey.findProgramAddressSync(
       [
         anchor.utils.bytes.utf8.encode("counter"),
         provider.wallet.publicKey.toBuffer()
@@ -55,7 +55,7 @@ describe('post_to_earn', async() => {
 
   it('Gets a PDA for Payment.', async () => {
     // It need underscore vars. Shouldn't directly into vars(e.g. let pda; [pda, bump] = xxx;).
-    const [_pdaPayment, _bumpPayment] = await PublicKey.findProgramAddress(
+    const [_pdaPayment, _bumpPayment] = await PublicKey.findProgramAddressSync(
       [
         anchor.utils.bytes.utf8.encode("payment"),
         provider.wallet.publicKey.toBuffer(),
@@ -163,6 +163,7 @@ describe('post_to_earn', async() => {
   it("Creates an userTokenAccount.", async () => {
     userTokenAccount = await getOrCreateAssociatedTokenAccount(
       connection,               // connection: Connection,
+      // @ts-ignore
       provider.wallet.payer,    // payer: Signer,
       mint,                     // mint: PublicKey,
       provider.wallet.publicKey // owner: PublicKey,
