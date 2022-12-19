@@ -8,8 +8,7 @@ export const eligibleWinner = async (
 ): Promise<any> => {
   const nfts = await metaplex
     .nfts()
-    .findAllByOwner(payerPublicKey)
-    .run();
+    .findAllByOwner({ owner: payerPublicKey })
 
   const filteredNfts = nfts.filter(function (v) {
     return v.name == correctName && v.updateAuthorityAddress.toString() == payerPublicKey.toString();

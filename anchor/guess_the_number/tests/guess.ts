@@ -1,3 +1,4 @@
+// --- Common ---
 import * as anchor from "@project-serum/anchor";
 import { Program } from "@project-serum/anchor";
 import { Guess } from "../target/types/guess";
@@ -5,6 +6,7 @@ import { Connection, clusterApiUrl, PublicKey, Keypair, SystemProgram, LAMPORTS_
 import { Metaplex, keypairIdentity, bundlrStorage, mockStorage } from "@metaplex-foundation/js";
 import { assert, expect } from 'chai';
 
+// --- Modules ---
 import { initializeWallets } from '../app/modules/initializeWallets';
 import { airdrop } from '../app/modules/airdrop';
 import { createNfts } from '../app/modules/createNfts';
@@ -17,12 +19,12 @@ import { eligibleWinner } from '../app/modules/eligibleWinner';
 import { pickupWinner } from '../app/modules/pickupWinner';
 import { transferReward } from '../app/modules/transferReward';
 
-// --- [Localnet(Mock)] ---
-import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
-import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
-import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
-import { updateToOriginalOwner as mockUpdateToOriginalOwner } from '../app/modules/mock/updateToOriginalOwner';
-import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
+// // --- [Localnet(Mock)] ---
+// import { createNfts as mockCreateNfts } from '../app/modules/mock/createNfts';
+// import { mintNfts as mockMintNfts } from '../app/modules/mock/mintNfts';
+// import { createPda as mockCreatePda } from '../app/modules/mock/createPda';
+// import { updateToOriginalOwner as mockUpdateToOriginalOwner } from '../app/modules/mock/updateToOriginalOwner';
+// import { revealNft as mockRevealNft } from '../app/modules/mock/revealNft';
 
 
 describe("Guess the number", () => {
@@ -34,6 +36,7 @@ describe("Guess the number", () => {
   const program = anchor.workspace.Guess as Program<Guess>;
 
   // --- Users Setting ---
+  // @ts-ignore
   let payer: Keypair = provider.wallet.payer; // HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
   let taker1: Keypair; // BBCkTVFxZbLPar5YpjqBzymPkcZvT7RMuDK59bbaPTd4
   // let taker2: Keypair; // DD83TEq47JeMKKrJqQWzabVmYkQfsof8CHsybQtGJvpo
@@ -68,7 +71,7 @@ describe("Guess the number", () => {
 
     // [Localnet(Mock)]
     // If you got "too many request", comment out following.
-    await airdrop(connection, taker1.publicKey);
+    // await airdrop(connection, taker1.publicKey);
 
     const payerBalance = await connection.getBalance(payer.publicKey);
     const taker1Balance = await connection.getBalance(taker1.publicKey);
@@ -79,7 +82,6 @@ describe("Guess the number", () => {
     console.log('payer =>', payer.publicKey.toString());
     console.log('taker1 =>', taker1.publicKey.toString());
   });
-
 
   //--------------------------------------------------
   // Set NFTs by payer
@@ -99,7 +101,7 @@ describe("Guess the number", () => {
       fileName: 'number_1.png'
     };
 
-    // [Devnet]
+    // // [Devnet]
     nftQ = await createNfts(metaplex, metadataQ);
     nft1 = await createNfts(metaplex, metadata1);
 
@@ -107,13 +109,12 @@ describe("Guess the number", () => {
     // nftQ = await mockCreateNfts(connection, payer);
     // nft1 = await mockCreateNfts(connection, payer);
 
-    assert(nftQ != null);
+    // assert(nftQ != null);
     assert(nft1 != null);
 
     console.log('Mint AddressQ =>', nftQ.toString());
     console.log('Mint Address1 =>', nft1.toString());
   });
-
 
   //--------------------------------------------------
   // Actions for NFT by payer/taker
@@ -208,7 +209,6 @@ describe("Guess the number", () => {
     console.log('tokenAccountInfoTaker1.owner =>', tokenAccountOwnerTaker1.toString());
   });
 
-
   //--------------------------------------------------
   // Announcement by payer
   //--------------------------------------------------
@@ -233,7 +233,7 @@ describe("Guess the number", () => {
     assert.equal(nftQName, 'Number 1');
     assert.equal(Number(nftQPrize), prize);
   });
-  
+
   it("Pickup eligible winner", async () => {
     // [Devnet]
     winnerNfts = await eligibleWinner(

@@ -6,27 +6,27 @@ export const updateToOriginalOwner = async (
   takerPublicKey: PublicKey,
   mint: PublicKey,
 ) => {
-  const nft = await metaplex.nfts().findByMint(mint).run();
+  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
 
   const { uri: newUri } = await metaplex
-      .nfts()
-      .uploadMetadata({
-          ...nft.json,
-          attributes: [
-            {
-              trait_type: "Original Owner",
-              value: takerPublicKey.toString()
-            }
-          ]
-      })
-      .run();
-  
-  const { nft: updatedNft } = await metaplex
-      .nfts()
-      .update(nft, { 
-          uri: newUri
-      })
-      .run();
+    .nfts()
+    .uploadMetadata({
+      ...nft.json,
+      attributes: [
+        {
+          trait_type: "Original Owner",
+          value: takerPublicKey.toString()
+        }
+      ]
+    });
+
+  await metaplex
+    .nfts()
+    .update({
+      nftOrSft: nft,
+      uri: newUri
+    });
+  const updatedNft = await metaplex.nfts().refresh(nft);
 
   const originalOwner = updatedNft.json.attributes.find((a: any) => a.trait_type === "Original Owner");
 

@@ -15,8 +15,7 @@ export const createNfts = async (
       name: metadata.name,
       description: metadata.description,
       image: fileImage,
-    })
-    .run();
+    });
 
   sleep(1); // 1 = 1sec. Avoid for too many request
 
@@ -27,12 +26,11 @@ export const createNfts = async (
       name: metadata.name,
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(1),
-    })
-    .run();
+    });
   
   sleep(1); // 1 = 1sec. Avoid for too many request
 
-  const mintAddress = nft.mintAddress;
+  const mintAddress = nft.mint.address;
 
   return mintAddress;
 };

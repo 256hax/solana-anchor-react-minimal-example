@@ -7,7 +7,7 @@ export const revealNft = async (
   attributes: any,
   correctName: string,
 ): Promise<[string, string]> => {
-  const nft = await metaplex.nfts().findByMint(mint).run();
+  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
 
   const { uri: newUri } = await metaplex
     .nfts()
@@ -15,16 +15,16 @@ export const revealNft = async (
       ...nft.json,
       name: correctName,
       attributes
-    })
-    .run();
+    });
 
-  const { nft: updatedNft } = await metaplex
+  await metaplex
     .nfts()
-    .update(nft, {
+    .update({
+      nftOrSft: nft,
       name: correctName,
       uri: newUri
-    })
-    .run();
+    });
+  const updatedNft = await metaplex.nfts().refresh(nft);
 
   const prize = updatedNft.json.attributes.find(
     (a: any) => a.trait_type === 'Prize(SOL)'

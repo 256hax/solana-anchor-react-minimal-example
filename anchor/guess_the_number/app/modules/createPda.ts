@@ -11,7 +11,7 @@ export const createPda = async(
   mint: PublicKey,
   pdaSeed: string,
 ): Promise<[String, any, PublicKey]> => {
-  const nft = await metaplex.nfts().findByMint(mint).run();
+  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
 
   const takerTokenAccount = await getOrCreateAssociatedTokenAccount(
     connection, // connection
