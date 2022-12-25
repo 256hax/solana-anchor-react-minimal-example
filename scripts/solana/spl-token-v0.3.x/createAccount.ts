@@ -54,7 +54,7 @@ export const main = async () => {
   const signature = await sendAndConfirmTransaction(
     connection,
     createAccountTransaction,
-    [from, newAccount,]
+    [from, newAccount]
   );
 
   console.log('from =>', from.publicKey.toString());
