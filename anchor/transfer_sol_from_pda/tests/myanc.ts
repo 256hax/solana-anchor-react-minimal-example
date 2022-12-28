@@ -16,7 +16,7 @@ describe("myanc", () => {
   let pda;
   let bump;
 
-  const randomWallet = Keypair.generate().publicKey;
+  const randomWallet = Keypair.generate();
 
   it("Airdrop to PDA", async () => {
     // -----------------------------------------------------------
@@ -43,10 +43,11 @@ describe("myanc", () => {
     console.log('provider.wallet.publicKey =>', provider.wallet.publicKey.toString());
     console.log('pda =>', pda.toString());
     console.log('bump =>', bump);
+    console.log('randomWallet =>', randomWallet.publicKey.toString());
 
     console.log('\n--- before transfer ---');
     const balancePda = await provider.connection.getBalance(pda) / LAMPORTS_PER_SOL;
-    const balanceRandomWallet = await provider.connection.getBalance(randomWallet) / LAMPORTS_PER_SOL;
+    const balanceRandomWallet = await provider.connection.getBalance(randomWallet.publicKey) / LAMPORTS_PER_SOL;
     console.log('balancePda =>', balancePda, 'SOL');
     console.log('randomWallet =>', balanceRandomWallet, 'SOL');
   });
@@ -59,14 +60,15 @@ describe("myanc", () => {
       )
       .accounts ({
         pda: pda, // payer
-        taker: randomWallet, // taker
+        taker: randomWallet.publicKey, // taker
         systemProgram: anchor.web3.SystemProgram.programId,
       })
+      // .signers([provider.wallet.payer])
       .rpc()
 
     console.log('\n--- after transfer ---');
     const balancePda = await provider.connection.getBalance(pda) / LAMPORTS_PER_SOL;
-    const balanceRandomWallet = await provider.connection.getBalance(randomWallet) / LAMPORTS_PER_SOL;
+    const balanceRandomWallet = await provider.connection.getBalance(randomWallet.publicKey) / LAMPORTS_PER_SOL;
     console.log('balancePda =>', balancePda, 'SOL');
     console.log('randomWallet =>', balanceRandomWallet, 'SOL');
   });
