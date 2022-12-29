@@ -7,7 +7,7 @@ import {
 } from "@solana/web3.js";
 import { Myanc } from "../target/types/myanc";
 
-describe("myanc", () => {
+describe("Transfer SOL from Provider PDA", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
@@ -16,14 +16,16 @@ describe("myanc", () => {
   let pda;
   let bump;
 
-  const randomWallet = Keypair.generate();
+  const taker = Keypair.generate();
 
   it("Airdrop to PDA", async () => {
     // -----------------------------------------------------------
     //  Generate PDA(Not yet created)
     // -----------------------------------------------------------
     [pda, bump] = await PublicKey.findProgramAddressSync(
-      [Buffer.from("test")],
+      [
+        Buffer.from("myseed"),
+      ],
       program.programId,
     );
 
@@ -40,36 +42,38 @@ describe("myanc", () => {
       signature: signatureAirdropAlice,
     });
 
-    console.log('provider.wallet.publicKey =>', provider.wallet.publicKey.toString());
+    const balancePda = await provider.connection.getBalance(pda) / LAMPORTS_PER_SOL;
+    const balanceTaker = await provider.connection.getBalance(taker.publicKey) / LAMPORTS_PER_SOL;
+
+    console.log('provider =>', provider.wallet.publicKey.toString());
     console.log('pda =>', pda.toString());
     console.log('bump =>', bump);
-    console.log('randomWallet =>', randomWallet.publicKey.toString());
+    console.log('taker =>', taker.publicKey.toString());
 
     console.log('\n--- before transfer ---');
-    const balancePda = await provider.connection.getBalance(pda) / LAMPORTS_PER_SOL;
-    const balanceRandomWallet = await provider.connection.getBalance(randomWallet.publicKey) / LAMPORTS_PER_SOL;
     console.log('balancePda =>', balancePda, 'SOL');
-    console.log('randomWallet =>', balanceRandomWallet, 'SOL');
+    console.log('balanceTaker =>', balanceTaker, 'SOL');
   });
 
   it("Transfer SOL from PDA", async () => {
     await program.methods
-      .transferSol(
+      .transferProviderSol(
         new anchor.BN(0.001 * LAMPORTS_PER_SOL),
         bump,
       )
       .accounts ({
         pda: pda, // payer
-        taker: randomWallet.publicKey, // taker
+        taker: taker.publicKey, // taker
         systemProgram: anchor.web3.SystemProgram.programId,
       })
       // .signers([provider.wallet.payer])
       .rpc()
 
-    console.log('\n--- after transfer ---');
     const balancePda = await provider.connection.getBalance(pda) / LAMPORTS_PER_SOL;
-    const balanceRandomWallet = await provider.connection.getBalance(randomWallet.publicKey) / LAMPORTS_PER_SOL;
+    const balanceTaker = await provider.connection.getBalance(taker.publicKey) / LAMPORTS_PER_SOL;
+
+    console.log('\n--- after transfer ---');
     console.log('balancePda =>', balancePda, 'SOL');
-    console.log('randomWallet =>', balanceRandomWallet, 'SOL');
+    console.log('balanceTaker =>', balanceTaker, 'SOL');
   });
 });
