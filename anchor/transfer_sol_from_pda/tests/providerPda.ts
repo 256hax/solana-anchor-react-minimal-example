@@ -13,8 +13,8 @@ describe("Transfer SOL from Provider PDA", () => {
 
   const program = anchor.workspace.Myanc as Program<Myanc>;
 
-  let pda;
-  let bump;
+  let pda: PublicKey;
+  let bump: number;
 
   const taker = Keypair.generate();
 
