@@ -228,7 +228,7 @@ editionNumber => <BN: 1>
 
 [Done] exited with code=0 in 73.963 seconds
 
-[Running] ts-node "/Users/sxuser/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts"
+[Running] ts-node "/Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts"
 
 --- Master Edition(Original NFT) ------------------------------------
 uri => https://arweave.net/8hElY8MOZR2MpwQWubg11PYdbVqUEl5aIgH5FPopE7g
@@ -359,18 +359,18 @@ printedNft => {
 }
 printedNft Address => GtsD1w2h3jBkr2241TZr3BHFXrZ8dRsJ2Yj3dywV1W1M
 mintAddressOfOriginalNft => 99WRynUdz9XPd8as9t8BsgsP9WCXxi2jhwGaLmjUCLEc
-/Users/sxuser/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:5
+/Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:5
 const main = async() => {
                                                          ^
 TypeError: editionNumber.toBigNumber is not a function
-    at /Users/sxuser/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:85:53
+    at /Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:85:53
     at Generator.next (<anonymous>)
-    at fulfilled (/Users/sxuser/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:5:58)
+    at fulfilled (/Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts:5:58)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
 
 [Done] exited with code=1 in 73.738 seconds
 
-[Running] ts-node "/Users/sxuser/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts"
+[Running] ts-node "/Users/user/Documents/Programming/Blockchain/solana-anchor-react-minimal-example/scripts/metaplex/latest/src/printNewEdition.ts"
 
 --- Master Edition(Original NFT) ------------------------------------
 uri => https://arweave.net/2FOp1hD3PdpBMLjtTB8JAZ6M9LpW7-6CdlTkWbcU_AI
