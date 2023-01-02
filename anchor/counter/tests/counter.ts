@@ -1,5 +1,4 @@
 import * as anchor from "@coral-xyz/anchor";
-import { Counter } from "../target/types/counter";
 import { assert } from 'chai';
 
 describe("counter", () => {
@@ -15,31 +14,38 @@ describe("counter", () => {
   const program = anchor.workspace.Counter;
 
   it("Creates a counter", async () => {
-    await program.methods
-    .create(
-      provider.wallet.publicKey
-    )
-    .accounts({
-      counter: counter.publicKey,
-      user: provider.wallet.publicKey,
-      systemProgram: anchor.web3.SystemProgram.programId,
-    })
-    .signers([counter])
-    .rpc()
+    const startCount = 0;
+
+    const signatuer = await program.methods
+      .initialize(
+        new anchor.BN(startCount)
+      )
+      .accounts({
+        counter: counter.publicKey,
+        authority: provider.wallet.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([provider.wallet.payer, counter])
+      .rpc()
 
     let counterAccount = await program.account.counter.fetch(counter.publicKey);
 
     assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
     assert.ok(counterAccount.count.toNumber() === 0);
+
+    console.log('provider =>', provider.wallet.publicKey.toString());
+    console.log('counter =>', counter.publicKey.toString());
+    console.log('signatuer =>', signatuer);
   });
 
   it("Updates a counter", async () => {
-    await program.methods
+    const signatuer = await program.methods
       .increment()
       .accounts({
         counter: counter.publicKey,
         authority: provider.wallet.publicKey,
       })
+      .signers([provider.wallet.payer])
       .rpc()
 
     const counterAccount = await program.account.counter.fetch(
@@ -48,5 +54,7 @@ describe("counter", () => {
 
     assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
     assert.ok(counterAccount.count.toNumber() == 1);
+    
+    console.log('signatuer =>', signatuer);
   });
 });
