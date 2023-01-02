@@ -1,4 +1,4 @@
-import { utils } from '@project-serum/anchor';
+import { utils } from '@coral-xyz/anchor';
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 import { getOrCreateAssociatedTokenAccount, TOKEN_PROGRAM_ID, setAuthority, getAccount } from '@solana/spl-token';
 

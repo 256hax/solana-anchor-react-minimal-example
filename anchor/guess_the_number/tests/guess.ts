@@ -1,7 +1,5 @@
 // --- Common ---
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
-import { Guess } from "../target/types/guess";
+import * as anchor from "@coral-xyz/anchor";
 import { Connection, clusterApiUrl, PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { Metaplex, keypairIdentity, bundlrStorage, mockStorage } from "@metaplex-foundation/js";
 import { assert, expect } from 'chai';
@@ -33,7 +31,7 @@ describe("Guess the number", () => {
   anchor.setProvider(provider);
   const connection = provider.connection;
 
-  const program = anchor.workspace.Guess as Program<Guess>;
+  const program = anchor.workspace.Guess;
 
   // --- Users Setting ---
   // @ts-ignore

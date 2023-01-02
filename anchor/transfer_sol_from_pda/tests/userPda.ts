@@ -1,5 +1,4 @@
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import {
   Keypair,
   LAMPORTS_PER_SOL,
@@ -11,7 +10,7 @@ describe("Transfer SOL from User PDA", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const program = anchor.workspace.Myanc as Program<Myanc>;
+  const program = anchor.workspace.Myanc;
 
   let pda;
   let bump;

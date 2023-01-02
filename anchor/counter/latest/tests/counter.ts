@@ -1,13 +1,10 @@
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { Counter } from "../target/types/counter";
 import { assert } from 'chai';
 
 describe("counter", () => {
-  // anchor.setProvider(anchor.AnchorProvider.env());
-
   // Configure the client to use the local cluster.
-  const provider = anchor.AnchorProvider.local();
+  const provider = anchor.AnchorProvider.env();
 
   // Configure the client to use the local cluster.
   anchor.setProvider(provider);
@@ -15,7 +12,7 @@ describe("counter", () => {
   // Counter for the tests.
   const counter = anchor.web3.Keypair.generate();
 
-  const program = anchor.workspace.Counter as Program<Counter>;
+  const program = anchor.workspace.Counter;
 
   it("Creates a counter", async () => {
     await program.methods

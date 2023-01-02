@@ -1,14 +1,12 @@
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { Trsf } from "../target/types/trsf";
 import { assert, expect } from 'chai';
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, TOKEN_PROGRAM_ID, getMint, getAccount } from '@solana/spl-token';
-import { program } from "@project-serum/anchor/dist/cjs/spl/associated-token";
 
 describe("token", () => {
   const provider = anchor.AnchorProvider.local();
-  const program = anchor.workspace.Trsf as Program<Trsf>;
+  const program = anchor.workspace.Trsf;
   const connection = program.provider.connection;
 
   let mint = null;

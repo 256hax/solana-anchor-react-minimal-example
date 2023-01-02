@@ -1,15 +1,13 @@
-import * as anchor from '@project-serum/anchor';
-import { Program } from '@project-serum/anchor';
+import * as anchor from "@coral-xyz/anchor";
 import { PublicKey, SystemProgram, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo, getAccount, transfer } from '@solana/spl-token';
-import { PostToEarn } from '../target/types/post_to_earn';
 import { assert } from 'chai';
 
 describe('post_to_earn', async() => {
   const provider = anchor.AnchorProvider.local();
   const connection = provider.connection
   anchor.setProvider(provider);
-  const program = anchor.workspace.PostToEarn as Program<PostToEarn>;
+  const program = anchor.workspace.PostToEarn;
 
   let pdaCounter = null;
   let bumpCounter = null;

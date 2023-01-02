@@ -1,20 +1,17 @@
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { PuppetMaster } from "../target/types/puppet_master";
 import { Puppet } from "../target/types/puppet";
 import { assert } from "chai";
 
 describe("cpi", () => {
-  // anchor.setProvider(anchor.AnchorProvider.env());
-
-  const provider = anchor.AnchorProvider.local();
-
+  const provider = anchor.AnchorProvider.env();
+  
   // Configure the client to use the local cluster.
   anchor.setProvider(provider);
 
   it("Performs CPI from puppet master to puppet", async () => {
-    const puppetMaster = anchor.workspace.PuppetMaster as Program<PuppetMaster>;
-    const puppet = anchor.workspace.Puppet as Program<Puppet>;
+    const puppetMaster = anchor.workspace.PuppetMaster;
+    const puppet = anchor.workspace.Puppet;
 
     // Initialize a new puppet account.
     const newPuppetAccount = anchor.web3.Keypair.generate();

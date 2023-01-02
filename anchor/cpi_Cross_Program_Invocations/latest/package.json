@@ -3,9 +3,6 @@
         "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
         "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
     },
-    "dependencies": {
-        "@project-serum/anchor": "^0.26.0"
-    },
     "devDependencies": {
         "@types/bn.js": "^5.1.1",
         "@types/chai": "^4.3.4",
@@ -15,5 +12,8 @@
         "prettier": "^2.8.1",
         "ts-mocha": "^10.0.0",
         "typescript": "^4.9.4"
+    },
+    "dependencies": {
+        "@coral-xyz/anchor": "^0.26.0"
     }
 }

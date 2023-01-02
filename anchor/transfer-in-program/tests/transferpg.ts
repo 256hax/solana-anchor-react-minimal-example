@@ -1,5 +1,4 @@
-import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { Transferpg } from "../target/types/transferpg";
 import { Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import assert from 'assert';
@@ -9,7 +8,7 @@ describe("transferpg", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const program = anchor.workspace.Transferpg as Program<Transferpg>;
+  const program = anchor.workspace.Transferpg;
   const connection = program.provider.connection;
 
   const encode = anchor.utils.bytes.utf8.encode;

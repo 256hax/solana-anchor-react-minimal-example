@@ -1,14 +1,13 @@
-import * as anchor from '@project-serum/anchor'
-import { Program } from '@project-serum/anchor'
-import { PublicKey } from '@solana/web3.js'
-import { Game } from '../target/types/game'
-import { expect } from 'chai'
+import * as anchor from "@coral-xyz/anchor";
+import { PublicKey } from '@solana/web3.js';
+import { Game } from '../target/types/game';
+import { expect } from 'chai';
 
 describe('game', async () => {
   const provider = anchor.AnchorProvider.env()
   anchor.setProvider(provider)
 
-  const program = anchor.workspace.Game as Program<Game>
+  const program = anchor.workspace.Game;
 
   it('Sets and changes name!', async () => {
     const [userStatsPDA, _] = await PublicKey.findProgramAddressSync(
