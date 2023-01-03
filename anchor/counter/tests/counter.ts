@@ -8,7 +8,7 @@ describe("counter", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(provider);
 
-  // Counter for the tests.
+  // Assign address for Counter Account
   const counter = anchor.web3.Keypair.generate();
 
   const program = anchor.workspace.Counter;
@@ -21,7 +21,7 @@ describe("counter", () => {
         new anchor.BN(startCount)
       )
       .accounts({
-        counter: counter.publicKey,
+        counter: counter.publicKey, // Assign address
         authority: provider.wallet.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
       })
