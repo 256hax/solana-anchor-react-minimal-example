@@ -58,7 +58,7 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 - [Docs - Anchor Errors List](https://anchor.so/errors)
 - [Rust - anchor_lang](https://docs.rs/anchor-lang/latest/anchor_lang/)
 - [Rust - anchor_spl](https://docs.rs/anchor-spl/latest/anchor_spl/index.html)
-- [API - @project-serum](https://github.com/project-serum/serum-ts/tree/master/packages)
+- [API - @project-serum/anchor(@coral-xyz/anchor)](https://coral-xyz.github.io/anchor/ts/index.html)
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 - [Support - Discord Anchor](https://discord.com/invite/ZCHmqvXgDw)
 
