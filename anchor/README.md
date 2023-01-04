@@ -21,7 +21,7 @@ Delete following:
 
 Install packages:
 ```
-npm add @project-serum/anchor
+npm add @coral-xyz/anchor
 npm add @solana/web3.js
 npm add @solana/spl-token
 npm add chai
