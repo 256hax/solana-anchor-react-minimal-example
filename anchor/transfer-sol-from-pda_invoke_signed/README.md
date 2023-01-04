@@ -1,4 +1,6 @@
-# Transfer SOL from PDA
+# Transfer SOL from PDA using invoke_signed
+Transfer SOL from PDA using [invoke_signed()](https://docs.solana.com/developing/programming-model/calling-between-programs#program-signed-accounts) method.
+
 ## Run
 ```
 % npm i
