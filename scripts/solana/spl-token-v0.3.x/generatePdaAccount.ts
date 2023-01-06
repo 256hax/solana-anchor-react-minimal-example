@@ -1,11 +1,12 @@
 // Ref: https://solanacookbook.com/references/accounts.html#how-to-create-pdas
 import {
+  Keypair,
   PublicKey,
 } from "@solana/web3.js";
 
 export const main = async () => {
   // ------------------------------------------------------------------------
-  //  Generate PDA Account(not yet create)
+  //  Generate PDA Account(not yet created)
   // ------------------------------------------------------------------------
   // Owned program
   const programId = new PublicKey(
@@ -13,10 +14,12 @@ export const main = async () => {
   );
 
   const seed = 'test';
+  const myPublicKey = new PublicKey('4Zhbi9RNNb8zeFesJysW9F7G1sNHyfQrimHQHSSNavFw');
 
   // Ref: https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#findProgramAddressSync
   const [pda, bump] = await PublicKey.findProgramAddressSync(
-    [Buffer.from(seed)],
+    // [Buffer.from(seed)],
+    [Buffer.from(seed), myPublicKey.toBuffer()],
     programId
   );
 
@@ -29,5 +32,5 @@ main();
 /*
 % ts-node <THIS FILE>
 bump => 253
-pda => AfEjen5hHkTkEqy2yfyPhDQWq7dc7zbWU2aJmB3h8brU
+pda => GwgoAT2x9EosuxgmBJdhUp2n4dZDegqAPBnqN3uRMsQD
 */
