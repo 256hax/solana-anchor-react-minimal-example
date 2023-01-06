@@ -65,12 +65,12 @@ export const main = async () => {
 
   // Send and confirm transaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  const tx = await sendAndConfirmTransaction(
+  const signature = await sendAndConfirmTransaction(
     connection,
     transaction,
     [payer]
   );
-  console.log('tx =>', tx);
+  console.log('signature =>', signature);
 
   // ---------------------------------------------------
   //  Alternatively Way: manually construct the transaction
@@ -99,15 +99,15 @@ export const main = async () => {
   // The signatures were verified: true
 
   // let rawTransaction = manualTransaction.serialize();
-  let manualTx = await connection.sendRawTransaction(manualTransaction.serialize());
-  console.log('manualTx =>', manualTx);
+  let manualTransferSignature = await connection.sendRawTransaction(manualTransaction.serialize());
+  console.log('manualTransferSignature =>', manualTransferSignature);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-tx => 2cDFBXXhqp6EwMpdD4sBD643ZX12pqJg63NRyWMG8GYibLoh9wCG2PLChXByeCsozWMjoxYyy1oWCGdDfkQGVMyH
-The signatures were verifed => true
-manualTx => 5sJQe4WPmzBeDmW9suLQmDBVoVvdXnkghbgUCWpXQ5BZj271FZxoFPKqpR5aasiyRDWfCqttvdgTy4vYT8TUEcA
+signature => outRBmTmHTCSPbLot5QQHvkL4hfGgkUFQA9RookKgqmtqRTzP21RnS2F3RVsKvi9TxMWXCKTQHUajH2mLvyqaM1
+The signatures were verified => true
+manualTransferSignature => KyDJPwgf3iyjyPTeKhSkmcYFueHH1HtzkbW2a3wDyh5VDMBoCnv6b1Jbzs3j3fUzKZ7Czy4LNJJU2HAyemcGr96
 */

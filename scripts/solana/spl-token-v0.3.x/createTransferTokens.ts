@@ -49,7 +49,7 @@ export const main = async() => {
     );
 
     // Mint 1 new token to the "fromTokenAccount" account we just created
-    const signature_mint = await mintTo(
+    const signatureMint = await mintTo(
         connection, // connection
         fromWallet, // payer
         mint, // mint
@@ -60,7 +60,7 @@ export const main = async() => {
     );
 
     // Transfer the new token to the "toTokenAccount" we just created
-    const signature_tx = await transfer(
+    const signatureTransfer = await transfer(
         connection, // connection
         fromWallet, // payer
         fromTokenAccount.address, // source
@@ -74,7 +74,7 @@ export const main = async() => {
     // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
     const randomWallet = Keypair.generate();
 
-    const mint_rand_auth_tx = await setAuthority(
+    const mintRandAuthSignature = await setAuthority(
         connection, // connection
         fromWallet, // payer
         mint, // account
@@ -88,7 +88,7 @@ export const main = async() => {
 
     // Set new authority for Token Account
     // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
-    const token_acc_rand_auth_tx = await setAuthority(
+    const tokenAccRandAuthSignature = await setAuthority(
         connection, // connection
         fromWallet, // payer
         fromTokenAccount.address, // account
@@ -107,25 +107,25 @@ export const main = async() => {
     console.log('toTokenAccount.address     =>', toTokenAccount.address.toString());
     console.log('mint address               =>', mint.toString());
 
-    console.log('mint tx                    =>', signature_mint);
-    console.log('transfer tx                =>', signature_tx);
+    console.log('signatureMint              =>', signatureMint);
+    console.log('signatureTransfer          =>', signatureTransfer);
     console.log('randomWallet.publicKey     =>', randomWallet.publicKey.toString());
-    console.log('mint_rand_auth_tx          =>', mint_rand_auth_tx);
-    console.log('token_acc_rand_auth_tx     =>', token_acc_rand_auth_tx);
+    console.log('mintRandAuthSignature      =>', mintRandAuthSignature);
+    console.log('tokenAccRandAuthSignature  =>', tokenAccRandAuthSignature);
 };
 
 main();
 
 /*
 % ts-node <THIS FILE>
-fromWallet.publicKey       => CSyFrHrGa1XRxphmXE9EtJzUgGBpm1bX166PGSFKwnM4
-toWallet.publicKey         => 5e4LFx4o5nJA9gaweE1iKEC1aL5ELMY7oAsbNZKuvadG
-fromTokenAccount.address   => AEQmpEmT9MmMTDAfx7jv76Vqv8d3ZaRn6rzpQcRZNJ5K
-toTokenAccount.address     => 7txFE1FvcrfNzoMcjZeA5uxFc95iwQ7nvBNZSNqeo3Zk
-mint address               => 5482WN9J8je5qvDg8SRkeST8uAAuR4qXPC76HkqQTkvd
-mint tx                    => 3twy8ntB5fPH6Tqw8NiXRJDybSKx28ZcV2zoGhN6QEjcu88fnLbSJ4vgYZUvrLmzcBdBnsw8HoJHQrLCkBMzjj7f
-transfer tx                => 3CQ1mvJDgNWAYefcqJfmm2Gj1CRow27qKDDzidTcGe3WhWNSBWv5FAcjz6G5SpSvYwSeSxVZf2XKNAUY2Ygo7jMd
-randomWallet.publicKey     => 2QB6vsBPtPBw4ukeHgjBhBZbRRr97sosaronGUb2uJ6Y
-mint_rand_auth_tx          => 44UgTv2AiPVBkong3tmLnJhY8JE9BoD2bVwpAzqHpWD6WbU2aREYkcNjEVAo5zzKS8NoNGRt6cUUZbhcR28k26Sj
-token_acc_rand_auth_tx     => 3MZ2h9vceZ4V1qe1RA812uKNRfQQaBxrHa2HyJG3RE6HvN1phmp8pJ15Nh9GdCkteg9naT4i9bFTcgocw1sNAuWj
+fromWallet.publicKey       => GQ2QcR28FDZBhET8q9SWfUpcmWATSULKM8s4WjUUptYX
+toWallet.publicKey         => 5naKLmvpULi47LnabrQAy6VmjWgtSqtetiyEA6TaBP7F
+fromTokenAccount.address   => 2vZomP2EnGHrpcvkH7J4jEFBQamySnmhaRQ4sR6vagTq
+toTokenAccount.address     => Dkm58gSdx7DKwXhp6awKMAgMfjeAdYXTS5XzC1UQ27iE
+mint address               => 2uxnmbLxWMLSyLwy3W3UxoPWiL4niaZNP649HG5D9crU
+signatureMint              => 2FACkeVohThVWZjeJEDF38Wm3SLxpCBXvtdkfu1WDV2kMxxnGHobUmVp1QQp3WCLkTEXsUtYaKES4kniwa2mRK5
+signatureTransfer          => 58sfSATFFMjWfyQGncCKS4KJuoLkyKAzacTm1fq7ow9NxuMnBWmsBrnawy1fCp88pYDwCVyP5Rf9VrxfikKKCwce
+randomWallet.publicKey     => DbzhhZxodiorBdqTgUDammynuxFNdYpWGW7BUFyG5ZiA
+mintRandAuthSignature      => 4DKFEPNdnqNcR2ZFWhdjXSvwxAggnhe1jm4GfcgCAoN1HXLAyQBQFMx9SCt7uGSUsCE9VBKwMsawWmyjjiwW33tQ
+tokenAccRandAuthSignature  => 4WvhfHeAmheBoBbbo31MZpB61MaRrYFribKYuVXZDdEQr3CvH8Xi1oDEd69kbXMvyFVVknTW8ThBLSoRFRKHrcvs
 */
