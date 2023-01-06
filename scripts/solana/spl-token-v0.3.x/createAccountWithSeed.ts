@@ -50,6 +50,9 @@ export const main = async () => {
   let programId = SystemProgram.programId;
 
   let derived = await PublicKey.createWithSeed(basePubkey, seed, programId);
+  const space = 0;
+  // Seed the created account with lamports for rent exemption
+  const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(space);
 
   const tx = new Transaction().add(
     // Ref: https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#createAccountWithSeed
@@ -58,8 +61,8 @@ export const main = async () => {
       newAccountPubkey: derived,
       basePubkey: basePubkey,
       seed: seed,
-      lamports: LAMPORTS_PER_SOL * 0.01, // 0.01 SOL
-      space: 0,
+      lamports: rentExemptionAmount,
+      space: space,
       programId: programId,
     })
   );
@@ -71,8 +74,9 @@ export const main = async () => {
   );
 
   console.log('fromPubkey: feePayer.publicKey =>', feePayer.publicKey.toString());
-  console.log('newAccountPubkey: derived =>', derived.toString());    
+  console.log('newAccountPubkey: derived =>', derived.toString());
   console.log('basePubkey: basePubkey =>', base.publicKey.toString());
+  console.log('rentExemptionAmount =>', rentExemptionAmount / LAMPORTS_PER_SOL, 'SOL');
   console.log('seed: seed =>', seed);
   console.log('signature =>', signature);
 };
@@ -82,8 +86,9 @@ main();
 /*
 % ts-node <THIS FILE>
 fromPubkey: feePayer.publicKey => 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
-newAccountPubkey: derived => ApFZ4YJmDmazTAA14JJVWEB8bqDsoGtePXgFRuYVmU4R
-basePubkey: basePubkey => 7TPQvePxVZEKXYXqDqDncXbKMzQfWZhRuX44V1be2UG1
+newAccountPubkey: derived => EUr8gLoMuPJu3uYALQueBHzgstH4A1dAycp2Zti1ETRX
+basePubkey: basePubkey => 9iWXqTeze3bTF4Aj4StWVA8od9KNi9aJu4jryfsXmAn
+rentExemptionAmount => 0.00089088 SOL
 seed: seed => robot001
-signature => 3TSxGn6dS7Mc19CDB76wo6nY4k4T4dBm7ULcLVyH5JERE1EcNjuwt6xKMMVgxBbyCTh7WY37XY9MxAAiv1cSVzb4
+signature => 2pvSZWoXiNUGUuUXCM9w1ei65XhF8dS7beyUERDADgRBv15DACyJsCpKrajsPPBf7wF7DKmqTtEncrSCP9cJpX3T
 */
