@@ -24,9 +24,9 @@ export const main = async () => {
   //  Verify Signature
   // -----------------------------------------------
   const result = nacl.sign.detached.verify(
-    messageBytes,
-    signature,
-    keypair.publicKey.toBytes()
+    messageBytes, // Message
+    signature, // Signature
+    keypair.publicKey.toBytes() // PublicKey
   );
 
   console.log('verified =>', result);
