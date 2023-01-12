@@ -3,7 +3,8 @@
     "@solana/spl-token": "^0.3.5",
     "@solana/web3.js": "^1.63.1",
     "sleep": "^6.3.0",
-    "tweetnacl": "^1.0.3"
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1"
   },
   "devDependencies": {
     "@types/bs58": "^4.0.1",
