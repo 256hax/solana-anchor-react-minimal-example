@@ -27,13 +27,13 @@ export const main = async () => {
   // -----------------------------------------------
   //  Verify Signature
   // -----------------------------------------------
-  const result = nacl.sign.detached.verify(
+  const verified = nacl.sign.detached.verify(
     messageBytes, // Message
     signature, // Signature
     keypair.publicKey.toBytes() // PublicKey
   );
 
-  console.log('verified =>', result);
+  console.log('verified =>', verified);
 };
 
 main();
