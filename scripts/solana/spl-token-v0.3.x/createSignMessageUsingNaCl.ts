@@ -4,6 +4,10 @@ import nacl from "tweetnacl";
 import { decodeUTF8 } from "tweetnacl-util";
 
 export const main = async () => {
+  // [Hint]
+  // Use signMessage method by Phantom when you implement to frontend.
+  // https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/react/phantom/ts/src/App.tsx#L26
+
   // -----------------------------------------------
   //  Sign Message
   // -----------------------------------------------
