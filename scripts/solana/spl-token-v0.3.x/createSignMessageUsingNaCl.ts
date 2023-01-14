@@ -1,6 +1,6 @@
 // Ref: https://solanacookbook.com/references/keypairs-and-wallets.html#how-to-sign-and-verify-messages-with-wallets
 import { Keypair } from '@solana/web3.js';
-import base58 from 'bs58';
+import bs58 from 'bs58';
 import nacl from 'tweetnacl';
 import { decodeUTF8, encodeUTF8 } from 'tweetnacl-util';
 import { v4 as uuidv4 } from 'uuid';
@@ -33,7 +33,7 @@ export const main = async () => {
   const messageBytes = decodeUTF8(messageString);
   const signedMessageSignature = nacl.sign.detached(messageBytes, keypair.secretKey);
   
-  const postSignature = base58.encode(signedMessageSignature);
+  const postSignature = bs58.encode(signedMessageSignature);
 
   // -----------------------------------------------
   //  Verify Signature
@@ -41,7 +41,7 @@ export const main = async () => {
   // Normally, verify signature in backend server.
   const verified = nacl.sign.detached.verify(
     messageBytes, // Message
-    base58.decode(postSignature), // Signature
+    bs58.decode(postSignature), // Signature
     keypair.publicKey.toBytes() // PublicKey
   );
 

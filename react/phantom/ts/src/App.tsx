@@ -3,7 +3,7 @@ import React from 'react';
 import { PublicKey } from '@solana/web3.js';
 import { v4 as uuidv4 } from 'uuid';
 import nacl from 'tweetnacl';
-import base58 from 'bs58';
+import bs58 from 'bs58';
 
 // For "Property 'solana' does not exist on type 'Window & typeof globalThis'" error.
 interface Window {
@@ -41,7 +41,7 @@ function App() {
     const signedMessage = await provider.signMessage(encodedMessage, "utf8");
 
     // Post signature to backend
-    const postSignature = base58.encode(signedMessage.signature);
+    const postSignature = bs58.encode(signedMessage.signature);
 
     // -------------------------------------
     //  Verify Sign Message to Backend
@@ -49,7 +49,7 @@ function App() {
     //  Do not verify in frontend
     const verified = nacl.sign.detached.verify(
       new TextEncoder().encode(message), // Message
-      base58.decode(postSignature), // Signature
+      bs58.decode(postSignature), // Signature
       signedMessage.publicKey.toBuffer() // PublicKey
     );
 
