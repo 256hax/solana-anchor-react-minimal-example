@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 export const main = async () => {
   // [Hint]
   // Use signMessage method by Phantom when you implement to frontend.
-  // https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/react/phantom/ts/src/App.tsx#L26
+  // Look at following signMessage function:
+  // https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/react/phantom/ts/src/App.tsx
 
   const keypair = Keypair.fromSecretKey(
     Uint8Array.from([
