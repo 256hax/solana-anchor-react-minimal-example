@@ -45,19 +45,34 @@ async function main (message: string) {
         programId: new PublicKey("MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"),
       })
     )
+  // ---------------------------------------------------
   // 4. Send Transaction
-  let signature = await sendAndConfirmTransaction(connection, tx, [payer]);
-  // 5. Log Tx URL
+  // ---------------------------------------------------
+  const signature = await sendAndConfirmTransaction(connection, tx, [payer]);
+
+  // ---------------------------------------------------
+  // 5. Get Memo
+  // ---------------------------------------------------
+  // Use getSignaturesForAddress
+  const getSignaturesByAddress = await connection.getSignaturesForAddress(payer.publicKey);
+  const memoByAddress = getSignaturesByAddress[0].memo; // [0] means get latest transaction signature
+
+  // Use getConfirmedSignaturesForAddress2
+  const getConfirmedSignaturesByAddress = await connection.getConfirmedSignaturesForAddress2(payer.publicKey);
+  const memoByConfirmedAddress = getConfirmedSignaturesByAddress[0].memo; // [0] means get latest transaction signature
+
+
   console.log('signature =>', signature);
-  console.log('Check signature at Memo Program section in Solana Explorer.');
-  
-  return signature;
+  console.log('memoByAddress =>', memoByAddress);
+  console.log('memoByConfirmedAddress =>', memoByConfirmedAddress);
 }
 
-main('This is Memo Message'); // Replace you Memo
+const memo = 'This is Memo Message';
+main(memo);
 
 /*
 % ts-node <THIS FILE>
-signature => 4ysV5Hxn7S1Q2aZiRT2DvgtRMqgZJa9ARFodbJFiznyjJKpeSBCTYdZfBkzEJC7ZzMwbhA9bbt1DfuNi86ZzYkuK
-Check signature at Memo Program section in Solana Explorer.
+signature => 39dkg6pFdpbnt7SSm5o4bmwcrTwh5e6rjywSP9kCXRFnuR8oiYRq9jKvjH87SD4KfwJ43yHCvy7oue2EfWk9yCPg
+memoByAddress => [20] This is Memo Message
+memoByConfirmedAddress => [20] This is Memo Message
 */
