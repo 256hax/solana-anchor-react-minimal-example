@@ -1,7 +1,7 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
 import * as web3 from '@solana/web3.js';
 import nacl from 'tweetnacl';
-import sleep from 'sleep';
+// import sleep from 'sleep';
 
 export const main = async() => {
   let payerA = web3.Keypair.generate();
@@ -10,14 +10,15 @@ export const main = async() => {
   console.log('payerB Public Key -> ', payerB.publicKey.toString());
 
 
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+  const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
-
-  // --- Airdrop ---
+  // --------------------------------
+  //  Airdrop
+  // --------------------------------
   // Airdrop for PayerA
   console.log("Airdopping to PayerA");
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
       payerA.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
@@ -31,12 +32,12 @@ export const main = async() => {
   });
 
   // For "Too Many Requests" error for Devnet
-  console.log("sleep 10 sec...");
-  sleep.sleep(10);
+  // console.log("sleep 10 sec...");
+  // sleep.sleep(10);
 
   // Airdrop for PayerB
   console.log("Airdopping to PayerB");
-  let airdropSignaturePayerB = await connection.requestAirdrop(
+  const airdropSignaturePayerB = await connection.requestAirdrop(
       payerB.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
@@ -50,11 +51,13 @@ export const main = async() => {
   });
 
   // For "Too Many Requests" error for Devnet
-  console.log("sleep 10 sec...");
-  sleep.sleep(10);
+  // console.log("sleep 10 sec...");
+  // sleep.sleep(10);
 
 
-  // --- Transaction ---
+  // --------------------------------
+  //  Transaction
+  // --------------------------------
   let transaction = new web3.Transaction();
 
   // Transaction PayerA
@@ -87,13 +90,11 @@ main();
 
 /*
 % ts-node <THIS JS FILE>
-payerA Public Key ->  ZeKo8prhWKSSmvPrsv3js7TXyxQfiyiYMcWs1NBG4Vm
-payerB Public Key ->  3fE3MAUwG45rYDH2RU8wsZDfterGjBxxffsLf24Ujiq8
+payerA Public Key ->  6uR86qhU1nkJigvaNkCfTX6Jqkjh9mqakUihXdj8aDy2
+payerB Public Key ->  BoyeuLu4J6JahFST3GBL1mhvhiw4RMLo6bj2LVetW8yy
 Airdopping to PayerA
-sleep 10 sec...
 Airdopping to PayerB
-sleep 10 sec...
-Signature ->  FkF8LbjYGE4SprCZJSrrxboePnQ5GjTyQpURmo6SLXLtsbd5rS1ZsinUeMxuf8gM4L3Cby73wL5Lo6XEZ7Sqk8W
+Signature ->  31JTTqjPTuUM9PLGHjPoiWu2by5TsXhkHQef3X723pNuoitas1PWYcJWbu1cSmFcqA7kjaFrKdqgUsHGpCkrMzCv
 */
 
 /*
