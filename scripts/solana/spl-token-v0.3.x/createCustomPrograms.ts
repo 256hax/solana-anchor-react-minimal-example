@@ -1,18 +1,33 @@
 // Source: https://docs.solana.com/developing/clients/javascript-api#interacting-with-custom-programs
-import {struct,u32, ns64} from "@solana/buffer-layout";
-import {Buffer} from 'buffer';
-import * as web3 from "@solana/web3.js";
+import { struct, u32, ns64 } from "@solana/buffer-layout";
+import { Buffer } from 'buffer';
+import {
+  Connection,
+  Keypair,
+  LAMPORTS_PER_SOL,
+  SystemProgram,
+  TransactionBlockhashCtor,
+  Transaction,
+  TransactionInstruction,
+  sendAndConfirmTransaction,
+} from "@solana/web3.js";
 
-export const main = async() => {
-  let keypair = web3.Keypair.generate();
-  let payer = web3.Keypair.generate();
+export const main = async () => {
+  // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  // ------------------------------------------
+  //  Wallet
+  // ------------------------------------------
+  let keypair = Keypair.generate();
+  let payer = Keypair.generate();
 
+  // ------------------------------------------
+  //  Airdrop
+  // ------------------------------------------
   let airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
-    web3.LAMPORTS_PER_SOL,
+    LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();
@@ -23,14 +38,17 @@ export const main = async() => {
     signature: airdropSignature,
   });
 
-  const options: web3.TransactionBlockhashCtor = {
+  // ------------------------------------------
+  //  Transaction
+  // ------------------------------------------
+  const options: TransactionBlockhashCtor = {
     feePayer: payer.publicKey,
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
   };
 
-  let allocateTransaction = new web3.Transaction(options);
-  let keys = [{pubkey: keypair.publicKey, isSigner: true, isWritable: true}];
+  let allocateTransaction = new Transaction(options);
+  let keys = [{ pubkey: keypair.publicKey, isSigner: true, isWritable: true }];
   let params = { space: 100 };
 
   let allocateStruct = {
@@ -42,16 +60,16 @@ export const main = async() => {
   };
 
   let data = Buffer.alloc(allocateStruct.layout.span);
-  let layoutFields = Object.assign({instruction: allocateStruct.index}, params);
+  let layoutFields = Object.assign({ instruction: allocateStruct.index }, params);
   allocateStruct.layout.encode(layoutFields, data);
 
-  allocateTransaction.add(new web3.TransactionInstruction({
+  allocateTransaction.add(new TransactionInstruction({
     keys,
-    programId: web3.SystemProgram.programId,
+    programId: SystemProgram.programId,
     data,
   }));
 
-  let signature = await web3.sendAndConfirmTransaction(connection, allocateTransaction, [payer, keypair]);
+  let signature = await sendAndConfirmTransaction(connection, allocateTransaction, [payer, keypair]);
 
   console.log('From => ', keypair.publicKey.toString());
   console.log('To => ', payer.publicKey.toString());
