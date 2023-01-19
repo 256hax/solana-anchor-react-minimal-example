@@ -14,13 +14,13 @@ import {
 
 export const main = async () => {
   // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // ------------------------------------------
   //  Wallet
   // ------------------------------------------
-  let keypair = Keypair.generate();
-  let payer = Keypair.generate();
+  const keypair = Keypair.generate();
+  const payer = Keypair.generate();
 
   // ------------------------------------------
   //  Airdrop
@@ -30,7 +30,7 @@ export const main = async () => {
     LAMPORTS_PER_SOL,
   );
 
-  const latestBlockhash = await connection.getLatestBlockhash();
+  let latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
@@ -49,7 +49,7 @@ export const main = async () => {
 
   let allocateTransaction = new Transaction(options);
   let keys = [{ pubkey: keypair.publicKey, isSigner: true, isWritable: true }];
-  let params = { space: 100 };
+  const params = { space: 100 };
 
   let allocateStruct = {
     index: 8,
@@ -59,8 +59,8 @@ export const main = async () => {
     ] as any)
   };
 
-  let data = Buffer.alloc(allocateStruct.layout.span);
-  let layoutFields = Object.assign({ instruction: allocateStruct.index }, params);
+  const data = Buffer.alloc(allocateStruct.layout.span);
+  const layoutFields = Object.assign({ instruction: allocateStruct.index }, params);
   allocateStruct.layout.encode(layoutFields, data);
 
   allocateTransaction.add(new TransactionInstruction({
@@ -69,7 +69,7 @@ export const main = async () => {
     data,
   }));
 
-  let signature = await sendAndConfirmTransaction(connection, allocateTransaction, [payer, keypair]);
+  const signature = await sendAndConfirmTransaction(connection, allocateTransaction, [payer, keypair]);
 
   console.log('From => ', keypair.publicKey.toString());
   console.log('To => ', payer.publicKey.toString());
