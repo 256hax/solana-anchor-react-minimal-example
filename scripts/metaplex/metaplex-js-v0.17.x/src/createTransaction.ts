@@ -3,7 +3,8 @@ import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
-  toBigNumber
+  mockStorage,
+  toBigNumber,
 } from "@metaplex-foundation/js";
 import {
   Connection,

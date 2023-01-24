@@ -2,7 +2,7 @@
 import {
   Metaplex,
   keypairIdentity,
-  bundlrStorage
+  bundlrStorage,
 } from "@metaplex-foundation/js";
 import {
   Connection,
