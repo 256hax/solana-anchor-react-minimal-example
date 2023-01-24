@@ -1,11 +1,21 @@
 // Ref: https://github.com/metaplex-foundation/js#create
-import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
-import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage,
+  toBigNumber
+} from "@metaplex-foundation/js";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey,
+  LAMPORTS_PER_SOL
+} from "@solana/web3.js";
 
 const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
   const wallet = Keypair.generate();
-
 
   // --- Airdrop ---
   let airdropSignature = await connection.requestAirdrop(

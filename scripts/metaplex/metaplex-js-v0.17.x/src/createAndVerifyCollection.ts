@@ -1,7 +1,17 @@
 // Ref: https://github.com/metaplex-foundation/js#create
-import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
-import { createVerifyCollectionInstruction, SetAndVerifyCollectionStruct, setAndVerifySizedCollectionItemInstructionDiscriminator, VerifyCollectionInstructionAccounts, VerifyCollectionStruct } from "@metaplex-foundation/mpl-token-metadata";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey,
+  LAMPORTS_PER_SOL
+} from "@solana/web3.js";
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage,
+  toBigNumber
+} from "@metaplex-foundation/js";
 import * as fs from 'fs';
 import sleep from 'sleep';
 

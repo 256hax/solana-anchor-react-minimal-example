@@ -1,6 +1,15 @@
 // Ref: https://github.com/metaplex-foundation/js#findbymint
-import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/js";
-import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage
+} from "@metaplex-foundation/js";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey
+} from "@solana/web3.js";
 
 const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));

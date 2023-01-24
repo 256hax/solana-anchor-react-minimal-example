@@ -1,7 +1,16 @@
 // Ref: https://github.com/metaplex-foundation/js#findallbyowner
-import { Metaplex, keypairIdentity, bundlrStorage, toBigNumber } from "@metaplex-foundation/js";
-import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
-// import util from 'util';
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage,
+  toBigNumber
+} from "@metaplex-foundation/js";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey
+} from "@solana/web3.js";
 
 const main = async() => {
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));

@@ -1,7 +1,17 @@
 // Ref: https://github.com/metaplex-foundation/js#uploadmetadata
-import { Metaplex, keypairIdentity, bundlrStorage, toMetaplexFile } from "@metaplex-foundation/js";
-import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import * as fs from 'fs';
+import {
+  Metaplex,
+  keypairIdentity,
+  bundlrStorage,
+  toMetaplexFile
+} from "@metaplex-foundation/js";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey,
+  LAMPORTS_PER_SOL
+} from "@solana/web3.js";
 
 const main = async () => {
   const connection = new Connection(clusterApiUrl("devnet"));
