@@ -3,7 +3,8 @@ import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
-  toBigNumber
+  toBigNumber,
+  mockStorage,
 } from "@metaplex-foundation/js";
 import {
   Connection,
@@ -44,8 +45,6 @@ const main = async() => {
       providerUrl: 'https://api.devnet.solana.com',
       timeout: 60000,
     }));
-    // [Mock]
-    // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
   const { uri } = await metaplex
     .nfts()
@@ -65,13 +64,28 @@ const main = async() => {
       maxSupply: toBigNumber(1),
     });
 
-  // [Mock] Use following if active ".use(mockStorage())".
-  // const fakeNft = await metaplex.storage().download(uri);
-  // console.log('fakeNft =>', fakeNft.buffer.toString());
 
+  console.log('nft.address =>', nft.address.toString());
   console.log('uri =>', uri);
   console.log('nft =>', nft);
-  console.log('nft.address =>', nft.address.toString());
+
+  // ------------------------------------
+  //  Use Mock
+  // ------------------------------------
+  // const metaplex = Metaplex.make(connection)
+  //   .use(keypairIdentity(wallet))
+  //   .use(mockStorage());
+  // 
+  // const { uri } = await metaplex
+  //   .nfts()
+  //   .uploadMetadata({
+  //     name: "My NFT Metadata",
+  //     description: "My description",
+  //     image: "https://placekitten.com/200/300",
+  //   });
+  // 
+  // const fakeNft = await metaplex.storage().download(uri);
+  // console.log('fakeNft =>', fakeNft.buffer.toString());
 };
 
 main();
