@@ -22,7 +22,9 @@ const main = async() => {
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
 
-  // --- Airdrop ---
+  // ------------------------------------
+  //  Airdrop
+  // ------------------------------------
   // const wallet = Keypair.generate();
 
   // let airdropSignature = await connection.requestAirdrop(
@@ -40,9 +42,10 @@ const main = async() => {
 
   // const balance = await connection.getBalance(wallet.publicKey);
   // console.log(balance);
-  // --- End Airdrop ---
 
-
+  // ------------------------------------
+  //  Make Metaplex
+  // ------------------------------------
   // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
@@ -51,9 +54,10 @@ const main = async() => {
       providerUrl: 'https://api.devnet.solana.com',
       timeout: 60000,
     }));
-    // [Mock]
-    // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
+  // ------------------------------------
+  //  Mint NFT
+  // ------------------------------------
   // The mint needs to sign the transaction, so we generate a new keypair for it
   const mintKeypair = Keypair.generate();
   console.log('mintKeypair.publicKey =>', mintKeypair.publicKey.toString());
@@ -70,10 +74,6 @@ const main = async() => {
       maxSupply: toBigNumber(1),
       useNewMint: mintKeypair, // we pass our mint in as the new mint to use
     });
-
-  // [Mock] Use following if active ".use(mockStorage())".
-  // const fakeNft = await metaplex.storage().download(uri);
-  // console.log('fakeNft =>', fakeNft.buffer.toString());
 
   // Convert to transaction
   const latestBlockhash = await connection.getLatestBlockhash()

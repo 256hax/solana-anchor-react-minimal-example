@@ -23,8 +23,9 @@ const main = async () => {
   const wallet = Keypair.fromSecretKey(secretKey);
   // const wallet = Keypair.generate();
 
-
-  // --- Airdrop ---
+  // ------------------------------------
+  //  Airdrop
+  // ------------------------------------
   let airdropSignature = await connection.requestAirdrop(
     wallet.publicKey,
     LAMPORTS_PER_SOL,
@@ -40,9 +41,10 @@ const main = async () => {
 
   // const balance = await connection.getBalance(wallet.publicKey);
   // console.log(balance);
-  // --- End Airdrop ---
 
-
+  // ------------------------------------
+  //  Make Metaplex
+  // ------------------------------------
   // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
@@ -53,10 +55,9 @@ const main = async () => {
     }));
   // .use(mockStorage()); // Use this instead of bundlrStorage if you need mock(dummy url).
 
-
-  // -----------------------------------------------------------------
+  // ------------------------------------
   //  Collection NFT
-  // -----------------------------------------------------------------
+  // ------------------------------------
   const { uri: collectionUri } = await metaplex
     .nfts()
     .uploadMetadata({
@@ -85,9 +86,9 @@ const main = async () => {
   sleep.sleep(2); // for many requests. wait X sec
 
 
-  // -----------------------------------------------------------------
+  // ------------------------------------
   //  Regular(Normal) NFT
-  // -----------------------------------------------------------------
+  // ------------------------------------
   const { uri } = await metaplex
     .nfts()
     .uploadMetadata({
@@ -116,9 +117,9 @@ const main = async () => {
   sleep.sleep(2); // for many requests. wait X sec
 
 
-  // -----------------------------------------------------------------
+  // ------------------------------------
   //  Create Verify Collection Instruction
-  // -----------------------------------------------------------------
+  // ------------------------------------
   // Ref: https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html#createVerifyCollectionInstruction
   // const transaction = new Transaction();
   // transaction.add(

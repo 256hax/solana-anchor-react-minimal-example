@@ -17,8 +17,9 @@ const main = async () => {
   const connection = new Connection(clusterApiUrl("devnet"));
   const wallet = Keypair.generate();
 
-
-  // --- Airdrop ---
+  // ------------------------------------
+  //  Airdrop
+  // ------------------------------------
   let airdropSignature = await connection.requestAirdrop(
     wallet.publicKey,
     LAMPORTS_PER_SOL,
@@ -34,9 +35,10 @@ const main = async () => {
 
   // const balance = await connection.getBalance(wallet.publicKey);
   // console.log(balance);
-  // --- End Airdrop ---
 
-
+  // ------------------------------------
+  //  Make Metaplex
+  // ------------------------------------
   // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
@@ -46,6 +48,9 @@ const main = async () => {
       timeout: 60000,
     }));
 
+  // ------------------------------------
+  //  Mint NFT
+  // ------------------------------------
   // Ref: MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
   // const file = toMetaplexFile('The content of my file', 'my-file.txt');
   const file = toMetaplexFile('file-content', 'filename.jpg', {

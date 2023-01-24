@@ -17,8 +17,9 @@ const main = async() => {
   const connection = new Connection(clusterApiUrl("devnet"));
   const wallet = Keypair.generate();
 
-
-  // --- Airdrop ---
+  // ------------------------------------
+  //  Airdrop
+  // ------------------------------------
   let airdropSignature = await connection.requestAirdrop(
     wallet.publicKey,
     LAMPORTS_PER_SOL,
@@ -34,9 +35,10 @@ const main = async() => {
 
   // const balance = await connection.getBalance(wallet.publicKey);
   // console.log(balance);
-  // --- End Airdrop ---
 
-
+  // ------------------------------------
+  //  Make Metaplex
+  // ------------------------------------
   // Ref: bundlrStorage: https://github.com/metaplex-foundation/js#bundlrstorage
   const metaplex = Metaplex.make(connection)
     .use(keypairIdentity(wallet))
@@ -46,7 +48,9 @@ const main = async() => {
       timeout: 60000,
     }));
 
-  
+  // ------------------------------------
+  //  Mint NFT
+  // ------------------------------------
   // --- Create NFT ---
   const { uri } = await metaplex
     .nfts()
@@ -72,7 +76,6 @@ const main = async() => {
       maxSupply: toBigNumber(1),
     })
 
-
   // --- Update NFT ---
   await metaplex
     .nfts()
@@ -82,7 +85,6 @@ const main = async() => {
     });
 
   const updatedNft = await metaplex.nfts().refresh(nft);
-
 
   // --- Update Metadata ---
   const { uri: newUri } = await metaplex
@@ -107,7 +109,6 @@ const main = async() => {
   });
 
   const updatedMetadataNft = await metaplex.nfts().refresh(nft);
-
 
   console.log('nft =>', nft);
   console.log('nft.json?.attributes =>', nft.json?.attributes);
