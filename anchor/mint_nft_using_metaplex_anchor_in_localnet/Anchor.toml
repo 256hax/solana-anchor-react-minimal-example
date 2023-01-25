@@ -1,0 +1,25 @@
+[features]
+seeds = false
+skip-lint = false
+[programs.localnet]
+myanc = "d6Xe6XPw2LPUm8QsLQc8ekopiyt1tCEypRJTRDb1jKy"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "/Users/sxuser/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+# Clone source URL
+[test.validator]
+url = "https://api.devnet.solana.com"
+[test]
+startup_wait = 20000
+
+## Clone Metaplex program from Devnet
+[[test.validator.clone]]
+address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
