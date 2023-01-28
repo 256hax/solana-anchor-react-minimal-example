@@ -22,7 +22,7 @@ const main = async() => {
 
   // Collection NFT
   const mintA = new PublicKey('HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1');
-  // Standard NFT
+  // Normal NFT
   const mintB = new PublicKey('HUkkvZ7tPniETALWppyNXCJ5hzEguWFtji8tPGvy1WKu');
 
   const [nftA, nftB] = await metaplex

@@ -26,13 +26,13 @@ Sugar doesn't show mint address. Check mint address from Solana Explorer or Sola
 #### Metaplex JS: [@metaplex-foundation/js - findMintedNfts](https://metaplex-foundation.github.io/js/classes/js.CandyMachinesV2Client.html#findMintedNfts)
 
 ### How to Nested Collections
-1. Mint a Standard NFT(Name: NFT A).
+1. Mint a Normal NFT(Name: NFT A).
 ```
 % sugar launch
 % sugar mint
 ```
 
-2. Create another Standard NFT(Name: NFT B) then, set collection NFT B to NFT A.
+2. Create another Normal NFT(Name: NFT B) then, set collection NFT B to NFT A.
 ```
 % sugar launch
 % sugar collection set <NFT A Mint Address>
