@@ -5,19 +5,19 @@ import {
   Keypair,
   PublicKey,
   LAMPORTS_PER_SOL
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
   mockStorage,
   toBigNumber,
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import * as fs from 'fs';
 import sleep from 'sleep';
 
 const main = async () => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
 
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
@@ -73,10 +73,10 @@ const main = async () => {
     .nfts()
     .create({
       uri: collectionUri,
-      name: "Collection NFT",
+      name: 'Collection NFT',
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(0),
-      symbol: "paper",
+      symbol: 'paper',
       tokenOwner: wallet.publicKey,
       updateAuthority: wallet,
       isCollection: true,

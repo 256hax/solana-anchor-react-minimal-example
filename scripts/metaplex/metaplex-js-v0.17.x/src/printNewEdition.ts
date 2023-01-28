@@ -5,17 +5,17 @@ import {
   bundlrStorage,
   mockStorage,
   toBigNumber
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey,
   LAMPORTS_PER_SOL
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async () => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   const wallet = Keypair.generate();
 
 
@@ -51,9 +51,9 @@ const main = async () => {
   const { uri } = await metaplex
     .nfts()
     .uploadMetadata({
-      name: "My NFT Metadata",
-      description: "My description",
-      image: "https://placekitten.com/200/300",
+      name: 'My NFT Metadata',
+      description: 'My description',
+      image: 'https://placekitten.com/200/300',
     })
 
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
@@ -61,7 +61,7 @@ const main = async () => {
     .nfts()
     .create({
       uri: uri,
-      name: "My NFT",
+      name: 'My NFT',
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(2),
     })

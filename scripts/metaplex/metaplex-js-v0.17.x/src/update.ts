@@ -4,17 +4,17 @@ import {
   keypairIdentity,
   bundlrStorage,
   toBigNumber
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey,
   LAMPORTS_PER_SOL
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   const wallet = Keypair.generate();
 
   // ------------------------------------
@@ -55,13 +55,13 @@ const main = async() => {
   const { uri } = await metaplex
     .nfts()
     .uploadMetadata({
-      name: "My NFT Metadata",
-      description: "My description",
-      image: "https://placekitten.com/200/300",
+      name: 'My NFT Metadata',
+      description: 'My description',
+      image: 'https://placekitten.com/200/300',
       attributes: [
         {
-          trait_type: "Genre",
-          value: "Cat"
+          trait_type: 'Genre',
+          value: 'Cat'
         }
       ]
     });
@@ -71,7 +71,7 @@ const main = async() => {
     .nfts()
     .create({
       uri: uri,
-      name: "My NFT",
+      name: 'My NFT',
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(1),
     })
@@ -91,12 +91,12 @@ const main = async() => {
     .nfts()
     .uploadMetadata({
       ...updatedNft.json,
-      name: "My Updated Metadata Name",
-      description: "My Updated Metadata Description",
+      name: 'My Updated Metadata Name',
+      description: 'My Updated Metadata Description',
       attributes: [
         {
-          trait_type: "Genre",
-          value: "Super Cat"
+          trait_type: 'Genre',
+          value: 'Super Cat'
         }
       ]
     });

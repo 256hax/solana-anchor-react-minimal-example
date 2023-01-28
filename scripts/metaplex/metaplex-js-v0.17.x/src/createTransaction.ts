@@ -5,7 +5,7 @@ import {
   bundlrStorage,
   mockStorage,
   toBigNumber,
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
@@ -13,11 +13,11 @@ import {
   PublicKey,
   LAMPORTS_PER_SOL,
   sendAndConfirmTransaction,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 import * as fs from 'fs';
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
 
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
@@ -69,7 +69,7 @@ const main = async() => {
     .builders()
     .create({
       uri: 'https://arweave.net/W-20MpV-N1l6e_vxWxjmGfFnGkiiUDn7GJAsgYmJ6fU',
-      name: "My NFT",
+      name: 'My NFT',
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(1),
       useNewMint: mintKeypair, // we pass our mint in as the new mint to use

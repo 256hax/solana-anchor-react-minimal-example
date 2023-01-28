@@ -3,16 +3,16 @@ import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();
 
@@ -21,9 +21,9 @@ const main = async() => {
     .use(bundlrStorage());
 
   // Collection NFT
-  const mintA = new PublicKey("HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1");
+  const mintA = new PublicKey('HPVTZ4XhFtcFaTRvN4EY9W4NVnfGcC3rsUxYyqFwv7x1');
   // Standard NFT
-  const mintB = new PublicKey("HUkkvZ7tPniETALWppyNXCJ5hzEguWFtji8tPGvy1WKu");
+  const mintB = new PublicKey('HUkkvZ7tPniETALWppyNXCJ5hzEguWFtji8tPGvy1WKu');
 
   const [nftA, nftB] = await metaplex
     .nfts()

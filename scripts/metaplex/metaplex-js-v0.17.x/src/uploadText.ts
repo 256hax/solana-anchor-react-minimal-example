@@ -4,17 +4,17 @@ import {
   keypairIdentity,
   bundlrStorage,
   toMetaplexFile
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey,
   LAMPORTS_PER_SOL
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async () => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   const wallet = Keypair.generate();
 
   // ------------------------------------
@@ -60,8 +60,8 @@ const main = async () => {
   const { uri, metadata } = await metaplex
     .nfts()
     .uploadMetadata({
-      name: "My NFT Metadata",
-      description: "My description",
+      name: 'My NFT Metadata',
+      description: 'My description',
       image: await file,
     });
 

@@ -4,17 +4,17 @@ import {
   keypairIdentity,
   bundlrStorage,
   toBigNumber
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async() => {
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
@@ -22,7 +22,7 @@ const main = async() => {
     .use(bundlrStorage());
 
   // const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd"); // mainnet
-  const owenerPublicKey = new PublicKey("HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg"); // devnet
+  const owenerPublicKey = new PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg'); // devnet
   const myNfts = await metaplex
     .nfts()
     .findAllByOwner({ owner: owenerPublicKey });

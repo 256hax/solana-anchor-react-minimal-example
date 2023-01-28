@@ -3,16 +3,16 @@ import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
-} from "@metaplex-foundation/js";
+} from '@metaplex-foundation/js';
 import {
   Connection,
   clusterApiUrl,
   Keypair,
   PublicKey
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 const main = async() => {
-  const connection = new Connection(clusterApiUrl("devnet"));
+  const connection = new Connection(clusterApiUrl('devnet'));
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();
 
@@ -20,7 +20,7 @@ const main = async() => {
     .use(keypairIdentity(wallet))
     .use(bundlrStorage());
 
-  const candyMachine = new PublicKey("CQ37suWDLv4YBRSYHsrxAMUqNg62KwCexvuv5r9vNxRk");
+  const candyMachine = new PublicKey('CQ37suWDLv4YBRSYHsrxAMUqNg62KwCexvuv5r9vNxRk');
 
   const nfts = await metaplex
     .candyMachinesV2()
