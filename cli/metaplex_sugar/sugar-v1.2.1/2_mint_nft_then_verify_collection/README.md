@@ -11,17 +11,17 @@ Create an nft then verify collection.
 % sugar launch
 ? Do you want to continue without automatically setting the candy machine collection? (y/n) › y
 
-% sugar collection set <COLLECTION_MINT>
+% sugar collection set <COLLECTION_MINT_ADDRESS>
 % sugar mint
 ```
 
 ### Verify(Sign) NFT for Creator
 Collection NFT has verified by Sugar but Edition NFT hasn't verified yet.
 
-Metaboss verify(Sign) command: ```metaboss sign one --keypair <PATH_TO_KEYPAIR> --account <MINT_ACCOUNT>```
+Metaboss verify(Sign) command: ```metaboss sign one --keypair <PATH_TO_KEYPAIR> --account <MINT_ADDRESS>```
 
 ```
-% metaboss sign one --keypair ~/.config/solana/id.json --account 5pZHC5sUKj5w5d36ahNnqnsnNVSRK1eejvgMmPAaenJE
+% metaboss sign one --keypair ~/.config/solana/id.json --account <MINT_ADDRESS>
 ```
 
 ## Another way
