@@ -87,13 +87,13 @@ const main = async () => {
 
 
   // ------------------------------------
-  //  Regular(Normal) NFT
+  //  Normal NFT
   // ------------------------------------
   const { uri } = await metaplex
     .nfts()
     .uploadMetadata({
-      name: "Regular NFT Metadata",
-      description: "Regular description",
+      name: "Normarl NFT Metadata",
+      description: "Normal description",
       image: "https://placekitten.com/200/300",
       symbol: "paper",
     });
@@ -103,7 +103,7 @@ const main = async () => {
     .nfts()
     .create({
       uri: uri,
-      name: "Regular NFT",
+      name: "Normarl NFT",
       symbol: "paper",
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       // maxSupply: toBigNumber(1),
@@ -154,7 +154,7 @@ const main = async () => {
   console.log('metadataAddress =>', collectionNft.metadataAddress.toString());
   console.log('edition.address =>', collectionNft.edition.address.toString());
 
-  console.log('\n--- Regular(Normal) NFT ---------------------------------------------------');
+  console.log('\n--- Normal NFT ---------------------------------------------------');
   console.log('uri =>', uri);
   console.log('nft =>', nft);
   console.log('mintAddress =>', nft.address.toString());
@@ -249,7 +249,7 @@ mintAddress => 62wQFymZsn1s5hZrgZX8rGBWmWUibTNAqMu9X7HGo7iW
 metadataAddress => HW71th2Vp849MexBqFJe1WobwgeShmn2WGQd1A2uJSCM
 edition.address => FbCdFTERmPbqx673c9s1KcfaH1X31XxoYVjtgvMmmoAr
 
---- Regular(Normal) NFT ---------------------------------------------------
+--- Normal NFT ---------------------------------------------------
 uri => https://arweave.net/7keuJVrwU_pqBrfmmlA_R2RabdKCzcWzcMaeuRRItrE
 nft => {
   model: 'nft',
@@ -257,13 +257,13 @@ nft => {
     _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
   },
   json: {
-    name: 'Regular NFT Metadata',
-    description: 'Regular description',
+    name: 'Normarl NFT Metadata',
+    description: 'Normal description',
     image: 'https://placekitten.com/200/300',
     symbol: 'paper'
   },
   jsonLoaded: true,
-  name: 'Regular NFT',
+  name: 'Normarl NFT',
   symbol: 'paper',
   uri: 'https://arweave.net/7keuJVrwU_pqBrfmmlA_R2RabdKCzcWzcMaeuRRItrE',
   isMutable: true,

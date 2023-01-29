@@ -285,7 +285,7 @@ Note:
     },
     json: null,
     jsonLoaded: false,
-    name: 'Regular NFT',
+    name: 'Normarl NFT',
     symbol: 'paper',
     uri: 'https://arweave.net/cVX2NRJkUG5CozVP3o54cLcwS86tte8ICFAmPMt0YrY',
     isMutable: true,
