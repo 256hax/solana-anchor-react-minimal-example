@@ -11,7 +11,7 @@ import {
   PublicKey
 } from '@solana/web3.js';
 
-const main = async() => {
+const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();
@@ -25,13 +25,13 @@ const main = async() => {
   const nfts = await metaplex
     .candyMachinesV2()
     .findMintedNfts({ candyMachine });
- 
+
   // const mintAddress = nfts.map(nft =>
   //   nft.name + ': ' + nft.address.toString()
   // );
 
   const mintAddress = nfts.map(nft => {
-    if(nft.model == 'metadata') {
+    if (nft.model == 'metadata') {
       return nft.name + ': ' + nft.mintAddress.toString();
     }
   });

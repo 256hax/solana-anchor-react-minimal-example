@@ -11,7 +11,7 @@ import {
   PublicKey
 } from '@solana/web3.js';
 
-const main = async() => {
+const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const wallet = Keypair.generate();

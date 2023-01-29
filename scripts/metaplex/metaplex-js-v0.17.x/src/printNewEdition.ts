@@ -64,7 +64,7 @@ const main = async () => {
       name: 'My NFT',
       sellerFeeBasisPoints: 500, // Represents 5.00%.
       maxSupply: toBigNumber(2),
-    })
+    });
 
   // Ref:
   //  printNewEdition: https://github.com/metaplex-foundation/js#printnewedition

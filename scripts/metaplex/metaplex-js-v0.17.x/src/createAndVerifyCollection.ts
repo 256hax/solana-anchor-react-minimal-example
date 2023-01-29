@@ -64,7 +64,7 @@ const main = async () => {
       name: "Collection NFT Metadata",
       description: "Collection description",
       image: "https://placekitten.com/200/300",
-   })
+    });
 
   // Ref:
   //   The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
@@ -96,7 +96,7 @@ const main = async () => {
       description: "Regular description",
       image: "https://placekitten.com/200/300",
       symbol: "paper",
-   });
+    });
 
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
@@ -146,7 +146,7 @@ const main = async () => {
 
   console.log('\n--- Common ---------------------------------------------------');
   console.log('wallet.publicKey =>', wallet.publicKey.toString());
-  
+
   console.log('\n--- Collection NFT ---------------------------------------------------');
   console.log('uri =>', collectionUri);
   console.log('nft =>', collectionNft);

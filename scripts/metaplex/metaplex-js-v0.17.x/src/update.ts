@@ -13,7 +13,7 @@ import {
   LAMPORTS_PER_SOL
 } from '@solana/web3.js';
 
-const main = async() => {
+const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
   const wallet = Keypair.generate();
 
@@ -79,7 +79,7 @@ const main = async() => {
   // --- Update NFT ---
   await metaplex
     .nfts()
-    .update({ 
+    .update({
       nftOrSft: nft,
       name: "My Updated Name"
     });
@@ -100,13 +100,13 @@ const main = async() => {
         }
       ]
     });
-  
+
   await metaplex
-  .nfts()
-  .update({ 
-    nftOrSft: nft,
-    uri: newUri
-  });
+    .nfts()
+    .update({
+      nftOrSft: nft,
+      uri: newUri
+    });
 
   const updatedMetadataNft = await metaplex.nfts().refresh(nft);
 

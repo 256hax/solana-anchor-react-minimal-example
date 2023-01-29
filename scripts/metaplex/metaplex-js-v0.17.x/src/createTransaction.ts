@@ -16,7 +16,7 @@ import {
 } from '@solana/web3.js';
 import * as fs from 'fs';
 
-const main = async() => {
+const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
 
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
