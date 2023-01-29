@@ -58,6 +58,12 @@ const main = async () => {
       name: 'My NFT Metadata',
       description: 'My description',
       image: 'https://placekitten.com/200/300',
+      attributes: [
+        {
+          trait_type: 'Genre',
+          value: 'Cat'
+        }
+      ]
     });
 
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
@@ -97,47 +103,49 @@ main();
 
 /*
 % ts-node <THIS FILE>
-uri => https://arweave.net/flsMEEsaVxZJefZRWUQlK7AqciUmveT6T4LgK-WP3-0
+nft.address => 2kgzy1p7eRRDynwsJoT2b31AhKmUSyC6Q5DB4JbHkWZS
+uri => https://arweave.net/M_OepASbf0aG4Z2ez4qH2ImeGiGZpNw5_8OyAw8tfyA
 nft => {
   model: 'nft',
   updateAuthorityAddress: PublicKey {
-    _bn: <BN: c87d1d5d37acd7e2ff64508faba4624763cd375ad296e725c72663a3bf3fa17f>
+    _bn: <BN: 59175ac24de79c6ba456b892a7edc10f5d8d0c2d64a7a921e507ec822ec391d5>
   },
   json: {
     name: 'My NFT Metadata',
     description: 'My description',
-    image: 'https://placekitten.com/200/300'
+    image: 'https://placekitten.com/200/300',
+    attributes: [ [Object] ]
   },
   jsonLoaded: true,
   name: 'My NFT',
   symbol: '',
-  uri: 'https://arweave.net/flsMEEsaVxZJefZRWUQlK7AqciUmveT6T4LgK-WP3-0',
+  uri: 'https://arweave.net/M_OepASbf0aG4Z2ez4qH2ImeGiGZpNw5_8OyAw8tfyA',
   isMutable: true,
   primarySaleHappened: false,
   sellerFeeBasisPoints: 500,
-  editionNonce: 254,
+  editionNonce: 255,
   creators: [ { address: [PublicKey], verified: true, share: 100 } ],
   tokenStandard: 0,
   collection: null,
   collectionDetails: null,
   uses: null,
   address: PublicKey {
-    _bn: <BN: 3aa614d1bbc5cf204aa006a01e4bfed943701dcffe9fae11f59bad6a272fd30a>
+    _bn: <BN: 1a0ce3a22b084f10cc593000ef97cd606c7fa4b01f3d0c715b2bb12403b7dd25>
   },
   metadataAddress: Pda {
-    _bn: <BN: a1980239af35f379d1c3c328c0db9350bdbb57b10522a6b059fe6ea210a1a7bb>,
-    bump: 252
+    _bn: <BN: b0094a7cdafbbb8f741cd5bb6c6e08f97e6d663611d28b1d1ffa033c77d51e3b>,
+    bump: 253
   },
   mint: {
     model: 'mint',
     address: PublicKey {
-      _bn: <BN: 3aa614d1bbc5cf204aa006a01e4bfed943701dcffe9fae11f59bad6a272fd30a>
+      _bn: <BN: 1a0ce3a22b084f10cc593000ef97cd606c7fa4b01f3d0c715b2bb12403b7dd25>
     },
     mintAuthorityAddress: PublicKey {
-      _bn: <BN: 730d6fbd3b27bf64e45320b3edafb40eb1aa235000880cc13ebb7447346b1981>
+      _bn: <BN: e3888afb8774aaf9a13e5f3831b14426bf383fe6c4b47d2dad67b8c937c6a219>
     },
     freezeAuthorityAddress: PublicKey {
-      _bn: <BN: 730d6fbd3b27bf64e45320b3edafb40eb1aa235000880cc13ebb7447346b1981>
+      _bn: <BN: e3888afb8774aaf9a13e5f3831b14426bf383fe6c4b47d2dad67b8c937c6a219>
     },
     decimals: 0,
     supply: { basisPoints: <BN: 1>, currency: [Object] },
@@ -147,15 +155,15 @@ nft => {
   token: {
     model: 'token',
     address: Pda {
-      _bn: <BN: b8dc7121f27a625ce7254402863655363192df00aa345f24afc407cf1be6200d>,
+      _bn: <BN: d9063b0c17b169982542c105a07f3e6f45c1fa9e953930f1cfc699b08c621594>,
       bump: 254
     },
     isAssociatedToken: true,
     mintAddress: PublicKey {
-      _bn: <BN: 3aa614d1bbc5cf204aa006a01e4bfed943701dcffe9fae11f59bad6a272fd30a>
+      _bn: <BN: 1a0ce3a22b084f10cc593000ef97cd606c7fa4b01f3d0c715b2bb12403b7dd25>
     },
     ownerAddress: PublicKey {
-      _bn: <BN: c87d1d5d37acd7e2ff64508faba4624763cd375ad296e725c72663a3bf3fa17f>
+      _bn: <BN: 59175ac24de79c6ba456b892a7edc10f5d8d0c2d64a7a921e507ec822ec391d5>
     },
     amount: { basisPoints: <BN: 1>, currency: [Object] },
     closeAuthorityAddress: null,
@@ -167,12 +175,11 @@ nft => {
     model: 'nftEdition',
     isOriginal: true,
     address: Pda {
-      _bn: <BN: 730d6fbd3b27bf64e45320b3edafb40eb1aa235000880cc13ebb7447346b1981>,
-      bump: 254
+      _bn: <BN: e3888afb8774aaf9a13e5f3831b14426bf383fe6c4b47d2dad67b8c937c6a219>,
+      bump: 255
     },
     supply: <BN: 0>,
     maxSupply: <BN: 1>
   }
 }
-nft.address => 4wwXihNUDQYjfgpo3vwPaBP94tg8vCxe1Q759QtmLLqf
 */
