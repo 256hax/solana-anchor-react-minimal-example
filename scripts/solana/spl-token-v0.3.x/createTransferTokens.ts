@@ -1,28 +1,50 @@
 // Source: https://github.com/solana-labs/solana-program-library/blob/895747f29fd38fc61961ffc1bc5c73dab57bba1a/token/js/examples/create_mint_and_transfer_tokens.ts
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, setAuthority, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import {
+    clusterApiUrl,
+    Connection,
+    Keypair,
+    LAMPORTS_PER_SOL
+} from '@solana/web3.js';
+import {
+    createMint,
+    getOrCreateAssociatedTokenAccount,
+    mintTo,
+    transfer,
+    setAuthority,
+    TOKEN_PROGRAM_ID
+} from '@solana/spl-token';
 
-export const main = async() => {
+export const main = async () => {
     // Connect to cluster
     let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
     // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
+    // ---------------------------------------------------
+    //  Wallet
+    // ---------------------------------------------------
     // Generate a new wallet keypair and airdrop SOL
     const fromWallet = Keypair.generate();
+
+    // Generate a new wallet to receive newly minted token
+    const toWallet = Keypair.generate();
+
+    // ---------------------------------------------------
+    //  Airdrop
+    // ---------------------------------------------------
     const fromAirdropSignature = await connection.requestAirdrop(fromWallet.publicKey, LAMPORTS_PER_SOL);
 
     let latestBlockhash = await connection.getLatestBlockhash();
 
     // Wait for airdrop confirmation
     await connection.confirmTransaction({
-      blockhash: latestBlockhash.blockhash,
-      lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-      signature: fromAirdropSignature,
+        blockhash: latestBlockhash.blockhash,
+        lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        signature: fromAirdropSignature,
     });
 
-    // Generate a new wallet to receive newly minted token
-    const toWallet = Keypair.generate();
-
+    // ---------------------------------------------------
+    //  Create Token
+    // ---------------------------------------------------
     // Create new token mint
     const mint = await createMint(
         connection, // connection
@@ -32,6 +54,9 @@ export const main = async() => {
         9 // decimals
     );
 
+    // ---------------------------------------------------
+    //  Get ATA for Transfer
+    // ---------------------------------------------------
     // Get the token account of the fromWallet address, and if it does not exist, create it
     const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
         connection, // connection
@@ -48,6 +73,9 @@ export const main = async() => {
         toWallet.publicKey
     );
 
+    // ---------------------------------------------------
+    //  Mint Token
+    // ---------------------------------------------------
     // Mint 1 new token to the "fromTokenAccount" account we just created
     const signatureMint = await mintTo(
         connection, // connection
@@ -59,6 +87,9 @@ export const main = async() => {
         [] // signer(s)
     );
 
+    // ---------------------------------------------------
+    //  Transfer Token
+    // ---------------------------------------------------
     // Transfer the new token to the "toTokenAccount" we just created
     const signatureTransfer = await transfer(
         connection, // connection
@@ -70,6 +101,9 @@ export const main = async() => {
         [] // signer
     );
 
+    // ---------------------------------------------------
+    //  Set Authority
+    // ---------------------------------------------------
     // Set new authority for Mint Account
     // https://solana-labs.github.io/solana-program-library/token/js/modules.html#setAuthority
     const randomWallet = Keypair.generate();
@@ -99,7 +133,7 @@ export const main = async() => {
         {}, // (Optional) confirmOptions
         TOKEN_PROGRAM_ID, // ProgramId
     );
-  
+
 
     console.log('fromWallet.publicKey       =>', fromWallet.publicKey.toString());
     console.log('toWallet.publicKey         =>', toWallet.publicKey.toString());
