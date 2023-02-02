@@ -1,7 +1,7 @@
 // Ref: https://github.com/metaplex-foundation/js#findallbyowner
 import {
   Metaplex,
-  keypairIdentity,
+  guestIdentity,
   bundlrStorage,
   toBigNumber
 } from '@metaplex-foundation/js';
@@ -15,10 +15,10 @@ import {
 const main = async () => {
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
   const connection = new Connection(clusterApiUrl('devnet'));
-  const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
-    .use(keypairIdentity(wallet))
+    // Ref: https://github.com/metaplex-foundation/js#guestidentity
+    .use(guestIdentity())
     .use(bundlrStorage());
 
   // const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd"); // mainnet

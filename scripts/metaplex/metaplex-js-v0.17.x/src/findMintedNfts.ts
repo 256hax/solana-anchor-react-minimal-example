@@ -1,7 +1,7 @@
 // Ref: https://metaplex-foundation.github.io/js/classes/js.CandyMachinesV2Client.html#findMintedNfts
 import {
   Metaplex,
-  keypairIdentity,
+  guestIdentity,
   bundlrStorage,
 } from '@metaplex-foundation/js';
 import {
@@ -14,10 +14,10 @@ import {
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
   // const connection = new Connection(clusterApiUrl("mainnet-beta"));
-  const wallet = Keypair.generate();
 
   const metaplex = Metaplex.make(connection)
-    .use(keypairIdentity(wallet))
+    // Ref: https://github.com/metaplex-foundation/js#guestidentity
+    .use(guestIdentity())
     .use(bundlrStorage());
 
   const candyMachine = new PublicKey('CQ37suWDLv4YBRSYHsrxAMUqNg62KwCexvuv5r9vNxRk');
