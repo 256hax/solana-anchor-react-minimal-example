@@ -86,12 +86,12 @@ const main = async () => {
   // transaction.partialSign(wallet);
   transaction.sign(wallet);
 
-  const tx = await sendAndConfirmTransaction(
+  const signature = await sendAndConfirmTransaction(
     connection,
     transaction,
     [wallet, mintKeypair]
   );
-  console.log('tx =>', tx);
+  console.log('signature =>', signature);
 };
 
 main();
@@ -99,5 +99,5 @@ main();
 % ts-node <THIS FILE>
 mintKeypair.publicKey => 7bF3M1Eb3Bb2bnuCF8Ce4Q889Lm5tsx57QjFdAFM7oFb
 wallet.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-tx => 4Bjm4dSksjMg7APHVYKbDFAA3abpKTkqUercpdmcPKX8ZkdCdpSQhzQUmVGm219KFqCzkEu4s3ac1ou2QkENSHhU
+signature => 4Bjm4dSksjMg7APHVYKbDFAA3abpKTkqUercpdmcPKX8ZkdCdpSQhzQUmVGm219KFqCzkEu4s3ac1ou2QkENSHhU
 */
