@@ -23,7 +23,7 @@ export const main = async () => {
   // ---------------------------------------------------
   //  Airdrop
   // ---------------------------------------------------
-  const fromAirdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL
   );
@@ -34,7 +34,7 @@ export const main = async () => {
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-    signature: fromAirdropSignature,
+    signature: airdropSignature,
   });
 
   // ------------------------------------------
