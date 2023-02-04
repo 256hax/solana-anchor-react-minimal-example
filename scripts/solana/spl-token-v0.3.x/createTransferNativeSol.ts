@@ -2,6 +2,7 @@
 import {
   Keypair,
   Connection,
+  clusterApiUrl,
   LAMPORTS_PER_SOL,
   Transaction,
   SystemProgram,
@@ -11,48 +12,39 @@ import {
 import nacl from 'tweetnacl';
 
 export const main = async () => {
-  // ---------------------------------------------------
+  // ------------------------------------------
   //  Payer
-  // ---------------------------------------------------
+  // ------------------------------------------
   // Airdrop SOL for paying transactions
   const payer = Keypair.generate();
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
-  const airdropSignature = await connection.requestAirdrop(
+  // ---------------------------------------------------
+  //  Airdrop
+  // ---------------------------------------------------
+  const fromAirdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL
   );
 
   let latestBlockhash = await connection.getLatestBlockhash();
 
+  // Wait for airdrop confirmation
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-    signature: airdropSignature,
+    signature: fromAirdropSignature,
   });
 
-  // ---------------------------------------------------
+  // ------------------------------------------
   //  Taker
-  // ---------------------------------------------------
+  // ------------------------------------------
   const taker = Keypair.generate();
 
-  const airdropSignatureTaker = await connection.requestAirdrop(
-    taker.publicKey,
-    LAMPORTS_PER_SOL
-  );
-
-  latestBlockhash = await connection.getLatestBlockhash();
-
-  await connection.confirmTransaction({
-    blockhash: latestBlockhash.blockhash,
-    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-    signature: airdropSignatureTaker,
-  });
-
-  // ---------------------------------------------------
+  // ------------------------------------------
   //  Transfer
-  // ---------------------------------------------------
+  // ------------------------------------------
   // Create Simple Transaction
   let transaction = new Transaction();
 
@@ -60,7 +52,7 @@ export const main = async () => {
   transaction.add(SystemProgram.transfer({
     fromPubkey: payer.publicKey,
     toPubkey: taker.publicKey,
-    lamports: 1000,
+    lamports: LAMPORTS_PER_SOL *  0.01,
   }));
 
   // Send and confirm transaction
@@ -72,9 +64,9 @@ export const main = async () => {
   );
   console.log('signature =>', signature);
 
-  // ---------------------------------------------------
+  // ------------------------------------------
   //  Alternatively Way: manually construct the transaction
-  // ---------------------------------------------------
+  // ------------------------------------------
   latestBlockhash = await connection.getLatestBlockhash();
   let manualTransaction = new Transaction({
     blockhash: latestBlockhash.blockhash,
