@@ -13,10 +13,13 @@ import {
   PublicKey,
   LAMPORTS_PER_SOL
 } from '@solana/web3.js';
+import fs from 'fs';
 import { sleep } from 'sleep';
 
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
+  // const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
+  // const wallet = Keypair.fromSecretKey(secretKey);
   const wallet = Keypair.generate();
 
   // ------------------------------------
