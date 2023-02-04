@@ -3,9 +3,9 @@
 
 ## Run
 ```
-% ce <each PJ directory>
+% cd <EACH DIRRECTORY>
 % cd src
-% ts-node <each ts file>
+% ts-node <TS FILE>
 ```
 
 ## Reference
