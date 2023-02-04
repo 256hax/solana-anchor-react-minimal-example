@@ -87,6 +87,9 @@ const main = async () => {
   // ------------------------------------
   //  Transfer NFT
   // ------------------------------------
+  // Important:
+  //  Rmoved send method from @metaplex-foundation/js v0.18.0.
+  //  You should not use send method.
   // Ref: https://metaplex-foundation.github.io/js/classes/js.NftClient.html#send
   const signature = await metaplex
     .nfts()
