@@ -60,7 +60,6 @@ const main = async () => {
   // ------------------------------------
   // The mint needs to sign the transaction, so we generate a new keypair for it
   const mintKeypair = Keypair.generate();
-  console.log('mintKeypair.publicKey =>', mintKeypair.publicKey.toString());
 
   // Create a transaction builder to create the NFT
   // Ref: builders: https://metaplex-foundation.github.io/js/classes/js.NftClient.html#builders
@@ -79,7 +78,6 @@ const main = async () => {
   const latestBlockhash = await connection.getLatestBlockhash()
   const transaction = await transactionBuilder.toTransaction(latestBlockhash)
 
-  console.log('wallet.publicKey =>', wallet.publicKey.toString());
 
   // Partially sign the transaction, as the shop and the mint
   // The account is also a required signer, but they'll sign it with their wallet after we return it
@@ -91,13 +89,76 @@ const main = async () => {
     transaction,
     [wallet, mintKeypair]
   );
+
+  console.log('mintKeypair.publicKey =>', mintKeypair.publicKey.toString());
+  console.log('transactionBuilder =>', transactionBuilder);
+  console.log('wallet.publicKey =>', wallet.publicKey.toString());
   console.log('signature =>', signature);
 };
 
 main();
 /*
 % ts-node <THIS FILE>
-mintKeypair.publicKey => 7bF3M1Eb3Bb2bnuCF8Ce4Q889Lm5tsx57QjFdAFM7oFb
+mintKeypair.publicKey => E2Q5oBRhTBSJEAaqUgfhrzoF22zPEQYXtiXMALZJD4ze
+transactionBuilder => TransactionBuilder {
+  records: [
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'createAccount'
+    },
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'initializeMint'
+    },
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'createAssociatedTokenAccount'
+    },
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'mintTokens'
+    },
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'createMetadata'
+    },
+    {
+      instruction: [TransactionInstruction],
+      signers: [Array],
+      key: 'createMasterEdition'
+    }
+  ],
+  feePayer: IdentityClient {
+    _driver: KeypairIdentityDriver {
+      keypair: [Keypair],
+      publicKey: [PublicKey],
+      secretKey: [Uint8Array]
+    }
+  },
+  context: {
+    mintAddress: PublicKey {
+      _bn: <BN: c1839c4c1678dde1efcb610dc56f07279bc6a5d62801340a1161920a55f891ab>
+    },
+    metadataAddress: Pda {
+      _bn: <BN: b1f15c8c26dcc1f5c64c1d581cd9d1a3ac168adef29ea7a7af81f394211b07c>,
+      bump: 255
+    },
+    masterEditionAddress: Pda {
+      _bn: <BN: 33ef0c5613bbbc318e698ff0511b05a1881b0f655d2581e03b9163ce248e31de>,
+      bump: 255
+    },
+    tokenAddress: Pda {
+      _bn: <BN: cceeae77ee44c8e1f5eeb106ca4bd1fff82feb3f8fb35b68e0439a80da6b794e>,
+      bump: 255
+    }
+  },
+  transactionOptions: {}
+}
 wallet.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-signature => 4Bjm4dSksjMg7APHVYKbDFAA3abpKTkqUercpdmcPKX8ZkdCdpSQhzQUmVGm219KFqCzkEu4s3ac1ou2QkENSHhU
+signature => 3vQiCQeR9JvbRxXyw9KysBZf9PcMLg4J3eCXDgMxm2pn5WFwAcCZ6j6J1kY3Fw8As92hV2NpYqT7SbnNR1YyJNCA
 */
