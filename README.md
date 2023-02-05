@@ -23,6 +23,10 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 3. Search Transaction Signature or public-key in Solana Explorer.
 [Solana Explorer (localhost:8899)](https://explorer.solana.com/?cluster=custom)
 
+### Use Metaplex and Anchor in Localnet
+You can use Metaplex(e.g. mint/update NFTs) in Localnet.
+[Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)
+
 ## Outline Document for Product/Project Manager
 [Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
 
