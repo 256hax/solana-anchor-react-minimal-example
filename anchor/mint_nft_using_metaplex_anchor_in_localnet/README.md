@@ -2,11 +2,12 @@
 ## Overview
 You can mint NFT in localnet.  
 Clone Metaplex program from Devnet then, deploy to Anchor local validator.  
-Look at see Anchor.toml.  
+Look at see the Anchor.toml.  
 
-## Data
-- NFT Account: Localnet
-- NFT Image: Arweave(Mainnnet)
+## NFT Structure and Cluster
+- Mint Account: Solana Localnet
+- Metadata Account: Solana Localnet
+- Image: Arweave Mainnnet
 
 ## Run
 ```
