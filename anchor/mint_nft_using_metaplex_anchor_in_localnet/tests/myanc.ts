@@ -40,7 +40,7 @@ describe("myanc", () => {
       .uploadMetadata({
         name: "My NFT Metadata",
         description: "My description",
-        image: "https://placekitten.com/20/30",
+        image: "https://placekitten.com/100/100",
       });
 
     console.log('uri =>', uri);
