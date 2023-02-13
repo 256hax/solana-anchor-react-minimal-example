@@ -1,9 +1,9 @@
-import './App.css';
-import React from 'react';
-import { PublicKey } from '@solana/web3.js';
+import './App.css'
+
 import { v4 as uuidv4 } from 'uuid';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
+
 
 // For "Property 'solana' does not exist on type 'Window & typeof globalThis'" error.
 interface Window {
