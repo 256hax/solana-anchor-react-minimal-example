@@ -13,6 +13,7 @@ This minimal example copy from [solana-labs/wallet-adapter](https://github.com/s
 ## Reference
 - [Solana Wallet Adapter GitHub](https://github.com/solana-labs/wallet-adapter)
 - [Installation](https://github.com/solana-labs/wallet-adapter/blob/master/APP.md)
+- [Wallet Adapter List](https://github.com/solana-labs/wallet-adapter/blob/master/PACKAGES.md)
 
 If you implement some NFT action using Metaplex, Look at following instructions. It need to install some npm packages.
 - [metaplex-foundation/js-examples](https://github.com/metaplex-foundation/js-examples)
