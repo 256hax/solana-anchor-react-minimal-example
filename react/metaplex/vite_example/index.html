@@ -10,11 +10,8 @@
 <body>
   <div id="root"></div>
   <script>
+    // Global node polyfill.
     window.global = window;
-    window.process = {
-      env: { DEBUG: undefined },
-    };
-    var exports = {};
   </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
