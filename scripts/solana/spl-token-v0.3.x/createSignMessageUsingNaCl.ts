@@ -24,7 +24,8 @@ export const main = async () => {
   //  Message
   // -----------------------------------------------
   // Normally, generate message(e.g. nonce) from backend server.
-  const messageString = uuidv4();
+  const nonce = uuidv4();
+  const messageString = nonce;
 
   // -----------------------------------------------
   //  Sign Message
@@ -40,7 +41,7 @@ export const main = async () => {
   // -----------------------------------------------
   // Normally, verify signature in backend server.
   const verified = nacl.sign.detached.verify(
-    messageBytes, // Message
+    decodeUTF8(nonce), // Message
     bs58.decode(postSignature), // Signature
     keypair.publicKey.toBytes() // PublicKey
   );
@@ -51,6 +52,7 @@ export const main = async () => {
   console.log('messageEncode =>', encodeUTF8(messageBytes));
   console.log('signedMessageSignature =>', signedMessageSignature);
   console.log('postSignature =>', postSignature);
+  console.log('decodeUTF8(nonce) =>', decodeUTF8(nonce));
   console.log('verified =>', verified);
 };
 
@@ -59,22 +61,28 @@ main();
 /*
 % ts-node <THIS FILE>
 keypair.publicKey => 24PNhTaNtomHhoy3fTRaMhAFCRj4uHqhZEEoWrKDbR5p
-messageString => bcb1e7f1-e9d0-438b-9612-4a0460526a98
+messageString => 6c88b06d-7b64-41fd-b767-1e023e56f663
 messageBytes => Uint8Array(36) [
-   98, 99,  98, 49, 101, 55, 102, 49, 45,
-  101, 57, 100, 48,  45, 52,  51, 56, 98,
-   45, 57,  54, 49,  50, 45,  52, 97, 48,
-   52, 54,  48, 53,  50, 54,  97, 57, 56
+  54, 99,  56, 56, 98,  48, 54, 100,  45,
+  55, 98,  54, 52, 45,  52, 49, 102, 100,
+  45, 98,  55, 54, 55,  45, 49, 101,  48,
+  50, 51, 101, 53, 54, 102, 54,  54,  51
 ]
-messageEncode => bcb1e7f1-e9d0-438b-9612-4a0460526a98
+messageEncode => 6c88b06d-7b64-41fd-b767-1e023e56f663
 signedMessageSignature => Uint8Array(64) [
-  198,  93, 152, 210, 246, 174, 244,  55, 162,  40, 101,
-   23, 123,  36, 253,  49,  54, 220, 241, 232,  11, 110,
-  237,  40,  12,  87,  49, 216, 160, 138,  63,  24, 216,
-    4, 141,   0,   1, 142, 255, 233,  71,  79, 159, 239,
-  178,   6,  67,  96, 158, 194, 102, 163,  68,  82,  92,
-   16, 166, 100,   6, 196,  18, 187,  25,  12
+   80, 113, 210,  75, 192,   8, 138, 220, 44, 124,  79,
+   96,  61, 180,  36,  61, 115,  34,  23,  9, 241, 163,
+  205,  96, 160, 222, 225,  18, 188, 232, 20, 211, 204,
+  167, 167, 171,  16, 196, 202, 232, 199, 50, 164, 248,
+  153, 116,  33, 214,  96,  14, 110, 123,  8,  52,  91,
+   40, 123, 235, 123, 119, 177, 187,  37, 10
 ]
-postSignature => 4y2WALCJTLmqmpEppRJ8KSUCERPNQ7P8PBWUXhevBizsWQRHCoMuMyGtaoQubSwoRhVZmVaF6CQkLum9tnkbMmP1
+postSignature => 2cHUWcBxpRy33sofL1pXhtfr5NYw2qxwARD447Qqn2BwePdVHcEN5xbY4RNTNMX5W97bsJ5TBpvGqk9ZkkRyrB6R
+decodeUTF8(nonce) => Uint8Array(36) [
+  54, 99,  56, 56, 98,  48, 54, 100,  45,
+  55, 98,  54, 52, 45,  52, 49, 102, 100,
+  45, 98,  55, 54, 55,  45, 49, 101,  48,
+  50, 51, 101, 53, 54, 102, 54,  54,  51
+]
 verified => true
 */
