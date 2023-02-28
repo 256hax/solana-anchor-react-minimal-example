@@ -12,6 +12,9 @@ import { clusterApiUrl } from '@solana/web3.js';
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
 
+// Components
+import { SignMessageButton } from './SignMessageButton';
+
 export const Wallet: FC = () => {
 	// The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
 	const network = WalletAdapterNetwork.Devnet;
@@ -52,6 +55,7 @@ export const Wallet: FC = () => {
 					<WalletMultiButton />
 					<WalletDisconnectButton />
 					{ /* Your app's components go here, nested within the context providers. */}
+					<SignMessageButton />
 				</WalletModalProvider>
 			</WalletProvider>
 		</ConnectionProvider>
