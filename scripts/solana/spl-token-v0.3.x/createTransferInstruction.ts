@@ -23,12 +23,12 @@ export const main = async () => {
   // ------------------------------------------
   //  Airdrop
   // ------------------------------------------
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL,
   );
 
-  let latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
@@ -39,9 +39,9 @@ export const main = async () => {
   // ------------------------------------------
   //  Create Transaction Instruction
   // ------------------------------------------
-  let transaction = new Transaction();
+  let transferInstruction: any;
 
-  let transferInstruction = SystemProgram.transfer({
+  transferInstruction = SystemProgram.transfer({
     fromPubkey: payer.publicKey,
     toPubkey: taker.publicKey,
     lamports: LAMPORTS_PER_SOL * 0.001,
@@ -53,6 +53,7 @@ export const main = async () => {
     { pubkey: reference.publicKey, isWritable: false, isSigner: false },
   );
 
+  let transaction = new Transaction();
   transaction.add(transferInstruction);
 
   // ------------------------------------------

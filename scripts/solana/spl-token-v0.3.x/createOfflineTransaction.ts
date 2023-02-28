@@ -34,7 +34,9 @@ import * as bs58 from "bs58";
   // ------------------------------------------------------------------------
   //  Airdrop
   // ------------------------------------------------------------------------
-  let latestBlockhash = await connection.getLatestBlockhash();
+  let latestBlockhash: any;
+
+  latestBlockhash = await connection.getLatestBlockhash();
   const signatureAirdropAlice = await connection.requestAirdrop(feePayer.publicKey, LAMPORTS_PER_SOL);
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,

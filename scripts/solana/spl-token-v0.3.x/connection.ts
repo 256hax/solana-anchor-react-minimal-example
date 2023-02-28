@@ -3,18 +3,18 @@ import * as web3 from "@solana/web3.js";
 
 export const main = async() => {
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
-  let slot = await connection.getSlot();
+  const slot = await connection.getSlot();
   console.log('slot => ', slot);
 
-  let blockTime = await connection.getBlockTime(slot);
+  const blockTime = await connection.getBlockTime(slot);
   console.log('blockTime => ', blockTime);
 
-  let block = await connection.getBlock(slot);
+  const block = await connection.getBlock(slot);
   console.log('block => ', block);
 
-  let slotLeader = await connection.getSlotLeader();
+  const slotLeader = await connection.getSlotLeader();
   console.log('slotLeader =>', slotLeader);
 };
 

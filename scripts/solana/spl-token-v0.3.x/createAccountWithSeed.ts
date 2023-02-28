@@ -34,7 +34,7 @@ export const main = async () => {
   // ------------------------------------------------------------------------
   //  Airdrop
   // ------------------------------------------------------------------------
-  let latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
   const signatureAirdropAlice = await connection.requestAirdrop(feePayer.publicKey, LAMPORTS_PER_SOL);
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
@@ -45,11 +45,11 @@ export const main = async () => {
   // ------------------------------------------------------------------------
   //  Create PDA Account
   // ------------------------------------------------------------------------
-  let basePubkey = base.publicKey;
-  let seed = "robot001";
-  let programId = SystemProgram.programId;
+  const basePubkey = base.publicKey;
+  const seed = "robot001";
+  const programId = SystemProgram.programId;
 
-  let derived = await PublicKey.createWithSeed(basePubkey, seed, programId);
+  const derived = await PublicKey.createWithSeed(basePubkey, seed, programId);
   const space = 0;
   // Seed the created account with lamports for rent exemption
   const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(space);

@@ -3,13 +3,13 @@ import * as web3 from "@solana/web3.js";
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
 
 export const main = async() => {
-  let myPubkey = web3.Keypair.generate();
-  let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  const myPubkey = web3.Keypair.generate();
+  const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
   console.log('myPubkey =>', myPubkey.publicKey.toString());
 
 
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
       myPubkey.publicKey,
       web3.LAMPORTS_PER_SOL,
   );

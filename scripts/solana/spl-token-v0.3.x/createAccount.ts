@@ -21,7 +21,7 @@ export const main = async () => {
   // ------------------------------------------------------------------------
   //  Airdrop
   // ------------------------------------------------------------------------
-  let latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
   const signatureAirdropAlice = await connection.requestAirdrop(from.publicKey, LAMPORTS_PER_SOL);
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,

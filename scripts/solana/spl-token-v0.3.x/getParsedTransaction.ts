@@ -7,9 +7,9 @@ import * as web3 from "@solana/web3.js";
 const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
   
 export const createTransaction = async() => {
-  let payer = web3.Keypair.generate();
+  const payer = web3.Keypair.generate();
 
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
       web3.LAMPORTS_PER_SOL,
   );
@@ -22,7 +22,7 @@ export const createTransaction = async() => {
     signature: airdropSignature,
   });
 
-  let toAccount = web3.Keypair.generate();
+  const toAccount = web3.Keypair.generate();
 
   let transaction = new web3.Transaction();
   transaction.add(web3.SystemProgram.transfer({
@@ -34,7 +34,7 @@ export const createTransaction = async() => {
   // Send and confirm transaction
   // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  let signature = await web3.sendAndConfirmTransaction(
+  const signature = await web3.sendAndConfirmTransaction(
     connection, // Connection
     transaction, // Transaction
     [payer] // Signer[]

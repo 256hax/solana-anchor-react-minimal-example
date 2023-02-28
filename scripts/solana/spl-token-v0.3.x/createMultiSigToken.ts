@@ -30,7 +30,7 @@ export const main = async () => {
     LAMPORTS_PER_SOL
   );
 
-  let latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,

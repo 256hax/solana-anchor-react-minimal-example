@@ -4,8 +4,8 @@ import nacl from 'tweetnacl';
 // import sleep from 'sleep';
 
 export const main = async() => {
-  let payerA = web3.Keypair.generate();
-  let payerB = web3.Keypair.generate();
+  const payerA = web3.Keypair.generate();
+  const payerB = web3.Keypair.generate();
   console.log('payerA Public Key -> ', payerA.publicKey.toString());
   console.log('payerB Public Key -> ', payerB.publicKey.toString());
 
@@ -23,7 +23,7 @@ export const main = async() => {
       web3.LAMPORTS_PER_SOL,
   );
 
-  let latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
@@ -42,10 +42,10 @@ export const main = async() => {
       web3.LAMPORTS_PER_SOL,
   );
 
-  latestBlockhash = await connection.getLatestBlockhash();
+  const latestBlockhash2 = await connection.getLatestBlockhash();
 
   await connection.confirmTransaction({
-    blockhash: latestBlockhash.blockhash,
+    blockhash: latestBlockhash2.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignaturePayerB,
   });
@@ -77,7 +77,7 @@ export const main = async() => {
   // Send and confirm transaction
   // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  let signature = await web3.sendAndConfirmTransaction(
+  const signature = await web3.sendAndConfirmTransaction(
     connection, // Connection
     transaction, // Transaction
     [payerA, payerB] // Signer[]

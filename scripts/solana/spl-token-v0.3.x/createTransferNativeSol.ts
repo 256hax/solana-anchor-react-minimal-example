@@ -85,13 +85,13 @@ export const main = async () => {
 
   manualTransaction.addSignature(payer.publicKey, manualSignature);
 
-  let isVerifiedSignature = manualTransaction.verifySignatures();
+  const isVerifiedSignature = manualTransaction.verifySignatures();
   console.log(`The signatures were verified => ${isVerifiedSignature}`)
 
   // The signatures were verified: true
 
   // let rawTransaction = manualTransaction.serialize();
-  let manualTransferSignature = await connection.sendRawTransaction(manualTransaction.serialize());
+  const manualTransferSignature = await connection.sendRawTransaction(manualTransaction.serialize());
   console.log('manualTransferSignature =>', manualTransferSignature);
 };
 

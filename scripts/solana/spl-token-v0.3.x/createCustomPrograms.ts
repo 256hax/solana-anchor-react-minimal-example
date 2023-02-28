@@ -25,7 +25,7 @@ export const main = async () => {
   // ------------------------------------------
   //  Airdrop
   // ------------------------------------------
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL,
   );
@@ -47,11 +47,11 @@ export const main = async () => {
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
   };
 
-  let allocateTransaction = new Transaction(options);
-  let keys = [{ pubkey: keypair.publicKey, isSigner: true, isWritable: true }];
+  const allocateTransaction = new Transaction(options);
+  const keys = [{ pubkey: keypair.publicKey, isSigner: true, isWritable: true }];
   const params = { space: 100 };
 
-  let allocateStruct = {
+  const allocateStruct = {
     index: 8,
     layout: struct([
       u32('instruction'),

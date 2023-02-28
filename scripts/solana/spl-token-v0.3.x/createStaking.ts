@@ -13,12 +13,12 @@ import {
 
 export const main = async() => {
   // Fund a key to create transactions
-  let fromPublicKey = Keypair.generate();
-  let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  const fromPublicKey = Keypair.generate();
+  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
   // let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
 
-  let airdropSignature = await connection.requestAirdrop(
+  const airdropSignature = await connection.requestAirdrop(
       fromPublicKey.publicKey,
       LAMPORTS_PER_SOL,
   );
@@ -33,15 +33,15 @@ export const main = async() => {
 
   
   // Create Account
-  let stakeAccount = Keypair.generate();
+  const stakeAccount = Keypair.generate();
 
-  let authorizedAccount = Keypair.generate();
+  const authorizedAccount = Keypair.generate();
   /* Note: This is the minimum amount for a stake account -- Add additional Lamports for staking
       For example, we add 50 lamports as part of the stake */
-  let lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(StakeProgram.space)) + 50;
+  const lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(StakeProgram.space)) + 50;
   const getMinimumBalanceForRentExemption_web3_StakeProgram_space = await connection.getMinimumBalanceForRentExemption(StakeProgram.space);
 
-  let createAccountTransaction = StakeProgram.createAccount({
+  const createAccountTransaction = StakeProgram.createAccount({
       fromPubkey: fromPublicKey.publicKey,
       authorized: new Authorized(authorizedAccount.publicKey, authorizedAccount.publicKey),
       lamports: lamportsForStakeAccount,
@@ -52,22 +52,22 @@ export const main = async() => {
 
 
   // Check that stake is available
-  let stakeBalance = await connection.getBalance(stakeAccount.publicKey);
+  const stakeBalance = await connection.getBalance(stakeAccount.publicKey);
   // Stake balance: 2282930
 
   // We can verify the state of our stake. This may take some time to become active
-  let stakeState = await connection.getStakeActivation(stakeAccount.publicKey);
+  const stakeState = await connection.getStakeActivation(stakeAccount.publicKey);
   // Stake State: inactive
 
   // To delegate our stake, we get the current vote accounts and choose the first
-  let voteAccounts = await connection.getVoteAccounts();
-  let voteAccount = voteAccounts.current.concat(
+  const voteAccounts = await connection.getVoteAccounts();
+  const voteAccount = voteAccounts.current.concat(
       voteAccounts.delinquent,
   )[0];
-  let votePubkey = new PublicKey(voteAccount.votePubkey);
+  const votePubkey = new PublicKey(voteAccount.votePubkey);
 
   // We can then delegate our stake to the voteAccount
-  let delegateTransaction = StakeProgram.delegate({
+  const delegateTransaction = StakeProgram.delegate({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
       votePubkey: votePubkey,
@@ -75,14 +75,14 @@ export const main = async() => {
   const delegateTransaction_tx = await sendAndConfirmTransaction(connection, delegateTransaction, [fromPublicKey, authorizedAccount]);
 
   // To withdraw our funds, we first have to deactivate the stake
-  let deactivateTransaction = StakeProgram.deactivate({
+  const deactivateTransaction = StakeProgram.deactivate({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
   });
   const deactivateTransaction_tx = await sendAndConfirmTransaction(connection, deactivateTransaction, [fromPublicKey, authorizedAccount]);
 
   // Once deactivated, we can withdraw our funds
-  let withdrawTransaction = StakeProgram.withdraw({
+  const withdrawTransaction = StakeProgram.withdraw({
       stakePubkey: stakeAccount.publicKey,
       authorizedPubkey: authorizedAccount.publicKey,
       toPubkey: fromPublicKey.publicKey,
@@ -90,7 +90,6 @@ export const main = async() => {
   });
 
   const withdrawTransaction_tx = await sendAndConfirmTransaction(connection, withdrawTransaction, [fromPublicKey, authorizedAccount]);
-
 
   console.log('stakeAccount             =>', stakeAccount.publicKey.toString());
   console.log('authorizedAccount        =>', authorizedAccount.publicKey.toString());

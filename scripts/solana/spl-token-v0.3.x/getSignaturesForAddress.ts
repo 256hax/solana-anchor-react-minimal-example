@@ -2,7 +2,7 @@
 import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 
 export const main = async() => {
-  let myPubkey = Keypair.generate();
+  const myPubkey = Keypair.generate();
   const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
   // let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
