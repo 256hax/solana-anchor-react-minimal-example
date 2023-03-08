@@ -41,7 +41,7 @@ export const main = async () => {
   // -----------------------------------------------
   // Normally, verify signature in backend server.
   const verified = nacl.sign.detached.verify(
-    decodeUTF8(nonce), // Message
+    decodeUTF8(messageString), // Message
     bs58.decode(postSignature), // Signature
     keypair.publicKey.toBytes() // PublicKey
   );
