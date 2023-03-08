@@ -6,9 +6,9 @@ import {
 
 export const main = async () => {
   // ------------------------------------------------------------------------
-  //  Generate PDA Account(not yet created)
+  //  Find PDA Account
   // ------------------------------------------------------------------------
-  // Owned program
+  // Owned Program ID
   const programId = new PublicKey(
     "G1DCNUQTSGHehwdLCAmRyAG8hf51eCHrLNUqkgGKYASj" // Example
   );
@@ -20,8 +20,12 @@ export const main = async () => {
   const [pda, bump] = await PublicKey.findProgramAddressSync(
     // [Buffer.from(seed)],
     [Buffer.from(seed), myPublicKey.toBuffer()],
-    programId
+    programId, // Create PDA from this Program ID
   );
+  // IMPORTANT:
+  // findProgramAddressSync is only getting address. Not created yet.
+  // If you need activate PDA, send some rent fee(e.g. 0.001 SOL) to PDA or
+  // use SystemProgram.createAccount.
 
   console.log('bump =>', bump);
   console.log('pda =>', pda.toString());
