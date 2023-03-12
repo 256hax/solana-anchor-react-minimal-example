@@ -7,6 +7,8 @@ import {
   Connection,
   clusterApiUrl,
   LAMPORTS_PER_SOL,
+  CreateAccountParams,
+  TransferParams,
 } from '@solana/web3.js';
 
 export const main = async () => {
@@ -39,21 +41,22 @@ export const main = async () => {
   const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(space);
 
   const newAccount = Keypair.generate();
-  const createAccountParams = {
+  const createAccountParams: CreateAccountParams = {
     fromPubkey: from.publicKey,
     newAccountPubkey: newAccount.publicKey,
     lamports: rentExemptionAmount,
-    space,
+    space: space,
     programId: SystemProgram.programId,
   };
 
-  const createAccountTransaction = new Transaction().add(
+  let transaction = new Transaction();
+  transaction.add(
     SystemProgram.createAccount(createAccountParams)
   );
 
   const signature = await sendAndConfirmTransaction(
     connection,
-    createAccountTransaction,
+    transaction,
     [from, newAccount]
   );
 
