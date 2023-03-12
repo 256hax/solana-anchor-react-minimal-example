@@ -8,7 +8,6 @@ import {
   clusterApiUrl,
   LAMPORTS_PER_SOL,
   CreateAccountParams,
-  TransferParams,
 } from '@solana/web3.js';
 
 export const main = async () => {
@@ -50,6 +49,7 @@ export const main = async () => {
   };
 
   let transaction = new Transaction();
+  // Ref: https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#createAccount
   transaction.add(
     SystemProgram.createAccount(createAccountParams)
   );
@@ -70,8 +70,19 @@ main();
 
 /*
 % ts-node <THIS FILE>
-from => 7T9vSZ2W6BWrc2VPHMyGMaC932fcw4Ghia3YAXBE5369
-newAccountPubkey => HuxicXJYS5PKZrWa42rUhrNW7N2B6w9h6bkSzYCaGyq9
-rentExemptionAmount => 0.00089088 SOL
-signature => 3TzUTV4AMQtZh2vfwyqEN4W82jxtexQE1sBHMZyNiWP8yUXYx2fU89PVRTKt3Vmzg5tyfhsMwNoBQ9Re7rBkWFiB
+from => DiYgDq9Wz1c5ZzeVYEUdNe6RjXvUp2ztAkqVfU5wghau
+newAccountPubkey => 4dL4QCzVQb9tkkBA33quboHQm78A9XMd8Beg54a2hWf2
+rentExemptionAmount => 0.00158688 SOL
+signature => 5UyQ5gwgCMCbdPvt1VtLtNJ3qXJH2YKR7kak8wUme7q2xQsXyxZyWxvEYaWqzRG1iiQGxZKqBRTgJHeUfuwpKt2Z
+*/
+
+/*
+Solana Explorer =>
+  System Program: Create Account
+  Program: System Program
+  From Address: DiYgDq9Wz1c5ZzeVYEUdNe6RjXvUp2ztAkqVfU5wghau
+  New Address: 4dL4QCzVQb9tkkBA33quboHQm78A9XMd8Beg54a2hWf2
+  Transfer Amount (SOL): ◎0.00158688
+  Allocated Data Size: 100 byte(s)
+  Assigned Program Id: System Program
 */
