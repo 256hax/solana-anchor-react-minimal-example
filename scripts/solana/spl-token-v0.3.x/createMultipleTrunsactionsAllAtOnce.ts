@@ -1,16 +1,24 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
-import * as web3 from '@solana/web3.js';
+import {
+  Keypair,
+  Connection,
+  clusterApiUrl,
+  LAMPORTS_PER_SOL,
+  Transaction,
+  SystemProgram,
+  sendAndConfirmTransaction,
+} from '@solana/web3.js';
 // import sleep from 'sleep';
 
 export const main = async() => {
-  const payerA = web3.Keypair.generate();
-  const payerB = web3.Keypair.generate();
+  const payerA = Keypair.generate();
+  const payerB = Keypair.generate();
   console.log('payerA Public Key -> ', payerA.publicKey.toString());
   console.log('payerB Public Key -> ', payerB.publicKey.toString());
 
 
   // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // --------------------------------
   //  Airdrop
@@ -19,7 +27,7 @@ export const main = async() => {
   console.log("Airdopping to PayerA");
   const airdropSignature = await connection.requestAirdrop(
       payerA.publicKey,
-      web3.LAMPORTS_PER_SOL,
+      LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();
@@ -38,7 +46,7 @@ export const main = async() => {
   console.log("Airdopping to PayerB");
   const airdropSignaturePayerB = await connection.requestAirdrop(
       payerB.publicKey,
-      web3.LAMPORTS_PER_SOL,
+      LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash2 = await connection.getLatestBlockhash();
@@ -57,26 +65,26 @@ export const main = async() => {
   // --------------------------------
   //  Transaction
   // --------------------------------
-  let transaction = new web3.Transaction();
+  let transaction = new Transaction();
 
   // Transaction PayerA
-  transaction.add(web3.SystemProgram.transfer({
+  transaction.add(SystemProgram.transfer({
       fromPubkey: payerA.publicKey,
       toPubkey: payerB.publicKey,
-      lamports: web3.LAMPORTS_PER_SOL * 0.0123,
+      lamports: LAMPORTS_PER_SOL * 0.0123,
   }));
 
   // Transaction PayerB
-  transaction.add(web3.SystemProgram.transfer({
+  transaction.add(SystemProgram.transfer({
       fromPubkey: payerB.publicKey,
       toPubkey: payerA.publicKey,
-      lamports: web3.LAMPORTS_PER_SOL * 0.0345,
+      lamports: LAMPORTS_PER_SOL * 0.0345,
   }));
 
   // Send and confirm transaction
   // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  const signature = await web3.sendAndConfirmTransaction(
+  const signature = await sendAndConfirmTransaction(
     connection, // Connection
     transaction, // Transaction
     [payerA, payerB] // Signer[]
