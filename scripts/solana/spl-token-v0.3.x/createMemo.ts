@@ -7,7 +7,7 @@ import {
   Connection,
   sendAndConfirmTransaction,
   LAMPORTS_PER_SOL,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 async function main (message: string) {
   // ---------------------------------------------------

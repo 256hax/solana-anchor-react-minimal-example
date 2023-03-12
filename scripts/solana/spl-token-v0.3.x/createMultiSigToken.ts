@@ -3,10 +3,6 @@ import {
   Keypair,
   Connection,
   LAMPORTS_PER_SOL,
-  Transaction,
-  SystemProgram,
-  sendAndConfirmTransaction,
-  sendAndConfirmRawTransaction,
 } from '@solana/web3.js';
 import {
   getOrCreateAssociatedTokenAccount,

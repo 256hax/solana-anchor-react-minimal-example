@@ -1,6 +1,10 @@
 // Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getConfirmedSignaturesForAddress2
 // Returns confirmed signatures for transactions involving an address backwards in time from the provided signature or most recent confirmed block
-import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
+import {
+  Connection,
+  clusterApiUrl,
+  PublicKey
+} from '@solana/web3.js';
 
 const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 // const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');

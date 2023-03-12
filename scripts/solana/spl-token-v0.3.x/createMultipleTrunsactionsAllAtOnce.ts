@@ -1,6 +1,5 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#transaction
 import * as web3 from '@solana/web3.js';
-import nacl from 'tweetnacl';
 // import sleep from 'sleep';
 
 export const main = async() => {

@@ -1,8 +1,7 @@
 // Ref: https://solanacookbook.com/references/accounts.html#how-to-create-pdas
 import {
-  Keypair,
   PublicKey,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 export const main = async () => {
   // ------------------------------------------------------------------------

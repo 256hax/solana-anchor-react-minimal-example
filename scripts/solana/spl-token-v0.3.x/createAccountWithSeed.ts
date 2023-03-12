@@ -8,8 +8,8 @@ import {
   Keypair,
   sendAndConfirmTransaction,
   LAMPORTS_PER_SOL,
-} from "@solana/web3.js";
-import * as bs58 from "bs58";
+} from '@solana/web3.js';
+import * as bs58 from 'bs58';
 
 export const main = async () => {
   const connection = new Connection('http://127.0.0.1:8899', 'confirmed');

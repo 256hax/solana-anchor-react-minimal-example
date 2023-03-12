@@ -1,4 +1,9 @@
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import {
+  clusterApiUrl,
+  Connection,
+  Keypair,
+  PublicKey
+} from '@solana/web3.js';
 
 export const main = async () => {
   // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');

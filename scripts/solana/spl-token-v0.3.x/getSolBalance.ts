@@ -1,9 +1,13 @@
 // Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getBalance
-import * as web3 from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  LAMPORTS_PER_SOL,
+} from '@solana/web3.js';
 
 export const main = async() => {
-  const myPubkey = web3.Keypair.generate();
-  const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+  const myPubkey = Keypair.generate();
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   const myPubkey_balance = await connection.getBalance(myPubkey.publicKey);
 
@@ -12,7 +16,7 @@ export const main = async() => {
 
   const airdropSignature = await connection.requestAirdrop(
       myPubkey.publicKey,
-      web3.LAMPORTS_PER_SOL,
+      LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();

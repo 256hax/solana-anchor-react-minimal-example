@@ -7,9 +7,9 @@ import {
   SystemProgram,
   LAMPORTS_PER_SOL,
   Message,
-} from "@solana/web3.js";
-import * as nacl from "tweetnacl";
-import * as bs58 from "bs58";
+} from '@solana/web3.js';
+import * as nacl from 'tweetnacl';
+import * as bs58 from 'bs58';
 
 // to complete a offline transaction, I will seperate them into four steps
 // 1. Create Transaction

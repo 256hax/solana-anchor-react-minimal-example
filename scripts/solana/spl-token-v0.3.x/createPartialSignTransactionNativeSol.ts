@@ -7,7 +7,7 @@ import {
   PublicKey,
   SystemProgram,
   Transaction,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 /* The transaction:
  * - sends 0.01 SOL from Alice to Bob

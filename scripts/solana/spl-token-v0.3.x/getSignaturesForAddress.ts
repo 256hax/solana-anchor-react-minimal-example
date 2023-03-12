@@ -1,5 +1,10 @@
 // Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignaturesForAddress
-import { Connection, clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
+import {
+  Connection,
+  clusterApiUrl,
+  Keypair,
+  PublicKey
+} from '@solana/web3.js';
 
 export const main = async() => {
   const myPubkey = Keypair.generate();

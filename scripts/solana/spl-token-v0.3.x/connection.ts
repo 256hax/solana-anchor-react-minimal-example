@@ -1,5 +1,5 @@
 // Source: https://docs.solana.com/developing/clients/javascript-reference#connection
-import * as web3 from "@solana/web3.js";
+import * as web3 from '@solana/web3.js';
 
 export const main = async() => {
   // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');

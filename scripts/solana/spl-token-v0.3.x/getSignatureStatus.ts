@@ -1,17 +1,24 @@
 // Ref:
 //  Single: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignatureStatus
 //  Multiple: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignatureStatuses
-import * as web3 from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  LAMPORTS_PER_SOL,
+  Transaction,
+  SystemProgram,
+  sendAndConfirmTransaction,
+} from '@solana/web3.js';
 
 // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-const connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
+const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
   
 export const createTransaction = async() => {
-  const payer = web3.Keypair.generate();
+  const payer = Keypair.generate();
 
   const airdropSignature = await connection.requestAirdrop(
       payer.publicKey,
-      web3.LAMPORTS_PER_SOL,
+      LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();
@@ -22,19 +29,19 @@ export const createTransaction = async() => {
     signature: airdropSignature,
   });
 
-  const toAccount = web3.Keypair.generate();
+  const toAccount = Keypair.generate();
 
-  let transaction = new web3.Transaction();
-  transaction.add(web3.SystemProgram.transfer({
+  let transaction = new Transaction();
+  transaction.add(SystemProgram.transfer({
       fromPubkey: payer.publicKey,
       toPubkey: toAccount.publicKey,
-      lamports: web3.LAMPORTS_PER_SOL * 0.01,
+      lamports: LAMPORTS_PER_SOL * 0.01,
   }));
 
   // Send and confirm transaction
   // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
-  const signature = await web3.sendAndConfirmTransaction(
+  const signature = await sendAndConfirmTransaction(
     connection, // Connection
     transaction, // Transaction
     [payer] // Signer[]

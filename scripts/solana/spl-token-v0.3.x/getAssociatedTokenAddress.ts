@@ -1,4 +1,9 @@
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import {
+  clusterApiUrl,
+  Connection,
+  Keypair,
+  PublicKey,
+} from '@solana/web3.js';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
 
 export const main = async () => {

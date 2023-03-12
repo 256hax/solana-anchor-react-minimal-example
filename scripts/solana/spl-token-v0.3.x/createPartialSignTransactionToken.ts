@@ -6,7 +6,7 @@ import {
   createMint,
   mintTo,
   getOrCreateAssociatedTokenAccount,
-} from "@solana/spl-token";
+} from '@solana/spl-token';
 import {
   clusterApiUrl,
   Connection,
@@ -15,10 +15,8 @@ import {
   PublicKey,
   SystemProgram,
   Transaction,
-  sendAndConfirmRawTransaction,
-  sendAndConfirmTransaction,
-} from "@solana/web3.js";
-import base58 from "bs58";
+} from '@solana/web3.js';
+import base58 from 'bs58';
 
 /* The transaction:
  * - sends 0.01 SOL from Alice to Bob

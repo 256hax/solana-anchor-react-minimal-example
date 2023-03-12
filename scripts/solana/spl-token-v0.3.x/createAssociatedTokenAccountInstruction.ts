@@ -5,7 +5,6 @@ import {
   LAMPORTS_PER_SOL,
   PublicKey,
   Transaction,
-  SystemProgram,
   sendAndConfirmTransaction
 } from '@solana/web3.js';
 import {

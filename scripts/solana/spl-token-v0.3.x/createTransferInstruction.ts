@@ -3,11 +3,9 @@ import {
   Keypair,
   LAMPORTS_PER_SOL,
   SystemProgram,
-  TransactionBlockhashCtor,
   Transaction,
-  TransactionInstruction,
   sendAndConfirmTransaction,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 export const main = async () => {
   // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');

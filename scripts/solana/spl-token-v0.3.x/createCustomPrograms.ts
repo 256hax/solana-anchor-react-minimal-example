@@ -1,5 +1,9 @@
 // Source: https://docs.solana.com/developing/clients/javascript-api#interacting-with-custom-programs
-import { struct, u32, ns64 } from "@solana/buffer-layout";
+import {
+  struct,
+  u32,
+  ns64
+} from '@solana/buffer-layout';
 import { Buffer } from 'buffer';
 import {
   Connection,
@@ -10,7 +14,7 @@ import {
   Transaction,
   TransactionInstruction,
   sendAndConfirmTransaction,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 export const main = async () => {
   // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');

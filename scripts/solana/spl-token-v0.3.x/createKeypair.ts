@@ -1,5 +1,5 @@
 // Source: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
-import {Keypair} from "@solana/web3.js";
+import {Keypair} from '@solana/web3.js';
 import * as fs from 'fs';
 
 export const main = async() => {
