@@ -83,10 +83,15 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 - [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
-## Wallet(e.g. Phantom)
+## Wallet Adapter for DApps
 - [Docs - Phantom](https://docs.phantom.app/)
 - [API - @solana/wallet-adapter](https://solana-labs.github.io/wallet-adapter/)
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
+
+## Wallet App
+- [API - Wallet Standard](https://wallet-standard.github.io/wallet-standard/modules.html)
+- [GitHub - wallet-standard/wallet-standard](https://github.com/wallet-standard/wallet-standard)
+- [GitHub - solana-labs/wallet-standard](https://github.com/solana-labs/wallet-standard)
 
 ## Arweave
 - [Docs - Arweave Developers](https://docs.arweave.org/developers/)
