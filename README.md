@@ -89,7 +89,7 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
 
 ## Wallet App
-- [API - Wallet Standard](https://wallet-standard.github.io/wallet-standard/modules.html)
+- [API - Wallet Standard](https://wallet-standard.github.io/wallet-standard/)
 - [GitHub - wallet-standard/wallet-standard](https://github.com/wallet-standard/wallet-standard)
 - [GitHub - solana-labs/wallet-standard](https://github.com/solana-labs/wallet-standard)
 
