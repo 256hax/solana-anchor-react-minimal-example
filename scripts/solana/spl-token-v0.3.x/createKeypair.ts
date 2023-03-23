@@ -1,71 +1,50 @@
-// Source: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
+// Ref:
+//  Tutorial: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
+//  API: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
 import {Keypair} from '@solana/web3.js';
 import * as fs from 'fs';
 
 export const main = async() => {
-  // There are two ways to obtain a Keypair:
-  //
-  // --- 1. Generate a new Keypair ---
-  // let keypair = Keypair.generate();
+  // --------------------------------------------
+  //  Case1. Generate Random New Keypair
+  // --------------------------------------------
+  const keypair1 = Keypair.generate();
 
-  // or
-  // --- 2. Obtain a Keypair using the secret key ---
+  // --------------------------------------------
+  //  Case2-a. Generate Keypair from Secret Key
+  // --------------------------------------------
   const secretKey = Uint8Array.from([
-    202, 171, 192, 129, 150, 189, 204, 241, 142,  71, 205,
-    2,  81,  97,   2, 176,  48,  81,  45,   1,  96, 138,
-    220, 132, 231, 131, 120,  77,  66,  40,  97, 172,  91,
-    245,  84, 221, 157, 190,   9, 145, 176, 130,  25,  43,
-    72, 107, 190, 229,  75,  88, 191, 136,   7, 167, 109,
-    91, 170, 164, 186,  15, 142,  36,  12,  23
+    42,10,22,97,116,115,107,57,226,247,40,179,216,11,216,9,110,233,110,240,85,78,144,173,253,79,75,12,175,216,43,214,245,164,74,111,54,131,150,17,113,31,4,20,159,81,221,64,109,212,188,82,203,134,242,13,210,177,22,8,166,44,126,233
   ]);
+  // If you want to test, replace above key to your key(~/.config/solana/id.json).
 
-  const keypair = Keypair.fromSecretKey(secretKey);
+  const keypair2a = Keypair.fromSecretKey(secretKey);
 
-  console.log('--- From hard coding ---');
-  console.log('Keypair => ', keypair);
-  console.log('Wallet Address => ', keypair.publicKey.toString());
-
-
+  // --------------------------------------------
+  //  Case2-b. Generate Keypair from Key File
+  // --------------------------------------------
   const secretKeyFromFile = new Uint8Array(JSON.parse(fs.readFileSync('../key.json', 'utf8')));
-  const keypairFromFile = Keypair.fromSecretKey(secretKey);
+  const keypair2b = Keypair.fromSecretKey(secretKey);
 
-  console.log('--- From file ---');
-  console.log('Keypair => ', secretKeyFromFile);
-  console.log('Wallet Address => ', keypairFromFile.publicKey.toString());
+  // --------------------------------------------
+  //  Case3. Generate Keypair from Seed
+  // --------------------------------------------
+  // Generate a keypair from a 32 byte seed.
+  const seed = 'hello world'.padEnd(32, '\0');
+  const keypair3 = Keypair.fromSeed(new TextEncoder().encode(seed));
+
+  console.log('keypair1 =>', keypair1.publicKey.toString());
+  console.log('keypair2a =>', keypair2a.publicKey.toString());
+  console.log('keypair2b =>', keypair2b.publicKey.toString());
+  console.log('keypair3 =>', keypair3.publicKey.toString());
 };
 
 main();
 
 /*
 % ts-node <THIS JS FILE>
---- From hard coding ---
-Keypair =>  Keypair {
-  _keypair: {
-    publicKey: Uint8Array(32) [
-       91, 245,  84, 221, 157, 190,   9, 145,
-      176, 130,  25,  43,  72, 107, 190, 229,
-       75,  88, 191, 136,   7, 167, 109,  91,
-      170, 164, 186,  15, 142,  36,  12,  23
-    ],
-    secretKey: Uint8Array(64) [
-      202, 171, 192, 129, 150, 189, 204, 241, 142,  71, 205,
-        2,  81,  97,   2, 176,  48,  81,  45,   1,  96, 138,
-      220, 132, 231, 131, 120,  77,  66,  40,  97, 172,  91,
-      245,  84, 221, 157, 190,   9, 145, 176, 130,  25,  43,
-       72, 107, 190, 229,  75,  88, 191, 136,   7, 167, 109,
-       91, 170, 164, 186,  15, 142,  36,  12,  23
-    ]
-  }
-}
-Wallet Address =>  7By5EKRWGRKD5eQSh582u3QPcyuYRi7Me5UHzJ4hvru4
---- From file ---
-Keypair =>  Uint8Array(64) [
-   42,  10,  22,  97, 116, 115, 107,  57, 226, 247,  40,
-  179, 216,  11, 216,   9, 110, 233, 110, 240,  85,  78,
-  144, 173, 253,  79,  75,  12, 175, 216,  43, 214, 245,
-  164,  74, 111,  54, 131, 150,  17, 113,  31,   4,  20,
-  159,  81, 221,  64, 109, 212, 188,  82, 203, 134, 242,
-   13, 210, 177,  22,   8, 166,  44, 126, 233
-]
-Wallet Address =>  7By5EKRWGRKD5eQSh582u3QPcyuYRi7Me5UHzJ4hvru4
+keypair1 => B9TbVhL4WmvLk8kt7GuxRKBC6BKbCHBNuwGrJ1oiojgK
+keypair2a => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+keypair2b => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+keypair3 => 5c4zsmY5BgdwVpDkcwT1iqnjpViKSsWezXpuwH6f6TjP
 */
