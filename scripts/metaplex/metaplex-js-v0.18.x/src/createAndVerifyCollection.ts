@@ -12,6 +12,7 @@ import {
   bundlrStorage,
   mockStorage,
   toBigNumber,
+  OperationOptions,
 } from '@metaplex-foundation/js';
 import * as fs from 'fs';
 import { sleep } from 'sleep';
@@ -19,27 +20,30 @@ import { sleep } from 'sleep';
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
 
-  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
+  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
-  // const wallet = Keypair.generate();
+
+  const operationOptions: OperationOptions = {
+    commitment: 'finalized',
+  };
 
   // ------------------------------------
   //  Airdrop
   // ------------------------------------
-  const airdropSignature = await connection.requestAirdrop(
-    wallet.publicKey,
-    LAMPORTS_PER_SOL,
-  );
+  // const airdropSignature = await connection.requestAirdrop(
+  //   wallet.publicKey,
+  //   LAMPORTS_PER_SOL,
+  // );
 
-  const latestBlockHash = await connection.getLatestBlockhash();
+  // const latestBlockHash = await connection.getLatestBlockhash();
 
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  });
+  // await connection.confirmTransaction({
+  //   blockhash: latestBlockHash.blockhash,
+  //   lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+  //   signature: airdropSignature,
+  // });
 
-  sleep(5); // Wait for airdrop confirmation.
+  // sleep(5); // Wait for airdrop confirmation.
 
   // Check balance
   const balance = await connection.getBalance(wallet.publicKey);
@@ -78,17 +82,20 @@ const main = async () => {
   //   Type alias CreateNftInput: https://metaplex-foundation.github.io/js/types/js.CreateNftInput.html
   const { nft: collectionNft } = await metaplex
     .nfts()
-    .create({
-      uri: collectionUri,
-      name: 'Collection NFT',
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(0),
-      symbol: 'paper',
-      tokenOwner: wallet.publicKey,
-      updateAuthority: wallet,
-      isCollection: true,
-      creators: [],
-    });
+    .create(
+      {
+        uri: collectionUri,
+        name: 'Collection NFT',
+        sellerFeeBasisPoints: 500, // Represents 5.00%.
+        maxSupply: toBigNumber(0),
+        symbol: 'paper',
+        tokenOwner: wallet.publicKey,
+        updateAuthority: wallet,
+        isCollection: true,
+        creators: [],
+      },
+      operationOptions
+    );
 
   sleep(3); // Avoid for many requests.
 
@@ -107,18 +114,21 @@ const main = async () => {
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
     .nfts()
-    .create({
-      uri: uri,
-      name: "Normarl NFT",
-      symbol: "paper",
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      // maxSupply: toBigNumber(1),
-      maxSupply: toBigNumber(0),
-      tokenOwner: wallet.publicKey,
-      updateAuthority: wallet,
-      creators: [],
-      collection: collectionNft.address,
-    });
+    .create(
+      {
+        uri: uri,
+        name: "Normarl NFT",
+        symbol: "paper",
+        sellerFeeBasisPoints: 500, // Represents 5.00%.
+        // maxSupply: toBigNumber(1),
+        maxSupply: toBigNumber(0),
+        tokenOwner: wallet.publicKey,
+        updateAuthority: wallet,
+        creators: [],
+        collection: collectionNft.address,
+      },
+      operationOptions
+    );
 
   sleep(3); // Avoid for many requests.
 

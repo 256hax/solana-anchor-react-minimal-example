@@ -3,7 +3,7 @@ import {
   Metaplex,
   keypairIdentity,
   bundlrStorage,
-  toMetaplexFile
+  toMetaplexFile,
 } from '@metaplex-foundation/js';
 import {
   Connection,
@@ -18,9 +18,8 @@ import { sleep } from 'sleep';
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
 
-  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
+  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
-  // const wallet = Keypair.generate();
 
   // ------------------------------------
   //  Airdrop

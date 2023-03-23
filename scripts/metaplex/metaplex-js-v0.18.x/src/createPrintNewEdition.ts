@@ -4,7 +4,8 @@ import {
   keypairIdentity,
   bundlrStorage,
   mockStorage,
-  toBigNumber
+  toBigNumber,
+  OperationOptions,
 } from '@metaplex-foundation/js';
 import {
   Connection,
@@ -13,29 +14,36 @@ import {
   PublicKey,
   LAMPORTS_PER_SOL
 } from '@solana/web3.js';
+import fs from 'fs';
 import { sleep } from 'sleep';
 
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
-  const wallet = Keypair.generate();
+  
+  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
+  const wallet = Keypair.fromSecretKey(secretKey);
+
+  const operationOptions: OperationOptions = {
+    commitment: 'finalized',
+  };
 
   // ------------------------------------
   //  Airdrop
   // ------------------------------------
-  let airdropSignature = await connection.requestAirdrop(
-    wallet.publicKey,
-    LAMPORTS_PER_SOL,
-  );
+  // let airdropSignature = await connection.requestAirdrop(
+  //   wallet.publicKey,
+  //   LAMPORTS_PER_SOL,
+  // );
 
-  const latestBlockHash = await connection.getLatestBlockhash();
+  // const latestBlockHash = await connection.getLatestBlockhash();
 
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  });
+  // await connection.confirmTransaction({
+  //   blockhash: latestBlockHash.blockhash,
+  //   lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+  //   signature: airdropSignature,
+  // });
 
-  sleep(5);
+  // sleep(5);
 
   // Check balance
   const balance = await connection.getBalance(wallet.publicKey);
@@ -72,14 +80,17 @@ const main = async () => {
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
     .nfts()
-    .create({
-      uri: uri,
-      name: 'My NFT',
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(2),
-    });
+    .create(
+      {
+        uri: uri,
+        name: 'My NFT',
+        sellerFeeBasisPoints: 500, // Represents 5.00%.
+        maxSupply: toBigNumber(2),
+      },
+      operationOptions
+    );
 
-  sleep(3);
+  sleep(3); // Wait for tx confirmation.
 
   // ------------------------------------
   //  Print NFT

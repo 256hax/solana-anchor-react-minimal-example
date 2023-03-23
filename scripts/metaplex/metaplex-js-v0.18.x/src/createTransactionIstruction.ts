@@ -5,6 +5,7 @@ import {
   bundlrStorage,
   mockStorage,
   toBigNumber,
+  OperationOptions,
 } from '@metaplex-foundation/js';
 import {
   Connection,
@@ -19,8 +20,12 @@ import * as fs from 'fs';
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
 
-  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
+  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
   const wallet = Keypair.fromSecretKey(secretKey);
+
+  const operationOptions: OperationOptions = {
+    commitment: 'finalized',
+  };
 
   // ------------------------------------
   //  Airdrop
@@ -39,12 +44,12 @@ const main = async () => {
   // });
 
   // Check balance
-  // const balance = await connection.getBalance(wallet.publicKey);
-  // if (balance >= LAMPORTS_PER_SOL) {
-  //   console.log('wallet balance =>', balance);
-  // } else {
-  //   throw Error('Failed to airdrop. Adjust sleep time or use your wallet.');
-  // }
+  const balance = await connection.getBalance(wallet.publicKey);
+  if (balance >= LAMPORTS_PER_SOL) {
+    console.log('wallet balance =>', balance);
+  } else {
+    throw Error('Failed to airdrop. Adjust sleep time or use your wallet.');
+  }
 
   // ------------------------------------
   //  Make Metaplex
@@ -69,13 +74,16 @@ const main = async () => {
   const transactionBuilder = await metaplex
     .nfts()
     .builders()
-    .create({
-      uri: 'https://arweave.net/W-20MpV-N1l6e_vxWxjmGfFnGkiiUDn7GJAsgYmJ6fU',
-      name: 'My NFT',
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(1),
-      useNewMint: mintKeypair, // we pass our mint in as the new mint to use
-    });
+    .create(
+      {
+        uri: 'https://arweave.net/W-20MpV-N1l6e_vxWxjmGfFnGkiiUDn7GJAsgYmJ6fU',
+        name: 'My NFT',
+        sellerFeeBasisPoints: 500, // Represents 5.00%.
+        maxSupply: toBigNumber(1),
+        useNewMint: mintKeypair, // we pass our mint in as the new mint to use
+      },
+      operationOptions
+    );
 
   // Convert to transaction
   const latestBlockhash = await connection.getLatestBlockhash()

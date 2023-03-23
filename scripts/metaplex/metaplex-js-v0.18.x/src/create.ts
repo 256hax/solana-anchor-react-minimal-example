@@ -5,6 +5,7 @@ import {
   bundlrStorage,
   toBigNumber,
   mockStorage,
+  OperationOptions,
 } from '@metaplex-foundation/js';
 import {
   Connection,
@@ -18,27 +19,31 @@ import { sleep } from 'sleep';
 
 const main = async () => {
   const connection = new Connection(clusterApiUrl('devnet'));
-  // const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('src/assets/id.json', 'utf8')));
-  // const wallet = Keypair.fromSecretKey(secretKey);
-  const wallet = Keypair.generate();
+
+  const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
+  const wallet = Keypair.fromSecretKey(secretKey);
+
+  const operationOptions: OperationOptions = {
+    commitment: 'finalized',
+  };
 
   // ------------------------------------
   //  Airdrop
   // ------------------------------------
-  const airdropSignature = await connection.requestAirdrop(
-    wallet.publicKey,
-    LAMPORTS_PER_SOL,
-  );
+  // const airdropSignature = await connection.requestAirdrop(
+  //   wallet.publicKey,
+  //   LAMPORTS_PER_SOL,
+  // );
 
-  const latestBlockHash = await connection.getLatestBlockhash();
+  // const latestBlockHash = await connection.getLatestBlockhash();
 
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  });
+  // await connection.confirmTransaction({
+  //   blockhash: latestBlockHash.blockhash,
+  //   lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+  //   signature: airdropSignature,
+  // });
 
-  sleep(5); // Wait for airdrop confirmation.
+  // sleep(5); // Wait for airdrop confirmation.
 
   // Check balance
   const balance = await connection.getBalance(wallet.publicKey);
@@ -47,7 +52,7 @@ const main = async () => {
   } else {
     throw Error('Failed to airdrop. Adjust sleep time, use custom RPC or your wallet.');
   }
-  
+
   // ------------------------------------
   //  Make Metaplex
   // ------------------------------------
@@ -80,12 +85,15 @@ const main = async () => {
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
     .nfts()
-    .create({
-      uri: uri,
-      name: 'My NFT',
-      sellerFeeBasisPoints: 500, // Represents 5.00%.
-      maxSupply: toBigNumber(1),
-    });
+    .create(
+      {
+        uri: uri,
+        name: 'My NFT',
+        sellerFeeBasisPoints: 500, // Represents 5.00%.
+        maxSupply: toBigNumber(1),
+      },
+      operationOptions
+    );
 
   console.log('nft.address =>', nft.address.toString());
   console.log('uri =>', uri);
