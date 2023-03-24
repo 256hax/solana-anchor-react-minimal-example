@@ -1,5 +1,5 @@
 ## Overview
-Mint NFTs using Metaplex Sugar CLI.
+Mint NFTs using Metaplex Candy Machine v3 Sugar(CLI).
 
 ## Run
 ### Setup
@@ -73,3 +73,6 @@ Add collection information obtained from deployed cache.json to new cache.json, 
 ```
 % sugar deploy
 ```
+
+## Reference
+- [Sugar](https://docs.metaplex.com/programs/candy-machine/how-to-guides/my-first-candy-machine-part1)
