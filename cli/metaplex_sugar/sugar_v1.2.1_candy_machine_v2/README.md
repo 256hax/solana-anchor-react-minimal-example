@@ -18,10 +18,10 @@ It's depend on version of Sugar. Check README at each directory.
 Sugar doesn't show mint address. Check mint address from Solana Explorer or Solaneyes, Metaplex JS.
 
 #### Solana Explorer (Search "Mint" in page):  
-![Solana Explorer mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_mint_address.png?raw=true)
+![Solana Explorer mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/sugar_v1.2.1_candy_machine_v2/docs/screenshot/example_mint_address.png?raw=true)
 
 #### Solaneyes (If you success for "sugar launch", Solaneyes URL apeear in your terminal):  
-![Solaneyes mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/example_Solaneyes_minted_nft.png?raw=true)
+![Solaneyes mint](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/sugar_v1.2.1_candy_machine_v2/docs/screenshot/example_Solaneyes_minted_nft.png?raw=true)
 
 #### Metaplex JS: [@metaplex-foundation/js - findMintedNfts](https://metaplex-foundation.github.io/js/classes/js.CandyMachinesV2Client.html#findMintedNfts)
 
@@ -43,7 +43,7 @@ NFT A will be Collection NFT.
 
 Source: [Metaplex Docs - Nested Collections](https://docs.metaplex.com/programs/token-metadata/certified-collections#nested-collections)
 
-![Nested Collections](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/docs/screenshot/Token-Metadata-Collections-Nested-Collection.png?raw=true)
+![Nested Collections](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/cli/metaplex_sugar/sugar_v1.2.1_candy_machine_v2/docs/screenshot/Token-Metadata-Collections-Nested-Collection.png?raw=true)
 
 ### How to reset cache
 If you want to reset or re-run Sugar, delete cache.json.
