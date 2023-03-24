@@ -1,0 +1,25 @@
+{
+  "program": {
+    "candyMachine": "42z9oi9LpZkQqqD4K3NL9h63sbrMiWReC7CM6dj9ZZBW",
+    "candyMachineCreator": "9yoRG6D7PaW8FumMmMtvpw9rSHQRtv6oyzQDzuwbAGtb",
+    "collectionMint": "Eu8zfdtk91WR7hFF2BdLoZSc6hqSaxBwfiXu9zbDyNof"
+  },
+  "items": {
+    "-1": {
+      "name": "Art Collection",
+      "image_hash": "ec068fe632ad705974aa4f5430b1f68cc173b2e60f1f55a7b639a4f745ed0767",
+      "image_link": "https://arweave.net/ufxW5i_5Sw4MWHKBhb2l90M-v4YfaHFmUOIFU9XsOwQ?ext=png",
+      "metadata_hash": "d7c1351f13499247933cce0ef93abc99dde32a2af0c2560c0fbb95316636c1f5",
+      "metadata_link": "https://arweave.net/Sd5sTNAWw7Drc70WMW1oJTacrqqPf4ln6H9z3xUHVsk",
+      "onChain": true
+    },
+    "0": {
+      "name": "Portrait of Dora Maar",
+      "image_hash": "5b914e4b4377abd784015ff9a9db692ef73bbc85c3cd75ec240d9233d7f6c4cd",
+      "image_link": "https://arweave.net/RcltRMxf6lUigXfY9QXDYq6nf-XAaUHC4ACH2JeBDh8?ext=png",
+      "metadata_hash": "9eb0e77e8a4dacf58439d21faa26a1c98c107f6e1becbb6a684a4c44146ab6e2",
+      "metadata_link": "https://arweave.net/IjF_Sd0zcvGwTbkfFjPFoiHlmVPn7duJ1diU92OZHKo",
+      "onChain": true
+    }
+  }
+}

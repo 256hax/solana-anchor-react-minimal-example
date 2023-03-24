@@ -35,7 +35,7 @@ build
 #----------------------------------
 # Metaplex Sugar
 #----------------------------------
-cache.json
+# cache.json
 sugar.log
 test_item
 

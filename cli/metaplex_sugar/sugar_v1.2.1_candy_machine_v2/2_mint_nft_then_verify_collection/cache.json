@@ -1,0 +1,17 @@
+{
+  "program": {
+    "candyMachine": "6HDfsT4AUVWkzogNy1KzNJd9QnhN5eFo88xmf66b3aoZ",
+    "candyMachineCreator": "EBuEVYaNEXgmP2pz9ABELzS22mc3FfXPp8X9tFvNd97g",
+    "collectionMint": "Eu8zfdtk91WR7hFF2BdLoZSc6hqSaxBwfiXu9zbDyNof"
+  },
+  "items": {
+    "0": {
+      "name": "Sunflowers",
+      "image_hash": "ec8f3536338728d1d913395c2a8cac2f422e7f30f7fc3eae9220360ed7982a8e",
+      "image_link": "https://arweave.net/gIOsQHaqwB9HbUDLhLnSdpoec3AwApEBJzQqzinOwjU?ext=png",
+      "metadata_hash": "ce8b890007cbccd88232ac3dc113d85efe8f5b1fee0a086ecf465e0a9295f178",
+      "metadata_link": "https://arweave.net/dB6XvvlJh-ka9cn7fqYbSbAYNOZHx2hpYTeQxhj3ScA",
+      "onChain": true
+    }
+  }
+}
