@@ -1,0 +1,22 @@
+{
+  "tokenStandard": "nft",
+  "number": 2,
+  "symbol": "NB",
+  "sellerFeeBasisPoints": 500,
+  "isMutable": true,
+  "isSequential": false,
+  "creators": [
+    {
+      "address": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
+      "share": 100
+    }
+  ],
+  "uploadMethod": "bundlr",
+  "ruleSet": null,
+  "awsConfig": null,
+  "nftStorageAuthToken": null,
+  "shdwStorageAccount": null,
+  "pinataConfig": null,
+  "hiddenSettings": null,
+  "guards": null
+}
