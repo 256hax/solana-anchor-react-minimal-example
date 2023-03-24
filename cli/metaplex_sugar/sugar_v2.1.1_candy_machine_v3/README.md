@@ -40,7 +40,10 @@ See your candy machine at:
 ```
 
 ## Mint Standard NFT without Collection Upload
+Set assets without collection.
+
 ```
+% sugar config create
 % sugar validate
 % sugar upload
 ```
