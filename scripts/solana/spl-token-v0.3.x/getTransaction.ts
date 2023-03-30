@@ -14,7 +14,7 @@ export const main = async () => {
   // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // // --------------------------------------------------------
-  // //  Create Account
+  // //  Wallet
   // // --------------------------------------------------------
   // const payer = Keypair.generate();
   // const taker = Keypair.generate();

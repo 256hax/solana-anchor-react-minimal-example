@@ -15,7 +15,7 @@ export const main = async () => {
   // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
   // ------------------------------------------------------------------------
-  //  Create Account
+  //  Wallet
   // ------------------------------------------------------------------------
   const from = Keypair.generate();
 

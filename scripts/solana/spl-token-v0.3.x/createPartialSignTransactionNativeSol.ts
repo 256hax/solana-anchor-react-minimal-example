@@ -20,7 +20,7 @@ export const main = async () => {
   const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // ------------------------------------------------------------------------
-  //  Account
+  //  Wallet
   // ------------------------------------------------------------------------
   const aliceKeypair = Keypair.generate();
   const bobKeypair = Keypair.generate();
