@@ -74,5 +74,15 @@ Add collection information obtained from deployed cache.json to new cache.json, 
 % sugar deploy
 ```
 
+### Mint NFT using existing Collection NFT
+Use `deploy --collection-mint`. Dosn't work `collection set`.
+
+```
+% sugar validate
+% sugar upload
+% sugar deploy --collection-mint <COLLECTION MINT ADDRESS>
+% sugar mint
+```
+
 ## Reference
 - [Sugar](https://docs.metaplex.com/programs/candy-machine/how-to-guides/my-first-candy-machine-part1)
