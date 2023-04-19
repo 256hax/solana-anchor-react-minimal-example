@@ -81,6 +81,13 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 - [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
+## Compressed NFT
+- [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
+- [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
+- [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
+- [GitHub - Example Code](https://github.com/solana-developers/compressed-nfts)
+- [GitHub - Metaplex Digital Asset RPC](https://github.com/metaplex-foundation/digital-asset-rpc-infrastructure)
+
 ## Wallet Adapter for DApps
 - [Docs - Phantom](https://docs.phantom.app/)
 - [API - (JS)@solana/wallet-adapter](https://solana-labs.github.io/wallet-adapter/)
