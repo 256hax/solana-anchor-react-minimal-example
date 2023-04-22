@@ -100,7 +100,10 @@ const main = async () => {
   //  Account Structure: https://docs.metaplex.com/programs/token-metadata/#printing-editions
   const { nft: printedNft } = await metaplex
     .nfts()
-    .printNewEdition({ originalMint: nft.address })
+    .printNewEdition(
+      { originalMint: nft.address },
+      operationOptions
+    );
 
   console.log('\n--- Master Edition(Original NFT) ------------------------------------');
   console.log('uri =>', uri);
