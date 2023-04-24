@@ -69,19 +69,22 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 ## Metaplex/NFT
 - [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/accounts)
 - [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
+- [Docs - Candy Machine(Umi)](https://docs.metaplex.com/programs/candy-machine/overview)
 - [Docs - Sugar(CLI)](https://docs.metaplex.com/developer-tools/sugar/)
 - [Docs - Metaboss(CLI)](https://metaboss.rs/)
 - [API - (Rust)mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
 - [API - (Rust)metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
 - [API - (JS)@metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
 - [API - (JS)@metaplex-foundation/js](https://metaplex-foundation.github.io/js/modules/js.html)
+- [API - (JS)@metaplex-foundation/mpl-candy-machine](https://mpl-candy-machine-js-docs.vercel.app/)
 - [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
 - [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
+- [GitHub - Umi](https://github.com/metaplex-foundation/umi)
 - [GitHub - Sugar](https://github.com/metaplex-foundation/sugar)
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 - [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
-## Compressed NFT
+## State Compression / Compressed NFT
 - [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
 - [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
 - [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
