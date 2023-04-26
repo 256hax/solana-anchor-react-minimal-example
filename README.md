@@ -1,6 +1,9 @@
 # Solana x Anchor x React Minimal Example
-Solana x Anchor x React Minimal Example. And there are a few contents(Metaplex, Arweave JS and Outline Document).  
-For experiment purpose only.
+Solana, Anchor, Metaplex, React Minimal Example.  
+This is Out of the Box, easy to start!  
+I wrote the code in a single file to make it easy to understand, without dividing it into modules.
+
+For experiment purpose only.  
 
 ## How To Run
 It's depends on Framework(e.g. Anchor, React, JS...). Check README.md at each directories.
