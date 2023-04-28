@@ -77,7 +77,7 @@ const main = async () => {
   console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
   console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
   console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
-  console.log('Solaneyees =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
+  console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
 }
 
 main();
@@ -88,5 +88,5 @@ main();
 collectionUpdateAuthority => B26oApMPxxWr8RrhXjpMbQ4YFHKdpcsQY7yTCvG1gsfr
 collectionMint => 12CKxpMGdCKcjeUsJji7ShAqbL7knHKj6xqrBZjLuNy9
 candyMachine => 7aMtLBih2zHrTnX6Jj8Gmbw3ZEknqob2WPPWCnJWqNBS
-Solaneyees => https://www.solaneyes.com/address/7aMtLBih2zHrTnX6Jj8Gmbw3ZEknqob2WPPWCnJWqNBS
+Solaneyees(Wait a sec) => https://www.solaneyes.com/address/7aMtLBih2zHrTnX6Jj8Gmbw3ZEknqob2WPPWCnJWqNBS
 */
