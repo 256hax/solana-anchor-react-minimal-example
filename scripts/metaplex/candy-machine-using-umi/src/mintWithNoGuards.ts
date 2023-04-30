@@ -139,13 +139,13 @@ const main = async () => {
   );
 
   // Ref: https://github.com/metaplex-foundation/umi/blob/main/docs/publickeys-signers.md#public-keys
+  console.log('candyMachineAccount =>', candyMachineAccount);
+  console.log('-------------------------------------------------------');
   console.log('myKeypair.publicKey =>', base58PublicKey(myKeypair.publicKey.bytes));
   console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
   console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
   console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
   console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
-  console.log('-------------------------------------------------------');
-  console.log('candyMachineAccount =>', candyMachineAccount);
   console.log('-------------------------------------------------------');
   console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
 }
@@ -157,12 +157,6 @@ Mint twice from Candy Machine example.
 
 % ts-node <THIS FILE>
 
-myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-collectionUpdateAuthority => 94NVNnGMgLHnLmHDy1oW8MLivo56QXmU1XyNMaDoDgUu
-collectionMint => Hrv61bhATqiVu66WtGyp1diQvLGy7J3WDM5k4VLmZVQS
-candyMachine => 4CVHXRwNcquqrMy7KRZJ94Hwm2adt4dWkSSgtb7TeTjU
-nftMint => DHFrxQZhZ1wrEsFS53BzhUMd7oipDo5xnNiCLfr2tqX3
--------------------------------------------------------
 candyMachineAccount => {
   publicKey: {
     bytes: Uint8Array(32) [
@@ -244,6 +238,12 @@ candyMachineAccount => {
   itemsLoaded: 3,
   ruleSet: { __option: 'None' }
 }
+-------------------------------------------------------
+myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+collectionUpdateAuthority => 94NVNnGMgLHnLmHDy1oW8MLivo56QXmU1XyNMaDoDgUu
+collectionMint => Hrv61bhATqiVu66WtGyp1diQvLGy7J3WDM5k4VLmZVQS
+candyMachine => 4CVHXRwNcquqrMy7KRZJ94Hwm2adt4dWkSSgtb7TeTjU
+nftMint => DHFrxQZhZ1wrEsFS53BzhUMd7oipDo5xnNiCLfr2tqX3
 -------------------------------------------------------
 Solaneyees(Wait a sec) => https://www.solaneyes.com/address/4CVHXRwNcquqrMy7KRZJ94Hwm2adt4dWkSSgtb7TeTjU
 */
