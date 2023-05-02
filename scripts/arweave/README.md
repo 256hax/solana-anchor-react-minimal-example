@@ -5,6 +5,7 @@
 - [textury/arlocal](https://github.com/textury/arlocal)
 
 ## Run
+To run with node v16.5+ then,
 
 First terminal:
 ```

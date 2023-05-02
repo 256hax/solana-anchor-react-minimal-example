@@ -2,16 +2,16 @@ const Arweave = require('arweave');
 const fs = require('fs');
 
 const arweave = Arweave.init({
-    host: '127.0.0.1',
-    port: 1984,
-    protocol: 'http'
+  host: '127.0.0.1',
+  port: 1984,
+  protocol: 'http'
 });
 
 const key = JSON.parse(fs.readFileSync('key.json'));
 
 async function main() {
   const transaction = await arweave.createTransaction({
-      data: '<html><head><meta charset="UTF-8"><title>Hello world!</title></head><body></body></html>',
+    data: '<html><head><meta charset="UTF-8"><title>Hello world!</title></head><body></body></html>',
   }, key);
 
   transaction.addTag('Content-Type', 'text/html');

@@ -1,11 +1,12 @@
 {
   "type": "commonjs",
   "dependencies": {
-    "arweave": "^1.10.23",
+    "arweave": "^1.13.7",
     "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.1",
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "arlocal": "^1.1.36"
+    "arlocal": "^1.1.60"
   }
 }

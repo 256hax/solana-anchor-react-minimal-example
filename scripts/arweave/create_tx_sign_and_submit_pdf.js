@@ -2,9 +2,13 @@ const Arweave = require('arweave');
 const fs = require('fs');
 
 const arweave = Arweave.init({
-    host: '127.0.0.1',
-    port: 1984,
-    protocol: 'http'
+  host: '127.0.0.1',
+  port: 1984,
+  protocol: 'http'
+  // --- If you need testnet ---
+  // host: 'testnet.redstone.tools',
+  // port: 443,
+  // protocol: 'https'
 });
 
 const key = JSON.parse(fs.readFileSync('key.json'));

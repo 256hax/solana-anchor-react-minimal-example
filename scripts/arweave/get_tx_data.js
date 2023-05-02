@@ -10,7 +10,7 @@ const arweave = Arweave.init({
 async function main() {
   const transactionId = '3wXyF1wvK6ARJ_9ue-O58CMuXrz5nyHEiPFQ6z5q02E';
 
-  const tx_data = await arweave.transactions.getData(transactionId, {decode: true, string: true});
+  const tx_data = await arweave.transactions.getData(transactionId, { decode: true, string: true });
   console.log('Transaction Data =>', tx_data);
 
   console.log('------------------------------------------------');
@@ -18,8 +18,8 @@ async function main() {
   const tx_tags = await arweave.transactions.get(transactionId);
   console.log('<key> : <value>');
   tx_tags.get('tags').forEach(tag => {
-    let key = tag.get('name', {decode: true, string: true});
-    let value = tag.get('value', {decode: true, string: true});
+    let key = tag.get('name', { decode: true, string: true });
+    let value = tag.get('value', { decode: true, string: true });
     console.log(`${key} : ${value}`);
   });
 }

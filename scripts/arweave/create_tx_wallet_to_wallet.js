@@ -2,9 +2,9 @@ const Arweave = require('arweave');
 const fs = require('fs');
 
 const arweave = Arweave.init({
-    host: '127.0.0.1',
-    port: 1984,
-    protocol: 'http'
+  host: '127.0.0.1',
+  port: 1984,
+  protocol: 'http'
 });
 
 const key = JSON.parse(fs.readFileSync('key.json')); // Payer
@@ -20,8 +20,8 @@ async function main() {
 
   // Transaction
   const transaction = await arweave.createTransaction({
-      target: takder_address,
-      quantity: arweave.ar.arToWinston('10.5')
+    target: takder_address,
+    quantity: arweave.ar.arToWinston('10.5')
   }, key);
 
   await arweave.transactions.sign(transaction, key);

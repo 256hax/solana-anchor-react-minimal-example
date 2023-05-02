@@ -4,9 +4,9 @@ const fs = require('fs');
 
 let port = 1985; // Avoid conflicts existing ArLocal process
 const arweave = Arweave.init({
-    host: '127.0.0.1',
-    port: port,
-    protocol: 'http'
+  host: '127.0.0.1',
+  port: port,
+  protocol: 'http'
 });
 
 const key = JSON.parse(fs.readFileSync('key.json'));
