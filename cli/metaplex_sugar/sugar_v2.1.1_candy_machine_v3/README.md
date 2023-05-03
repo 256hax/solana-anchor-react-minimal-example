@@ -86,3 +86,4 @@ Use `deploy --collection-mint`. Dosn't work `collection set`.
 
 ## Reference
 - [Sugar](https://docs.metaplex.com/programs/candy-machine/how-to-guides/my-first-candy-machine-part1)
+- [Sugar for Candy Machine V3 Configuration](https://docs.metaplex.com/developer-tools/sugar/guides/sugar-for-cmv3)
