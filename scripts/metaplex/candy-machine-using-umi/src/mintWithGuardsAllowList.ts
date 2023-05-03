@@ -167,6 +167,7 @@ const main = async () => {
   console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
   console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
   console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
+  console.log('merkleRoot Hash =>', base58PublicKey(merkleRoot));
   console.log('-------------------------------------------------------');
   console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
 }
@@ -175,14 +176,13 @@ main();
 
 /*
 % ts-node <THIS FILE>
-
 candyMachineAccount => {
   publicKey: {
     bytes: Uint8Array(32) [
-      112, 229,  77,  77,  95, 189,  59,  67,
-        4, 230, 239, 179, 101, 188, 120, 176,
-      225, 249,   1, 170, 116, 107,  74,  93,
-      228, 141, 203, 187, 149, 126,   6, 255
+       22, 201,  39,   2,  79,   5, 194, 140,
+      130, 227, 242, 159,  31,   7,  37,  34,
+      236,   9, 201, 216, 166, 116, 191, 209,
+      143,  47, 147, 219, 166, 175, 250, 203
     ]
   },
   header: {
@@ -209,18 +209,18 @@ candyMachineAccount => {
   },
   mintAuthority: {
     bytes: Uint8Array(32) [
-       26, 211,  62,  63, 195,   5,  19, 117,
-      171,  16, 250, 144,   9,  66, 130, 211,
-      250,  93, 111, 141, 211, 131, 218,  67,
-       65,  21,  99, 120,  71, 122,   2, 217
+       77, 180,  30,  22, 116, 178,  18, 44,
+      128, 165, 147, 119,  52,  93,  67, 54,
+      252, 240, 104, 214,  41, 245, 140, 99,
+       96, 152, 192,   9, 157, 241, 209, 16
     ]
   },
   collectionMint: {
     bytes: Uint8Array(32) [
-      241,  97, 250, 148,  52,  51, 134, 144,
-       92, 125,  55, 158,  73,   6, 152,  63,
-       53, 238, 173, 164, 122, 238,  80, 220,
-       92,  67, 108, 129,  33, 210, 243,  95
+       67, 250,  34,   4,  97, 244, 194,  60,
+       52,  22, 196, 255, 245,  85, 144,  38,
+      195, 208, 189,  81, 116, 249,  82, 251,
+      118,  69, 161,  60, 255,  19, 216, 185
     ]
   },
   itemsRedeemed: 1n,
@@ -259,10 +259,11 @@ candyMachineAccount => {
 }
 -------------------------------------------------------
 myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-collectionUpdateAuthority => 9fi9ikM6rYnYTCZTPPpCFjo7mJBDuS1mLxyRYcyd2rL8
-collectionMint => HFFufwsRw9ePySFdmbopMsPAJeEJM8yeSMr72mSjokLN
-candyMachine => 8bhTZbp6mRH5vhVU21GhDWuquwGhvYXPy8mFu28tzkFG
-nftMint => CJUcjE3Je4k6dYpu1VcTBsnAh4xtZ3AQrwdS9JT5EYHB
+collectionUpdateAuthority => 8atnEHeHvwqN6aSLeoJcAtPFkopea1yL4rRuemuNBqbU
+collectionMint => 5aMY1BVd32cNyyspBYY6XsDJbVjaRKURXaYPiTqwvfpL
+candyMachine => 2XwsS7bwCxm194kkmo9SyQzGA19h5dT8QAJbk2EJBE7U
+nftMint => A9ULJ9v8k2sF71ykyPueSrRFuWLs3BURaicyLWzzkTKT
+merkleRoot Hash => 7v89Y2RQKzC1h7aVMdofJRGEhBx4bpTcKLrXf8SUyK5E
 -------------------------------------------------------
-Solaneyees(Wait a sec) => https://www.solaneyes.com/address/8bhTZbp6mRH5vhVU21GhDWuquwGhvYXPy8mFu28tzkFG
+Solaneyees(Wait a sec) => https://www.solaneyes.com/address/2XwsS7bwCxm194kkmo9SyQzGA19h5dT8QAJbk2EJBE7U
 */
