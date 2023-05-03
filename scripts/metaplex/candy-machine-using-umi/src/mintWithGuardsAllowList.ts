@@ -122,6 +122,7 @@ const main = async () => {
   }).sendAndConfirm(umi);
 
   // When we verify the payer first by providing a valid merkle proof.
+  // Merkle Root/Proof: https://docs.metaplex.com/programs/candy-machine/available-guards/allow-list#route-instruction
   await transactionBuilder()
     .add(
       route(umi, {
