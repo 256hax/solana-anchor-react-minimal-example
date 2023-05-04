@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@metaplex-foundation/js": "^0.19.0",
-    "@metaplex-foundation/mpl-token-metadata": "^2.10.0",
+    "@metaplex-foundation/js": "^0.19.1",
+    "@metaplex-foundation/mpl-token-metadata": "^2.11.0",
     "@solana/web3.js": "^1.75.0",
     "sleep": "^6.3.0"
   },
