@@ -1,46 +1,20 @@
 ## Overview
 Mint NFTs using Metaplex Candy Machine v3 Sugar(CLI).
 
-## Run
-### Setup
+## Setup
 ```
 % solana config set --url devnet
-% sugar launch
 ```
 
-### Mint NFTs
-Mint #1
-```
-% sugar mint
-```
+## Run
+It's depends on case(e.g. with guards or no guards...). Look at each diretories.
 
-Mint #2
-```
-% sugar mint
-```
-
-### Get Mint Address
-Look at latest tx using Candy Machine ID to see the Mint.  
-e.g. [21Dgokyh5LJVBr41FLWqX4635VmxdoQsHRNWwXo3eNtw](https://solana.fm/tx/3aL7WEFXbRK3o4EuEioiRYmGw4MRA8CzPVgMdXTzks4yR8PDPgBJNg21MFzkvSSAfvMAvpK4JznENre1LzD931gi?cluster=devnet-qn1)
-```
-% sugar verify
-
-...
-
-Verification successful. You're good to go!
-
-See your candy machine at:
-  -> https://www.solaneyes.com/address/21Dgokyh5LJVBr41FLWqX4635VmxdoQsHRNWwXo3eNtw?cluster=devnet
-```
-
-### Verify(Sign) Creator
-`metaboss sign one --keypair <PATH_TO_KEYPAIR> --account <MINT_ADDRESS>`
-```
-% metaboss sign one --keypair ~/.config/solana/id.json --account 2xUxNaiVAd1xTeFnEMLqBqCAukAeUS97tkWE2VrF6Nt6
-```
+## Re-Run
+Delete cache.json then continue sugar command.
 
 ## Mint Standard NFT without Collection Upload
-Set assets without collection.
+### Prepare Standard NFT.
+Upload assets without collection.
 
 ```
 % sugar config create
@@ -48,7 +22,7 @@ Set assets without collection.
 % sugar upload
 ```
 
-Add collection information obtained from deployed cache.json to new cache.json, as follows:
+Then, add collection information obtained from deployed cache.json to new cache.json, as follows:
 
 ```
 {
@@ -75,7 +49,7 @@ Add collection information obtained from deployed cache.json to new cache.json, 
 ```
 
 ### Mint NFT using existing Collection NFT
-Use `deploy --collection-mint`. Dosn't work `collection set`.
+Use `deploy --collection-mint`. Dosen't work `collection set`.
 
 ```
 % sugar validate
@@ -86,4 +60,3 @@ Use `deploy --collection-mint`. Dosn't work `collection set`.
 
 ## Reference
 - [Sugar](https://docs.metaplex.com/programs/candy-machine/how-to-guides/my-first-candy-machine-part1)
-- [Sugar for Candy Machine V3 Configuration](https://docs.metaplex.com/developer-tools/sugar/guides/sugar-for-cmv3)
