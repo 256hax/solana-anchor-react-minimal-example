@@ -81,6 +81,9 @@ Get Candy Machine and Sugar Guards setting.
 ✅ Command successful.
 ```
 
+Then, mint NFT from frontend.  You can't mint using Sugar.  
+If you need to mint using Sugar, remove guard from Candy Machine.
+
 ## Get Mint Address
 You need to get Mint Address in latest transaction.
 
