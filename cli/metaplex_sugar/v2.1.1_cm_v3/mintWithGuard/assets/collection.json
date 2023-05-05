@@ -1,0 +1,15 @@
+{
+  "name": "Numbers Collection",
+  "symbol": "NB",
+  "description": "Collection of 10 numbers on the blockchain.",
+  "image": "collection.png",
+  "attributes": [],
+  "properties": {
+    "files": [
+      {
+        "uri": "collection.png",
+        "type": "image/png"
+      }
+    ]
+  }
+}

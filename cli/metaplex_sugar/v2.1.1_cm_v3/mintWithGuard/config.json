@@ -1,0 +1,37 @@
+{
+  "tokenStandard": "nft",
+  "number": 2,
+  "symbol": "NB",
+  "sellerFeeBasisPoints": 500,
+  "isMutable": true,
+  "isSequential": false,
+  "creators": [
+    {
+      "address": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
+      "share": 100
+    }
+  ],
+  "uploadMethod": "bundlr",
+  "ruleSet": null,
+  "awsConfig": null,
+  "nftStorageAuthToken": null,
+  "shdwStorageAccount": null,
+  "pinataConfig": null,
+  "hiddenSettings": null,
+  "guards": {
+    "default": {
+      "mintLimit": {
+        "id": 1,
+        "limit": 1
+      },
+      "solPayment": {
+        "value": 0.00123,
+        "destination": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg"
+      },
+      "startDate": {
+        "date": "2022-10-23T20:00:00Z"
+      },
+      "redeemedAmount": {"maximum": 8}
+    }
+  }
+}
