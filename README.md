@@ -74,6 +74,7 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 - [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
 - [Docs - Candy Machine(Umi)](https://docs.metaplex.com/programs/candy-machine/overview)
 - [Docs - Sugar(CLI)](https://docs.metaplex.com/developer-tools/sugar/)
+- [Docs - Sugar Guards Configuration(CLI)](https://docs.metaplex.com/developer-tools/sugar/guides/sugar-for-cmv3)
 - [Docs - Metaboss(CLI)](https://metaboss.rs/)
 - [API - (Rust)mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
 - [API - (Rust)metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
