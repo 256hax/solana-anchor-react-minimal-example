@@ -1,5 +1,6 @@
 ## Overview
-Mint NFT(s) CLI Tools by Metaplex.
+Mint NFTs using Metaplex Candy Machine v2 Sugar(CLI).  
+Highly recommend to use Candy Machine v3 Sugar.
 
 ## Run
 ### Setup
