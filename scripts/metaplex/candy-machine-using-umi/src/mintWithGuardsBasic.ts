@@ -11,7 +11,6 @@ import {
   create,
   mintV2,
   fetchCandyMachine,
-  getMerkleRoot,
 } from "@metaplex-foundation/mpl-candy-machine";
 import {
   setComputeUnitLimit,
@@ -54,14 +53,9 @@ const main = async () => {
   //   .use(walletAdapterIdentity(wallet))
   //   .use(mplCandyMachine())
 
-  // Given the identity is part of an allow list.
-  const allowList = [
-    base58PublicKey(umi.identity),
-    'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
-  ];
-  const merkleRoot = getMerkleRoot(allowList);
-
-  // Create the Collection NFT.
+  // -------------------------------------
+  //  Create Collection NFT
+  // -------------------------------------
   const collectionUpdateAuthority = generateSigner(umi);
   const collectionMint = generateSigner(umi);
   // Ref: https://mpl-token-metadata-js-docs.vercel.app/functions/createNft.html
@@ -74,6 +68,9 @@ const main = async () => {
     isCollection: true,
   }).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Candy Machine
+  // -------------------------------------
   // Create a Candy Machine with guards.
   // Ref: https://docs.metaplex.com/programs/candy-machine/candy-machine-settings
   const candyMachine = generateSigner(umi);
@@ -108,7 +105,9 @@ const main = async () => {
   });
   await transactionBuilder().add(createInstructions).sendAndConfirm(umi);
 
-  // Inseting Items.
+  // -------------------------------------
+  //  Insert Items
+  // -------------------------------------
   // Ref: https://docs.metaplex.com/programs/candy-machine/inserting-items
   await addConfigLines(umi, {
     candyMachine: candyMachine.publicKey,
@@ -120,7 +119,9 @@ const main = async () => {
     ],
   }).sendAndConfirm(umi);
 
-  // First Minting.
+  // -------------------------------------
+  //  Mint NFT
+  // -------------------------------------
   const nftMint = generateSigner(umi);
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 800_000 }))
@@ -137,7 +138,9 @@ const main = async () => {
     )
     .sendAndConfirm(umi);
 
-  // Fetch Candy Machine.
+  // -------------------------------------
+  //  Fetch Candy Machine
+  // -------------------------------------
   const candyMachineAccount = await fetchCandyMachine(
     umi,
     candyMachine.publicKey

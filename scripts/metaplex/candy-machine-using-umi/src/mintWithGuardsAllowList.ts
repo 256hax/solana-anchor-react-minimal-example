@@ -61,6 +61,9 @@ const main = async () => {
   //   .use(walletAdapterIdentity(wallet))
   //   .use(mplCandyMachine())
 
+  // -------------------------------------
+  //  Allow List
+  // -------------------------------------
   // Given the identity is part of an allow list.
   const allowList = [
     // base58PublicKey(umi.identity),
@@ -68,7 +71,9 @@ const main = async () => {
   ];
   const merkleRoot = getMerkleRoot(allowList);
 
-  // Create the Collection NFT.
+  // -------------------------------------
+  //  Create Collection NFT
+  // -------------------------------------
   const collectionUpdateAuthority = generateSigner(umi);
   const collectionMint = generateSigner(umi);
   await createNft(umi, {
@@ -80,6 +85,9 @@ const main = async () => {
     isCollection: true,
   }).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Candy Machine
+  // -------------------------------------
   // Create a Candy Machine with guards.
   const candyMachine = generateSigner(umi);
   const createInstructions = await create(umi, {
@@ -110,7 +118,9 @@ const main = async () => {
   });
   await transactionBuilder().add(createInstructions).sendAndConfirm(umi);
 
-  // Inseting Items.
+  // -------------------------------------
+  //  Insert Items
+  // -------------------------------------
   await addConfigLines(umi, {
     candyMachine: candyMachine.publicKey,
     index: 0,
@@ -137,7 +147,9 @@ const main = async () => {
     )
     .sendAndConfirm(umi);
 
-  // Minting.
+  // -------------------------------------
+  //  Mint NFT
+  // -------------------------------------
   const nftMint = generateSigner(umi);
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 800_000 }))
@@ -154,7 +166,9 @@ const main = async () => {
     )
     .sendAndConfirm(umi);
 
-  // Fetch Candy Machine.
+  // -------------------------------------
+  //  Fetch Candy Machine
+  // -------------------------------------
   const candyMachineAccount = await fetchCandyMachine(
     umi,
     candyMachine.publicKey
