@@ -78,7 +78,7 @@ const main = async () => {
   }).sendAndConfirm(umi);
 
   // -------------------------------------
-  //  Candy Guards
+  //  Candy Machine
   // -------------------------------------
   // Create a Candy Machine with guards.
   // Ref: https://docs.metaplex.com/programs/candy-machine/candy-machine-settings
@@ -111,7 +111,6 @@ const main = async () => {
   // -------------------------------------
   //  Insert Items
   // -------------------------------------
-  // Inseting Items.
   // Ref: https://docs.metaplex.com/programs/candy-machine/inserting-items
   await addConfigLines(umi, {
     candyMachine: candyMachine.publicKey,
