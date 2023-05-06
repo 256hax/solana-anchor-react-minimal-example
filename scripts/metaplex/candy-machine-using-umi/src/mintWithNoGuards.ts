@@ -32,6 +32,7 @@ import {
   some,
 } from "@metaplex-foundation/umi";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { nftStorageUploader } from "@metaplex-foundation/umi-uploader-nft-storage";
 
 const main = async () => {
   const endopoint = 'https://api.devnet.solana.com';
@@ -51,19 +52,34 @@ const main = async () => {
   //   .use(walletAdapterIdentity(wallet))
   //   .use(mplCandyMachine())
 
-  // Create the Collection NFT.
+  // -------------------------------------
+  //  Create Collection NFT
+  // -------------------------------------
+  // Upload the JSON metadata.
+  // Ref: https://docs.metaplex.com/programs/candy-machine/inserting-items#uploading-json-metadata
+  umi.use(nftStorageUploader());
+  const uri = await umi.uploader.uploadJson({
+    name: "My NFT #1",
+    description: "My description",
+    image: 'https://placekitten.com/100/200',
+  });
+
+  // Create NFT.
+  // Ref: https://mpl-token-metadata-js-docs.vercel.app/functions/createNft.html
   const collectionUpdateAuthority = generateSigner(umi);
   const collectionMint = generateSigner(umi);
-  // Ref: https://mpl-token-metadata-js-docs.vercel.app/functions/createNft.html
   await createNft(umi, {
     mint: collectionMint,
     authority: collectionUpdateAuthority,
     name: "My Collection NFT",
-    uri: "https://arweave.net/yfVoS8kmFiM_XjfZOETgdCfrByKDyheSJ20nyam8_ag",
+    uri,
     sellerFeeBasisPoints: percentAmount(9.99, 2), // 9.99%
     isCollection: true,
   }).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Candy Guards
+  // -------------------------------------
   // Create a Candy Machine with guards.
   // Ref: https://docs.metaplex.com/programs/candy-machine/candy-machine-settings
   const candyMachine = generateSigner(umi);
@@ -92,6 +108,9 @@ const main = async () => {
   });
   await transactionBuilder().add(createInstructions).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Insert Items
+  // -------------------------------------
   // Inseting Items.
   // Ref: https://docs.metaplex.com/programs/candy-machine/inserting-items
   await addConfigLines(umi, {
@@ -104,6 +123,9 @@ const main = async () => {
     ],
   }).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Mint NFT
+  // -------------------------------------
   // First Minting.
   const nftMint = generateSigner(umi);
   await transactionBuilder()
@@ -132,7 +154,9 @@ const main = async () => {
     )
     .sendAndConfirm(umi);
 
-  // Fetch Candy Machine.
+  // -------------------------------------
+  //  Fetch Candy Machine
+  // -------------------------------------
   const candyMachineAccount = await fetchCandyMachine(
     umi,
     candyMachine.publicKey
@@ -142,9 +166,9 @@ const main = async () => {
   console.log('candyMachineAccount =>', candyMachineAccount);
   console.log('-------------------------------------------------------');
   console.log('myKeypair.publicKey =>', base58PublicKey(myKeypair.publicKey.bytes));
-  console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
-  console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
   console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
+  console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
+  console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
   console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
   console.log('-------------------------------------------------------');
   console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
@@ -153,17 +177,14 @@ const main = async () => {
 main();
 
 /*
-Mint twice from Candy Machine example.
-
 % ts-node <THIS FILE>
-
 candyMachineAccount => {
   publicKey: {
     bytes: Uint8Array(32) [
-       47, 132, 110, 120, 127,  28, 189,   5,
-        3, 141,  28, 147, 170,  90, 169, 138,
-       73, 113,  25,  56, 132, 217, 216, 178,
-      226, 124,  53,   8,  91, 224,  37, 111
+       35, 218,  58, 192, 203,  97, 153,  70,
+      138,  38, 192,  79, 248,   2,  20, 102,
+      192, 127, 148,  95, 172, 216, 164, 123,
+      153, 195,  27, 227,  84, 121, 245,  67
     ]
   },
   header: {
@@ -190,18 +211,18 @@ candyMachineAccount => {
   },
   mintAuthority: {
     bytes: Uint8Array(32) [
-      208, 237,  53,  11, 178, 239, 176,  85,
-       52,  54, 240,   8, 140, 120, 181, 229,
-      174, 182, 245, 113, 115, 190,  14,  33,
-      156, 249, 113, 230, 146, 182,   9,  72
+       49, 238,  57,  87, 136, 231, 163, 213,
+       29, 237, 220,  30, 138,  98, 187, 169,
+      127,   1, 219, 104, 171, 104, 154, 156,
+       26, 137, 158,  63, 180, 232,   9,  32
     ]
   },
   collectionMint: {
     bytes: Uint8Array(32) [
-      250, 132, 121, 181, 247, 214, 169,   1,
-      250, 221, 230,  86,  20,  98,  59, 221,
-       39,  12, 183,  66,  96, 165, 214,  89,
-       39, 146,  77,  42, 194,  42, 149,  95
+      197,  79, 144, 101,  98,  23, 106,  62,
+       61,  16,  15, 163,   7, 252,  23,  15,
+       83,  36, 120,  98, 177, 241, 106,  95,
+       10, 132, 117, 200,  82, 235,  81, 240
     ]
   },
   itemsRedeemed: 2n,
@@ -224,13 +245,13 @@ candyMachineAccount => {
     },
     {
       index: 1,
-      minted: false,
+      minted: true,
       name: 'My NFT #2',
       uri: 'https://arweave.net/2dyAzm_p5kz8GYYLAzKj41KQL3vYT_kWyomJ3mTpBcA'
     },
     {
       index: 2,
-      minted: true,
+      minted: false,
       name: 'My NFT #3',
       uri: 'https://arweave.net/tD5TVplWyzqYvM9feLbIKGqkuTzf0AIO0nLc4NDiiPk'
     }
@@ -240,10 +261,10 @@ candyMachineAccount => {
 }
 -------------------------------------------------------
 myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-collectionUpdateAuthority => 94NVNnGMgLHnLmHDy1oW8MLivo56QXmU1XyNMaDoDgUu
-collectionMint => Hrv61bhATqiVu66WtGyp1diQvLGy7J3WDM5k4VLmZVQS
-candyMachine => 4CVHXRwNcquqrMy7KRZJ94Hwm2adt4dWkSSgtb7TeTjU
-nftMint => DHFrxQZhZ1wrEsFS53BzhUMd7oipDo5xnNiCLfr2tqX3
+candyMachine => 3QxGpNLvqeCnu4hEdZGG1ha8kW5V23higDoQ6dZNb8hQ
+collectionMint => EHDgde6VpCHo2YBh6mUegJZG4VWCXghH6HJkF265Pu3V
+collectionUpdateAuthority => 5jxu3XbxFSy9nGGDu7xHx4tM8xc8uafJRbv7ZvRC6B55
+nftMint => 5K7QcsdDx9NecNvtRT7ta5xo3Xj6ojkZutNkWtgQq3Mj
 -------------------------------------------------------
-Solaneyees(Wait a sec) => https://www.solaneyes.com/address/4CVHXRwNcquqrMy7KRZJ94Hwm2adt4dWkSSgtb7TeTjU
+Solaneyees(Wait a sec) => https://www.solaneyes.com/address/3QxGpNLvqeCnu4hEdZGG1ha8kW5V23higDoQ6dZNb8hQ
 */
