@@ -40,6 +40,7 @@ const main = async () => {
   const umi = createUmi(endopoint, 'confirmed')
     .use(mplCandyMachine());
 
+  // CAUTION: Use Env file instead of below file for Production.
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
   // Ref: https://github.com/metaplex-foundation/umi/blob/main/docs/publickeys-signers.md#keypairs
   const myKeypair = umi.eddsa.createKeypairFromSecretKey(secretKey);

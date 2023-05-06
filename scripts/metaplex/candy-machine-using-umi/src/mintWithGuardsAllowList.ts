@@ -44,6 +44,7 @@ const main = async () => {
     .use(mplCandyMachine());
 
   // Allow Address: HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+  // CAUTION: Use Env file instead of below file for Production.
   const secretKey = new Uint8Array(JSON.parse(fs.readFileSync('./assets/id.json', 'utf8')));
 
   // Disallow Address: BLPTf7GaD29J7q2rkEf1ZA3JpoYyZh6Wk6rywecme8BF
