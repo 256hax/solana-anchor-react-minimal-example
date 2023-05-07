@@ -54,14 +54,6 @@ const main = async () => {
   const myKeypair = umi.eddsa.createKeypairFromSecretKey(secretKey);
   umi.use(keypairIdentity(myKeypair));
 
-  // If you build frontend using Wallet Adapter, use following.
-  // 
-  // import { walletAdapterIdentity } from '@metaplex-foundation/umi-signer-wallet-adapters';
-  // const wallet = useWallet();
-  // const umi = createUmi(endopoint, 'confirmed')
-  //   .use(walletAdapterIdentity(wallet))
-  //   .use(mplCandyMachine())
-
   // -------------------------------------
   //  Allow List
   // -------------------------------------
