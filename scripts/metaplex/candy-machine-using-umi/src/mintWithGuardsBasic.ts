@@ -90,9 +90,10 @@ const main = async () => {
       isSequential: false,
     }),
     guards: {
-      botTax: some({ lamports: sol(0.00123), lastInstruction: true }),
+      botTax: some({ lamports: sol(0.00321), lastInstruction: true }),
       startDate: some({ date: dateTime("2023-04-04T16:00:00Z") }),
       mintLimit: some({ id: 1, limit: 1 }),
+      solPayment: some({ lamports: sol(0.00123), destination: umi.identity.publicKey }),
       // All other guards are disabled...
     },
   });
@@ -126,6 +127,7 @@ const main = async () => {
         collectionUpdateAuthority: collectionUpdateAuthority.publicKey,
         mintArgs: {
           mintLimit: some({ id: 1 }),
+          solPayment: some({ destination: umi.identity.publicKey }),
         },
       }),
     )
@@ -159,10 +161,11 @@ main();
 candyMachineAccount => {
   publicKey: {
     bytes: Uint8Array(32) [
-      112, 229,  77,  77,  95, 189,  59,  67,
-        4, 230, 239, 179, 101, 188, 120, 176,
-      225, 249,   1, 170, 116, 107,  74,  93,
-      228, 141, 203, 187, 149, 126,   6, 255
+      169,  55, 126, 174, 226, 134,  20,
+      230,  37, 192,  40,  66, 207, 239,
+      180,  18, 122, 169, 255, 137, 247,
+       67, 104, 167, 209,  83,  39, 220,
+       94, 170, 165, 116
     ]
   },
   header: {
@@ -189,18 +192,18 @@ candyMachineAccount => {
   },
   mintAuthority: {
     bytes: Uint8Array(32) [
-       26, 211,  62,  63, 195,   5,  19, 117,
-      171,  16, 250, 144,   9,  66, 130, 211,
-      250,  93, 111, 141, 211, 131, 218,  67,
-       65,  21,  99, 120,  71, 122,   2, 217
+       29,  59, 202, 152,  33, 227,   2, 139,
+      174, 117,  38, 183, 114, 105, 205, 221,
+      128,  81, 206, 207, 169,  83,  93, 230,
+      238, 170,  93, 183,  61, 113,  52, 194
     ]
   },
   collectionMint: {
     bytes: Uint8Array(32) [
-      241,  97, 250, 148,  52,  51, 134, 144,
-       92, 125,  55, 158,  73,   6, 152,  63,
-       53, 238, 173, 164, 122, 238,  80, 220,
-       92,  67, 108, 129,  33, 210, 243,  95
+      239, 161, 221, 67, 152,  21,  53,  35,
+       46, 202,   8, 54,  86, 152,  10, 230,
+      203,  70,  60, 87,  73, 184, 224, 132,
+      106,   9, 151, 40, 123, 193, 195, 238
     ]
   },
   itemsRedeemed: 1n,
@@ -217,7 +220,7 @@ candyMachineAccount => {
   items: [
     {
       index: 0,
-      minted: true,
+      minted: false,
       name: 'My NFT #1',
       uri: 'https://arweave.net/2V5Mx2dwnyrwlpHYPVshiyj_WtU7qIlPZzKs6nIwqw4'
     },
@@ -229,7 +232,7 @@ candyMachineAccount => {
     },
     {
       index: 2,
-      minted: false,
+      minted: true,
       name: 'My NFT #3',
       uri: 'https://arweave.net/tD5TVplWyzqYvM9feLbIKGqkuTzf0AIO0nLc4NDiiPk'
     }
@@ -239,10 +242,10 @@ candyMachineAccount => {
 }
 -------------------------------------------------------
 myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-collectionUpdateAuthority => 9fi9ikM6rYnYTCZTPPpCFjo7mJBDuS1mLxyRYcyd2rL8
-collectionMint => HFFufwsRw9ePySFdmbopMsPAJeEJM8yeSMr72mSjokLN
-candyMachine => 8bhTZbp6mRH5vhVU21GhDWuquwGhvYXPy8mFu28tzkFG
-nftMint => CJUcjE3Je4k6dYpu1VcTBsnAh4xtZ3AQrwdS9JT5EYHB
+collectionUpdateAuthority => FbvzSEEt8hHUdMyNWXQn9cSAdAfPc5H8mgyZnWmFc6Ce
+collectionMint => H8RbR9G9WZTpqCyRSgzzNU7mjVbC59wnNhWqKQTDtA9b
+candyMachine => CPYytbKQDSBbmDRofPxgiJDNDrFr7qrgvtD4KzXuGpFM
+nftMint => 4FQ2FEzDhCQfWrZdUPayw7BcF3sfbpjc1jC6J86jpVRp
 -------------------------------------------------------
-Solaneyees(Wait a sec) => https://www.solaneyes.com/address/8bhTZbp6mRH5vhVU21GhDWuquwGhvYXPy8mFu28tzkFG
+Solaneyees(Wait a sec) => https://www.solaneyes.com/address/CPYytbKQDSBbmDRofPxgiJDNDrFr7qrgvtD4KzXuGpFM
 */
