@@ -116,12 +116,15 @@ const main = async () => {
   // -------------------------------------
   //  Mint NFT
   // -------------------------------------
+  // This example temporarily uses minter as Umi's payer.
+  // const minter = generateSigner(umi);
   const nftMint = generateSigner(umi);
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 800_000 }))
     .add(
       mintV2(umi, {
         candyMachine: candyMachine.publicKey,
+        // minter, // default to Umi's identity and payer
         nftMint,
         collectionMint: collectionMint.publicKey,
         collectionUpdateAuthority: collectionUpdateAuthority.publicKey,
