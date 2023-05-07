@@ -73,7 +73,7 @@ const main = async () => {
     collectionUpdateAuthority,
     tokenStandard: TokenStandard.NonFungible,
     sellerFeeBasisPoints: percentAmount(9.99, 2), // 9.99%
-    itemsAvailable: 3, // Increase SOL cost per items. Check the cost on Devnet before launch.
+    itemsAvailable: 3,
     creators: [
       {
         address: umi.identity.publicKey,
@@ -86,14 +86,13 @@ const main = async () => {
       nameLength: 32,
       prefixUri: "",
       uriLength: 200,
-      // isSequential: indicates to whether a sequential index generation should be used during mint or not (recommended to set this value to false).
       isSequential: false,
     }),
     guards: {
-      botTax: some({ lamports: sol(0.00321), lastInstruction: true }),
-      startDate: some({ date: dateTime("2023-04-04T16:00:00Z") }),
-      mintLimit: some({ id: 1, limit: 1 }),
-      solPayment: some({ lamports: sol(0.00123), destination: umi.identity.publicKey }),
+      botTax: some({ lamports: sol(0.00321), lastInstruction: true }), // Configurable tax to charge invalid transactions.
+      startDate: some({ date: dateTime("2023-04-04T16:00:00Z") }), // Determines the start date of the mint.
+      mintLimit: some({ id: 1, limit: 1 }), // Specifies a limit on the number of mints per wallet.
+      solPayment: some({ lamports: sol(0.00123), destination: umi.identity.publicKey }), // Set the price of the mint in SOL.
       // All other guards are disabled...
     },
   });
