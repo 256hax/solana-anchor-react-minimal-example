@@ -143,12 +143,14 @@ const main = async () => {
   // -------------------------------------
   //  Mint NFT
   // -------------------------------------
+  const minter = generateSigner(umi);
   const nftMint = generateSigner(umi);
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 800_000 }))
     .add(
       mintV2(umi, {
         candyMachine: candyMachine.publicKey,
+        minter,
         nftMint,
         collectionMint: collectionMint.publicKey,
         collectionUpdateAuthority: collectionUpdateAuthority.publicKey,
@@ -176,6 +178,7 @@ const main = async () => {
   console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
   console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
   console.log('merkleRoot Hash =>', base58PublicKey(merkleRoot));
+  console.log('minter =>', base58PublicKey(minter.publicKey));
   console.log('-------------------------------------------------------');
   console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
 }

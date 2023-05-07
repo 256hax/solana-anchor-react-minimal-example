@@ -48,7 +48,7 @@ const main = async () => {
   // If you need signer, use createSignerFromKeypair.
   // const collectionUpdateAuthority = createSignerFromKeypair(umi, myKeypair);
 
-  // If you build frontend using Wallet Adapter, use following.
+  // If you build frontend(e.g. Admin Control Panel) using Wallet Adapter, use following.
   // 
   // import { walletAdapterIdentity } from '@metaplex-foundation/umi-signer-wallet-adapters';
   // const wallet = useWallet();
@@ -129,6 +129,8 @@ const main = async () => {
   // -------------------------------------
   //  Mint NFT
   // -------------------------------------
+  const minter = generateSigner(umi);
+
   // First Minting.
   const nftMint = generateSigner(umi);
   await transactionBuilder()
@@ -136,6 +138,7 @@ const main = async () => {
     .add(
       mintV2(umi, {
         candyMachine: candyMachine.publicKey,
+        minter,
         nftMint,
         collectionMint: collectionMint.publicKey,
         collectionUpdateAuthority: collectionUpdateAuthority.publicKey,
@@ -150,6 +153,7 @@ const main = async () => {
     .add(
       mintV2(umi, {
         candyMachine: candyMachine.publicKey,
+        minter,
         nftMint: nftMint2,
         collectionMint: collectionMint.publicKey,
         collectionUpdateAuthority: collectionUpdateAuthority.publicKey,
@@ -173,6 +177,7 @@ const main = async () => {
   console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
   console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
   console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
+  console.log('minter =>', base58PublicKey(minter.publicKey));
   console.log('-------------------------------------------------------');
   console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
 }
@@ -184,10 +189,10 @@ main();
 candyMachineAccount => {
   publicKey: {
     bytes: Uint8Array(32) [
-       35, 218,  58, 192, 203,  97, 153,  70,
-      138,  38, 192,  79, 248,   2,  20, 102,
-      192, 127, 148,  95, 172, 216, 164, 123,
-      153, 195,  27, 227,  84, 121, 245,  67
+      188, 222, 164, 251,  39,  48,   8,  95,
+      177, 186, 221,  74, 243, 199,  97, 246,
+       84,  42, 148, 164, 101, 214, 216,  64,
+       84, 107, 236, 100,  20,  24, 142,  34
     ]
   },
   header: {
@@ -214,18 +219,18 @@ candyMachineAccount => {
   },
   mintAuthority: {
     bytes: Uint8Array(32) [
-       49, 238,  57,  87, 136, 231, 163, 213,
-       29, 237, 220,  30, 138,  98, 187, 169,
-      127,   1, 219, 104, 171, 104, 154, 156,
-       26, 137, 158,  63, 180, 232,   9,  32
+       58, 192,  11, 209, 177, 152, 118, 127,
+       22, 191,  47, 229,  83,  90,  80, 171,
+      232, 245, 190, 192, 140, 232, 180,  71,
+       93,  43,  53, 136,  22, 175,  87, 130
     ]
   },
   collectionMint: {
     bytes: Uint8Array(32) [
-      197,  79, 144, 101,  98,  23, 106,  62,
-       61,  16,  15, 163,   7, 252,  23,  15,
-       83,  36, 120,  98, 177, 241, 106,  95,
-       10, 132, 117, 200,  82, 235,  81, 240
+       68, 115,  44, 187, 213,  88,  62, 142,
+      114, 147,  51,  22, 184, 125,  54, 168,
+        7, 193, 197, 217,  30, 202, 252, 197,
+       72, 111, 164,  15,  47, 126, 227,  76
     ]
   },
   itemsRedeemed: 2n,
@@ -264,10 +269,11 @@ candyMachineAccount => {
 }
 -------------------------------------------------------
 myKeypair.publicKey => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-candyMachine => 3QxGpNLvqeCnu4hEdZGG1ha8kW5V23higDoQ6dZNb8hQ
-collectionMint => EHDgde6VpCHo2YBh6mUegJZG4VWCXghH6HJkF265Pu3V
-collectionUpdateAuthority => 5jxu3XbxFSy9nGGDu7xHx4tM8xc8uafJRbv7ZvRC6B55
-nftMint => 5K7QcsdDx9NecNvtRT7ta5xo3Xj6ojkZutNkWtgQq3Mj
+candyMachine => DiGZCF13yNh9ZEwmvhr8eCWxocPyEGSbqn5VAj6NRFXo
+collectionMint => 5cCauW9FMwbp5VzhkTACtCfsNSJhJiMo1SGghvJaLhST
+collectionUpdateAuthority => DoERzMYNca6GwDna3QZUtqkvqS1jwEGKmTm2Z9mNQFNu
+nftMint => 9r4BFdJUHH5R4rZamfqWEnvPQXBbwZkKUQuJr5yu5zXm
+minter => 9RrmA1x8raL3Sma3LWBFZFDiqJuTkHbok29GqUinwcCV
 -------------------------------------------------------
-Solaneyees(Wait a sec) => https://www.solaneyes.com/address/3QxGpNLvqeCnu4hEdZGG1ha8kW5V23higDoQ6dZNb8hQ
+Solaneyees(Wait a sec) => https://www.solaneyes.com/address/DiGZCF13yNh9ZEwmvhr8eCWxocPyEGSbqn5VAj6NRFXo
 */
