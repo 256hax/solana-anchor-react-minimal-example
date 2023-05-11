@@ -8,16 +8,23 @@ import {
   SystemProgram,
   Transaction,
   sendAndConfirmTransaction,
+  PublicKey,
 } from "@solana/web3.js";
 import * as bs58 from "bs58";
+import { log } from "console";
 
 (async () => {
   // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
   const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   const feePayer = Keypair.generate();
-  const nonceAccount = Keypair.generate();
-  const nonceAccountAuth = Keypair.generate();
+
+  // const nonceAccount = Keypair.generate();
+  const secretKeyNonceBase58 = '3Y22mLLggMZDJySRrq4ottv97ihyzHJjK5v711aNHS7oB9ELrhqsqPCpEyaBTjEsZjB3rvvca7RTEzV6e36AZQHA';
+  const nonceAccount = Keypair.fromSecretKey(bs58.decode(secretKeyNonceBase58));
+
+  const secretKeyAuthBase58 = '3u4caiG9kSfRSySL9a17tJBUPHdAMkapQrKQeDmHZ9oQeh6LgSKyZMgoicpp9eqZ1Z41Gzom6iputb8b2i9DJweC';
+  const nonceAccountAuth = Keypair.fromSecretKey(bs58.decode(secretKeyAuthBase58));
 
   // -------------------------------------
   //  Airdrop
@@ -65,9 +72,9 @@ import * as bs58 from "bs58";
 
 /*
 % ts-node <THIS FILE>
-feePayer => D5p6fh6avq7fcN872aSZGww1uR8tVC9UqXXt1793rG1q
-nonceAccount => 6LfYgu4KFrTFAffoN98CsQtvLxUy1jCjKYTiyyvQNXqD
+feePayer => 9qSDotnB7HM4uev4DxjyXPccTPQSh2t54CZyUNM9Y6Kx
+nonceAccount => Huh4F3cWrrvUSSUaxyQFw22y8n2ohS76EwA9YuKoAdGQ
 nonceAccountAuth.publicKey => 8ahaDBb5BwpViRvYKrggmCE2J4QPevnbVXFN5b7L6tN8
 nonceAccountAuth.secretKey(Base58) => 3u4caiG9kSfRSySL9a17tJBUPHdAMkapQrKQeDmHZ9oQeh6LgSKyZMgoicpp9eqZ1Z41Gzom6iputb8b2i9DJweC
-signature => 9eAfrMCV37wkonAQEKGcvE66CpryvrxTEHwjAn7zcPiMUgCD38M4FkJcerrEEqtUyJhwxwwZhDPDJj1UU1EWHAd
+signature => 2TbuTrCi9HCwLWtEo2xaEiM9WeLtjEKAXQDsrXspFagXxXKZ4oMen724AyRPzzZF4zfFCWZNFfZXGEmgSu6o3yiF
 */

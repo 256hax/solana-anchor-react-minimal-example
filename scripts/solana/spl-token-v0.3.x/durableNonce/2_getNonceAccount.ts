@@ -13,7 +13,7 @@ import {
   // -------------------------------------
   //  Get Nonce Account Info
   // -------------------------------------
-  const nonceAccountPubkey = new PublicKey('6LfYgu4KFrTFAffoN98CsQtvLxUy1jCjKYTiyyvQNXqD');
+  const nonceAccountPubkey = new PublicKey('Huh4F3cWrrvUSSUaxyQFw22y8n2ohS76EwA9YuKoAdGQ');
 
   const accountInfo = await connection.getAccountInfo(nonceAccountPubkey);
   
@@ -29,7 +29,7 @@ import {
 
 /*
 % ts-node <THIS FILE>
-nonce => 6RFon6fcbM5rKcADgEQy2fcyrovED4CsNC34Mi8jPkh8
-authority => Axxqs2eXmxQHsrYTREcSoVmFb64u32ZYS7Bdj11drFVN
+nonce => 7NE62rJbf775M18hJsyCA54ywqeKD15nxnySzcoVAN2H
+authority => 8ahaDBb5BwpViRvYKrggmCE2J4QPevnbVXFN5b7L6tN8
 fee calculator => {"lamportsPerSignature":5000}
 */

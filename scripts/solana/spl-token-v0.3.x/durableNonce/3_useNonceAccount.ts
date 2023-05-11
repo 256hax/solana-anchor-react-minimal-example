@@ -30,11 +30,11 @@ import * as bs58 from "bs58";
   // -------------------------------------
   //  Use Nonce Account
   // -------------------------------------
+  const nonceAccountPubkey = new PublicKey('Huh4F3cWrrvUSSUaxyQFw22y8n2ohS76EwA9YuKoAdGQ');
+  const nonceAccountInfo = await connection.getAccountInfo(nonceAccountPubkey);
+
   const secretKeyBase58 = '3u4caiG9kSfRSySL9a17tJBUPHdAMkapQrKQeDmHZ9oQeh6LgSKyZMgoicpp9eqZ1Z41Gzom6iputb8b2i9DJweC';
   const nonceAccountAuth = Keypair.fromSecretKey(bs58.decode(secretKeyBase58));
-
-  const nonceAccountPubkey = new PublicKey('6LfYgu4KFrTFAffoN98CsQtvLxUy1jCjKYTiyyvQNXqD');
-  const nonceAccountInfo = await connection.getAccountInfo(nonceAccountPubkey);
 
   if (nonceAccountInfo) {
     const nonceAccount = NonceAccount.fromAccountData(nonceAccountInfo.data);
@@ -74,9 +74,9 @@ import * as bs58 from "bs58";
 
 /*
 % ts-node <THIS FILE>
-feePayer => G4JxPXmzZcSeDf1zK6a94BNyXdDaaGFy9YSwiwadXC6p
-nonce => 5KMKpDTMSYKabdQLm4997vUv4gFYxy9gRTqBAeozBJuS
+feePayer => Fd4zt2yiQevF26rxm7f95MpB7uRUUTi1m9LeZ3Uex9CH
+nonce => 7NE62rJbf775M18hJsyCA54ywqeKD15nxnySzcoVAN2H
 authority => 8ahaDBb5BwpViRvYKrggmCE2J4QPevnbVXFN5b7L6tN8
 fee calculator => {"lamportsPerSignature":5000}
-signature => 25R2UEuNAZqU4CG6RJsqzaU55Upnm4zHTwAnu9kfUUt788gw8GufjQDVeAshNCbCjLLhY2rakdX525JgieVFEDrV
+signature => SKQanHHKjeVVtyp21haHyCu98scAqmaUHLD699ijMhiBtPVbCf66DmVM8f3FK3KwjQ9huDnDNonwxkWUrpinCWs
 */
