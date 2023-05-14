@@ -19,10 +19,12 @@ import { log } from "console";
 
   const feePayer = Keypair.generate();
 
-  // const nonceAccount = Keypair.generate();
+  // The below secret key is for testing purposes.
   const secretKeyNonceBase58 = '3Y22mLLggMZDJySRrq4ottv97ihyzHJjK5v711aNHS7oB9ELrhqsqPCpEyaBTjEsZjB3rvvca7RTEzV6e36AZQHA';
   const nonceAccount = Keypair.fromSecretKey(bs58.decode(secretKeyNonceBase58));
-
+  // Normally, Keypair.generate() should be used.
+  // const nonceAccount = Keypair.generate();
+  
   const secretKeyAuthBase58 = '3u4caiG9kSfRSySL9a17tJBUPHdAMkapQrKQeDmHZ9oQeh6LgSKyZMgoicpp9eqZ1Z41Gzom6iputb8b2i9DJweC';
   const nonceAccountAuth = Keypair.fromSecretKey(bs58.decode(secretKeyAuthBase58));
 
