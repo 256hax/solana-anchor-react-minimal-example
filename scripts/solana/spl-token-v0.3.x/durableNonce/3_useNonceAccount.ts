@@ -36,40 +36,37 @@ import * as bs58 from "bs58";
   const secretKeyBase58 = '3u4caiG9kSfRSySL9a17tJBUPHdAMkapQrKQeDmHZ9oQeh6LgSKyZMgoicpp9eqZ1Z41Gzom6iputb8b2i9DJweC';
   const nonceAccountAuth = Keypair.fromSecretKey(bs58.decode(secretKeyBase58));
 
-  if (nonceAccountInfo) {
-    const nonceAccount = NonceAccount.fromAccountData(nonceAccountInfo.data);
+  if (!nonceAccountInfo) throw Error('Nonce Account not found. Create Nonce Account first.');
+  const nonceAccount = NonceAccount.fromAccountData(nonceAccountInfo.data);
 
-    let tx = new Transaction().add(
-      // nonce advance must be the first insturction
-      SystemProgram.nonceAdvance({
-        noncePubkey: nonceAccountPubkey,
-        authorizedPubkey: nonceAccountAuth.publicKey,
-      }),
-      // after that, you do what you really want to do, here we append a transfer instruction as an example.
-      SystemProgram.transfer({
-        fromPubkey: feePayer.publicKey,
-        toPubkey: nonceAccountAuth.publicKey,
-        lamports: LAMPORTS_PER_SOL * 0.01,
-      })
-    );
-    // assign `nonce` as recentBlockhash
-    tx.recentBlockhash = nonceAccount.nonce;
-    tx.feePayer = feePayer.publicKey;
-    tx.sign(
-      feePayer,
-      nonceAccountAuth
-    ); /* fee payer + nonce account authority + ... */
+  let tx = new Transaction().add(
+    // nonce advance must be the first insturction
+    SystemProgram.nonceAdvance({
+      noncePubkey: nonceAccountPubkey,
+      authorizedPubkey: nonceAccountAuth.publicKey,
+    }),
+    // after that, you do what you really want to do, here we append a transfer instruction as an example.
+    SystemProgram.transfer({
+      fromPubkey: feePayer.publicKey,
+      toPubkey: nonceAccountAuth.publicKey,
+      lamports: LAMPORTS_PER_SOL * 0.01,
+    })
+  );
+  // assign `nonce` as recentBlockhash
+  tx.recentBlockhash = nonceAccount.nonce;
+  tx.feePayer = feePayer.publicKey;
+  tx.sign(
+    feePayer,
+    nonceAccountAuth
+  ); /* fee payer + nonce account authority + ... */
 
-    const signature = await connection.sendRawTransaction(tx.serialize());
+  const signature = await connection.sendRawTransaction(tx.serialize());
 
-    console.log('feePayer =>', feePayer.publicKey.toString());
-    console.log('nonce =>', nonceAccount.nonce);
-    console.log('authority =>', nonceAccount.authorizedPubkey.toString());
-    console.log('fee calculator =>', JSON.stringify(nonceAccount.feeCalculator));
-    console.log('signature =>', signature);
-  } else {
-    console.log('Nonce Account not found. Create Nonce Account first.');
-  }
+  console.log('feePayer =>', feePayer.publicKey.toString());
+  console.log('nonce =>', nonceAccount.nonce);
+  console.log('authority =>', nonceAccount.authorizedPubkey.toString());
+  console.log('fee calculator =>', JSON.stringify(nonceAccount.feeCalculator));
+  console.log('signature =>', signature);
 })();
 
 /*

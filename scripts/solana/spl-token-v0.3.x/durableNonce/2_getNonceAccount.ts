@@ -16,15 +16,12 @@ import {
   const nonceAccountPubkey = new PublicKey('Huh4F3cWrrvUSSUaxyQFw22y8n2ohS76EwA9YuKoAdGQ');
 
   const accountInfo = await connection.getAccountInfo(nonceAccountPubkey);
-  
-  if (accountInfo) {
-    const nonceAccount = NonceAccount.fromAccountData(accountInfo.data);
-    console.log('nonce =>', nonceAccount.nonce);
-    console.log('authority =>', nonceAccount.authorizedPubkey.toString());
-    console.log('fee calculator =>', JSON.stringify(nonceAccount.feeCalculator));
-  } else {
-    console.log('Nonce Account not found. Create Nonce Account first.');
-  }
+
+  if (!accountInfo) throw Error('Nonce Account not found. Create Nonce Account first.');
+  const nonceAccount = NonceAccount.fromAccountData(accountInfo.data);
+  console.log('nonce =>', nonceAccount.nonce);
+  console.log('authority =>', nonceAccount.authorizedPubkey.toString());
+  console.log('fee calculator =>', JSON.stringify(nonceAccount.feeCalculator));
 })();
 
 /*
