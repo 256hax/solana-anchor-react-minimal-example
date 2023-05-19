@@ -69,8 +69,12 @@ export const main = async() => {
 main();
 
 /*
-Case 1: Create TX then get status
+[Note]
+If you get unexpected response, try to use "connection.getParsedTransaction".
+I encoutered something wrong response(e.g. always value: null) when I use "connection.getSignatureStatus".
+*/
 
+/*
 % ts-node <THIS FILE>
 --- Case 1: Available TX Status ---
 Signature ->  2uiGWNeeew8oAYCh2qHEY63tcK2U1qZFPwCtqXPKn2jhyM6X9SXHbKyg9wHHhfUVTf5qAecfJ3uPyspJ4oror6hY
@@ -88,10 +92,4 @@ Signature ->  2uiGWNeeew8oAYCh2qHEY63tcK2U1qZFPwCtqXPKn2jhyM6X9SXHbKyg9wHHhfUVTf
 --- Case 2: Unavailable TX Status ---
 Signature(unavailble) => DummyfWTUVYSwTqiu9eidviC4nqTZZtJ7spT33wfuKtxG2813EwX3c7qo9qDfMHauqvPKpufGWsKRRxtqq5uH9j
 { context: { slot: 15104 }, value: null }
-*/
-
-/*
-[Note]
-If you get unexpected response, try to use "connection.getSignatureStatus" or "connection.getParsedTransaction".
-I encoutered something wrong response(e.g. always null) by "connection.getSignatureStatus".
 */
