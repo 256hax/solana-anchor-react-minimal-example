@@ -12,13 +12,13 @@ import {
 
 // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
 const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
-  
-export const createTransaction = async() => {
+
+export const createTransaction = async () => {
   const payer = Keypair.generate();
 
   const airdropSignature = await connection.requestAirdrop(
-      payer.publicKey,
-      LAMPORTS_PER_SOL,
+    payer.publicKey,
+    LAMPORTS_PER_SOL,
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();
@@ -33,9 +33,9 @@ export const createTransaction = async() => {
 
   let transaction = new Transaction();
   transaction.add(SystemProgram.transfer({
-      fromPubkey: payer.publicKey,
-      toPubkey: toAccount.publicKey,
-      lamports: LAMPORTS_PER_SOL * 0.01,
+    fromPubkey: payer.publicKey,
+    toPubkey: toAccount.publicKey,
+    lamports: LAMPORTS_PER_SOL * 0.01,
   }));
 
   // Send and confirm transaction
@@ -51,9 +51,9 @@ export const createTransaction = async() => {
   return signature;
 };
 
-export const main = async() => {
+export const main = async () => {
   console.log('--- Case 1: Available TX Status ---');
-  
+
   const availableTx = await createTransaction();
   const availableTxStatus = await connection.getSignatureStatus(availableTx);
   console.log(availableTxStatus);
@@ -61,7 +61,7 @@ export const main = async() => {
   console.log('\n--- Case 2: Unavailable TX Status ---');
   const unavailableTx = 'DummyfWTUVYSwTqiu9eidviC4nqTZZtJ7spT33wfuKtxG2813EwX3c7qo9qDfMHauqvPKpufGWsKRRxtqq5uH9j'; // Stub. TX doesn't exist.
   console.log('Signature(unavailble) =>', unavailableTx);
-  
+
   const unavailableTxStatus = await connection.getSignatureStatus(unavailableTx);
   console.log(unavailableTxStatus);
 };
@@ -72,6 +72,21 @@ main();
 [Note]
 If you get unexpected response, try to use "connection.getParsedTransaction".
 I encoutered something wrong response(e.g. always value: null) when I use "connection.getSignatureStatus".
+
+Or add reference publickey to instruction then, get signature information using that.
+(This is Solana Pay approach)
+
+e.g.
+```
+  const reference = Keypair.generate();
+  transferInstruction.keys.push(
+    { pubkey: reference.publicKey, isWritable: false, isSigner: false },
+  );
+  const signaturesByAddress = await connection.getConfirmedSignaturesForAddress2(reference.publicKey);
+```
+
+Full code:
+https://github.com/256hax/solana-anchor-react-minimal-example/blob/128504332ba462535ca6c0f02f77b0bce3f4e350/scripts/solana/spl-token-v0.3.x/createTransferInstruction.ts#L69
 */
 
 /*
