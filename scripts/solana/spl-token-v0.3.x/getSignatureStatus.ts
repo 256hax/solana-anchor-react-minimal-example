@@ -74,7 +74,6 @@ If you get unexpected response, try to use "connection.getParsedTransaction".
 I encoutered something wrong response(e.g. always value: null) when I use "connection.getSignatureStatus".
 
 Or add reference publickey to instruction then, get signature information using that.
-(This is Solana Pay approach)
 
 e.g.
 ```
@@ -87,6 +86,9 @@ e.g.
 
 Full code:
 https://github.com/256hax/solana-anchor-react-minimal-example/blob/128504332ba462535ca6c0f02f77b0bce3f4e350/scripts/solana/spl-token-v0.3.x/createTransferInstruction.ts#L69
+
+Thats's same as findReference in Solana Pay approach.
+https://docs.solanapay.com/api/core/function/findReference
 */
 
 /*
