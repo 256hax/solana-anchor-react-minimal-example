@@ -97,7 +97,7 @@ You can use Metaplex(e.g. mint/update NFTs) in Localnet.
 - [GitHub - Example Code](https://github.com/solana-developers/compressed-nfts)
 - [GitHub - Metaplex Digital Asset RPC](https://github.com/metaplex-foundation/digital-asset-rpc-infrastructure)
 
-## Wallet Adapter for DApps
+## Wallet Adapter for dApps
 - [Docs - Phantom](https://docs.phantom.app/)
 - [API - (JS)@solana/wallet-adapter](https://solana-labs.github.io/wallet-adapter/)
 - [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
