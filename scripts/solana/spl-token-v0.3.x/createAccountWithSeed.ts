@@ -35,11 +35,11 @@ export const main = async () => {
   //  Airdrop
   // ------------------------------------------------------------------------
   const latestBlockhash = await connection.getLatestBlockhash();
-  const signatureAirdropAlice = await connection.requestAirdrop(feePayer.publicKey, LAMPORTS_PER_SOL);
+  const signatureAirdrop = await connection.requestAirdrop(feePayer.publicKey, LAMPORTS_PER_SOL);
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-    signature: signatureAirdropAlice,
+    signature: signatureAirdrop,
   });
 
   // ------------------------------------------------------------------------
