@@ -93,3 +93,37 @@ const main = async () => {
 };
 
 main();
+
+/*
+% solana-test-validator
+
+% ts-node <THIS FILE>
+Checking for Confirmation Status...: 1
+Checking for Confirmation Status...: 2
+Checking for Confirmation Status...: 3
+Checking for Confirmation Status...: 4
+Checking for Confirmation Status...: 5
+Checking for Confirmation Status...: 6
+Checking for Confirmation Status...: 7
+Checking for Confirmation Status...: 8
+Checking for Confirmation Status...: 9
+Checking for Confirmation Status...: 10
+Checking for Confirmation Status...: 11
+Checking for Confirmation Status...: 12
+Checking for Confirmation Status...: 13
+Checking for Confirmation Status...: 14
+Checking for Confirmation Status...: 15
+Checking for Confirmation Status...: 16
+Checking for Confirmation Status...: 17
+Checking for Confirmation Status...: 18
+Checking for Confirmation Status...: 19
+Checking for Confirmation Status...: 20
+Checking for Confirmation Status...: 21
+Checking for Confirmation Status...: 22
+Checking for Confirmation Status...: 23
+Checking for Confirmation Status...: 24
+Checking for Confirmation Status...: 25
+Checking for Confirmation Status...: 26
+Status => confirmed
+Wacthing close.
+*/
