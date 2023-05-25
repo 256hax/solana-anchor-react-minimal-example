@@ -1,13 +1,18 @@
 # Mint NFT using Metaplex and Anchor in Localnet
 ## Overview
 You can mint NFT in localnet.  
-Clone Metaplex program from Devnet then, deploy to Anchor local validator.  
-Look at see the Anchor.toml.  
+It need to Metaplex program first. Clone Metaplex program on Devnet then, deploy to Anchor local validator.  
 
-## NFT Structure and Cluster
+Look at see the "Anchor.toml" in directory.  
+```
+[[test.validator.clone]]
+address = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+```
+
+## NFT Structure
 - Mint Account: Solana Localnet
-- Metadata Account: Solana Localnet
-- Image: Arweave Mainnnet
+  - Metadata Account: Solana Localnet
+    - Image: Arweave Mainnnet
 
 ## Run
 ```
@@ -107,14 +112,14 @@ nft => {
 ✨  Done in 16.28s.
 ```
 
-## Find Explorer in Localnet
+## How to use Solana Explorer on Localnet?
 ```
 % anchor test
 % cd .anchor
 % solana-test-validator
 ```
 
-Find mint addres for [Solana Explorer Localnet](https://explorer.solana.com/?cluster=custom) .
+Then, search mint address in [Solana Explorer Localnet](https://explorer.solana.com/?cluster=custom) .
 
 ## Reference
 - [The Anchor Book - Anchor.toml Reference](https://book.anchor-lang.com/anchor_references/anchor-toml_reference.html)
