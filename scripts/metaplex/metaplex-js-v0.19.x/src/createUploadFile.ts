@@ -63,17 +63,19 @@ const main = async () => {
   //  Mint NFT
   // ------------------------------------
   // Ref: MetaplexFile: https://github.com/metaplex-foundation/js#metaplexfile
-  // const file = toMetaplexFile('The content of my file', 'my-file.txt');
-  const file = toMetaplexFile('file-content', 'filename.jpg', {
-    uniqueName: 'my-unique-aws-key',
-  });
+  // 
+  // const buffer = fs.readFileSync('./assets/my-file.txt');
+  // const file = toMetaplexFile(buffer, 'my-file.txt');
+  // 
+  const buffer = fs.readFileSync('./assets/my-image.png');
+  const file = toMetaplexFile(buffer, 'my-image.png');
 
-  const { uri, metadata } = await metaplex
+ const { uri, metadata } = await metaplex
     .nfts()
     .uploadMetadata({
       name: 'My NFT Metadata',
       description: 'My description',
-      image: await file,
+      image: file,
     });
 
   console.log('uri =>', uri);
