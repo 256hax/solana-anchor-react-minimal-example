@@ -10,11 +10,11 @@ export const main = () => {
   console.log('Object to JSON =>', objectToJson);
 
   // JSON to Base64.
-  const jsonToBase64 = Buffer.from(objectToJson).toString("base64");
+  const jsonToBase64 = Buffer.from(objectToJson).toString('base64');
   console.log('JSON to Base64 =>', jsonToBase64);
 
   // Base64 to JSON.
-  const base64ToJson = Buffer.from(base64String, "base64").toString();
+  const base64ToJson = Buffer.from(base64String, 'base64').toString();
   console.log('Base64 to JSON =>', base64ToJson);
 
   // JSON to Object.
