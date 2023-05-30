@@ -4,5 +4,9 @@
     "bn.js": "^5.2.0",
     "bs58": "^5.0.0",
     "buffer-layout": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "typescript": "^5.0.4"
   }
 }
