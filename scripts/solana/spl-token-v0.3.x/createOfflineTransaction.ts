@@ -70,6 +70,8 @@ import * as bs58 from 'bs58';
   tx.feePayer = feePayer.publicKey;
   const realDataNeedToSign = tx.serializeMessage(); // the real data singer need to sign.
 
+  console.log('realDataNeedToSign =>', realDataNeedToSign);
+
   // ------------------------------------------------------------------------
   //  2. Sign Transaction
   // ------------------------------------------------------------------------
@@ -100,7 +102,6 @@ import * as bs58 from 'bs58';
   );
   console.log(`verify alice signature: ${verifyAliceSignatureResult}`);
 
-
   // there are two ways you can recover the tx
 
   // ------------------------------------------------------------------------
@@ -110,6 +111,8 @@ import * as bs58 from 'bs58';
     let recoverTx = Transaction.populate(Message.from(realDataNeedToSign));
     recoverTx.addSignature(feePayer.publicKey, Buffer.from(feePayerSignature));
     recoverTx.addSignature(alice.publicKey, Buffer.from(aliceSignature));
+
+    console.log('recoverTx =>', recoverTx);
 
     // ------------------------------------------------------------------------
     //  4. Send transaction
