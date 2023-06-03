@@ -82,6 +82,8 @@ const main = async () => {
       ]
     });
 
+  // const takerPublicKey = Keypair.generate().publicKey;
+
   // Ref: The Nft Mode: https://github.com/metaplex-foundation/js#the-nft-model
   const { nft } = await metaplex
     .nfts()
@@ -91,6 +93,7 @@ const main = async () => {
         name: 'My NFT',
         sellerFeeBasisPoints: 500, // Represents 5.00%.
         maxSupply: toBigNumber(1),
+        // tokenOwner: takerPublicKey, // Create to new owner.
       },
       operationOptions
     );
