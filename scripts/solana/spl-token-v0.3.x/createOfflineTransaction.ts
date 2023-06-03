@@ -81,7 +81,10 @@ import * as bs58 from 'bs58';
     realDataNeedToSign,
     feePayer.secretKey
   );
-  const aliceSignature = nacl.sign.detached(realDataNeedToSign, alice.secretKey);
+  const aliceSignature = nacl.sign.detached(
+    realDataNeedToSign,
+    alice.secretKey
+  );
 
   // ------------------------------------------------------------------------
   //  3. Recover Tranasction
