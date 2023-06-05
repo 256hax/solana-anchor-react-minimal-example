@@ -39,7 +39,8 @@ const main = async () => {
 
   // get a specific transaction (allowing for v0 transactions)
   const getSignature = await connection.getTransaction(
-    "3jpoANiFeVGisWRY5UP648xRXs3iQasCHABPWRWnoEjeA93nc79WrnGgpgazjq4K9m8g2NJoyKoWBV1Kx5VmtwHQ", // Devnet
+    // Replace to valid tx.
+    "3jpoANiFeVGisWRY5UP648xRXs3iQasCHABPWRWnoEjeA93nc79WrnGgpgazjq4K9m8g2NJoyKoWBV1Kx5VmtwHQ",
     {
       maxSupportedTransactionVersion: 0,
     },
@@ -53,9 +54,7 @@ const main = async () => {
   // ------------------------------------------------------------------------
   let minRent = await connection.getMinimumBalanceForRentExemption(0);
 
-  let blockhash = await connection
-    .getLatestBlockhash()
-    .then((res) => res.blockhash);
+  const blockHash = await connection.getLatestBlockhash();
 
   // create an array with your desires `instructions`
   const instructions = [
@@ -69,7 +68,7 @@ const main = async () => {
   // create v0 compatible message
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
-    recentBlockhash: blockhash,
+    recentBlockhash: blockHash.blockhash,
     instructions,
   }).compileToV0Message();
 
@@ -84,3 +83,30 @@ const main = async () => {
 };
 
 main();
+
+/*
+% ts-node <THIS FILE>
+
+block => {
+  blockHeight: 41,
+  blockTime: 1685888668,
+  blockhash: 'CJJP8X7YbPNQ6bErNXCmCwWzooZoNxPmDnRrVoZHcQjU',
+  parentSlot: 41,
+  previousBlockhash: '6b9TSsrSwX4FgqnMSQP6jvN4KpKvSDxJT94htxE1XsXd',
+  rewards: [
+    {
+      commission: null,
+      lamports: 7500,
+      postBalance: 499999905000,
+      pubkey: 'J1SXLjPwvSEqM41cga3njLUnDPX1TszYwU81kh4cnHe7',
+      rewardType: 'Fee'
+    }
+  ],
+  transactions: [
+    { meta: [Object], transaction: [Object], version: 'legacy' },
+    { meta: [Object], transaction: [Object], version: 'legacy' }
+  ]
+}
+getSignature => null
+signature => 3PJ9ip9Vp2CCFiyiTqhVcKjiDGFog4rf11bJ54wLdh99yZS6qBxPw6FNi2wdLdkdLGp3S7RQT5rhybeoQubAz7TP
+*/
