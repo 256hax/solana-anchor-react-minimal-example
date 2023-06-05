@@ -28,7 +28,7 @@ const main = async () => {
   });
 
   // ------------------------------------------------------------------------
-  //  set max supported version 
+  //  Set Max Supported Version 
   // ------------------------------------------------------------------------
   const slot = await connection.getSlot();
 
@@ -49,8 +49,7 @@ const main = async () => {
   console.log('getSignature =>', getSignature);
 
   // ------------------------------------------------------------------------
-
-  //  Instructions
+  //  Create Versioned Transaction
   // ------------------------------------------------------------------------
   let minRent = await connection.getMinimumBalanceForRentExemption(0);
 
