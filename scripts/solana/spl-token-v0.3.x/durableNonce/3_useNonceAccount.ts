@@ -30,6 +30,7 @@ import * as bs58 from "bs58";
   // -------------------------------------
   //  Use Nonce Account
   // -------------------------------------
+  // Create Nonce Account first. Look at "1_createNonceAccount.ts".
   const nonceAccountPubkey = new PublicKey('Huh4F3cWrrvUSSUaxyQFw22y8n2ohS76EwA9YuKoAdGQ');
   const nonceAccountInfo = await connection.getAccountInfo(nonceAccountPubkey);
 
