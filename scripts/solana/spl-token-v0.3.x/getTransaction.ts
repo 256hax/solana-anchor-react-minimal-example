@@ -7,6 +7,7 @@ import {
   sendAndConfirmTransaction,
   Keypair,
   LAMPORTS_PER_SOL,
+  GetVersionedTransactionConfig,
 } from '@solana/web3.js';
 
 export const main = async () => {
@@ -62,8 +63,12 @@ export const main = async () => {
   // [Devnet] Send NFT using createTransfer @sonana/pay
   const tx = '2cHg1vsvoM6P2zd6G1Fup3Few7gM9HAZ9bRbf53QzmsRUWxZmeRjS3DFQ7Dw4E9EpBWACK2j3K7iZiz7Ef5ZoCu7';
 
-  const getTx = await connection.getTransaction(tx, { commitment: "confirmed" });
-  
+  const config: GetVersionedTransactionConfig = {
+    commitment: 'confirmed',
+    maxSupportedTransactionVersion: 2,
+  };
+  const getTx = await connection.getTransaction(tx, config);
+
   console.log('\n--- Full Logs -------------------------------------------------');
   console.log('getTx =>', getTx);
 
