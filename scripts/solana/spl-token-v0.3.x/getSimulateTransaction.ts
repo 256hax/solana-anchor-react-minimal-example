@@ -7,8 +7,10 @@ import {
   Transaction,
   SystemProgram,
   sendAndConfirmTransaction,
+  TransactionMessage,
+  VersionedTransaction,
+  SimulateTransactionConfig,
 } from '@solana/web3.js';
-import nacl from 'tweetnacl';
 
 export const main = async () => {
   // ------------------------------------------
@@ -42,7 +44,7 @@ export const main = async () => {
   const taker = Keypair.generate();
 
   // ------------------------------------------
-  //  Transfer
+  //  Simulate Transaction
   // ------------------------------------------
   // Create Simple Transaction
   let transaction = new Transaction();
@@ -54,9 +56,22 @@ export const main = async () => {
     lamports: LAMPORTS_PER_SOL * 0.01,
   }));
 
-  const simulateTxBeforeSend = await connection.simulateTransaction(transaction, [payer]);
+  const versionedMessage = new TransactionMessage({
+    instructions: transaction.instructions,
+    payerKey: payer.publicKey,
+    recentBlockhash: latestBlockhash.blockhash,
+  });
+
+  const versionedTransaction = new VersionedTransaction(versionedMessage.compileToLegacyMessage());
+  const config: SimulateTransactionConfig = {
+    commitment: 'confirmed',
+  };
+  const simulateTxBeforeSend = await connection.simulateTransaction(versionedTransaction, config);
   console.log('simulateTxBeforeSend =>', simulateTxBeforeSend);
 
+  // ------------------------------------------
+  //  Confirm Transaction
+  // ------------------------------------------
   // Send and confirm transaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
   const signature = await sendAndConfirmTransaction(
