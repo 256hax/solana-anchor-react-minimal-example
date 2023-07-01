@@ -1,7 +1,7 @@
-import * as bs58 from "bs58";
+import * as bs58 from 'bs58';
 import {
   Keypair,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 
 // ------------------------------------
 //  Uint8Array to Base58
