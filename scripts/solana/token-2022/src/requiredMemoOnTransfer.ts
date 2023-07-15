@@ -1,3 +1,4 @@
+// Docs: https://spl.solana.com/token-2022/extensions#required-memo-on-transfer
 import {
   clusterApiUrl,
   sendAndConfirmTransaction,
