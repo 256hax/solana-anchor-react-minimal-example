@@ -30,14 +30,14 @@ import {
   const mintAuthority = Keypair.generate();
   const decimals = 9;
   const mint = await createMint(
-      connection,
-      payer,
-      mintAuthority.publicKey,
-      mintAuthority.publicKey,
-      decimals,
-      undefined,
-      undefined,
-      TOKEN_2022_PROGRAM_ID
+    connection,
+    payer,
+    mintAuthority.publicKey,
+    mintAuthority.publicKey,
+    decimals,
+    undefined,
+    undefined,
+    TOKEN_2022_PROGRAM_ID
   );
 
   const accountLen = getAccountLen([ExtensionType.MemoTransfer]);
@@ -47,15 +47,15 @@ import {
   const destinationKeypair = Keypair.generate();
   const destination = destinationKeypair.publicKey;
   const transaction = new Transaction().add(
-      SystemProgram.createAccount({
-          fromPubkey: payer.publicKey,
-          newAccountPubkey: destination,
-          space: accountLen,
-          lamports,
-          programId: TOKEN_2022_PROGRAM_ID,
-      }),
-      createInitializeAccountInstruction(destination, mint, owner.publicKey, TOKEN_2022_PROGRAM_ID),
-      createEnableRequiredMemoTransfersInstruction(destination, owner.publicKey, [], TOKEN_2022_PROGRAM_ID)
+    SystemProgram.createAccount({
+      fromPubkey: payer.publicKey,
+      newAccountPubkey: destination,
+      space: accountLen,
+      lamports,
+      programId: TOKEN_2022_PROGRAM_ID,
+    }),
+    createInitializeAccountInstruction(destination, mint, owner.publicKey, TOKEN_2022_PROGRAM_ID),
+    createEnableRequiredMemoTransfersInstruction(destination, owner.publicKey, [], TOKEN_2022_PROGRAM_ID)
   );
 
   const signature = await sendAndConfirmTransaction(connection, transaction, [payer, owner, destinationKeypair], undefined);
