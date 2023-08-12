@@ -3,6 +3,7 @@ import {
   Keypair,
   LAMPORTS_PER_SOL,
   SystemProgram,
+  TransactionInstruction,
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
@@ -37,7 +38,7 @@ export const main = async () => {
   // ------------------------------------------
   //  Create Transaction Instruction
   // ------------------------------------------
-  let transferInstruction: any;
+  let transferInstruction: TransactionInstruction;
 
   transferInstruction = SystemProgram.transfer({
     fromPubkey: payer.publicKey,
