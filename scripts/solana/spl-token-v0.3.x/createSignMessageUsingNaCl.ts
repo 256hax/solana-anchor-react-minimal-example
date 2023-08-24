@@ -1,3 +1,8 @@
+// [Hint]
+// Phantom released "Sign in with Solana" UI.
+// I recommend to use that if you have frontend.
+// https://github.com/phantom/sign-in-with-solana
+
 // Ref: https://solanacookbook.com/references/keypairs-and-wallets.html#how-to-sign-and-verify-messages-with-wallets
 import { Keypair } from '@solana/web3.js';
 import bs58 from 'bs58';
