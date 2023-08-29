@@ -14,7 +14,7 @@ Feel free to use that for only Devnet/Testnet. I hope you can easy to start mini
 
 ## Tools
 ### User-friendly Transaction Explorer
-I recommend to use localnet(localhost) with Transaction Explorer.
+I recommend to use Solana Explorer for localnet.
 
 1. Run local validator.
 ```
@@ -26,9 +26,21 @@ I recommend to use localnet(localhost) with Transaction Explorer.
 3. Search Transaction Signature or public-key in Solana Explorer.
 [Solana Explorer (localhost:8899)](https://explorer.solana.com/?cluster=custom)
 
-### Use Metaplex and Anchor in Localnet
-You can use Metaplex(e.g. mint/update NFTs) in Localnet.
-[Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)
+### Use Metaplex in Localnet
+You can use Metaplex(e.g. mint/update NFTs) in Localnet.  
+
+Case 1 (Anchor): [Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)  
+
+Case 2 (validator):  
+```
+% solana-test-validator --url https://api.devnet.solana.com /
+	--clone metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s /
+	--clone PwDiXFxQsGra4sFFTT8r1QWRMd4vfumiWC1jfWNfdYT /
+	--clone H7h6dv6X9KGLuCFvYMNa1zmCP5VCSzw8AkQGod6zaCnX /
+	--clone ojLGErfqghuAqpJXE1dguXF7kKfvketCEeah8ig6GU3
+```
+
+Remove test-ledger directory if it exists before running.
 
 ## Outline Document for Product/Project Manager
 [Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
