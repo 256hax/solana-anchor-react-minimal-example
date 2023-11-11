@@ -55,6 +55,8 @@ Remove test-ledger directory if it exists before running.
 # Reference
 ## Solana
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
+- [Docs - Solana CLI(e.g. Create Account, Transfer SOL)](https://docs.solana.com/cli)
+- [Docs - SPL Token CLI(e.g. Create Token/ATA, Mint, Transfer))](https://spl.solana.com/token)
 - [Docs - Solana Errors List](https://github.com/solana-labs/solana/blob/master/sdk/src/transaction/error.rs)
 - [API - (Rust)solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [API - (Rust)solana_sdk](https://docs.rs/solana-sdk/latest/solana_sdk/)
