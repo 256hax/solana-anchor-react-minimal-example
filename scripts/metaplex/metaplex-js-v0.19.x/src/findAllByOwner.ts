@@ -35,6 +35,25 @@ const main = async () => {
   // myNfts.map((nft:any) => {  
   //   console.log(nft.mintAddress.toString());
   // });
+
+  // [Retrieve all NFTs by specifying the collection and owner]
+  // const targetUpdateAuthorityAddress: string = 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg';
+  // const targetVerifiedCollectionAddress: string = '5TSnNMr6Q36qjU6fZfArTNkquv7XsFXDK5osnT8ygUSr';
+  // let getNfts: any[] = [];
+
+  // myNfts.forEach((m: any) => {
+  //   if (
+  //     m.updateAuthorityAddress.toString() === targetUpdateAuthorityAddress
+  //     && m.collection?.address.toString() === targetVerifiedCollectionAddress
+  //     && m.collection?.verified === true
+  //   ) {
+  //     getNfts.push(m);
+  //   }
+  // });
+
+  // console.log('Target Update Authority Address =>', targetUpdateAuthorityAddress);
+  // console.log('Target Verified Collection Address =>', targetVerifiedCollectionAddress);
+  // console.log('Get NFTs =>', getNfts);
 };
 
 main();
