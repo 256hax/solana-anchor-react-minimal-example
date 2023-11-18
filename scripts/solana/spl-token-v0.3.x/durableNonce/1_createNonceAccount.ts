@@ -11,7 +11,6 @@ import {
   PublicKey,
 } from "@solana/web3.js";
 import * as bs58 from "bs58";
-import { log } from "console";
 
 (async () => {
   // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
