@@ -33,7 +33,7 @@ export const watchSignatureStatus = async (
 
       if (signatureInfo[0].confirmationStatus == closeStatus) {
         console.log('Status =>', confirmationStatus);
-        console.log('Wacthing close.');
+        console.log('Close watching.');
 
         return;
       }
