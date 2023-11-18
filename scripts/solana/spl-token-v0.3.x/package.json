@@ -1,18 +1,17 @@
 {
   "dependencies": {
-    "@solana/spl-token": "^0.3.8",
-    "@solana/web3.js": "^1.77.3",
-    "sleep": "^6.3.0",
+    "@solana/spl-token": "^0.3.9",
+    "@solana/web3.js": "^1.87.6",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/bs58": "^4.0.1",
-    "@types/node": "^20.3.2",
-    "@types/node-fetch": "^2.6.4",
-    "@types/sleep": "^0.0.9",
-    "@types/uuid": "^9.0.2",
+    "@types/bs58": "^4.0.4",
+    "@types/node": "^20.9.0",
+    "@types/node-fetch": "^2.6.9",
+    "@types/sleep": "^0.0.12",
+    "@types/uuid": "^9.0.7",
     "ts-node": "^10.9.1"
   }
 }
