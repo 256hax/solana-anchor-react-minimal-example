@@ -16,8 +16,8 @@ export const main = async () => {
   // ------------------------------------------
   // Airdrop SOL for paying transactions
   const payer = Keypair.generate();
-  let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // ---------------------------------------------------
   //  Airdrop
