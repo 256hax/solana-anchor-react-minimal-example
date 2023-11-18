@@ -10,7 +10,6 @@
     "@types/bs58": "^4.0.4",
     "@types/node": "^20.9.0",
     "@types/node-fetch": "^2.6.9",
-    "@types/sleep": "^0.0.12",
     "@types/uuid": "^9.0.7",
     "ts-node": "^10.9.1"
   }
