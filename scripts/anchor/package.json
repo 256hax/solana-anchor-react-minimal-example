@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@coral-xyz/anchor": "^0.26.0",
-    "@solana/web3.js": "^1.73.0"
+    "@coral-xyz/anchor": "^0.29.0",
+    "@solana/web3.js": "^1.87.6"
   }
 }
