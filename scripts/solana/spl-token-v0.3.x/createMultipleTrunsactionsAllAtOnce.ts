@@ -8,7 +8,10 @@ import {
   SystemProgram,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
-// import sleep from 'sleep';
+
+// export const sleep = (ms: number): Promise<void> => {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
 export const main = async() => {
   const payerA = Keypair.generate();
