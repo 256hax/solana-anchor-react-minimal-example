@@ -3,13 +3,13 @@ Solana, Anchor, Metaplex, React Minimal Example.
 This is Out of the Box, easy to start!  
 I wrote the code in a single file to make it easy to understand, without dividing it into modules.
 
-For experiment purpose only.  
+For experiment purposes only.  
 
 ## How To Run
-It's depends on Framework(e.g. Anchor, React, JS...). Check README.md at each directories.
+It depends on Framework (e.g. Anchor, React, JS...). Check README.md in each directory.
 
 ## Wallet Key
-I set id.json(keypair of wallet) at each directories.  
+I set id.json(keypair of wallet) at each directory.  
 Feel free to use that for only Devnet/Testnet. I hope you can easy to start minimal examples.
 
 ## Tools
