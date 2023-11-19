@@ -1,0 +1,27 @@
+{
+  "name": "mycm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-candy-guard": "^0.5.0",
+    "@metaplex-foundation/mpl-candy-machine": "^6.0.0",
+    "@metaplex-foundation/mpl-candy-machine-core": "^0.2.2",
+    "@metaplex-foundation/mpl-toolbox": "^0.9.1",
+    "@metaplex-foundation/umi": "^0.8.10",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.8.10",
+    "@metaplex-foundation/umi-signer-wallet-adapters": "^0.8.10",
+    "@metaplex-foundation/umi-uploader-irys": "^0.8.11",
+    "@metaplex/js": "^0.0.1",
+    "@solana/web3.js": "^1.87.6"
+  }
+}
