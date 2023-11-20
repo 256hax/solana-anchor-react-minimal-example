@@ -12,12 +12,12 @@ import {
   mintV2,
   fetchCandyMachine,
   getMerkleRoot,
-  route,
   getMerkleProof,
+  route,
 } from "@metaplex-foundation/mpl-candy-machine";
 import {
   setComputeUnitLimit,
-} from "@metaplex-foundation/mpl-essentials";
+} from "@metaplex-foundation/mpl-toolbox";
 
 // Token
 import {
@@ -29,9 +29,9 @@ import {
 import {
   generateSigner,
   keypairIdentity,
-  base58PublicKey,
   transactionBuilder,
   percentAmount,
+  publicKey,
   some,
   sol,
   dateTime,
@@ -39,8 +39,8 @@ import {
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 
 const main = async () => {
-  const endopoint = 'https://api.devnet.solana.com';
-  const umi = createUmi(endopoint, 'confirmed')
+  const endpoint = 'https://api.devnet.solana.com';
+  const umi = createUmi(endpoint, 'confirmed')
     .use(mplCandyMachine());
 
   // Allow Address: HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
@@ -59,7 +59,7 @@ const main = async () => {
   // -------------------------------------
   // Given the identity is part of an allow list.
   const allowList = [
-    base58PublicKey(umi.identity),
+    umi.identity.publicKey.toString(), // HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
   ];
   const merkleRoot = getMerkleRoot(allowList);
 
@@ -124,6 +124,7 @@ const main = async () => {
 
   // When we verify the payer first by providing a valid merkle proof.
   // Merkle Root/Proof: https://docs.metaplex.com/programs/candy-machine/available-guards/allow-list#route-instruction
+  // https://developer-hub-git-fork-marksackerberg-mark-cm-metaplex.vercel.app/candy-machine/guards/allowList#guard-settings
   await transactionBuilder()
     .add(
       route(umi, {
@@ -132,11 +133,10 @@ const main = async () => {
         routeArgs: {
           path: 'proof',
           merkleRoot,
-          merkleProof: getMerkleProof(allowList, base58PublicKey(umi.identity)),
+          merkleProof: getMerkleProof(allowList, publicKey(umi.identity)),
         },
       })
-    )
-    .sendAndConfirm(umi);
+    ).sendAndConfirm(umi);
 
   // -------------------------------------
   //  Mint NFT
@@ -154,8 +154,7 @@ const main = async () => {
           allowList: some({ merkleRoot }),
         },
       }),
-    )
-    .sendAndConfirm(umi);
+    ).sendAndConfirm(umi);
 
   // -------------------------------------
   //  Fetch Candy Machine
@@ -168,14 +167,14 @@ const main = async () => {
   // Ref: https://github.com/metaplex-foundation/umi/blob/main/docs/publickeys-signers.md#public-keys
   console.log('candyMachineAccount =>', candyMachineAccount);
   console.log('-------------------------------------------------------');
-  console.log('myKeypair.publicKey =>', base58PublicKey(myKeypair.publicKey.bytes));
-  console.log('collectionUpdateAuthority =>', base58PublicKey(collectionUpdateAuthority.publicKey));
-  console.log('collectionMint =>', base58PublicKey(collectionMint.publicKey));
-  console.log('candyMachine =>', base58PublicKey(candyMachine.publicKey));
-  console.log('nftMint =>', base58PublicKey(nftMint.publicKey));
-  console.log('merkleRoot Hash =>', base58PublicKey(merkleRoot));
+  console.log('myKeypair.publicKey =>', myKeypair.publicKey.toString());
+  console.log('collectionUpdateAuthority =>', collectionUpdateAuthority.publicKey.toString());
+  console.log('collectionMint =>', collectionMint.publicKey.toString());
+  console.log('candyMachine =>', candyMachine.publicKey.toString());
+  console.log('nftMint =>', nftMint.publicKey.toString());
+  console.log('merkleRoot Hash =>', publicKey(merkleRoot).toString());
   console.log('-------------------------------------------------------');
-  console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + base58PublicKey(candyMachine.publicKey));
+  console.log('Solaneyees(Wait a sec) =>', 'https://www.solaneyes.com/address/' + candyMachine.publicKey.toString());
 }
 
 main();
