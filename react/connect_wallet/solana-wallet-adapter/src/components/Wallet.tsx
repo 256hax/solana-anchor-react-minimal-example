@@ -36,7 +36,7 @@ export const Wallet: FC = () => {
 			 * instantiate its legacy wallet adapter here. Common legacy adapters can be found
 			 * in the npm package `@solana/wallet-adapter-wallets`.
 			 */
-			new BraveWalletAdapter(),
+			// new BraveWalletAdapter(), <= Error: does not provide an export named 'BraveWalletAdapter'
 			new MathWalletAdapter(),
 			new PhantomWalletAdapter(),
 			new SolflareWalletAdapter(),
