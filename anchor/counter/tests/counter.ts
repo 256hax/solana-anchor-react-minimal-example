@@ -16,7 +16,7 @@ describe("counter", () => {
   it("Creates a counter", async () => {
     const startCount = 0;
 
-    const signatuer = await program.methods
+    const signature = await program.methods
       .initialize(
         new anchor.BN(startCount)
       )
@@ -35,11 +35,11 @@ describe("counter", () => {
 
     console.log('provider =>', provider.wallet.publicKey.toString());
     console.log('counter =>', counter.publicKey.toString());
-    console.log('signatuer =>', signatuer);
+    console.log('signature =>', signature);
   });
 
   it("Updates a counter", async () => {
-    const signatuer = await program.methods
+    const signature = await program.methods
       .increment()
       .accounts({
         counter: counter.publicKey,
@@ -55,6 +55,6 @@ describe("counter", () => {
     assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
     assert.ok(counterAccount.count.toNumber() == 1);
     
-    console.log('signatuer =>', signatuer);
+    console.log('signature =>', signature);
   });
 });
