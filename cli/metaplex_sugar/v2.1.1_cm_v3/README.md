@@ -1,19 +1,21 @@
 ## Overview
 Mint NFTs using Metaplex Candy Machine v3 Sugar(CLI).
 
-## Setup
+## HowTo
+### Setup
 ```
 % solana config set --url devnet
 ```
 
-## Run
-It's depends on case(e.g. with guards or no guards...). Look at each diretories.
+### Run
+It's depends on case(e.g. with guards or no guards...). Look at each diretory.
 
-## Re-Run
+### Re-Run
 Delete cache.json then continue sugar command.
 
-## Mint Standard NFT without Collection Upload
-Mint a Collection NFT and get Mint Address.  
+## Note
+### Mint Standard NFT without Collection Upload
+Mint one Collection NFT and get Mint Address.  
 
 Then, use `deploy --collection-mint`. (It dosen't work `collection set`)
 
