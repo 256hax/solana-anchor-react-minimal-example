@@ -108,8 +108,8 @@ Remove test-ledger directory if it exists before running.
 - [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
 - [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
 - [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
+- [Docs - Guide: Create cNFT and Digital Asset Standard (DAS) API by Helius](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
 - [GitHub - Solana Example Code](https://github.com/solana-developers/compressed-nfts)
-- [GitHub - Helius Example Code](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
 - [GitHub - Metaplex Digital Asset RPC](https://github.com/metaplex-foundation/digital-asset-rpc-infrastructure)
 
 ## Wallet Adapter for dApps
