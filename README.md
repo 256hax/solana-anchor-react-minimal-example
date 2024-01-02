@@ -104,11 +104,12 @@ Remove test-ledger directory if it exists before running.
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
 - [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
 
-## State Compression / Compressed NFT
+## Compressed NFT(cNFT)
 - [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
 - [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
 - [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
-- [GitHub - Example Code](https://github.com/solana-developers/compressed-nfts)
+- [GitHub - Solana Example Code](https://github.com/solana-developers/compressed-nfts)
+- [GitHub - Helius Example Code](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
 - [GitHub - Metaplex Digital Asset RPC](https://github.com/metaplex-foundation/digital-asset-rpc-infrastructure)
 
 ## Wallet Adapter for dApps
