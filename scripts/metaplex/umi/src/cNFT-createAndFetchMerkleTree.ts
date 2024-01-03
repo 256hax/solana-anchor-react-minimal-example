@@ -1,26 +1,34 @@
 // Docs: https://developers.metaplex.com/bubblegum/create-trees
 
 // Lib
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
 
 // Metaplex
-import { keypairIdentity, generateSigner, KeypairSigner } from "@metaplex-foundation/umi";
-import { createTree, fetchMerkleTree, fetchTreeConfigFromSeeds } from "@metaplex-foundation/mpl-bubblegum";
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
+import {
+  keypairIdentity,
+  generateSigner,
+} from '@metaplex-foundation/umi';
+import {
+  createTree,
+  fetchMerkleTree,
+  fetchTreeConfigFromSeeds,
+} from '@metaplex-foundation/mpl-bubblegum';
 
 const createMerkleTree = async () => {
   dotenv.config();
 
   const endpoint = 'https://api.devnet.solana.com';
-  const umi = createUmi(endpoint)
-    
+  const umi = createUmi(endpoint);
+
   // Set Payer
   const payerSecretKey = process.env.PAYER_SECRET_KEY;
-  if (!payerSecretKey) throw new Error('payerSecretKey not found.')
+  if (!payerSecretKey) throw new Error('payerSecretKey not found.');
 
   const secretKeyUInt8Array = new Uint8Array(JSON.parse(payerSecretKey));
-  const payerKeypair = umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
+  const payerKeypair =
+    umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
 
   umi.use(keypairIdentity(payerKeypair));
 
@@ -39,7 +47,6 @@ const createMerkleTree = async () => {
   });
   const result = await builder.sendAndConfirm(umi);
 
-
   console.log('payer =>', payerKeypair.publicKey.toString());
   console.log('merkleTree =>', merkleTree);
   console.log('signature =>', bs58.encode(result.signature));
@@ -47,8 +54,10 @@ const createMerkleTree = async () => {
   // ----------------------------------------------------
   //  Fetching Merkle Tree
   // ----------------------------------------------------
-  const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree.publicKey)
-  const treeConfig = await fetchTreeConfigFromSeeds(umi, { merkleTree: merkleTree.publicKey })
+  const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree.publicKey);
+  const treeConfig = await fetchTreeConfigFromSeeds(umi, {
+    merkleTree: merkleTree.publicKey,
+  });
 
   console.log('merkleTreeAccount =>', merkleTreeAccount);
   console.log('treeConfig =>', treeConfig);
