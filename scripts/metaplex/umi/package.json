@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@metaplex-foundation/umi": "^0.7.10",
-    "@metaplex-foundation/umi-bundle-defaults": "^0.7.10",
-    "@solana/web3.js": "^1.77.3"
+    "@metaplex-foundation/umi": "^0.8.10",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.8.10",
+    "@solana/web3.js": "^1.87.6"
   }
 }
