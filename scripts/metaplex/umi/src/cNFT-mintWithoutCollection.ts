@@ -6,6 +6,7 @@ import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
+import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
 import { keypairIdentity, none, publicKey } from '@metaplex-foundation/umi';
 import { mintV1 } from '@metaplex-foundation/mpl-bubblegum';
 
@@ -28,6 +29,14 @@ const mintWithoutCollection = async () => {
   // ----------------------------------------------------
   //  Minting without a Collection
   // ----------------------------------------------------
+  // Docs: https://developers.metaplex.com/token-metadata/token-standard#the-non-fungible-standard
+  umi.use(irysUploader());
+  const uri = await umi.uploader.uploadJson({
+    name: 'My NFT #1',
+    description: 'My description',
+    image: 'https://placekitten.com/100/200',
+  });
+
   // Replace to your Merkle Tree.
   const merkleTree = publicKey('B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT');
 
@@ -36,7 +45,7 @@ const mintWithoutCollection = async () => {
     merkleTree,
     metadata: {
       name: 'My Compressed NFT',
-      uri: 'https://madlads.s3.us-west-2.amazonaws.com/json/5057.json',
+      uri: uri,
       sellerFeeBasisPoints: 500, // 5%
       collection: none(),
       creators: [
@@ -57,6 +66,7 @@ mintWithoutCollection();
 % ts-node src/<THIS_FILE>
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT
-signature => 3kLJpUnWGuWeNVmQu3NzZGYJt78sETk9pvymSM5gMMq1wna7MKxoWVEwqLtB76N1eP121D1JQxR53yCPwD9wkSe5
+signature => ULhLEDaE1N3o46KzVEpCvzahbWD3uXuoiEWUe7N7shm1e9NCgyfojTCCNWcqAa6k9sUhJa558nRWX6WeHYEriz5
 */
