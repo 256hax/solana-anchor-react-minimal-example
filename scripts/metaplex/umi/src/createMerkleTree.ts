@@ -5,8 +5,8 @@ import * as dotenv from 'dotenv'
 import * as bs58 from 'bs58';
 
 // Metaplex
-import { keypairIdentity, generateSigner } from "@metaplex-foundation/umi";
-import { createTree } from "@metaplex-foundation/mpl-bubblegum";
+import { keypairIdentity, generateSigner, KeypairSigner } from "@metaplex-foundation/umi";
+import { createTree, fetchMerkleTree, fetchTreeConfigFromSeeds } from "@metaplex-foundation/mpl-bubblegum";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 
 const createMerkleTree = async () => {
@@ -24,6 +24,9 @@ const createMerkleTree = async () => {
 
   umi.use(keypairIdentity(payerKeypair));
 
+  // ----------------------------------------------------
+  //  Create Merkle Tree
+  // ----------------------------------------------------
   // Max Depth / Max Buffer Size Table:
   //  https://developers.metaplex.com/bubblegum/create-trees#creating-a-bubblegum-tree
   const merkleTree = generateSigner(umi);
@@ -36,9 +39,19 @@ const createMerkleTree = async () => {
   });
   const result = await builder.sendAndConfirm(umi);
 
+
   console.log('payer =>', payerKeypair.publicKey.toString());
   console.log('merkleTree =>', merkleTree);
   console.log('signature =>', bs58.encode(result.signature));
+
+  // ----------------------------------------------------
+  //  Fetching Merkle Tree
+  // ----------------------------------------------------
+  const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree.publicKey)
+  const treeConfig = await fetchTreeConfigFromSeeds(umi, { merkleTree: merkleTree.publicKey })
+
+  console.log('merkleTreeAccount =>', merkleTreeAccount);
+  console.log('treeConfig =>', treeConfig);
 };
 
 createMerkleTree();
@@ -48,18 +61,74 @@ createMerkleTree();
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => {
-  publicKey: 'BSqSLz1LoVWqt6adWN2okLQBT3QiyDz2ysEbjJqEnb4Y',
+  publicKey: 'B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT',
   secretKey: Uint8Array(64) [
-    242,  87, 130, 210,  52, 176,  10, 233, 212, 210,  90,
-    190,  33, 122, 204,  30, 217, 105, 129,   9, 167, 220,
-     21, 242,  60, 226,   7, 251,  55,  77, 202,  91, 155,
-     51,  40,  72,  61,  72, 109,  18, 183, 242,  77, 121,
-     86, 231, 133,  43, 163,  93, 112,  78, 138, 183,  54,
-    167, 111,  84,  87, 197,  32, 167,  31, 173
+    252, 154,  35, 128, 139, 102, 128, 218, 145, 160, 234,
+     40,  30,  82,  36,  86, 100,  26, 201,  92, 130, 112,
+     98, 235, 126, 154, 240,  90, 217,  45,  20, 200, 150,
+    200, 229,  99,  26, 136, 136, 213, 230, 202, 154, 219,
+    138,  40,  38, 198,  72, 205, 188,  60, 254,  89, 143,
+    168, 240, 150, 104,  42, 134, 250, 246, 142
   ],
   signMessage: [AsyncFunction: signMessage],
   signTransaction: [AsyncFunction: signTransaction],
   signAllTransactions: [AsyncFunction: signAllTransactions]
 }
-signature => 4DdNqmki1nj5KBqYHtg5JD1bcTyQQk6MvP3SxKmftFDWSsK9vuHaXNTDH4DucHfy2bQ7CTWbZ4XQzFC2DghoB6vb
+signature => 3ADDNLSTX3hsYbr1YZy37jmA5QG61rG1Erq7uzuGRxDqd3L1CxwsgKAwxX6k7p5XUT9gTn5XeqArKbsiUJX8Gh1Z
+merkleTreeAccount => {
+  publicKey: 'B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT',
+  header: {
+    executable: false,
+    owner: 'cmtDvXumGCrqC1Age74AVPhSRVXJMd8PJS91L8KbNCK',
+    lamports: { basisPoints: 9966720n, identifier: 'SOL', decimals: 9 },
+    rentEpoch: 18446744073709552000,
+    exists: true
+  },
+  discriminator: 1,
+  treeHeader: {
+    __kind: 'V1',
+    maxBufferSize: 8,
+    maxDepth: 3,
+    authority: 'GNfst5RPtrdv4AhnyBH3Zzz3cezUUztjw38TujRSfaE1',
+    creationSlot: 269942887n,
+    padding: [ 0, 0, 0, 0, 0, 0 ]
+  },
+  tree: {
+    sequenceNumber: 0n,
+    activeIndex: 0n,
+    bufferSize: 1n,
+    changeLogs: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    rightMostPath: {
+      proof: [Array],
+      leaf: '11111111111111111111111111111111',
+      index: 0
+    }
+  },
+  canopy: []
+}
+treeConfig => {
+  publicKey: 'GNfst5RPtrdv4AhnyBH3Zzz3cezUUztjw38TujRSfaE1',
+  header: {
+    executable: false,
+    owner: 'BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY',
+    lamports: { basisPoints: 1559040n, identifier: 'SOL', decimals: 9 },
+    rentEpoch: 18446744073709552000,
+    exists: true
+  },
+  discriminator: [
+    122, 245, 175, 248,
+    171,  34,   0, 207
+  ],
+  treeCreator: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
+  treeDelegate: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
+  totalMintCapacity: 8n,
+  numMinted: 0n,
+  isPublic: false,
+  isDecompressible: 1
+}
 */
