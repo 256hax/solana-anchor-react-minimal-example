@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "@metaplex-foundation/mpl-bubblegum": "^3.0.0",
     "@metaplex-foundation/umi": "^0.8.10",
     "@metaplex-foundation/umi-bundle-defaults": "^0.8.10",
-    "@solana/web3.js": "^1.87.6"
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.3.1"
   }
 }
