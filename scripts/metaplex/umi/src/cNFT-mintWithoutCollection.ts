@@ -46,6 +46,7 @@ const mintWithoutCollection = async () => {
   }).sendAndConfirm(umi);
 
   console.log('payer =>', payerKeypair.publicKey.toString());
+  console.log('leafOwner =>', payerKeypair.publicKey.toString());
   console.log('merkleTree =>', merkleTree);
   console.log('signature =>', bs58.encode(result.signature));
 };
