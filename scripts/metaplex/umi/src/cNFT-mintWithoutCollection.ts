@@ -11,6 +11,9 @@ import { keypairIdentity, none, publicKey } from '@metaplex-foundation/umi';
 import { mintV1 } from '@metaplex-foundation/mpl-bubblegum';
 
 const mintWithoutCollection = async () => {
+  // ----------------------------------------------------
+  //  Setup
+  // ----------------------------------------------------
   dotenv.config();
 
   const endpoint = 'https://api.devnet.solana.com';

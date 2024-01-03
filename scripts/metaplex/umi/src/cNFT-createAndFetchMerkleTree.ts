@@ -17,6 +17,9 @@ import {
 } from '@metaplex-foundation/mpl-bubblegum';
 
 const createMerkleTree = async () => {
+  // ----------------------------------------------------
+  //  Setup
+  // ----------------------------------------------------
   dotenv.config();
 
   const endpoint = 'https://api.devnet.solana.com';
