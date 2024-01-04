@@ -57,7 +57,7 @@ const mintCompressedNft = async () => {
 mintCompressedNft();
 
 /*
-% ts-node <THIS_FILE>
+% ts-node src/<THIS_FILE>
 
 Minted asset:  8xGY3z6evWkNbRPzsLsE7duRDxuQWtyAdmEmVdzAQvq3
 */

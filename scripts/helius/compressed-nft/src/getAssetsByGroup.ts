@@ -31,7 +31,7 @@ const getAssetsByGroup = async () => {
 getAssetsByGroup();
 
 /*
-% ts-node <THIS_FILE>
+%% ts-node src/<THIS_FILE>
 
 Assets by Group:  [
   {

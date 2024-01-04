@@ -33,7 +33,7 @@ const getAssetsByOwner = async () => {
 getAssetsByOwner();
 
 /*
-% ts-node <THIS_FILE>
+% ts-node src/<THIS_FILE>
 
 ...
   {

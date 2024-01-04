@@ -29,7 +29,7 @@ const getAssetProof = async () => {
 getAssetProof();
 
 /*
-% ts-node <THIS_FILE>
+% ts-node src/<THIS_FILE>
 
 Assets Proof:  {
   root: 'GF27nRBdibiqnPLH1G98Agj13Q423SSRYUStc6F8BFTJ',

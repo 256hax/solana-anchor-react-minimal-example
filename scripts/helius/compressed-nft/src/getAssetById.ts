@@ -29,7 +29,7 @@ const getAssetById = async () => {
 getAssetById();
 
 /*
-% ts-node <THIS_FILE>
+% ts-node src/<THIS_FILE>
 
 Asset:  {
   interface: 'V1_NFT',
