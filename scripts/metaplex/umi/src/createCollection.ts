@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
+  createSignerFromKeypair,
   keypairIdentity,
   generateSigner,
   percentAmount,
@@ -36,7 +37,10 @@ const createCollection = async () => {
   //  Create a Collection NFT
   // -------------------------------------
   // If you need to upload JSON Metadata, use "umi.uploader.uploadJson".
-  const collectionUpdateAuthority = generateSigner(umi);
+
+  // const collectionUpdateAuthority = generateSigner(umi);
+  const collectionUpdateAuthority = createSignerFromKeypair(umi, payerKeypair);
+
   const collectionMint = generateSigner(umi);
   await createNft(umi, {
     mint: collectionMint,
@@ -61,6 +65,6 @@ createCollection();
 % ts-node src/<THIS_FILE>
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-collectionUpdateAuthority => 7xb6x3yv55wED3WV1aGGdeBTSSmB4ttGQ6NwWvDGjGnB
-collectionMint => J6xFgiAUh9jtq8VM77TgTFUMYooDd7nfKo34fEepJR4G
+collectionUpdateAuthority => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+collectionMint => CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx
 */
