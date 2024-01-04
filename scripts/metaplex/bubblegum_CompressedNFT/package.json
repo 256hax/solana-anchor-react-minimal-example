@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@metaplex-foundation/digital-asset-standard-api": "^1.0.0",
     "@metaplex-foundation/mpl-bubblegum": "^3.0.0",
     "@metaplex-foundation/umi": "^0.8.10",
     "@metaplex-foundation/umi-bundle-defaults": "^0.8.10",
