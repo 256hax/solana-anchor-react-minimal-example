@@ -33,7 +33,7 @@ const createCollection = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // -------------------------------------
-  //  Create Collection NFT
+  //  Create a Collection NFT
   // -------------------------------------
   // If you need to upload JSON Metadata, use "umi.uploader.uploadJson".
   const collectionUpdateAuthority = generateSigner(umi);
