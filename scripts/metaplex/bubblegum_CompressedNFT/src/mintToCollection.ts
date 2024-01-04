@@ -36,7 +36,7 @@ const mintToCollection = async () => {
   //  Minting without a Collection
   // ----------------------------------------------------
   // Replace to your Merkle Tree.
-  const merkleTree = publicKey('B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT');
+  const merkleTree = publicKey('4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f');
   // Replace to your Collection NFT.
   const collectionMint = publicKey(
     'CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx'
@@ -52,9 +52,9 @@ const mintToCollection = async () => {
       name: 'cNFT in a Collection',
       uri: 'https://nftstorage.link/ipfs/bafkreidk3rfovtx4uehivgp7tmruoiaqkypproymlfzzpgeyayqcbfakma',
       sellerFeeBasisPoints: 500, // 5%
-      collection: { key: collectionMint, verified: false },
+      collection: { key: collectionMint, verified: true }, // change false if verify later.
       creators: [
-        { address: umi.identity.publicKey, verified: false, share: 100 },
+        { address: umi.identity.publicKey, verified: true, share: 100 }, // change false if verify later.
       ],
     },
   }).sendAndConfirm(umi);
@@ -73,7 +73,7 @@ mintToCollection();
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-merkleTree => B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT
+merkleTree => 4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f
 collectionMint => CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx
-signature => rYvxSB7hke1pbux1d3SB6RisicL9rTdqNdKyonbDJyqBAYXdMBiWcuQcNqUhW2PaZrtK2AJNk9cEKZgLimKpRDt
+signature => 4T9BJG7eVV22rijB9UUDzQWbqGYKMiZSjRodyKyvGWz4CYxwrGwx58vw7Kyk3FWA826y1DxA8MjeqHcEJtwjT873
 */
