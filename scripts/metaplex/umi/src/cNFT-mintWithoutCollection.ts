@@ -38,8 +38,8 @@ const mintWithoutCollection = async () => {
     leafOwner: payerKeypair.publicKey,
     merkleTree,
     metadata: {
-      name: 'My Compressed NFT',
-      uri: 'https://arweave.net/tyt1PcejOzYs_8aZcna6KhN-vmIEnIMfm3Ip3G7Us2A',
+      name: 'cNFT w/o Collection',
+      uri: 'https://madlads.s3.us-west-2.amazonaws.com/json/4731.json',
       sellerFeeBasisPoints: 500, // 5%
       collection: none(),
       creators: [
@@ -62,5 +62,5 @@ mintWithoutCollection();
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT
-signature => 5z4uShRMfKpnJe9XMg59v1bTxwFsrKESXhfetkJiTQMfC25qxujxKGsGjJ1KkP6JnE83ygRQ5n7JrfyrRf988TV5
+signature => GRWaP7NutXcrnH9QZwZT5XP5ksU3jUs2pRaREbjx1SFoxMtgPZLkq4SF58MFEmrePaTD1koofhcLJNKbcmSgKjF
 */
