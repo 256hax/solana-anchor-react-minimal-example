@@ -9,6 +9,7 @@ import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
   keypairIdentity,
   generateSigner,
+  publicKey,
 } from '@metaplex-foundation/umi';
 import {
   createTree,
@@ -36,32 +37,15 @@ const createMerkleTree = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // ----------------------------------------------------
-  //  Create Merkle Tree
-  // ----------------------------------------------------
-  // Max Depth / Max Buffer Size Table:
-  //  https://developers.metaplex.com/bubblegum/create-trees#creating-a-bubblegum-tree
-  const merkleTree = generateSigner(umi);
-  const builder = await createTree(umi, {
-    merkleTree,
-    maxDepth: 3,
-    maxBufferSize: 8,
-    // maxDepth: 14,
-    // maxBufferSize: 64,
-  });
-  const result = await builder.sendAndConfirm(umi);
-
-  console.log('payer =>', payerKeypair.publicKey.toString());
-  console.log('merkleTree =>', merkleTree);
-  console.log('signature =>', bs58.encode(result.signature));
-
-  // ----------------------------------------------------
   //  Fetching Merkle Tree
   // ----------------------------------------------------
-  const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree.publicKey);
+  const merkleTree = publicKey('4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f');
+  const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree);
   const treeConfig = await fetchTreeConfigFromSeeds(umi, {
-    merkleTree: merkleTree.publicKey,
+    merkleTree: merkleTree,
   });
 
+  console.log('merkleTree =>', merkleTree);
   console.log('merkleTreeAccount =>', merkleTreeAccount);
   console.log('treeConfig =>', treeConfig);
 };
@@ -71,24 +55,9 @@ createMerkleTree();
 /*
 % ts-node src/<THIS_FILE>
 
-payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-merkleTree => {
-  publicKey: 'B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT',
-  secretKey: Uint8Array(64) [
-    252, 154,  35, 128, 139, 102, 128, 218, 145, 160, 234,
-     40,  30,  82,  36,  86, 100,  26, 201,  92, 130, 112,
-     98, 235, 126, 154, 240,  90, 217,  45,  20, 200, 150,
-    200, 229,  99,  26, 136, 136, 213, 230, 202, 154, 219,
-    138,  40,  38, 198,  72, 205, 188,  60, 254,  89, 143,
-    168, 240, 150, 104,  42, 134, 250, 246, 142
-  ],
-  signMessage: [AsyncFunction: signMessage],
-  signTransaction: [AsyncFunction: signTransaction],
-  signAllTransactions: [AsyncFunction: signAllTransactions]
-}
-signature => 3ADDNLSTX3hsYbr1YZy37jmA5QG61rG1Erq7uzuGRxDqd3L1CxwsgKAwxX6k7p5XUT9gTn5XeqArKbsiUJX8Gh1Z
+merkleTree => 4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f
 merkleTreeAccount => {
-  publicKey: 'B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT',
+  publicKey: '4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f',
   header: {
     executable: false,
     owner: 'cmtDvXumGCrqC1Age74AVPhSRVXJMd8PJS91L8KbNCK',
@@ -101,8 +70,8 @@ merkleTreeAccount => {
     __kind: 'V1',
     maxBufferSize: 8,
     maxDepth: 3,
-    authority: 'GNfst5RPtrdv4AhnyBH3Zzz3cezUUztjw38TujRSfaE1',
-    creationSlot: 269942887n,
+    authority: 'AgGoE8DcTK6nDdy5xo2Pa5GqEpWXwQz8HPJr1C16egnk',
+    creationSlot: 270176961n,
     padding: [ 0, 0, 0, 0, 0, 0 ]
   },
   tree: {
@@ -124,7 +93,7 @@ merkleTreeAccount => {
   canopy: []
 }
 treeConfig => {
-  publicKey: 'GNfst5RPtrdv4AhnyBH3Zzz3cezUUztjw38TujRSfaE1',
+  publicKey: 'AgGoE8DcTK6nDdy5xo2Pa5GqEpWXwQz8HPJr1C16egnk',
   header: {
     executable: false,
     owner: 'BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY',
