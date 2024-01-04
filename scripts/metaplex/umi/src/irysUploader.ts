@@ -1,3 +1,4 @@
+// Docs: https://github.com/metaplex-foundation/umi/blob/main/docs/storage.md
 // Lib
 import * as dotenv from 'dotenv';
 
