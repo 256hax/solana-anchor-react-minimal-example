@@ -1,5 +1,3 @@
-// Docs: https://developers.metaplex.com/bubblegum/mint-cnfts#minting-without-a-collection
-
 // Lib
 import * as dotenv from 'dotenv';
 
