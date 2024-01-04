@@ -25,9 +25,11 @@ const getAssetsByOwner = async () => {
       },
     }),
   });
+
   const { result } = await response.json();
   console.log("Assets by Owner: ", result.items);
 };
+
 getAssetsByOwner();
 
 /*
