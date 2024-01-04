@@ -10,16 +10,16 @@ const getAssetsByOwner = async () => {
   if (!url) throw new Error('url not found.');
 
   const response = await fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: "my-id",
-      method: "getAssetsByOwner",
+      jsonrpc: '2.0',
+      id: 'my-id',
+      method: 'getAssetsByOwner',
       params: {
-        ownerAddress: "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
+        ownerAddress: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
         page: 1, // Starts at 1
         limit: 1000,
       },
@@ -27,7 +27,7 @@ const getAssetsByOwner = async () => {
   });
 
   const { result } = await response.json();
-  console.log("Assets by Owner: ", result.items);
+  console.log('Assets by Owner: ', result.items);
 };
 
 getAssetsByOwner();
