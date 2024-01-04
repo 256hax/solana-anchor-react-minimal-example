@@ -12,8 +12,6 @@ import {
 } from '@metaplex-foundation/umi';
 import {
   createTree,
-  fetchMerkleTree,
-  fetchTreeConfigFromSeeds,
 } from '@metaplex-foundation/mpl-bubblegum';
 
 const createMerkleTree = async () => {

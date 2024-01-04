@@ -2,17 +2,14 @@
 
 // Lib
 import * as dotenv from 'dotenv';
-import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
   keypairIdentity,
-  generateSigner,
   publicKey,
 } from '@metaplex-foundation/umi';
 import {
-  createTree,
   fetchMerkleTree,
   fetchTreeConfigFromSeeds,
 } from '@metaplex-foundation/mpl-bubblegum';
