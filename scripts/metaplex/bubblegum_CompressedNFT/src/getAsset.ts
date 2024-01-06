@@ -15,7 +15,7 @@ const getAsset = async () => {
   // ----------------------------------------------------
   dotenv.config();
 
-  // const endpoint = 'https://api.devnet.solana.com'; // DAS unavailbale on Devnet.
+  // const endpoint = 'https://api.devnet.solana.com'; // Metaplex DAS unavailbale on Devnet.
   const endpoint = 'https://api.mainnet-beta.solana.com';
   const umi = createUmi(endpoint).use(dasApi());
 
@@ -32,7 +32,7 @@ const getAsset = async () => {
   // -------------------------------------
   //  Get an Asset
   // -------------------------------------
-  const assetId = publicKey('9pk95RtqaXwSVwWwL9LDMBTQvPCBd6eWmVPyvTXoaFqH');
+  const assetId = publicKey('Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT');
   const asset = await umi.rpc.getAsset(assetId);
 
   console.log('assetId =>', assetId);
@@ -44,61 +44,61 @@ getAsset();
 /*
 % ts-node src/<THIS_FILE>
 
-assetId => 9pk95RtqaXwSVwWwL9LDMBTQvPCBd6eWmVPyvTXoaFqH
+assetId => Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT
 asset => {
   interface: 'V1_NFT',
-  id: '9pk95RtqaXwSVwWwL9LDMBTQvPCBd6eWmVPyvTXoaFqH',
+  id: 'Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT',
   content: {
     '$schema': 'https://schema.metaplex.com/nft1.0.json',
-    json_uri: 'https://arweave.net/qFzHoX231iMuyFZxzzTYwklMBdKLvQqiP5aGVlseMzs',
+    json_uri: 'https://arweave.net/T22-vnvj7NDUyKMnmtUOC7jZQL9NzL69MLOWZsCay_g',
     files: [],
-    metadata: { name: 'BloodBuns', symbol: '' },
+    metadata: { name: 'BonkBot', symbol: '' },
     links: {}
   },
   authorities: [
     {
-      address: '5qa7bJeeUkytBNU7GbfTUbXJ53696LhytTnNpXZximvm',
+      address: 'DSweX9jNzQ6M4qCXb2ow7X6cjZym2wtGk1RVmFW7Lq5T',
       scopes: [Array]
     }
   ],
   compression: {
     eligible: false,
     compressed: true,
-    data_hash: '8w2NHvX3Epjmx83ViBhBNEZgV9RmFfXUBKxeAcUQu6dN',
-    creator_hash: 'B6UAGTTGqvPZEQAuc1rUMdi2ukR2Vj77jjcjF9RQFjw4',
-    asset_hash: '31U584EuPS4urtQXHtD8fqCtS3MrY2yhJaVtSg5Gza4H',
-    tree: 'DQpWLLs7Feakyij7hYJtTRf6XkheMy9b5KUHdYW1CvG4',
-    seq: 76359,
-    leaf_id: 73641
+    data_hash: '95CyM8P98pYB2UsABvGkwmbY8bNLCZ7tjShWZg3H1sb8',
+    creator_hash: 'EwBYYdBeEbhYXRZVVZrKz5aNFFwkohjhnfupP1ZLsixu',
+    asset_hash: '76V78ZqLJMjnpkj5ZEiV8StmJZxNF2SEnnPcLEEV7JQK',
+    tree: '31iJeZ7Sg452LMvVTjsNhwhYCUdneHJHFFawqAbGb1W7',
+    seq: 74731,
+    leaf_id: 72823
   },
   grouping: [
     {
       group_key: 'collection',
-      group_value: 'DUCKGVmCjdK7czWnebui2rtuKkmqZEJyYSAtVvrZdcN'
+      group_value: 'DGPTxgKaBPJv3Ng7dc9AFDpX6E7kgUMZEgyTm3VGWPW6'
     }
   ],
   royalty: {
     royalty_model: 'creators',
     target: null,
-    percent: 0.081,
-    basis_points: 810,
+    percent: 0.030000000000000002,
+    basis_points: 300,
     primary_sale_happened: false,
     locked: false
   },
   creators: [
     {
-      address: 'DUCKk2HvktNFDCJRiTKo4Rus4VjuSBT4sK4Pe7t4gxa9',
+      address: 'DGPTx9RcP5GkxRNscrSaSETcwuiK6xcbX93G1DSxrLoY',
       share: 0,
       verified: true
     },
     {
       address: 'WoMbXFtdfH8crq2Zi7bQhfGx2Gv8EN4saP13gcdUGog',
-      share: 18,
+      share: 50,
       verified: false
     },
     {
-      address: 'GjVewZRPb6pTPdJxZxTmBXTea5Db2Kd9b3TuB5us45cB',
-      share: 82,
+      address: 'ART5dr4bDic2sQVZoFheEmUxwQq5VGSx9he7JxHcXNQD',
+      share: 50,
       verified: false
     }
   ],
