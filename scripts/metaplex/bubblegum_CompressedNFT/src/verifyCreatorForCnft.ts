@@ -49,8 +49,6 @@ const verifyCreatorForCnft = async () => {
   const assetWithProof = await getAssetWithProof(umi, assetId);
   const creator = createSignerFromKeypair(umi, payerKeypair);
 
-  console.log(assetWithProof.rpcAsset.creators);
-
   const result = await verifyCreator(umi, {
     ...assetWithProof,
     creator,
