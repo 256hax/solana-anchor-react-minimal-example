@@ -15,7 +15,8 @@ const getAsset = async () => {
   // ----------------------------------------------------
   dotenv.config();
 
-  // const endpoint = 'https://api.devnet.solana.com'; // Metaplex DAS unavailbale on Devnet.
+  // Public RPC unavailbale DAS on Devnet. Use following RPC:
+  //  https://developers.metaplex.com/bubblegum/rpcs
   const endpoint = 'https://api.mainnet-beta.solana.com';
   const umi = createUmi(endpoint).use(dasApi());
 
