@@ -1,24 +1,12 @@
 // Lib
 import * as dotenv from 'dotenv';
-import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
-  createSignerFromKeypair,
   keypairIdentity,
-  generateSigner,
-  percentAmount,
   publicKey,
 } from '@metaplex-foundation/umi';
-import {
-  mplTokenMetadata,
-  createNft,
-} from '@metaplex-foundation/mpl-token-metadata';
-import {
-  getAssetWithProof,
-  verifyCreator,
-} from '@metaplex-foundation/mpl-bubblegum';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 import { findLeafAssetIdPda } from '@metaplex-foundation/mpl-bubblegum';
 
