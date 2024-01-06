@@ -46,8 +46,8 @@ const verifyCreatorForCnft = async () => {
   //  Create a Collection NFT
   // -------------------------------------
   const assetId = publicKey('CjBKALu6F1CERdXmyJVfKRXviBQWAcgYGPejyuQpgGb8');
-  const assetWithProof = await getAssetWithProof(umi, assetId);
-  const creator = createSignerFromKeypair(umi, payerKeypair);
+  let assetWithProof = await getAssetWithProof(umi, assetId);
+  let creator = createSignerFromKeypair(umi, payerKeypair);
 
   const result = await verifyCreator(umi, {
     ...assetWithProof,
@@ -61,6 +61,9 @@ const verifyCreatorForCnft = async () => {
 
   console.log('\n--- After verify ---------------------------------------------------');
   console.log('result =>', bs58.encode(result.signature));
+
+  assetWithProof = await getAssetWithProof(umi, assetId);
+  creator = createSignerFromKeypair(umi, payerKeypair);
   console.log('creators =>', assetWithProof.rpcAsset.creators);
 };
 
