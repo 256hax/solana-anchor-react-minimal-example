@@ -5,13 +5,10 @@ import * as dotenv from 'dotenv';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import {
-  keypairIdentity,
-  publicKey,
-} from '@metaplex-foundation/umi';
+import { keypairIdentity, publicKey } from '@metaplex-foundation/umi';
 import {
   mplTokenMetadata,
-  fetchAllDigitalAssetByOwner
+  fetchAllDigitalAssetByOwner,
 } from '@metaplex-foundation/mpl-token-metadata';
 
 const fetchAllByOwner = async () => {
@@ -38,21 +35,23 @@ const fetchAllByOwner = async () => {
   // -------------------------------------
   const owner = publicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
 
-  const assets = await fetchAllDigitalAssetByOwner(umi, owner)
+  const assets = await fetchAllDigitalAssetByOwner(umi, owner);
 
   console.log('owner =>', owner.toString());
   console.log('assets =>', assets);
 
-  // -------------------------------------
-  //  Search
-  // -------------------------------------
-  const filteringMint = '3J1P7DqxfKJWiCQacVJZBeN6jwQMvjoY4DJxFvY2RSWf';
+  // If you need to search like follwoing, use "fetchByMintAndOwner" in Digital Assets With Token.
+  //
+  // // -------------------------------------
+  // //  Search
+  // // -------------------------------------
+  // const filteringMint = '3J1P7DqxfKJWiCQacVJZBeN6jwQMvjoY4DJxFvY2RSWf';
 
-  assets.map((a: any) => {
-    if(a.mint.publicKey.toString() === filteringMint) {
-      console.log('Owner has', filteringMint);
-    }
-  });
+  // assets.map((a: any) => {
+  //   if(a.mint.publicKey.toString() === filteringMint) {
+  //     console.log('Owner has', filteringMint);
+  //   }
+  // });
 };
 
 fetchAllByOwner();
