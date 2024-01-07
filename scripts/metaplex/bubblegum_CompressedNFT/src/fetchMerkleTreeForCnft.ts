@@ -14,7 +14,7 @@ import {
   fetchTreeConfigFromSeeds,
 } from '@metaplex-foundation/mpl-bubblegum';
 
-const createMerkleTree = async () => {
+const fetchMerkleTreeForCnft = async () => {
   // ----------------------------------------------------
   //  Setup
   // ----------------------------------------------------
@@ -36,7 +36,7 @@ const createMerkleTree = async () => {
   // ----------------------------------------------------
   //  Fetching Merkle Tree
   // ----------------------------------------------------
-  const merkleTree = publicKey('4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f');
+  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
   const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree);
   const treeConfig = await fetchTreeConfigFromSeeds(umi, {
     merkleTree: merkleTree,
@@ -47,7 +47,7 @@ const createMerkleTree = async () => {
   console.log('treeConfig =>', treeConfig);
 };
 
-createMerkleTree();
+fetchMerkleTreeForCnft();
 
 /*
 % ts-node src/<THIS_FILE>
