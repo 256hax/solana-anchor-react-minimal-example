@@ -6,7 +6,10 @@ Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
 ### Common
 - [Umi](https://github.com/metaplex-foundation/umi): JS Client. We need to use this instead of Metaplex JS SDK.
 
-### Minting and distribution
+### Digital Ownership Standard
+- [Token Metadata](https://developers.metaplex.com/token-metadata): Create digital assets(NFTs) by adding Metadata to tokens.
+
+### NFT Launchpad
 - [Candy Machine](https://developers.metaplex.com/candy-machine): minting and distribution program. e.g. Mint site, WL.
 - [Sugar](https://developers.metaplex.com/candy-machine/sugar): command-line tool to interact with Candy Machines.
 
