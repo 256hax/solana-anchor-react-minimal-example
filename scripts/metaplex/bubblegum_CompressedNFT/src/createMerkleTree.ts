@@ -46,11 +46,12 @@ const createMerkleTree = async () => {
     // maxDepth: 14,
     // maxBufferSize: 64,
   });
-  const result = await builder.sendAndConfirm(umi);
+  const confirmResult = await builder.sendAndConfirm(umi);
 
   console.log('payer =>', payerKeypair.publicKey.toString());
   console.log('merkleTree =>', merkleTree);
-  console.log('signature =>', bs58.encode(result.signature));
+  console.log('signature =>', bs58.encode(confirmResult.signature));
+  console.log('result =>', confirmResult.result);
 };
 
 createMerkleTree();
@@ -60,18 +61,28 @@ createMerkleTree();
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => {
-  publicKey: '4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f',
+  publicKey: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
   secretKey: Uint8Array(64) [
-    205, 127,  93, 247,  81,  73, 117, 116, 125,  78,  65,
-     47,  60, 120,  23,  47,  43, 141, 186, 179, 123, 162,
-     78, 194,  13,  57,  59, 138, 165, 123,  58, 157,  50,
-    201, 235, 174, 197, 104,  49, 113, 168, 154, 203, 219,
-     35, 201, 220,  27, 226, 164,  16, 227, 191,   1, 147,
-    189, 237, 117, 253, 225, 244, 145,  69, 160
+    200,  46, 167, 176, 248,  50, 165,  36, 121, 180,  97,
+    180, 138,  27,   1, 114,  51, 115, 226, 144, 172,  74,
+    212,  16,   4, 190, 100, 210, 115,  89, 100,  27, 179,
+    188,  62, 247,  95, 245, 177, 198, 114, 191, 122, 184,
+    226, 227,  81,  67, 130,  21, 165,   7, 105, 231,  21,
+     60, 239, 192,  31,  99, 211,  12, 143,  81
   ],
   signMessage: [AsyncFunction: signMessage],
   signTransaction: [AsyncFunction: signTransaction],
   signAllTransactions: [AsyncFunction: signAllTransactions]
 }
-signature => 3xovxQNZHmvJ9biXrtngGvHSaZHX1Grf4MqZHuQQWqaHjpRvkaHGDyFsU2XncZRKnAP9CGob7f7xCGhHxt13MxHp
+signature => 5kgtHMb7qxNpEquTv2VyYAjLns7cS3rGei2vbnAqxc7zvuskANwq3X8kGVEFpW2uB2QhzaxA8U5cdFL9i3kqRjiv
+result => {
+  context: { apiVersion: '1.17.12', slot: 270763465 },
+  value: {
+    confirmationStatus: 'processed',
+    confirmations: 0,
+    err: null,
+    slot: 270763465,
+    status: { Ok: null }
+  }
+}
 */
