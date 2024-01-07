@@ -1,21 +1,24 @@
 ## How to Mint NFTs?
-You have some ways for mint NFTs.  
+You have some ways for minting NFTs using Metaplex or thirdparty(e.g. Helius, Shyft).  
+Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
 
-### Script
-1. Metaplex JS SDK
-2. Metaplex Umi (recommend to use this)
+## Metaplex Product
+### Common
+- [Umi](https://github.com/metaplex-foundation/umi): JS Client. We need to use this instead of Metaplex JS SDK.
 
-### CLI
-1. Metaplex Sugar
-2. Metaboss
+### Minting and distribution
+- [Candy Machine](https://developers.metaplex.com/candy-machine): minting and distribution program. e.g. Mint site, WL.
+- [Sugar](https://developers.metaplex.com/candy-machine/sugar): command-line tool to interact with Candy Machines.
 
-### Mint Site
-Metaplex Candy Machine
+### Compressed NFT
+- [Bubblegum](https://developers.metaplex.com/bubblegum): minting Compressed NFT.
+
+### Utility
+- [Metaboss](https://metaboss.rs/): 'Swiss Army Knife' tool.
 
 ## Run
 ```
 % cd <EACH DIRRECTORY>
 % npm i
-% cd src
-% ts-node <TS FILE>
+% ts-node src/<TS FILE>
 ```
