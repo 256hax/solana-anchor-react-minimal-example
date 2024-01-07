@@ -2,7 +2,6 @@
 
 // Lib
 import * as dotenv from 'dotenv';
-import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
@@ -35,7 +34,7 @@ const fetchByMint = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // -------------------------------------
-  //  Minting Tokens
+  //  Fetch By Mint
   // -------------------------------------
   const mint = publicKey('3J1P7DqxfKJWiCQacVJZBeN6jwQMvjoY4DJxFvY2RSWf');
 

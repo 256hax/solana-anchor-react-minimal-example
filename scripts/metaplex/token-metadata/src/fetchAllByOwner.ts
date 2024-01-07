@@ -2,7 +2,6 @@
 
 // Lib
 import * as dotenv from 'dotenv';
-import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
@@ -35,7 +34,7 @@ const fetchAllByOwner = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // -------------------------------------
-  //  Minting Tokens
+  //  Fetch All By Owner
   // -------------------------------------
   const owner = publicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
 
