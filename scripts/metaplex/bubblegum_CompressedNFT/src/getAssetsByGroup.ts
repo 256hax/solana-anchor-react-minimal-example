@@ -23,10 +23,10 @@ const getAssetsByGroup = async () => {
   // -------------------------------------
   //  Get Assets by Group
   // -------------------------------------
-  const collectionMint = publicKey('DGPTxgKaBPJv3Ng7dc9AFDpX6E7kgUMZEgyTm3VGWPW6');
+  const collectionMint = publicKey('CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx');
   const assets = await umi.rpc.getAssetsByGroup({
     groupKey: 'collection',
-    groupValue: 'DGPTxgKaBPJv3Ng7dc9AFDpX6E7kgUMZEgyTm3VGWPW6',
+    groupValue: collectionMint,
   });
 
   console.log('collectionMint =>', collectionMint);
@@ -41,7 +41,7 @@ getAssetsByGroup();
 ~~~snip~~~
     {
       interface: 'V1_NFT',
-      id: 'BdpJxZmQDbfC8JQ2Tr2eHDjRGJgfP4JpJHqeWmpwF69f',
+      id: 'EbZ3C2Wo9f4RUvi7XHpK554cMo9WNcVZaMUsYx7tKv5L',
       content: [Object],
       authorities: [Array],
       compression: [Object],
@@ -55,7 +55,7 @@ getAssetsByGroup();
     },
     {
       interface: 'V1_NFT',
-      id: 'HXZ3J9ZqU4An7cYNVqoi2zyKvu5yoACUFqcPFLigCF9g',
+      id: 'C84LJACyyp6HZSuAnMKZGqzwinzPkynnVpJUMEjy8mrp',
       content: [Object],
       authorities: [Array],
       compression: [Object],
@@ -69,7 +69,7 @@ getAssetsByGroup();
     },
     {
       interface: 'V1_NFT',
-      id: '8UM4XhqMdJgf45qN9qtR5dv2HXoHrLZFFyAeuzNPycjc',
+      id: '4N95uzyVy597TQAVXSccdExkMiFc9gaG3XKNUE2mEL27',
       content: [Object],
       authorities: [Array],
       compression: [Object],
@@ -80,8 +80,7 @@ getAssetsByGroup();
       supply: [Object],
       mutable: true,
       burnt: false
-    },
-    ... 900 more items
+    }
   ]
 }
 */
