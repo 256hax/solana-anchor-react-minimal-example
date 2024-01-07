@@ -1,4 +1,4 @@
-// Docs: https://developers.metaplex.com/token-metadata/mint#creating-accounts
+// Docs: https://developers.metaplex.com/token-metadata/mint#minting-tokens
 
 // Lib
 import * as dotenv from 'dotenv';
