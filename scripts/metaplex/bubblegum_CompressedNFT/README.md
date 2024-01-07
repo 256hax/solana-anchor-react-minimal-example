@@ -24,9 +24,9 @@ Then, write your Helius API in .env.
 | Explorers | Devnet | Mainnet |
 | ---- | ---- | ---- |
 | [XRAY](https://xray.helius.xyz/) | ✅ | ✅ |
-| [Shyft Translator](https://translator.shyft.to/) | ✅ | ✅ |
 | [SolanaFM](https://solana.fm/) | N/A | ✅ |
 | [Solscan](https://solscan.io/) | N/A | N/A |
+| [Shyft Translator](https://translator.shyft.to/) | N/A | N/A |
 | [Solana Explorer](https://explorer.solana.com/) | N/A | N/A |
   
 as of Jan.7.2024
