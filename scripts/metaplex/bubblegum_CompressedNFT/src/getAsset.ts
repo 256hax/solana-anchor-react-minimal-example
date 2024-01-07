@@ -4,10 +4,7 @@ import * as dotenv from 'dotenv';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import {
-  keypairIdentity,
-  publicKey,
-} from '@metaplex-foundation/umi';
+import { publicKey } from '@metaplex-foundation/umi';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 const getAsset = async () => {
   // ----------------------------------------------------
@@ -17,13 +14,15 @@ const getAsset = async () => {
 
   // Public RPC unavailbale DAS on Devnet. Use following RPC:
   //  https://developers.metaplex.com/bubblegum/rpcs
-  const endpoint = 'https://api.mainnet-beta.solana.com';
+  const endpoint = process.env.HELIUS_API_WITH_URL;
+  if (!endpoint) throw new Error('endpoint not found.');
+
   const umi = createUmi(endpoint).use(dasApi());
 
   // -------------------------------------
   //  Get an Asset
   // -------------------------------------
-  const assetId = publicKey('Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT');
+  const assetId = publicKey('Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq');
   const asset = await umi.rpc.getAsset(assetId);
 
   console.log('assetId =>', assetId);
@@ -35,62 +34,61 @@ getAsset();
 /*
 % ts-node src/<THIS_FILE>
 
-assetId => Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT
+assetId => Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq
 asset => {
   interface: 'V1_NFT',
-  id: 'Bvnw4J2ijQ2ht9uhnEDzGaGndg9rAdwUPfan62L4touT',
+  id: 'Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq',
   content: {
     '$schema': 'https://schema.metaplex.com/nft1.0.json',
-    json_uri: 'https://arweave.net/T22-vnvj7NDUyKMnmtUOC7jZQL9NzL69MLOWZsCay_g',
-    files: [],
-    metadata: { name: 'BonkBot', symbol: '' },
-    links: {}
+    json_uri: 'https://nftstorage.link/ipfs/bafkreidk3rfovtx4uehivgp7tmruoiaqkypproymlfzzpgeyayqcbfakma',
+    files: [ [Object], [Object] ],
+    metadata: {
+      attributes: [Array],
+      description: 'Claynosaurz is a collection of 10,000 3D animated NFTs. Helmed by a team of leading animation and game industry artists, Claynosaurz aims to rewrite the narrative on how successful IP can be built out of web3. With massive potential for scaling, the Genesis collection is an all access pass to our Universe.',
+      name: 'cNFT in a Collection',
+      symbol: '',
+      token_standard: 'NonFungible'
+    },
+    links: {
+      image: 'https://nftstorage.link/ipfs/bafybeibhhh2mnebvajzdai4d7ar42m6s6pkvy7n7smgc6lpj4bp45qvj3y/7315.gif',
+      external_url: 'https://twitter.com/Claynosaurz'
+    }
   },
   authorities: [
     {
-      address: 'DSweX9jNzQ6M4qCXb2ow7X6cjZym2wtGk1RVmFW7Lq5T',
+      address: '7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv',
       scopes: [Array]
     }
   ],
   compression: {
     eligible: false,
     compressed: true,
-    data_hash: '95CyM8P98pYB2UsABvGkwmbY8bNLCZ7tjShWZg3H1sb8',
-    creator_hash: 'EwBYYdBeEbhYXRZVVZrKz5aNFFwkohjhnfupP1ZLsixu',
-    asset_hash: '76V78ZqLJMjnpkj5ZEiV8StmJZxNF2SEnnPcLEEV7JQK',
-    tree: '31iJeZ7Sg452LMvVTjsNhwhYCUdneHJHFFawqAbGb1W7',
-    seq: 74731,
-    leaf_id: 72823
+    data_hash: 'HnnZFpKwwVHAgtTZkvoqvg4f9KK4ecLQJtmD7yHoU9fo',
+    creator_hash: '5MhKaq3eEzsomVp5qU1EST7H9q8R9ndDxWuXeF6wbdgx',
+    asset_hash: 'CGs9Sk4LVppJADWjUnHRiNFAH7nQ7NimZwesijkD1Aze',
+    tree: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
+    seq: 1,
+    leaf_id: 0
   },
   grouping: [
     {
       group_key: 'collection',
-      group_value: 'DGPTxgKaBPJv3Ng7dc9AFDpX6E7kgUMZEgyTm3VGWPW6'
+      group_value: 'CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx'
     }
   ],
   royalty: {
     royalty_model: 'creators',
     target: null,
-    percent: 0.030000000000000002,
-    basis_points: 300,
+    percent: 0.05,
+    basis_points: 500,
     primary_sale_happened: false,
     locked: false
   },
   creators: [
     {
-      address: 'DGPTx9RcP5GkxRNscrSaSETcwuiK6xcbX93G1DSxrLoY',
-      share: 0,
+      address: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
+      share: 100,
       verified: true
-    },
-    {
-      address: 'WoMbXFtdfH8crq2Zi7bQhfGx2Gv8EN4saP13gcdUGog',
-      share: 50,
-      verified: false
-    },
-    {
-      address: 'ART5dr4bDic2sQVZoFheEmUxwQq5VGSx9he7JxHcXNQD',
-      share: 50,
-      verified: false
     }
   ],
   ownership: {
@@ -98,7 +96,7 @@ asset => {
     delegated: false,
     delegate: null,
     ownership_model: 'single',
-    owner: 'CJsPSQtV28CJiRt8XThuG5Ei1cX2fH5GcPoZYyM26gzm'
+    owner: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg'
   },
   supply: { print_max_supply: 0, print_current_supply: 0, edition_nonce: null },
   mutable: true,

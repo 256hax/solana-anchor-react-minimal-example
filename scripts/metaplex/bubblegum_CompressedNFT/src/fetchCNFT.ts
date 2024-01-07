@@ -32,8 +32,8 @@ const fetchCNFT = async () => {
   // -------------------------------------
   //  Fetching a Compressed NFT
   // -------------------------------------
-  const merkleTree = publicKey('B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT');
-  const leafIndex = 7;
+  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
+  const leafIndex = 0;
 
   const [assetId, bump] = await findLeafAssetIdPda(umi, {
     merkleTree,
@@ -49,6 +49,6 @@ fetchCNFT();
 /*
 % ts-node src/<THIS_FILE>
 
-assetId => FWiZYQHfASrwZ2YeActdVi4VPX8KM8mAeuKg7VcMUcTz
-bump => 251
+assetId => Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq
+bump => 253
 */

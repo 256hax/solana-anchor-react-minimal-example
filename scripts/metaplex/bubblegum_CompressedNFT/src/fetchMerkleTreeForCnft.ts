@@ -52,9 +52,9 @@ fetchMerkleTreeForCnft();
 /*
 % ts-node src/<THIS_FILE>
 
-merkleTree => 4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f
+merkleTree => D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui
 merkleTreeAccount => {
-  publicKey: '4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f',
+  publicKey: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
   header: {
     executable: false,
     owner: 'cmtDvXumGCrqC1Age74AVPhSRVXJMd8PJS91L8KbNCK',
@@ -67,14 +67,14 @@ merkleTreeAccount => {
     __kind: 'V1',
     maxBufferSize: 8,
     maxDepth: 3,
-    authority: 'AgGoE8DcTK6nDdy5xo2Pa5GqEpWXwQz8HPJr1C16egnk',
-    creationSlot: 270176961n,
+    authority: '7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv',
+    creationSlot: 270763465n,
     padding: [ 0, 0, 0, 0, 0, 0 ]
   },
   tree: {
-    sequenceNumber: 0n,
-    activeIndex: 0n,
-    bufferSize: 1n,
+    sequenceNumber: 1n,
+    activeIndex: 1n,
+    bufferSize: 2n,
     changeLogs: [
       [Object], [Object],
       [Object], [Object],
@@ -83,14 +83,14 @@ merkleTreeAccount => {
     ],
     rightMostPath: {
       proof: [Array],
-      leaf: '11111111111111111111111111111111',
-      index: 0
+      leaf: 'CGs9Sk4LVppJADWjUnHRiNFAH7nQ7NimZwesijkD1Aze',
+      index: 1
     }
   },
   canopy: []
 }
 treeConfig => {
-  publicKey: 'AgGoE8DcTK6nDdy5xo2Pa5GqEpWXwQz8HPJr1C16egnk',
+  publicKey: '7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv',
   header: {
     executable: false,
     owner: 'BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY',
@@ -105,7 +105,7 @@ treeConfig => {
   treeCreator: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
   treeDelegate: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
   totalMintCapacity: 8n,
-  numMinted: 0n,
+  numMinted: 1n,
   isPublic: false,
   isDecompressible: 1
 }

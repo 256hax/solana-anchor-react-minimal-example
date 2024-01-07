@@ -4,10 +4,7 @@ import * as dotenv from 'dotenv';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import {
-  keypairIdentity,
-  publicKey,
-} from '@metaplex-foundation/umi';
+import { publicKey } from '@metaplex-foundation/umi';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 const getAssetsByAuthority = async () => {
   // ----------------------------------------------------
@@ -17,13 +14,15 @@ const getAssetsByAuthority = async () => {
 
   // Public RPC unavailbale DAS on Devnet. Use following RPC:
   //  https://developers.metaplex.com/bubblegum/rpcs
-  const endpoint = 'https://api.mainnet-beta.solana.com';
+  const endpoint = process.env.HELIUS_API_WITH_URL;
+  if (!endpoint) throw new Error('endpoint not found.');
+
   const umi = createUmi(endpoint).use(dasApi());
 
   // -------------------------------------
   //  Get Assets by Authority
   // -------------------------------------
-  const authority = publicKey('DSweX9jNzQ6M4qCXb2ow7X6cjZym2wtGk1RVmFW7Lq5T');
+  const authority = publicKey('7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv');
   const assets = await umi.rpc.getAssetsByAuthority({ authority });
 
   console.log('authority =>', authority);
@@ -35,10 +34,15 @@ getAssetsByAuthority();
 /*
 % ts-node src/<THIS_FILE>
 
-~~~snip~~~
+authority => 7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv
+assets => {
+  total: 1,
+  limit: 1000,
+  page: 1,
+  items: [
     {
       interface: 'V1_NFT',
-      id: '5Z4JvVVrJ3ugp7qyBcurPSvWjcuPxkNFXGCDx3r6G26j',
+      id: 'Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq',
       content: [Object],
       authorities: [Array],
       compression: [Object],
@@ -49,36 +53,7 @@ getAssetsByAuthority();
       supply: [Object],
       mutable: true,
       burnt: false
-    },
-    {
-      interface: 'V1_NFT',
-      id: '9ZpGMtJwWdWVhYdz7vtHyLeuApLJYBJZmpBoij5czuwc',
-      content: [Object],
-      authorities: [Array],
-      compression: [Object],
-      grouping: [Array],
-      royalty: [Object],
-      creators: [Array],
-      ownership: [Object],
-      supply: [Object],
-      mutable: true,
-      burnt: false
-    },
-    {
-      interface: 'V1_NFT',
-      id: 'DrAktMnyiR7ifVPMkAqsbxSLXJ6j1JPL59dfYpq8dGmF',
-      content: [Object],
-      authorities: [Array],
-      compression: [Object],
-      grouping: [Array],
-      royalty: [Object],
-      creators: [Array],
-      ownership: [Object],
-      supply: [Object],
-      mutable: true,
-      burnt: false
-    },
-    ... 900 more items
+    }
   ]
 }
 */

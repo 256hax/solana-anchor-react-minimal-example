@@ -1,4 +1,6 @@
-// Docs: https://developers.metaplex.com/bubblegum/mint-cnfts#minting-to-a-collection
+// Docs:
+//  https://developers.metaplex.com/bubblegum/mint-cnfts#minting-to-a-collection
+//  https://github.com/metaplex-foundation/mpl-bubblegum/blob/main/clients/js/test/mintToCollectionV1.test.ts
 
 // Lib
 import * as dotenv from 'dotenv';
@@ -33,17 +35,17 @@ const mintToCollection = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // ----------------------------------------------------
-  //  Minting without a Collection
+  //  Minting to a Collection
   // ----------------------------------------------------
   // Replace to your Merkle Tree.
-  const merkleTree = publicKey('4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f');
+  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
   // Replace to your Collection NFT.
   const collectionMint = publicKey(
     'CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx'
   );
   const collectionUpdateAuthority = createSignerFromKeypair(umi, payerKeypair);
 
-  const result = await mintToCollectionV1(umi, {
+  const mintResult = await mintToCollectionV1(umi, {
     leafOwner: payerKeypair.publicKey,
     merkleTree,
     collectionMint,
@@ -63,7 +65,8 @@ const mintToCollection = async () => {
   console.log('leafOwner =>', payerKeypair.publicKey.toString());
   console.log('merkleTree =>', merkleTree);
   console.log('collectionMint =>', collectionMint.toString());
-  console.log('signature =>', bs58.encode(result.signature));
+  console.log('signature =>', bs58.encode(mintResult.signature));
+  console.log('result =>', mintResult.result);
 };
 
 mintToCollection();
@@ -73,7 +76,8 @@ mintToCollection();
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-merkleTree => 4RFxwemYRR9RUDLEH2Uo2EuatUu4EZQsFuEeH7wA8r4f
+merkleTree => D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui
 collectionMint => CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx
-signature => 4T9BJG7eVV22rijB9UUDzQWbqGYKMiZSjRodyKyvGWz4CYxwrGwx58vw7Kyk3FWA826y1DxA8MjeqHcEJtwjT873
+signature => 3b763DEtvBzRR5mShbS25yQVoVuUsDCGmSLUvS6C3TCeGQkhyAPVcNuCy2HuoUNphKfieXAyXupBYJipaqxMe48V
+result => { context: { slot: 270781697 }, value: { err: null } }
 */

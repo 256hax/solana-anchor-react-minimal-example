@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import { keypairIdentity, publicKey } from '@metaplex-foundation/umi';
+import { publicKey } from '@metaplex-foundation/umi';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 
 const getAssetsByGroup = async () => {
@@ -15,7 +15,9 @@ const getAssetsByGroup = async () => {
 
   // Public RPC unavailbale DAS on Devnet. Use following RPC:
   //  https://developers.metaplex.com/bubblegum/rpcs
-  const endpoint = 'https://api.mainnet-beta.solana.com';
+  const endpoint = process.env.HELIUS_API_WITH_URL;
+  if (!endpoint) throw new Error('endpoint not found.');
+
   const umi = createUmi(endpoint).use(dasApi());
 
   // -------------------------------------
