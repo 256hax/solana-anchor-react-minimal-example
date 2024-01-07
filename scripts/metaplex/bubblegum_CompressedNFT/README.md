@@ -1,6 +1,11 @@
 # Metaplex Bubblegum (Compressed NFT)
 [Metaplex Bubblegum](https://developers.metaplex.com/bubblegum) example codes.
 
+## How to create Compressed NFT?
+STEP1: Create Merkle Tree
+STEP2: (Option) Create Collection Standard NFT (Standard NFT = Non-compressed)
+STEP3: Mint Compressed NFT (to Collection)
+
 ## Setup
 ```
 % cp .env.example .env
