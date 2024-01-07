@@ -40,20 +40,6 @@ const fetchCNFT = async () => {
     leafIndex,
   });
 
-  // Use Metaplex DAS API RPCs if you need to get data.
-  // Details: https://developers.metaplex.com/bubblegum/rpcs
-  // 
-  // e.g.
-  // const rpcAsset = await umi.rpc.getAsset(assetId);
-  // const rpcAssetProof = await umi.rpc.getAssetProof(assetId);
-  // const rpcAssetListByOwner = await umi.rpc.getAssetsByOwner({
-  //   owner: umi.identity.publicKey,
-  // });
-  // const rpcAssetListByCollection = await umi.rpc.getAssetsByGroup({
-  //   groupKey: 'collection',
-  //   groupValue: collectionMint,
-  // });
-
   console.log('assetId =>', assetId);
   console.log('bump =>', bump);
 };
