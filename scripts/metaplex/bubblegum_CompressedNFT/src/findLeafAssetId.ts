@@ -30,7 +30,7 @@ const fetchCNFT = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // -------------------------------------
-  //  Fetching a Compressed NFT
+  //  Fetching an Asset ID by Merkle Tree and Leaf Index
   // -------------------------------------
   const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
   const leafIndex = 0;
