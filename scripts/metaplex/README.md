@@ -2,22 +2,36 @@
 You have some ways for minting NFTs using Metaplex or thirdparty(e.g. Helius, Shyft).  
 Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
 
-## Metaplex Product
-### Common
-- [Umi](https://github.com/metaplex-foundation/umi): JS Client. We need to use this instead of Metaplex JS SDK.
+## Overview
+- [Docs - Metaplex Products](https://developers.metaplex.com/products)
+- [Docs - Token Standard](https://developers.metaplex.com/token-metadata/token-standard)
+- [Docs - Accounts Structure](https://developers.metaplex.com/token-metadata)
+- [Docs - (🚨 old) Metaplex Docs](https://docs.metaplex.com/)
+
+## Metaplex Products
+### Client
+- [GitHub - Umi](https://github.com/metaplex-foundation/umi): JS Client.
+- [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js): JS Client. 🚨 Deprecated library.
+- [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
 
 ### Digital Ownership Standard
-- [Token Metadata](https://developers.metaplex.com/token-metadata): Create digital assets(NFTs) by adding Metadata to tokens.
+- [Docs - Token Metadata](https://developers.metaplex.com/token-metadata): Create digital assets(NFTs) by adding Metadata to tokens.
 
 ### NFT Launchpad
-- [Candy Machine](https://developers.metaplex.com/candy-machine): minting and distribution program. e.g. Mint site, WL.
-- [Sugar](https://developers.metaplex.com/candy-machine/sugar): command-line tool to interact with Candy Machines.
+- [Docs - Candy Machine](https://developers.metaplex.com/candy-machine): minting and distribution program. e.g. Mint site, WL.
+- [Docs - Sugar](https://developers.metaplex.com/candy-machine/sugar): command-line tool to interact with Candy Machines.
+- [GitHub - Candy Machine UI Examples](https://github.com/metaplex-foundation/mpl-token-metadata/tree/main/examples/js)
 
 ### Compressed NFT
-- [Bubblegum](https://developers.metaplex.com/bubblegum): minting Compressed NFT.
+- [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
+- [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
+- [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
+- [Docs - Bubblegum](https://developers.metaplex.com/bubblegum): minting Compressed NFT.
+- [Docs - Guide: Create cNFT and Digital Asset Standard (DAS) API by Helius](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
 
+## Thirdparty Product
 ### Utility
-- [Metaboss](https://metaboss.rs/): 'Swiss Army Knife' tool.
+- [Docs - Metaboss](https://metaboss.rs/): 'Swiss Army Knife' tool.
 
 ## Run
 ```

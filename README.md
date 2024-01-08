@@ -83,34 +83,9 @@ Remove test-ledger directory if it exists before running.
 - [GitHub - anchor](https://github.com/coral-xyz/anchor)
 - [Support - Discord Anchor](https://discord.com/invite/ZCHmqvXgDw)
 
-## Metaplex/NFT
-- [Docs - Account Structure(Mint Account, Metadata Account)](https://docs.metaplex.com/programs/token-metadata/accounts)
-- [Docs - Token Standard(Data Structure)](https://docs.metaplex.com/programs/token-metadata/token-standard)
-- [Docs - Candy Machine(Umi)](https://docs.metaplex.com/programs/candy-machine/overview)
-- [Docs - Sugar(CLI)](https://docs.metaplex.com/developer-tools/sugar/)
-- [Docs - Sugar Guards Configuration(CLI)](https://docs.metaplex.com/developer-tools/sugar/guides/sugar-for-cmv3)
-- [Docs - Metaboss(CLI)](https://metaboss.rs/)
-- [API - (Rust)mpl_token_metadata](https://docs.rs/mpl-token-metadata/latest/mpl_token_metadata/all.html)
-- [API - (Rust)metaboss_lib](https://docs.rs/metaboss_lib/latest/metaboss_lib/)
-- [API - (JS)@metaplex-foundation/mpl-token-metadata](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html)
-- [API - (JS)@metaplex-foundation/js](https://metaplex-foundation.github.io/js/modules/js.html)
-- [API - (JS)@metaplex-foundation/mpl-candy-machine](https://mpl-candy-machine-js-docs.vercel.app/)
-- [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js)
-- [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
-- [GitHub - Umi](https://github.com/metaplex-foundation/umi)
-- [GitHub - Candy Machine/Umi Code Example(test code)](https://github.com/metaplex-foundation/mpl-candy-machine/tree/main/clients/js/test)
-- [GitHub - Candy Machine/Umi UI Example](https://github.com/metaplex-foundation/mpl-token-metadata/tree/main/examples/js)
-- [GitHub - Sugar](https://github.com/metaplex-foundation/sugar)
+## NFT/Compressed NFT
+- Reference links move to [metaplex](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/scripts/metaplex)
 - [Support - Discord Metaplex](https://discord.com/invite/metaplex)
-- [Tools - Collection NFT Web Tool](https://docs.metaplex.com/programs/token-metadata/certified-collections#set-and-verify-a-collection-using-collectionsmetaplexcom)
-
-## Compressed NFT(cNFT)
-- [Docs - News](https://solana.com/news/how-to-use-compressed-nfts-on-solana?ref=solana.ghost.io)
-- [Docs - Concept: State Compression](https://edge.docs.solana.com/learn/state-compression)
-- [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
-- [Docs - Guide: Create cNFT and Digital Asset Standard (DAS) API by Helius](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
-- [GitHub - Solana Example Code](https://github.com/solana-developers/compressed-nfts)
-- [GitHub - Metaplex Digital Asset RPC](https://github.com/metaplex-foundation/digital-asset-rpc-infrastructure)
 
 ## Wallet Adapter for dApps
 - [Docs - Phantom](https://docs.phantom.app/)
