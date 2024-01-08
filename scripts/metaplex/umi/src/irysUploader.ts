@@ -44,10 +44,21 @@ const mintWithoutCollection = async () => {
   const [fileUri] = await umi.uploader.upload([file]);
 
   const uri = await umi.uploader.uploadJson({
-    name: 'My NFT #1',
+    name: 'My NFT #2',
     description: 'My description',
     // image: 'https://placekitten.com/100/200',
     image: fileUri,
+    external_url: 'https://example.com/',
+    attributes: [
+      {
+        trait_type: 'trait1',
+        value: 'value1',
+      },
+      {
+        trait_type: 'trait2',
+        value: 'value2',
+      },
+    ],
   });
 
   console.log('payer =>', payerKeypair.publicKey.toString());
