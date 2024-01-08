@@ -32,18 +32,18 @@ const mintWithoutCollection = async () => {
   //  Minting without a Collection
   // ----------------------------------------------------
   // Replace to your Merkle Tree.
-  const merkleTree = publicKey('B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT');
+  const merkleTree = publicKey('AxR2UTtq3pZ5ZFaAs9tSWtiz4HftTAftKzMfs8ZjtcqQ');
 
   const result = await mintV1(umi, {
     leafOwner: payerKeypair.publicKey,
     merkleTree,
     metadata: {
-      name: 'cNFT w/o Collection',
-      uri: 'https://madlads.s3.us-west-2.amazonaws.com/json/4731.json',
+      name: 'cNFT w/o Collection #2',
+      uri: 'https://arweave.net/fuyXdgQul3e-0COSO2XUgTv9JbUIDvF-as86TWHtlgM',
       sellerFeeBasisPoints: 500, // 5%
       collection: none(),
       creators: [
-        { address: umi.identity.publicKey, verified: false, share: 100 },
+        { address: umi.identity.publicKey, verified: true, share: 100 },
       ],
     },
   }).sendAndConfirm(umi);
