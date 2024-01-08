@@ -1,4 +1,5 @@
 // Docs: https://github.com/metaplex-foundation/digital-asset-standard-api
+
 // Lib
 import * as dotenv from 'dotenv';
 
@@ -6,6 +7,7 @@ import * as dotenv from 'dotenv';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { publicKey } from '@metaplex-foundation/umi';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
+
 const getAsset = async () => {
   // ----------------------------------------------------
   //  Setup
