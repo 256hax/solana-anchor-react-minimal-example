@@ -39,19 +39,6 @@ const fetchAllByOwner = async () => {
 
   console.log('owner =>', owner.toString());
   console.log('assets =>', assets);
-
-  // If you need to search like follwoing, use "fetchByMintAndOwner" in Digital Assets With Token.
-  //
-  // // -------------------------------------
-  // //  Search
-  // // -------------------------------------
-  // const filteringMint = '3J1P7DqxfKJWiCQacVJZBeN6jwQMvjoY4DJxFvY2RSWf';
-
-  // assets.map((a: any) => {
-  //   if(a.mint.publicKey.toString() === filteringMint) {
-  //     console.log('Owner has', filteringMint);
-  //   }
-  // });
 };
 
 fetchAllByOwner();
