@@ -6,6 +6,9 @@
 import * as dotenv from 'dotenv';
 import fs from 'fs';
 
+// Solana
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+
 // Metaplex
 import { keypairIdentity, createGenericFile } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
@@ -62,7 +65,7 @@ const upload = async () => {
   });
 
   console.log('payer =>', payerKeypair.publicKey.toString());
-  console.log('uploadPrice =>', uploadPrice);
+  console.log('uploadPrice =>', Number(uploadPrice.basisPoints) / LAMPORTS_PER_SOL, uploadPrice.identifier);
   console.log('uri =>', uri);
 };
 
