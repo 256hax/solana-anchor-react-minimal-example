@@ -11,7 +11,7 @@ import { keypairIdentity, createGenericFile } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { irysUploader } from '@metaplex-foundation/umi-uploader-irys';
 
-const mintWithoutCollection = async () => {
+const upload = async () => {
   // ----------------------------------------------------
   //  Setup
   // ----------------------------------------------------
@@ -66,7 +66,7 @@ const mintWithoutCollection = async () => {
   console.log('uri =>', uri);
 };
 
-mintWithoutCollection();
+upload();
 
 /*
 % ts-node src/<THIS_FILE>
