@@ -29,9 +29,9 @@ I recommend to use Solana Explorer for localnet.
 ### Use Metaplex in Localnet
 You can use Metaplex(e.g. mint/update NFTs) in Localnet.  
 
-Case 1 (Anchor): [Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)  
+Case 1 Anchor: [Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)  
 
-Case 2 (validator):  
+Case 2 Solana CLI:  
 ```
 % solana-test-validator --url https://api.devnet.solana.com /
 	--clone metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s /
@@ -41,6 +41,9 @@ Case 2 (validator):
 ```
 
 Remove test-ledger directory if it exists before running.
+  
+Case 3 Metaplex Amman:  
+[2/ Just add any program you need to the validator config and get back to building!](https://x.com/metaplex/status/1756731772224909638?s=20)
 
 ## Outline Document for Product/Project Manager
 [Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
