@@ -1,6 +1,7 @@
 [features]
 seeds = false
 skip-lint = false
+
 [programs.localnet]
 transfer_sol = "QHQNpUgEYbzC4TXBnJD591AGfBR8KiFivLtSMycBQ7W"
 
