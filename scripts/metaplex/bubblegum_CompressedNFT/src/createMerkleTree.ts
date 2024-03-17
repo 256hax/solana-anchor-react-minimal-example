@@ -61,27 +61,27 @@ createMerkleTree();
 
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => {
-  publicKey: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
+  publicKey: '81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq',
   secretKey: Uint8Array(64) [
-    200,  46, 167, 176, 248,  50, 165,  36, 121, 180,  97,
-    180, 138,  27,   1, 114,  51, 115, 226, 144, 172,  74,
-    212,  16,   4, 190, 100, 210, 115,  89, 100,  27, 179,
-    188,  62, 247,  95, 245, 177, 198, 114, 191, 122, 184,
-    226, 227,  81,  67, 130,  21, 165,   7, 105, 231,  21,
-     60, 239, 192,  31,  99, 211,  12, 143,  81
+     11, 241, 124, 113,  94, 217,  53, 249, 253, 202, 240,
+    246, 158,  51, 245, 126, 220,  52, 243,  15,  47,  90,
+     42, 156,  29,  85, 228,   9, 143,  69, 159,   7, 104,
+     35,  93,  20,  65, 193,  72, 176, 182,  60, 228, 238,
+    119, 133, 189, 159, 248, 138,  92, 113,   6, 106, 199,
+    207,  42, 250,  71, 212, 209, 176,  72,  98
   ],
   signMessage: [AsyncFunction: signMessage],
   signTransaction: [AsyncFunction: signTransaction],
   signAllTransactions: [AsyncFunction: signAllTransactions]
 }
-signature => 5kgtHMb7qxNpEquTv2VyYAjLns7cS3rGei2vbnAqxc7zvuskANwq3X8kGVEFpW2uB2QhzaxA8U5cdFL9i3kqRjiv
+signature => 3gz1a2XFzNNMfDa1NxVjTHHNYjajQDkZB61P4Qt83UGk1Tz93zRhtGZJuZsGAgTbVga7WQYB5QNQELS2KNvZxQbg
 result => {
-  context: { apiVersion: '1.17.12', slot: 270763465 },
+  context: { apiVersion: '1.18.4', slot: 285930224 },
   value: {
     confirmationStatus: 'processed',
     confirmations: 0,
     err: null,
-    slot: 270763465,
+    slot: 285930224,
     status: { Ok: null }
   }
 }
