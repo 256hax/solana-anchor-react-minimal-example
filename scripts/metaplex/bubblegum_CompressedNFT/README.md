@@ -16,7 +16,7 @@ Use Parse Leaf function in @metaplex-foundation/mpl-bubblegum.
 Look at [src folder](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/scripts/metaplex/bubblegum_CompressedNFT/src).
 
 ### How can I identify cNFT?
-Merkle Tree x Leaf Index x Asset ID = cNFT
+Merkle Tree x Leaf Index => Asset ID(cNFT)
 
 ## FAQ
 ### What's Asset ID?
