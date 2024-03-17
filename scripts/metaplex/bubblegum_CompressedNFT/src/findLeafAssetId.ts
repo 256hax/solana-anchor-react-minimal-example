@@ -10,7 +10,7 @@ import {
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 import { findLeafAssetIdPda } from '@metaplex-foundation/mpl-bubblegum';
 
-const fetchCNFT = async () => {
+const findLeafAssetId = async () => {
   // ----------------------------------------------------
   //  Setup
   // ----------------------------------------------------
@@ -44,7 +44,7 @@ const fetchCNFT = async () => {
   console.log('bump =>', bump);
 };
 
-fetchCNFT();
+findLeafAssetId();
 
 /*
 % ts-node src/<THIS_FILE>

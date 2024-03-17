@@ -7,7 +7,7 @@ import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { publicKey } from '@metaplex-foundation/umi';
 import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
 
-const getAssetsByGroup = async () => {
+const getAssetsByCollection = async () => {
   // ----------------------------------------------------
   //  Setup
   // ----------------------------------------------------
@@ -34,7 +34,7 @@ const getAssetsByGroup = async () => {
   });
 };
 
-getAssetsByGroup();
+getAssetsByCollection();
 
 /*
 % ts-node src/<THIS_FILE>
