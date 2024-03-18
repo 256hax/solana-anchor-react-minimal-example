@@ -93,13 +93,12 @@ Remove test-ledger directory if it exists before running.
 
 ## Wallet Adapter for dApps
 - [Docs - Phantom](https://docs.phantom.app/)
-- [API - (JS)@solana/wallet-adapter](https://solana-labs.github.io/wallet-adapter/)
-- [GitHub - solana-labs/wallet-adapter](https://github.com/solana-labs/wallet-adapter)
+- [GitHub - anza-xyz/wallet-adapter](https://github.com/anza-xyz/wallet-adapter)
 
 ## Wallet App
 - [API - (JS)Wallet Standard](https://wallet-standard.github.io/wallet-standard/)
 - [GitHub - wallet-standard/wallet-standard](https://github.com/wallet-standard/wallet-standard)
-- [GitHub - solana-labs/wallet-standard](https://github.com/solana-labs/wallet-standard)
+- [GitHub - anza-xyz/wallet-standard](https://github.com/anza-xyz/wallet-standard)
 
 ## Arweave
 - [Docs - Arweave Developers](https://docs.arweave.org/developers/)
