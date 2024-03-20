@@ -16,7 +16,7 @@ This minimal example copy from [solana-labs/wallet-adapter](https://github.com/a
 
 ### Implementaion with Metaplex
 1. Install Solana Wallet adapter [Installation](https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md)
-2. Adjust interface [The Umi interface](https://github.com/metaplex-foundation/umi/blob/main/docs/interfaces.md#the-umi-interface)
+2. Adjust interface [Connecting to Umi](https://developers.metaplex.com/umi/connecting-to-umi#connecting-w-wallet-adapter)
 3. Install Metaplex dependency packages(Next.js, Vite, Express) [Metaplex JS SDK Examples](https://github.com/metaplex-foundation/js-examples)
 
 ## Reference
