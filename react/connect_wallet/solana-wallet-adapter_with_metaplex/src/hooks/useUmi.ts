@@ -11,11 +11,11 @@ export const useUmi = () => {
   // Import useWallet hook
   const wallet = useWallet();
 
-  // Public RPC unavailbale DAS on Devnet. Check Custom RPC List:
+  // Solana public RPC(Mainnet) unavailbale DAS(cNFT). Check available List:
   // https://developers.metaplex.com/rpc-providers#rp-cs-available
   // 
   // *** Please replace dummy URL to your Custom RPC in useUmi.ts ***
-  const endpoint = 'https://api.mainnet-beta.solana.com';
+  const endpoint = 'https://api.devnet.solana.com';
 
   // Create Umi instance
   const umi = createUmi(endpoint)
