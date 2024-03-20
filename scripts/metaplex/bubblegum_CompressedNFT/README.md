@@ -55,4 +55,4 @@ Then, write your Helius or Shyft API in .env.
 as of Jan.7.2024
 
 ### RPCs
-[Metaplex DAS API RPCs](https://developers.metaplex.com/bubblegum/rpcs)
+[Metaplex DAS API RPCs](https://developers.metaplex.com/rpc-providers#rp-cs-available)
