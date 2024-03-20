@@ -8,7 +8,7 @@ export const GetAssetsByOwner = () => {
   const umi = useUmi();
 
   const getAssets = async () => {
-    const owner = publicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
+    const owner = publicKey(umi.payer.publicKey);
     const assets = await umi.rpc.getAssetsByOwner({ owner });
 
     assets.items
