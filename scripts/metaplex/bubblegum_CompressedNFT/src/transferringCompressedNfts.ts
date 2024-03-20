@@ -36,7 +36,7 @@ const transferringCompressedNfts = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // ----------------------------------------------------
-  //  Fetching Merkle Tree
+  //  Transferring cNFT
   // ----------------------------------------------------
   const assetId = publicKey('Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq');
   const assetWithProof = await getAssetWithProof(umi, assetId);
