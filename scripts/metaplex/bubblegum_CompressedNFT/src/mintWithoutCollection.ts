@@ -32,7 +32,7 @@ const mintWithoutCollection = async () => {
   //  Minting without a Collection
   // ----------------------------------------------------
   // Replace to your Merkle Tree.
-  const merkleTree = publicKey('AxR2UTtq3pZ5ZFaAs9tSWtiz4HftTAftKzMfs8ZjtcqQ');
+  const merkleTree = publicKey('81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq');
 
   const result = await mintV1(umi, {
     leafOwner: payerKeypair.publicKey,

@@ -38,7 +38,7 @@ const mintToCollection = async () => {
   //  Minting to a Collection
   // ----------------------------------------------------
   // Replace to your Merkle Tree.
-  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
+  const merkleTree = publicKey('81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq');
   // Replace to your Collection NFT.
   const collectionMint = publicKey(
     'CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx'
