@@ -10,16 +10,15 @@ This minimal example copy from [solana-labs/wallet-adapter](https://github.com/a
 % npm run dev
 ```
 
+## Implementation
+### Implementaion without Metaplex
+1. Install Solana Wallet adapter [Installation](https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md)
+
+### Implementaion with Metaplex
+1. Install Solana Wallet adapter [Installation](https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md)
+2. Adjust interface [The Umi interface](https://github.com/metaplex-foundation/umi/blob/main/docs/interfaces.md#the-umi-interface)
+3. Install Metaplex dependency packages(Next.js, Vite, Express) [Metaplex JS SDK Examples](https://github.com/metaplex-foundation/js-examples)
+
 ## Reference
 - [Solana Wallet Adapter GitHub](https://github.com/anza-xyz/wallet-adapter)
-- [Installation](https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md)
 - [Wallet Adapter List](https://github.com/anza-xyz/wallet-adapter/blob/master/PACKAGES.md)
-
-If you implement some NFT action using Metaplex, Look at following instructions. It need to install some npm packages.
-- [metaplex-foundation/js-examples](https://github.com/metaplex-foundation/js-examples)
-
-## Metaplex
-If you use Metaplex, you need to install packages and add config.
-And it's depdends on framework(Next.js, Vite, Express....)
-
-[Metaplex JS SDK Examples](https://github.com/metaplex-foundation/js-examples)
