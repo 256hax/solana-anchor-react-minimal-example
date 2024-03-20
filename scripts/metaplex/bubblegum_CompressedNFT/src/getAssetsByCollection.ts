@@ -13,11 +13,8 @@ const getAssetsByCollection = async () => {
   // ----------------------------------------------------
   dotenv.config();
 
-  // Public RPC unavailbale DAS on Devnet. Use following RPC:
-  //  https://developers.metaplex.com/bubblegum/rpcs
-  const endpoint = process.env.HELIUS_API_WITH_URL;
+  const endpoint = process.env.ENDPOINT;
   if (!endpoint) throw new Error('endpoint not found.');
-
   const umi = createUmi(endpoint).use(dasApi());
 
   // -------------------------------------
