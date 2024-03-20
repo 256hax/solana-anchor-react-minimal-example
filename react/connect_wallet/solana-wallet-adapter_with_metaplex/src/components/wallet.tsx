@@ -12,7 +12,9 @@ import {
 } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { SendSOLToRandomAddress } from './sendSOLToRandomAddress';
-import { MyNfts } from './getMyNfts';
+import { DeprecatedMyNfts } from './deprecatedMyNfts';
+import { TransferAsset } from './transferAsset';
+import { GetAssetsByOwner } from './getAssetsByOwner';
 
 // Default styles that can be overridden by your app
 import('@solana/wallet-adapter-react-ui/styles.css');
@@ -52,7 +54,10 @@ export const Wallet: FC = () => {
           <WalletDisconnectButton />
           {/* Your app's components go here, nested within the context providers. */}
           <SendSOLToRandomAddress />
-          <MyNfts />
+          <div>Note: Please replace dummy URL to your Custom RPC in useUmi.ts</div>
+          <GetAssetsByOwner />
+          <TransferAsset />
+          <DeprecatedMyNfts />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

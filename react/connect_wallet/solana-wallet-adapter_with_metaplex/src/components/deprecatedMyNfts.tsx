@@ -1,11 +1,18 @@
-import { Metaplex, guestIdentity } from '@metaplex-foundation/js';
+/*
+
+  Note: 
+    @metaplex-foundation/js is deprecated.
+    https://github.com/metaplex-foundation/js
+
+*/
+import { Metaplex, guestIdentity } from '@metaplex-foundation/js'; // Deprecated
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 
-export const MyNfts = () => {
+export const DeprecatedMyNfts = () => {
   const getMyNfts = async () => {
     const connection = new Connection(clusterApiUrl('devnet'));
 
-    const metaplex = Metaplex.make(connection).use(guestIdentity());
+    const metaplex = Metaplex.make(connection).use(guestIdentity()); // Deprecated
 
     // const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd"); // Mainnet
     const owenerPublicKey = new PublicKey(
@@ -22,7 +29,7 @@ export const MyNfts = () => {
 
   return (
     <div className='App'>
-      <button onClick={getMyNfts}>getMyNfts</button>
+      <button onClick={getMyNfts}>getMyNfts(Deprecated)</button>
     </div>
   );
 };
