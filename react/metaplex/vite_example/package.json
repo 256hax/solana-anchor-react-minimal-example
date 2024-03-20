@@ -9,21 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@metaplex-foundation/js": "^0.18.1",
-    "@solana/web3.js": "^1.73.3",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@solana/web3.js": "^1.91.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@vitejs/plugin-react": "^3.1.0",
-    "assert": "^2.0.0",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "assert": "^2.1.0",
     "crypto-browserify": "^3.12.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "typescript": "^4.9.3",
+    "typescript": "^5.4.2",
     "util": "^0.12.5",
-    "vite": "^4.1.0"
+    "vite": "^5.2.0"
   }
 }

@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 // Or for other frameworks:
-// viimport { svelte } from "@sveltejs/vite-plugin-svelte";
+// import { svelte } from "@sveltejs/vite-plugin-svelte";
 // etc.
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import nodePolyfills from "rollup-plugin-node-polyfills";
@@ -16,6 +16,7 @@ export default defineConfig({
       assert: "assert",
       crypto: "crypto-browserify",
       util: "util",
+      'near-api-js': 'near-api-js/dist/near-api-js.js',
     },
   },
   define: {
