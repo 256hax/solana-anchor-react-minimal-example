@@ -1,8 +1,6 @@
 # Solana Wallet Adapter Minimal Example
 ## Overview
-Solana wallet adapter with [Vite](https://vitejs.dev/) example.  
-If you need to show multiple wallets(e.g. Phantom and Solflare), use this SDK.  
-This minimal example copy from [solana-labs/wallet-adapter](https://github.com/anza-xyz/wallet-adapter) .
+Solana Wallet Adapter using [Vite](https://vitejs.dev/) minimal example.  
 
 ## Run
 ```
