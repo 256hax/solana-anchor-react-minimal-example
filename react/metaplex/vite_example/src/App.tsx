@@ -4,7 +4,6 @@ import './App.css'
 import {
   Metaplex,
   guestIdentity,
-  bundlrStorage,
 } from '@metaplex-foundation/js';
 import {
   Connection,
@@ -20,7 +19,6 @@ function App() {
 
     const metaplex = Metaplex.make(connection)
       .use(guestIdentity())
-      .use(bundlrStorage());
 
     // const owenerPublicKey = new PublicKey("3sEbhF2jnNs5RB2ohFunmCiywFgHZokLWwSxGGAsmWMd"); // Mainnet
     const owenerPublicKey = new PublicKey('55AfqEL3TC9mpkDZ63UCgDrzPcMQd5aZtDegfQCWQ5tK'); // Devnet
