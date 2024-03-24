@@ -56,7 +56,7 @@ const createCustomInstructions = async () => {
   const referenceSigner = createSignerFromKeypair(umi, referenceKeypair);
 
   // ----------------------------------------------------
-  //  Custom Instructions
+  //  Create Custom Instructions
   // ----------------------------------------------------
 
   // @metaplex-foundation/mpl-toolbox has addMemo function.
@@ -88,6 +88,10 @@ const createCustomInstructions = async () => {
     .add(memoInstruction)
     .add(transferInstruction);
 
+
+  // ----------------------------------------------------
+  //  Run Transaction
+  // ----------------------------------------------------
   const result = await builder.sendAndConfirm(umi);
 
   console.log('%o', builder);
