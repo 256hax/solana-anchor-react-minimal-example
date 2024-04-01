@@ -15,12 +15,17 @@ const main = async () => {
 
   const connection = new Connection("http://127.0.0.1:8899", "confirmed");
 
+  // Airdrop
   const airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL
   );
-
-  await connection.confirmTransaction(airdropSignature);
+  let latestBlockhash = await connection.getLatestBlockhash();
+  await connection.confirmTransaction({
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+    signature: airdropSignature,
+  });
 
   const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({ 
     units: 1_000_000 
