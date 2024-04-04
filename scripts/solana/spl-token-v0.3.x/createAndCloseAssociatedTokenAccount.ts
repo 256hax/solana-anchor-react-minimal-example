@@ -97,7 +97,7 @@ export const main = async () => {
   console.log('signatureCloseAccount =>', signatureCloseAccount);
 
   // or
-
+  // 2) compose by yourself
   let tx = new Transaction().add(
     createCloseAccountInstruction(
       ata2, // token account which you want to close
