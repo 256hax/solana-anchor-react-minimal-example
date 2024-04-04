@@ -3,14 +3,15 @@ import {
   Connection,
   Keypair,
   LAMPORTS_PER_SOL,
-  PublicKey,
+  Transaction,
+  sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import {
   createMint,
   createAccount,
   createAssociatedTokenAccount,
-  ASSOCIATED_TOKEN_PROGRAM_ID,
-  TOKEN_PROGRAM_ID,
+  closeAccount,
+  createCloseAccountInstruction,
 } from '@solana/spl-token';
 
 export const main = async () => {
@@ -41,9 +42,6 @@ export const main = async () => {
   // ---------------------------------------------------
   //  Create ATA using createAssociatedTokenAccount
   // ---------------------------------------------------
-  // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createAssociatedTokenAccount
-
-  // const mint = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU'); // USDC Token in Devnet
   const mint = await createMint(
     connection, // connection
     payer, // payer
@@ -57,16 +55,15 @@ export const main = async () => {
     connection, // connection
     payer, // payer
     mint, // mint
-    payer.publicKey, // owner
+    payer.publicKey // owner
   );
 
   console.log('ata =>', ata.toString());
-  console.log('ASSOCIATED_TOKEN_PROGRAM_ID =>', ASSOCIATED_TOKEN_PROGRAM_ID.toString());
-  
+
   // ---------------------------------------------------
   //  Create ATA using createMint
   // ---------------------------------------------------
-  // ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createAccount
+  // Docs: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createAccount
   const mint2 = await createMint(
     connection, // connection
     payer, // payer
@@ -80,20 +77,46 @@ export const main = async () => {
     connection, // connection,
     payer, // payer
     mint2, // mint
-    payer.publicKey, // owner
+    payer.publicKey // owner
   );
 
   console.log('ata2 =>', ata2.toString());
-  console.log('TOKEN_PROGRAM_ID =>', TOKEN_PROGRAM_ID.toString());
+
+  // ---------------------------------------------------
+  //  Close ATA
+  // ---------------------------------------------------
+  // Docs: https://solanacookbook.com/references/token.html#how-to-close-token-accounts
+  // 1) use build-in function
+  const signatureCloseAccount = await closeAccount(
+    connection, // connection
+    payer, // payer
+    ata, // token account which you want to close
+    payer.publicKey, // destination
+    payer // owner of token account
+  );
+  console.log('signatureCloseAccount =>', signatureCloseAccount);
+
+  // or
+
+  let tx = new Transaction().add(
+    createCloseAccountInstruction(
+      ata2, // token account which you want to close
+      payer.publicKey, // destination
+      payer.publicKey // owner of token account
+    )
+  );
+
+  const signatureCloseAccountInstruction = await sendAndConfirmTransaction(connection, tx, [payer]);
+  console.log('signatureCloseAccountInstruction =>', signatureCloseAccountInstruction);
 };
 
 main();
 
 /*
-% ts-node <THIS FILE>
-owner => 9U8ZLA6jdLPSet6zm3fNB1yt3tNQufJrzjHtX8yyLwwW
-ata => 3rgM2MxWbNrVZo6QBUGXxsPbGQ1xajhskR1Ux6Wpcvbe
-ASSOCIATED_TOKEN_PROGRAM_ID => ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL
-ata2 => etWvc85VD3heS7wziHUKeuqkiQJu9S8XsPyxHR9xan7
-TOKEN_PROGRAM_ID => TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
+ts-node closeAssociatedTokenAccount.ts
+owner => 72VVdX4qwJeF1gt8c2NEVsJaVnDnwLdDVebuKjKNqU8x
+ata => 3W1UEooyGRE6Cwa9AoHLvRfZFbkwyEKFAyJEwF8kaJGV
+ata2 => AU4nuvdvbx5WFSKtFCKQVEsKE73XknocXHsfbW6Poe9s
+signatureCloseAccount => 4VjtMHitm5NTNHMB7dpstkfHyJ9qnSTckAn1DjuSCGF5k37HVvwF38oMMhGwna6z9FK1gVN8UwuNqjJzXk3mxD13
+signatureCloseAccountInstruction => 3YxcJHCcxkwQs6geTd5hJxwxMrfNLr2cgBXTMhhG1KPKhL2cn61N3ziAqSbUsttuqZAok4Hhmig59NU6KhYtxTvz
 */
