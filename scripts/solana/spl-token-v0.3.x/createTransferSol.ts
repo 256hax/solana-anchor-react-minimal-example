@@ -48,18 +48,27 @@ export const main = async () => {
   let transaction = new Transaction();
 
   // Add an instruction to execute
-  transaction.add(SystemProgram.transfer({
-    fromPubkey: payer.publicKey,
-    toPubkey: taker.publicKey,
-    lamports: LAMPORTS_PER_SOL *  0.01,
-  }));
+  transaction.add(
+    SystemProgram.transfer({
+      fromPubkey: payer.publicKey,
+      toPubkey: taker.publicKey,
+      lamports: LAMPORTS_PER_SOL * 0.01,
+    })
+  );
 
   // Send and confirm transaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
   const signature = await sendAndConfirmTransaction(
     connection,
     transaction,
-    [payer]
+    [payer],
+    // Options https://solana-labs.github.io/solana-web3.js/types/ConfirmOptions.html
+    // {
+    //   commitment: 'confirmed',
+    //   maxRetries: 3,
+    //   preflightCommitment: 'confirmed',
+    //   skipPreflight: true,
+    // }
   );
   console.log('signature =>', signature);
 
@@ -73,24 +82,31 @@ export const main = async () => {
     feePayer: payer.publicKey,
   });
 
-  manualTransaction.add(SystemProgram.transfer({
-    fromPubkey: payer.publicKey,
-    toPubkey: taker.publicKey,
-    lamports: 1000,
-  }));
+  manualTransaction.add(
+    SystemProgram.transfer({
+      fromPubkey: payer.publicKey,
+      toPubkey: taker.publicKey,
+      lamports: 1000,
+    })
+  );
 
   const transactionBuffer = manualTransaction.serializeMessage();
-  const manualSignature: any = nacl.sign.detached(transactionBuffer, payer.secretKey);
+  const manualSignature: any = nacl.sign.detached(
+    transactionBuffer,
+    payer.secretKey
+  );
 
   manualTransaction.addSignature(payer.publicKey, manualSignature);
 
   const isVerifiedSignature = manualTransaction.verifySignatures();
-  console.log(`The signatures were verified => ${isVerifiedSignature}`)
+  console.log(`The signatures were verified => ${isVerifiedSignature}`);
 
   // The signatures were verified: true
 
   // let rawTransaction = manualTransaction.serialize();
-  const manualTransferSignature = await connection.sendRawTransaction(manualTransaction.serialize());
+  const manualTransferSignature = await connection.sendRawTransaction(
+    manualTransaction.serialize()
+  );
   console.log('manualTransferSignature =>', manualTransferSignature);
 };
 
