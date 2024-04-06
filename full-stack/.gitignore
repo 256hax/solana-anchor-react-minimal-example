@@ -19,7 +19,7 @@ Cargo.lock
 #----------------------------------
 **/test-ledger
 
-----------------------------------
+# ----------------------------------
 # Anchor
 #----------------------------------
 **/.anchor
@@ -46,4 +46,3 @@ test_item
 .DS_Store
 *.pptx
 *.xlsx
-!Solana_Blockchain_Outline_Figure.pptx
