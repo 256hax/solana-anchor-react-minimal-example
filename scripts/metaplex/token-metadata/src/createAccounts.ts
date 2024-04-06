@@ -24,8 +24,10 @@ const createAccounts = async () => {
   // -------------------------------------
   dotenv.config();
 
-  const endpoint = 'https://api.devnet.solana.com';
-  const umi = createUmi(endpoint).use(mplTokenMetadata());
+  const endpoint = process.env.ENDPOINT;
+  if (!endpoint) throw new Error('endpoint not found.');
+
+  const umi = createUmi(endpoint);
 
   // Set Payer
   const payerSecretKey = process.env.PAYER_SECRET_KEY;
