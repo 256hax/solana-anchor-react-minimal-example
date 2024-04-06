@@ -50,6 +50,7 @@ const main = async () => {
 };
 
 main();
+
 /*
 ts-node src/createNft.ts
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
