@@ -5,10 +5,14 @@ import * as bs58 from 'bs58';
 import { sleep } from './lib/sleep';
 
 // Metaplex
-import { keypairIdentity, generateSigner, publicKey } from '@metaplex-foundation/umi';
+import {
+  keypairIdentity,
+  generateSigner,
+  publicKey,
+} from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
-  mplCore,
+  // mplCore,
   createV1,
   createCollectionV1,
 } from '@metaplex-foundation/mpl-core';
@@ -48,6 +52,9 @@ const creatingAssetIntoCollection = async () => {
     name: 'Core Collection',
     uri: 'https://example.com/my-nft.json',
   }).sendAndConfirm(umi);
+
+  // Or Specify Collection of Core NFT.
+  // const collection = publicKey('8nqtNjferhbAe4XfSggiJUtWqbevjKsyWCi24uJg5EFV');
 
   // -------------------------------------
   //  Check a Created Collection
