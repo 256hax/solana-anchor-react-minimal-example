@@ -33,7 +33,7 @@ const creatingAsset = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // Register Library
-  umi.use(mplCore());
+  // umi.use(mplCore());
 
   // -------------------------------------
   //  Create an Asset

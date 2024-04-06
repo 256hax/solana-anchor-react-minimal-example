@@ -5,7 +5,7 @@ import * as bs58 from 'bs58';
 import { sleep } from './lib/sleep';
 
 // Metaplex
-import { keypairIdentity, generateSigner } from '@metaplex-foundation/umi';
+import { keypairIdentity, generateSigner, publicKey } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import {
   mplCore,
@@ -36,12 +36,13 @@ const creatingAssetIntoCollection = async () => {
   umi.use(keypairIdentity(payerKeypair));
 
   // Register Library
-  umi.use(mplCore());
-
+  // umi.use(mplCore());
+  
   // -------------------------------------
   //  Create a Collection
   // -------------------------------------
   const collection = generateSigner(umi);
+  // const collection = publicKey('HXk3XURv49R9Uyp3gDC9tJJwqc595L3Dqr7nZr1bTP1Y');
 
   const creatingCollectionResult = await createCollectionV1(umi, {
     collection: collection,
