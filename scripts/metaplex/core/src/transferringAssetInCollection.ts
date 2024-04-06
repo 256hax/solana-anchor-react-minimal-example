@@ -18,7 +18,9 @@ const transferringAssetInCollection = async () => {
   // -------------------------------------
   dotenv.config();
 
-  const endpoint = 'https://api.devnet.solana.com';
+  // Set Endpoint
+  const endpoint = process.env.ENDPOINT;
+  if (!endpoint) throw new Error('endpoint not found.');
   const umi = createUmi(endpoint);
 
   // Set Payer
