@@ -13,7 +13,7 @@ import {
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { mplCore, createV1 } from '@metaplex-foundation/mpl-core';
 
-const main = async () => {
+const creatingAssets = async () => {
   // -------------------------------------
   //  Setup
   // -------------------------------------
@@ -49,7 +49,7 @@ const main = async () => {
   console.log('creating signature =>', bs58.encode(creatingResult.signature));
 };
 
-main();
+creatingAssets();
 
 /*
 ts-node src/createNft.ts

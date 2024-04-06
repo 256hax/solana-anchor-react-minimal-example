@@ -8,7 +8,7 @@ import { publicKey } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { getAssetV1GpaBuilder, Key } from '@metaplex-foundation/mpl-core';
 
-const main = async () => {
+const fetchingMultipleAsset = async () => {
   // -------------------------------------
   //  Setup
   // -------------------------------------
@@ -30,7 +30,7 @@ const main = async () => {
   console.log('assetsByOwner =>', assetsByOwner);
 };
 
-main();
+fetchingMultipleAsset();
 
 /*
 ts-node src/fetchingMultipleAsset.ts
