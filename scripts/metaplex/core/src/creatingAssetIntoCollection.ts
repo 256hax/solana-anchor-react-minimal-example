@@ -1,9 +1,8 @@
-// Docs:
-//  https://developers.metaplex.com/core/getting-started/js
-//  https://github.com/metaplex-foundation/mpl-core/blob/main/clients/js/README.md
+// Docs: https://developers.metaplex.com/core/create-asset
 // Lib
 import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
+import { sleep } from './lib/sleep';
 
 // Metaplex
 import { keypairIdentity, generateSigner } from '@metaplex-foundation/umi';
@@ -14,13 +13,18 @@ import {
   createCollectionV1,
 } from '@metaplex-foundation/mpl-core';
 
+// Solana
+import { Connection } from '@solana/web3.js';
+
 const creatingAssetIntoCollection = async () => {
   // -------------------------------------
   //  Setup
   // -------------------------------------
   dotenv.config();
 
-  const endpoint = 'https://api.devnet.solana.com';
+  // Set Endpoint
+  const endpoint = process.env.ENDPOINT;
+  if (!endpoint) throw new Error('endpoint not found.');
   const umi = createUmi(endpoint);
 
   // Set Payer
@@ -44,6 +48,33 @@ const creatingAssetIntoCollection = async () => {
     name: 'Core Collection',
     uri: 'https://example.com/my-nft.json',
   }).sendAndConfirm(umi);
+
+  // -------------------------------------
+  //  Check a Created Collection
+  // -------------------------------------
+  const connection = new Connection(endpoint, 'confirmed');
+
+  let status = await connection.getSignatureStatus(
+    bs58.encode(creatingCollectionResult.signature),
+    {
+      searchTransactionHistory: true,
+    }
+  );
+
+  while (
+    status.value?.err === null &&
+    status.value?.confirmationStatus === 'confirmed'
+  ) {
+    console.log('Collection not found. Sleep then check again...');
+    await sleep(3000); // 1000 = 3sec
+
+    status = await connection.getSignatureStatus(
+      bs58.encode(creatingCollectionResult.signature),
+      {
+        searchTransactionHistory: true,
+      }
+    );
+  }
 
   // -------------------------------------
   //  Create an Asset Into a Collection
