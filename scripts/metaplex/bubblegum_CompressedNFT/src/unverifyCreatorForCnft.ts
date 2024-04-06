@@ -27,18 +27,19 @@ const verifyCreatorForCnft = async () => {
 
   const endpoint = process.env.ENDPOINT;
   if (!endpoint) throw new Error('endpoint not found.');
-  const umi = createUmi(endpoint).use(mplBubblegum());
+  const umi = createUmi(endpoint);
 
   // Set Payer
   const payerSecretKey = process.env.PAYER_SECRET_KEY;
   if (!payerSecretKey) throw new Error('payerSecretKey not found.');
-
   const secretKeyUInt8Array = new Uint8Array(JSON.parse(payerSecretKey));
   const payerKeypair =
     umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
-
   umi.use(keypairIdentity(payerKeypair));
 
+  // Register Library
+  umi.use(mplBubblegum());
+  
   // -------------------------------------
   //  Create a Collection NFT
   // -------------------------------------

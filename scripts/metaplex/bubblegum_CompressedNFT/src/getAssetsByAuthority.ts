@@ -14,8 +14,11 @@ const getAssetsByAuthority = async () => {
 
   const endpoint = process.env.ENDPOINT;
   if (!endpoint) throw new Error('endpoint not found.');
-  const umi = createUmi(endpoint).use(dasApi());
+  const umi = createUmi(endpoint);
 
+  // Register Library
+  umi.use(dasApi());
+  
   // -------------------------------------
   //  Get Assets by Authority
   // -------------------------------------
