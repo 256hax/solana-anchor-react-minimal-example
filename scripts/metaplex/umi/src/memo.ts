@@ -21,11 +21,9 @@ const memo = async () => {
   // Set Payer
   const payerSecretKey = process.env.PAYER_SECRET_KEY;
   if (!payerSecretKey) throw new Error('payerSecretKey not found.');
-
   const secretKeyUInt8Array = new Uint8Array(JSON.parse(payerSecretKey));
   const payerKeypair =
     umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
-
   umi.use(keypairIdentity(payerKeypair));
 
   // ----------------------------------------------------
