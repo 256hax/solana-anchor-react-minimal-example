@@ -91,6 +91,25 @@ assetsByOwner => [
     name: 'My Core NFT',
     uri: 'https://arweave.net/IjF_Sd0zcvGwTbkfFjPFoiHlmVPn7duJ1diU92OZHKo',
     seq: { __option: 'None' }
+  },
+  {
+    publicKey: 'HhkyFrKKmhcQa5AT8mHjTEmKLUb8HBewG9ccsLjAuN3c',
+    header: {
+      executable: false,
+      owner: 'CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d',
+      lamports: [Object],
+      rentEpoch: 18446744073709551616n
+    },
+    pluginHeader: undefined,
+    key: 1,
+    owner: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
+    updateAuthority: {
+      type: 'Collection',
+      address: 'GTDQoxdzoNJ2d2JUbduRPGgxpnNqWRFqnkn3pPabAGr4'
+    },
+    name: 'My Core NFT',
+    uri: 'https://arweave.net/IjF_Sd0zcvGwTbkfFjPFoiHlmVPn7duJ1diU92OZHKo',
+    seq: { __option: 'None' }
   }
 ]
 */
