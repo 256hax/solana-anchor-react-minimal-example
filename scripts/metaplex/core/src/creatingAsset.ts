@@ -1,6 +1,4 @@
-// Docs:
-//  https://developers.metaplex.com/core/getting-started/js
-//  https://github.com/metaplex-foundation/mpl-core/blob/main/clients/js/README.md
+// Docs: https://developers.metaplex.com/core/getting-started/js
 // Lib
 import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
