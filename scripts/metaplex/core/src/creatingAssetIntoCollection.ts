@@ -37,12 +37,11 @@ const creatingAssetIntoCollection = async () => {
 
   // Register Library
   // umi.use(mplCore());
-  
+
   // -------------------------------------
   //  Create a Collection
   // -------------------------------------
   const collection = generateSigner(umi);
-  // const collection = publicKey('HXk3XURv49R9Uyp3gDC9tJJwqc595L3Dqr7nZr1bTP1Y');
 
   const creatingCollectionResult = await createCollectionV1(umi, {
     collection: collection,
