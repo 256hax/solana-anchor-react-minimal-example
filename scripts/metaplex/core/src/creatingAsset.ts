@@ -34,7 +34,7 @@ const creatingAsset = async () => {
   umi.use(mplCore());
 
   // -------------------------------------
-  //  Create aa Asset
+  //  Create an Asset
   // -------------------------------------
   const asset = generateSigner(umi);
 
