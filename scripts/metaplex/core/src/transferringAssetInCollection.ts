@@ -34,22 +34,22 @@ const transferringAssetInCollection = async () => {
   // -------------------------------------
   //  Transferring Asset In a Collection
   // -------------------------------------
-  const asset = publicKey('11111111111111111111111111111111');
+  const asset = publicKey('EWALWLHh2F1LQAHpw2zDQdDyMBiQQAWVRJoeJ5uz6gk6');
+  const collection = publicKey('2zgtwZ5oc7FBZRxDrVnpQqNsWm1kWZhnZtXqRat75KqE');
   const newOwner = generateSigner(umi).publicKey;
-  const collection = publicKey('GTDQoxdzoNJ2d2JUbduRPGgxpnNqWRFqnkn3pPabAGr4');
 
-  await transferV1(umi, {
+  const result = await transferV1(umi, {
     asset,
     newOwner,
     collection,
   }).sendAndConfirm(umi);
+
+  console.log('signature =>', bs58.encode(result.signature));
 };
 
 transferringAssetInCollection();
 
 /*
-ts-node src/createNft.ts
-payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-asset => 9rEm1ABr7ey2knn8QQFz8s8noXr5MQzcPRTvCJKoxRdH
-creating signature => nzwcCr5fCkovXr85KXHFamYCKY2x8QgSHa9bFqZM5R5vTbdrGEAS6wPGWkSGSfzwTb5baVPVTrcDDL4oQafg2zX
+ts-node src/transferringAssetInCollection.ts
+signature => dP6VU8W1Lakp8u3tXaKYjhgof6ZyTzi7cNpCEFH8uSWbXwY3ttGVfJuztFSDDGBQMzbacHCZz7mkjBRNpDhV1wp
 */
