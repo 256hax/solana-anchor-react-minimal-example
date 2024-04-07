@@ -2,23 +2,16 @@
 // Lib
 import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
-import { sleep } from './lib/sleep';
 
 // Metaplex
 import {
   keypairIdentity,
   generateSigner,
   publicKey,
+  createSignerFromKeypair,
 } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import {
-  // mplCore,
-  createV1,
-  createCollectionV1,
-} from '@metaplex-foundation/mpl-core';
-
-// Solana
-import { Connection } from '@solana/web3.js';
+import { createV1 } from '@metaplex-foundation/mpl-core';
 
 const creatingAssetIntoCollection = async () => {
   // -------------------------------------
@@ -39,73 +32,29 @@ const creatingAssetIntoCollection = async () => {
     umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
   umi.use(keypairIdentity(payerKeypair));
 
-  // Register Library
-  // umi.use(mplCore());
-
   // -------------------------------------
-  //  Create a Collection
+  //  Set a Collection and Collection Authority
   // -------------------------------------
-  const collection = generateSigner(umi);
-
-  const creatingCollectionResult = await createCollectionV1(umi, {
-    collection: collection,
-    name: 'Core Collection',
-    uri: 'https://example.com/my-nft.json',
-  }).sendAndConfirm(umi);
-
-  // Or Specify Collection of Core NFT.
-  // const collection = publicKey('8nqtNjferhbAe4XfSggiJUtWqbevjKsyWCi24uJg5EFV');
-
-  // -------------------------------------
-  //  Check a Created Collection
-  // -------------------------------------
-  const connection = new Connection(endpoint, 'confirmed');
-
-  let status = await connection.getSignatureStatus(
-    bs58.encode(creatingCollectionResult.signature),
-    {
-      searchTransactionHistory: true,
-    }
-  );
-
-  while (
-    status.value?.err === null &&
-    status.value?.confirmationStatus === 'confirmed'
-  ) {
-    console.log('Collection not found. Sleep then check again...');
-    await sleep(3000); // 1000 = 3sec
-
-    status = await connection.getSignatureStatus(
-      bs58.encode(creatingCollectionResult.signature),
-      {
-        searchTransactionHistory: true,
-      }
-    );
-  }
+  const collection = publicKey('7YjTr5mQ6zcC9CCmFkLSAnVQuYZuMtmfbpQrkwLubmDv');
+  // Set Keypair of Collection Authority.
+  const collectionAuthoritySigner = createSignerFromKeypair(umi, payerKeypair);
 
   // -------------------------------------
   //  Create an Asset Into a Collection
   // -------------------------------------
   const asset = generateSigner(umi);
 
-  const creatingAssetResult = await createV1(umi, {
+  const result = await createV1(umi, {
     asset,
     name: 'My Core NFT',
     uri: 'https://arweave.net/IjF_Sd0zcvGwTbkfFjPFoiHlmVPn7duJ1diU92OZHKo',
-    collection: collection.publicKey,
+    collection,
+    authority: collectionAuthoritySigner,
   }).sendAndConfirm(umi);
 
   console.log('payer =>', payerKeypair.publicKey.toString());
-  console.log('collection =>', collection.publicKey.toString());
   console.log('asset =>', asset.publicKey.toString());
-  console.log(
-    'creatingCollectionResult signature =>',
-    bs58.encode(creatingCollectionResult.signature)
-  );
-  console.log(
-    'creatingAssetResult signature =>',
-    bs58.encode(creatingAssetResult.signature)
-  );
+  console.log('signature =>', bs58.encode(result.signature));
 };
 
 creatingAssetIntoCollection();
