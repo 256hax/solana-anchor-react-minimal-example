@@ -1,4 +1,4 @@
-// Docs: https://developers.metaplex.com/core/getting-started/js
+// Docs: https://developers.metaplex.com/core/collections
 // Lib
 import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
