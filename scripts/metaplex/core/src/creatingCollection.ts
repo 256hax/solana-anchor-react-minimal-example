@@ -41,6 +41,9 @@ const creatingCollection = async () => {
     uri: 'https://example.com/my-nft.json',
   }).sendAndConfirm(umi);
 
+  // -------------------------------------
+  //  Check Confirmation Status(Created or Not)
+  // -------------------------------------
   await isConfirmed(
     endpoint,
     bs58.encode(result.signature), // Signature
