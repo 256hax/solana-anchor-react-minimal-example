@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@shyft-to/js": "^0.2.36",
+    "dotenv": "^16.4.5"
+  }
+}
