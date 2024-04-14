@@ -47,7 +47,7 @@ Remove test-ledger directory if it exists before running.
 [2/ Just add any program you need to the validator config and get back to building!](https://x.com/metaplex/status/1756731772224909638?s=20)
 
 ## Outline Document for Product/Project Manager
-[Solana Blockchain Outline Figure](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/Solana_Blockchain_Outline_Figure.pptx)
+[Solana Blockchain Outline Figure](https://docs.google.com/presentation/d/1XXPCYqLqKd8rNa_n0ZjCyGAxjgxhmNG0/edit?usp=sharing&ouid=115427085832614065046&rtpof=true&sd=true)
 
 ### Example Image
 ![STEPN ON/OFF Chain](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-screenshot.png?raw=true)  
