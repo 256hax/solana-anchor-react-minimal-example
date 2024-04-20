@@ -30,7 +30,7 @@ const parseLeafFromMintToCollectionSignature = async () => {
   // -------------------------------------
   //  Get Asset ID from Mint to Collection Signature
   // -------------------------------------
-  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
+  const merkleTree = publicKey('81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq');
   const signatureString =
     '3b763DEtvBzRR5mShbS25yQVoVuUsDCGmSLUvS6C3TCeGQkhyAPVcNuCy2HuoUNphKfieXAyXupBYJipaqxMe48V';
   const signatureUint8Array = bs58.decode(signatureString);
@@ -44,7 +44,7 @@ const parseLeafFromMintToCollectionSignature = async () => {
     leafIndex: leaf.nonce,
   });
 
-  console.log('signatureString =>', signatureString);
+  console.log('signatureUint8Array =>', signatureUint8Array);
   console.log('leaf =>', leaf);
   console.log('assetId =>', assetId);
 };
