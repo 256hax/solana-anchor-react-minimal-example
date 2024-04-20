@@ -1,6 +1,6 @@
 ## How to Mint NFTs?
 You have some ways for minting NFTs using Metaplex or thirdparty(e.g. Helius, Shyft).  
-Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
+Check [Metaplex Developer Hub](https://developers.metaplex.com/).
 
 ## Overview
 - [Docs - Metaplex Products](https://developers.metaplex.com/products)
@@ -11,7 +11,6 @@ Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
 ## Metaplex Products
 ### Client
 - [GitHub - Umi](https://github.com/metaplex-foundation/umi): JS Client.
-- [GitHub - Metaplex JavaScript SDK](https://github.com/metaplex-foundation/js): JS Client. 🚨 Deprecated library.
 - [GitHub - Metaplex JS SDK Examples(CRA, Vite, Next, Express)](https://github.com/metaplex-foundation/js-examples)
 
 ### Digital Ownership Standard
@@ -28,6 +27,10 @@ Look at [Metaplex Developer Hub](https://developers.metaplex.com/).
 - [Docs - Guide: Creating Compressed NFTs with JavaScript](https://edge.docs.solana.com/developing/guides/compressed-nfts)
 - [Docs - Bubblegum](https://developers.metaplex.com/bubblegum): minting Compressed NFT.
 - [Docs - Guide: Create cNFT and Digital Asset Standard (DAS) API by Helius](https://www.helius.dev/blog/all-you-need-to-know-about-compression-on-solana)
+- [API - @metaplex-foundation/mpl-bubblegum](https://mpl-bubblegum-js-docs.vercel.app/index.html)
+
+### Token Metadata
+- [API - @metaplex-foundation/mpl-token-metadata](https://mpl-token-metadata-js-docs.vercel.app/)
 
 ## Thirdparty Product
 ### Utility
