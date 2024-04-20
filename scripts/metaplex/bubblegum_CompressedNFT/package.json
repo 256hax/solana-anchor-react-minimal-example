@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@metaplex-foundation/digital-asset-standard-api": "^1.0.3",
-    "@metaplex-foundation/mpl-bubblegum": "^4.0.0",
+    "@metaplex-foundation/mpl-bubblegum": "^3.1.2",
     "@metaplex-foundation/umi": "^0.9.1",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
     "@metaplex-foundation/umi-uploader-irys": "^0.9.1",
