@@ -13,7 +13,6 @@ import {
   Keypair,
   LAMPORTS_PER_SOL,
   SystemProgram,
-  TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
 } from '@solana/web3.js';
@@ -50,7 +49,7 @@ async function createAddressLookupTable() {
   const transferInstruction = SystemProgram.transfer({
     fromPubkey: payer.publicKey,
     toPubkey: taker.publicKey,
-    lamports: LAMPORTS_PER_SOL * 0.001, // 1 SOL = 1_000_000_000 lamports
+    lamports: LAMPORTS_PER_SOL * 0.001,
   });
 
   let latestBlockhash = await connection.getLatestBlockhash();
