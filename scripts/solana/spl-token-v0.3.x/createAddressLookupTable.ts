@@ -66,6 +66,13 @@ async function createAddressLookupTable() {
 
   const signature = await connection.sendTransaction(transaction);
 
+  const confirmation = await connection.confirmTransaction({
+    signature: signature,
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+  });
+  if (confirmation.value.err) throw new Error('Transaction not confirmed.');
+
   console.log('payer =>', payer.publicKey.toString());
   console.log('taker =>', taker.publicKey.toString());
   console.log('Lookup Table Address:', lookupTableAddress.toBase58());

@@ -10,7 +10,6 @@ import {
   Connection,
   SystemProgram,
   Keypair,
-  TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
   PublicKey,
@@ -36,13 +35,10 @@ const connection = new Connection(QUICKNODE_RPC);
 // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
 
 async function createAddressLookupTable() {
-  // Step 1 - Set a lookup table address
   const lookupTableAddress = new PublicKey(
     '7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva'
   );
-  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
 
-  // Step 2 - Extend Lookup Table Address
   // add addresses to the `lookupTableAddress` table via an `extend` instruction
   const extendInstruction = AddressLookupTableProgram.extendLookupTable({
     payer: payer.publicKey,
@@ -58,37 +54,29 @@ async function createAddressLookupTable() {
   // Send this `extendInstruction` in a transaction to the cluster
   // to insert the listing of `addresses` into your lookup table with address `lookupTableAddress`
 
-  // Step 3 - Fetch Latest Blockhash
   let latestBlockhash = await connection.getLatestBlockhash();
 
-  // Step 4 - Generate Transaction Message
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
     recentBlockhash: latestBlockhash.blockhash,
     instructions: [extendInstruction],
   }).compileToV0Message();
+
   const transaction = new VersionedTransaction(messageV0);
 
-  console.log('messageV0 =>', messageV0);
-
-  // Step 5 - Sign your transaction with the required `Signers`
   transaction.sign([payer]);
 
-  // Step 6 - Send our v0 transaction to the cluster
-  const signature = await connection.sendTransaction(transaction, {
-    maxRetries: 5,
-  });
+  const signature = await connection.sendTransaction(transaction);
 
-  // Step 7 - Confirm Transaction
   const confirmation = await connection.confirmTransaction({
     signature: signature,
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
   });
-  if (confirmation.value.err) {
-    throw new Error('Transaction not confirmed.');
-  }
+  if (confirmation.value.err) throw new Error('Transaction not confirmed.');
 
+  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
+  console.log('messageV0 =>', messageV0);
   console.log('signature =>', signature);
 }
 
