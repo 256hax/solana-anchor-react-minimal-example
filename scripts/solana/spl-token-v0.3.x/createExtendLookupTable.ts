@@ -8,8 +8,9 @@ import * as dotenv from 'dotenv';
 import {
   AddressLookupTableProgram,
   Connection,
-  SystemProgram,
   Keypair,
+  LAMPORTS_PER_SOL,
+  SystemProgram,
   TransactionMessage,
   VersionedTransaction,
   PublicKey,
@@ -18,11 +19,13 @@ import {
 dotenv.config();
 
 // -------------------------------
-//  payer
+//  Wallet
 // -------------------------------
 const secret = process.env.PAYER_SECRET_KEY;
 if (!secret) throw new Error('secret not found.');
 const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
+
+const taker = Keypair.generate();
 
 // -------------------------------
 //  RPC
@@ -36,7 +39,7 @@ const connection = new Connection(QUICKNODE_RPC);
 
 async function createAddressLookupTable() {
   const lookupTableAddress = new PublicKey(
-    '7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva'
+    'DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P'
   );
 
   // add addresses to the `lookupTableAddress` table via an `extend` instruction
@@ -46,10 +49,24 @@ async function createAddressLookupTable() {
     lookupTable: lookupTableAddress,
     addresses: [
       payer.publicKey,
+      taker.publicKey,
       SystemProgram.programId,
       // list more `publicKey` addresses here
     ],
   });
+
+  // Create Instructions
+  const transferInstruction = SystemProgram.transfer({
+    fromPubkey: payer.publicKey,
+    toPubkey: taker.publicKey,
+    lamports: LAMPORTS_PER_SOL * 0.001,
+  });
+
+  const addressLookupTableAccount = (
+    await connection.getAddressLookupTable(lookupTableAddress)
+  ).value;
+  if (!addressLookupTableAccount)
+    throw new Error('addressLookupTableAccount not found.');
 
   // Send this `extendInstruction` in a transaction to the cluster
   // to insert the listing of `addresses` into your lookup table with address `lookupTableAddress`
@@ -59,8 +76,8 @@ async function createAddressLookupTable() {
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
     recentBlockhash: latestBlockhash.blockhash,
-    instructions: [extendInstruction],
-  }).compileToV0Message();
+    instructions: [extendInstruction, transferInstruction],
+  }).compileToV0Message([addressLookupTableAccount]);
 
   const transaction = new VersionedTransaction(messageV0);
 
@@ -75,8 +92,13 @@ async function createAddressLookupTable() {
   });
   if (confirmation.value.err) throw new Error('Transaction not confirmed.');
 
-  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
+  console.log('payer =>', payer.publicKey.toString());
+  console.log('taker =>', taker.publicKey.toString());
+  console.log('SystemProgram.programId, =>', SystemProgram.programId.toString());
+  console.log('Lookup Table Address=>', lookupTableAddress.toBase58());
+  console.log('addressLookupTableAccount =>', addressLookupTableAccount);
   console.log('messageV0 =>', messageV0);
+  console.log('transaction length', transaction.serialize().length, 'bytes');
   console.log('signature =>', signature);
 }
 
@@ -84,9 +106,29 @@ createAddressLookupTable();
 
 /*
 ts-node createExtendLookupTable.ts
-(node:80973) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+(node:98595) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Lookup Table Address: 7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva
+payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+taker => M3QE4yVKmuuxWpn9cFphdH2MThBuDgGuvLES56hk9Gt
+SystemProgram.programId, => 11111111111111111111111111111111
+Lookup Table Address=> DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P
+addressLookupTableAccount => AddressLookupTableAccount {
+  key: PublicKey [PublicKey(DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P)] {
+    _bn: <BN: c120d51ca0e5701635d842e864600b1526afa0b24ccb68b8de926fbe327d36ca>
+  },
+  state: {
+    deactivationSlot: 18446744073709551615n,
+    lastExtendedSlot: 295020616,
+    lastExtendedSlotStartIndex: 0,
+    authority: PublicKey [PublicKey(HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg)] {
+      _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
+    },
+    addresses: [
+      [PublicKey [PublicKey(HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg)]]
+    ]
+  }
+}
 messageV0 => MessageV0 {
   header: {
     numRequiredSignatures: 1,
@@ -97,8 +139,11 @@ messageV0 => MessageV0 {
     PublicKey [PublicKey(HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg)] {
       _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
     },
-    PublicKey [PublicKey(7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva)] {
-      _bn: <BN: 61e2735e1ac9cb62f2627966713b9f2934f352a5c9c657dfbb8fe66d0a36d72b>
+    PublicKey [PublicKey(DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P)] {
+      _bn: <BN: c120d51ca0e5701635d842e864600b1526afa0b24ccb68b8de926fbe327d36ca>
+    },
+    PublicKey [PublicKey(M3QE4yVKmuuxWpn9cFphdH2MThBuDgGuvLES56hk9Gt)] {
+      _bn: <BN: 5225492b7f5bf6b486c15f637b954f1b26306f8722eea452e372e91b9b16691>
     },
     PublicKey [PublicKey(AddressLookupTab1e1111111111111111111111111)] {
       _bn: <BN: 277a6af97339b7ac88d1892c90446f50002309266f62e53c118244982000000>
@@ -107,15 +152,21 @@ messageV0 => MessageV0 {
       _bn: <BN: 0>
     }
   ],
-  recentBlockhash: 'BXSsedrqQSiFzwedb7HZXW6CCz1vQGbRnrbLuaxjDT5s',
+  recentBlockhash: 'BsmpqBgs97EZE2psPMnKwikcPx5M5BraK5911JKKcmu',
   compiledInstructions: [
     {
-      programIdIndex: 2,
+      programIdIndex: 3,
       accountKeyIndexes: [Array],
-      data: <Buffer 02 00 00 00 02 00 00 00 00 00 00 00 f5 a4 4a 6f 36 83 96 11 71 1f 04 14 9f 51 dd 40 6d d4 bc 52 cb 86 f2 0d d2 b1 16 08 a6 2c 7e e9 00 00 00 00 00 00 ... 26 more bytes>
+      data: <Buffer 02 00 00 00 03 00 00 00 00 00 00 00 f5 a4 4a 6f 36 83 96 11 71 1f 04 14 9f 51 dd 40 6d d4 bc 52 cb 86 f2 0d d2 b1 16 08 a6 2c 7e e9 05 22 54 92 b7 f5 ... 58 more bytes>
+    },
+    {
+      programIdIndex: 4,
+      accountKeyIndexes: [Array],
+      data: <Buffer 02 00 00 00 40 42 0f 00 00 00 00 00>
     }
   ],
   addressTableLookups: []
 }
-signature => 3DKQikyE4q9F8tsEWqq9LudKLt9eF9YNaeSx56LRVbygkuWruFgnzqCJvdJRoGCzCUDYxvxwWgbnfuuFYST7ohuL
+transaction length 396 bytes
+signature => 2VhPMxnWKrZBqh9SXkFbF41axdyaMc28xnU8h6KHBY4JNgiKzuTBXe8dus8Rp7obBBFN4St8BaUvFLdr9pmzMkqr
 */
