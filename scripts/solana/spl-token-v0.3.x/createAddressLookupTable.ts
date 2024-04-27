@@ -11,6 +11,8 @@ import {
   AddressLookupTableProgram,
   Connection,
   Keypair,
+  LAMPORTS_PER_SOL,
+  SystemProgram,
   TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
@@ -19,11 +21,13 @@ import {
 dotenv.config();
 
 // -------------------------------
-//  payer
+//  Wallet
 // -------------------------------
 const secret = process.env.PAYER_SECRET_KEY;
 if (!secret) throw new Error('secret not found.');
 const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
+
+const taker = Keypair.generate();
 
 // -------------------------------
 //  RPC
@@ -36,7 +40,6 @@ const connection = new Connection(QUICKNODE_RPC);
 // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
 
 async function createAddressLookupTable() {
-  // Step 1 - Get a lookup table address and create lookup table instruction
   const [lookupTableInst, lookupTableAddress] =
     AddressLookupTableProgram.createLookupTable({
       authority: payer.publicKey,
@@ -44,40 +47,31 @@ async function createAddressLookupTable() {
       recentSlot: await connection.getSlot(),
     });
 
-  // Step 2 - Log Lookup Table Address
-  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
+  const transferInstruction = SystemProgram.transfer({
+    fromPubkey: payer.publicKey,
+    toPubkey: taker.publicKey,
+    lamports: LAMPORTS_PER_SOL * 0.001, // 1 SOL = 1_000_000_000 lamports
+  });
 
-  // Step 3 - Fetch Latest Blockhash
   let latestBlockhash = await connection.getLatestBlockhash();
 
-  // Step 4 - Generate Transaction Message
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
     recentBlockhash: latestBlockhash.blockhash,
-    instructions: [lookupTableInst],
+    instructions: [lookupTableInst, transferInstruction],
   }).compileToV0Message();
+
   const transaction = new VersionedTransaction(messageV0);
 
-  console.log('messageV0 =>', messageV0);
-
-  // Step 5 - Sign your transaction with the required `Signers`
   transaction.sign([payer]);
 
-  // Step 6 - Send our v0 transaction to the cluster
-  const signature = await connection.sendTransaction(transaction, {
-    maxRetries: 5,
-  });
+  const signature = await connection.sendTransaction(transaction);
 
-  // Step 7 - Confirm Transaction
-  const confirmation = await connection.confirmTransaction({
-    signature: signature,
-    blockhash: latestBlockhash.blockhash,
-    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-  });
-  if (confirmation.value.err) {
-    throw new Error('Transaction not confirmed.');
-  }
-
+  console.log('payer =>', payer.publicKey.toString());
+  console.log('taker =>', taker.publicKey.toString());
+  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
+  console.log('messageV0 =>', messageV0);
+  console.log('transaction length', transaction.serialize().length, 'bytes');
   console.log('signature =>', signature);
 }
 
@@ -85,9 +79,12 @@ createAddressLookupTable();
 
 /*
 ts-node createAddressLookupTable.ts
-(node:53799) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+(node:92802) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Lookup Table Address: 7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva
+payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+taker => FSmQLyzFipe7Mrn69BN9xHbzgVsKsULHuRZG7aiSd7tr
+Lookup Table Address: FcsncC9j3H56VF7aGjXYqk1cb4SQg4hMxnSwYMLdSDFN
 messageV0 => MessageV0 {
   header: {
     numRequiredSignatures: 1,
@@ -98,8 +95,11 @@ messageV0 => MessageV0 {
     PublicKey [PublicKey(HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg)] {
       _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
     },
-    PublicKey [PublicKey(7b6pc8wU8VkoS9bB9wX24nf5z9BnyQCD9GZ81j329Fva)] {
-      _bn: <BN: 61e2735e1ac9cb62f2627966713b9f2934f352a5c9c657dfbb8fe66d0a36d72b>
+    PublicKey [PublicKey(FcsncC9j3H56VF7aGjXYqk1cb4SQg4hMxnSwYMLdSDFN)] {
+      _bn: <BN: d9345e9bda14e4c175a401da1e0fbb0c1196547c47df95a243ca75873432ce79>
+    },
+    PublicKey [PublicKey(FSmQLyzFipe7Mrn69BN9xHbzgVsKsULHuRZG7aiSd7tr)] {
+      _bn: <BN: d69d57df743b7e7b474cae7529c294f4fa36a3ded6beb150168964219624c1a7>
     },
     PublicKey [PublicKey(AddressLookupTab1e1111111111111111111111111)] {
       _bn: <BN: 277a6af97339b7ac88d1892c90446f50002309266f62e53c118244982000000>
@@ -108,15 +108,21 @@ messageV0 => MessageV0 {
       _bn: <BN: 0>
     }
   ],
-  recentBlockhash: 'DKYj5rnEsmLht6z8WJouwCrdcgGx392vqbGc8zgJijni',
+  recentBlockhash: 'FtZjpLZaUD4Fs2DjgcB3sNMsfwXTuva42sB1trtF2KD6',
   compiledInstructions: [
     {
-      programIdIndex: 2,
+      programIdIndex: 3,
       accountKeyIndexes: [Array],
-      data: <Buffer 00 00 00 00 75 08 88 11 00 00 00 00 fc>
+      data: <Buffer 00 00 00 00 76 43 95 11 00 00 00 00 fe>
+    },
+    {
+      programIdIndex: 4,
+      accountKeyIndexes: [Array],
+      data: <Buffer 02 00 00 00 40 42 0f 00 00 00 00 00>
     }
   ],
   addressTableLookups: []
 }
-signature => KBoDSdEEyZebshbLNJZHZ9FF8kXUpCdMrmmT8sZRGFALGsH6ggdBTZNqYdCz2hjSPs3jvkvmMVyhgXCsiE6wAH8
+transaction length 301 bytes
+signature => 3VNRDL4WwYgfy9bHhhbHKFJAiMYUKG2e6ATZWPdmJPuaKf88dy73vviwFVdgVQDCNokewzWZmrQemJPEjyof3Dkn
 */
