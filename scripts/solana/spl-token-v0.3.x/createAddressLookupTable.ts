@@ -11,8 +11,6 @@ import {
   AddressLookupTableProgram,
   Connection,
   Keypair,
-  LAMPORTS_PER_SOL,
-  SystemProgram,
   TransactionMessage,
   VersionedTransaction,
 } from '@solana/web3.js';
@@ -25,8 +23,6 @@ dotenv.config();
 const secret = process.env.PAYER_SECRET_KEY;
 if (!secret) throw new Error('secret not found.');
 const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
-
-const taker = Keypair.generate();
 
 // -------------------------------
 //  RPC
@@ -46,18 +42,12 @@ async function createAddressLookupTable() {
       recentSlot: await connection.getSlot(),
     });
 
-  const transferInstruction = SystemProgram.transfer({
-    fromPubkey: payer.publicKey,
-    toPubkey: taker.publicKey,
-    lamports: LAMPORTS_PER_SOL * 0.001,
-  });
-
   let latestBlockhash = await connection.getLatestBlockhash();
 
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
     recentBlockhash: latestBlockhash.blockhash,
-    instructions: [lookupTableInst, transferInstruction],
+    instructions: [lookupTableInst],
   }).compileToV0Message();
 
   const transaction = new VersionedTransaction(messageV0);
@@ -74,7 +64,6 @@ async function createAddressLookupTable() {
   if (confirmation.value.err) throw new Error('Transaction not confirmed.');
 
   console.log('payer =>', payer.publicKey.toString());
-  console.log('taker =>', taker.publicKey.toString());
   console.log('Lookup Table Address:', lookupTableAddress.toBase58());
   console.log('messageV0 =>', messageV0);
   console.log('transaction length', transaction.serialize().length, 'bytes');
@@ -85,12 +74,10 @@ createAddressLookupTable();
 
 /*
 ts-node createAddressLookupTable.ts
-
-(node:92802) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:98546) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-taker => FSmQLyzFipe7Mrn69BN9xHbzgVsKsULHuRZG7aiSd7tr
-Lookup Table Address: FcsncC9j3H56VF7aGjXYqk1cb4SQg4hMxnSwYMLdSDFN
+Lookup Table Address: EDZzUPDbU4pjAQKq9qWATUKVN4DbmUQrgqZ3LYSStRYy
 messageV0 => MessageV0 {
   header: {
     numRequiredSignatures: 1,
@@ -101,11 +88,8 @@ messageV0 => MessageV0 {
     PublicKey [PublicKey(HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg)] {
       _bn: <BN: f5a44a6f36839611711f04149f51dd406dd4bc52cb86f20dd2b11608a62c7ee9>
     },
-    PublicKey [PublicKey(FcsncC9j3H56VF7aGjXYqk1cb4SQg4hMxnSwYMLdSDFN)] {
-      _bn: <BN: d9345e9bda14e4c175a401da1e0fbb0c1196547c47df95a243ca75873432ce79>
-    },
-    PublicKey [PublicKey(FSmQLyzFipe7Mrn69BN9xHbzgVsKsULHuRZG7aiSd7tr)] {
-      _bn: <BN: d69d57df743b7e7b474cae7529c294f4fa36a3ded6beb150168964219624c1a7>
+    PublicKey [PublicKey(EDZzUPDbU4pjAQKq9qWATUKVN4DbmUQrgqZ3LYSStRYy)] {
+      _bn: <BN: c46033e2cddeaf2a5c33aab4efc92bf1411d718d0641c36e2f985ae110600f06>
     },
     PublicKey [PublicKey(AddressLookupTab1e1111111111111111111111111)] {
       _bn: <BN: 277a6af97339b7ac88d1892c90446f50002309266f62e53c118244982000000>
@@ -114,21 +98,16 @@ messageV0 => MessageV0 {
       _bn: <BN: 0>
     }
   ],
-  recentBlockhash: 'FtZjpLZaUD4Fs2DjgcB3sNMsfwXTuva42sB1trtF2KD6',
+  recentBlockhash: 'BKKQyTYc2VPSiPaBZiX76LuZN2KwDQkpHgcLW9Vamzcu',
   compiledInstructions: [
     {
-      programIdIndex: 3,
+      programIdIndex: 2,
       accountKeyIndexes: [Array],
-      data: <Buffer 00 00 00 00 76 43 95 11 00 00 00 00 fe>
-    },
-    {
-      programIdIndex: 4,
-      accountKeyIndexes: [Array],
-      data: <Buffer 02 00 00 00 40 42 0f 00 00 00 00 00>
+      data: <Buffer 00 00 00 00 ce a9 95 11 00 00 00 00 ff>
     }
   ],
   addressTableLookups: []
 }
-transaction length 301 bytes
-signature => 3VNRDL4WwYgfy9bHhhbHKFJAiMYUKG2e6ATZWPdmJPuaKf88dy73vviwFVdgVQDCNokewzWZmrQemJPEjyof3Dkn
+transaction length 252 bytes
+signature => 3LrgEuKAkdQKMuHp9tQLdXZjLVqMy93rb74QSZ5AsmcVh7i6uQr5tszLFccP1wtGaswxJndYLBASnk73c9WyKGqN
 */
