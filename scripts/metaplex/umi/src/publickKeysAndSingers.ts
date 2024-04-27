@@ -12,7 +12,8 @@ import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 
 const main = () => {
   // Set Endpoint.
-  const endpoint = 'https://api.devnet.solana.com';
+  const endpoint = process.env.ENDPOINT;
+  if (!endpoint) throw new Error('endpoint not found.');
   const umi = createUmi(endpoint);
 
   // Create Keypair from UInt8Array of Secret Key.

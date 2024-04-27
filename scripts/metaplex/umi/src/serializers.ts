@@ -1,18 +1,22 @@
 // Docs: https://github.com/metaplex-foundation/umi/blob/main/docs/serializers.md
-// 
+//
 // Work in progress, I'm trying to clear for behavior.
 
 import { utf8, base58, base64 } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 
-const umi = createUmi('https://api.devnet.solana.com');
+const endpoint = process.env.ENDPOINT;
+if (!endpoint) throw new Error('endpoint not found.');
+const umi = createUmi(endpoint);
 
 // Default behaviour: utf8 encoding and u32 (litte-endian) size.
 const serializedString = umi.serializer.string().serialize('Hi');
 console.log('serializedString =>', serializedString);
 
 // Custom encoding: base58.
-const serializedBase58 = umi.serializer.string({ encoding: base58 }).serialize('Hi');
+const serializedBase58 = umi.serializer
+  .string({ encoding: base58 })
+  .serialize('Hi');
 console.log('serializedBase58 =>', serializedBase58);
 
 const serializedBase58Other = base58.serialize('Hi');
@@ -22,11 +26,15 @@ const serializedU64 = umi.serializer.u64().serialize(123);
 console.log('serializedU64 =>', serializedU64);
 
 // Custom size: 5 bytes.
-const serializedCustomSizeByBytes = umi.serializer.string({ size: 5 }).serialize('Hi');
+const serializedCustomSizeByBytes = umi.serializer
+  .string({ size: 5 })
+  .serialize('Hi');
 console.log('serializedCustomSizeByBytes =>', serializedCustomSizeByBytes);
 
 // Custom size: variable.
-const serializedCustomSizeByString = umi.serializer.string({ size: 'variable' }).serialize('Hi');
+const serializedCustomSizeByString = umi.serializer
+  .string({ size: 'variable' })
+  .serialize('Hi');
 console.log('serializedCustomSizeByBytes =>', serializedCustomSizeByBytes);
 
 const serializedUtf8 = utf8.serialize('Hi');
