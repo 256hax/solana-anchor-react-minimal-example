@@ -9,8 +9,8 @@ import {
 } from '@solana/web3.js';
 
 export const main = async () => {
-  // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  let connection = new Connection('https://api.devnet.solana.com');
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // ------------------------------------------
   //  Wallet
@@ -76,7 +76,9 @@ export const main = async () => {
   console.log('reference => ', reference.publicKey.toString());
   console.log('taker => ', taker.publicKey.toString());
   console.log('transferInstruction =>',  transferInstruction);
+  console.log('transaction length =>',  transaction.serialize().length, 'bytes');
   console.log('Signature => ', signature);
+
   console.log('\n--- Search Transaction ---');
   console.log('signaturesByAddress => ', signaturesByAddress);
   console.log('parsedSignature => ', parsedSignature);
@@ -85,26 +87,28 @@ export const main = async () => {
 main();
 
 /*
-% ts-node <THIS JS FILE>
+ts-node createTransferInstruction.ts
+(node:92517) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
 
 --- Excute Transaction ---
-payer =>  Ak6NdaUWqr4niNPYKsUe9LCiiaytTmWYHbu3CvKEgp8Z
-reference =>  ZSorocWCiSBUckZVt5hqd3Ff744RmsKzzNxLLwZcg3d
-taker =>  3Yg4CyJT1EkNx96sgaKf5iiXF5715qMm4HAHJxFVkX1A
+payer =>  rqS5MHuZEUaesaUBRJMLzVcr5K9upnA7LacDd7Hf7CQ
+reference =>  5E2x1V4bzu79onCbbLYmt2PZNNwRvvHaBmHEnS3JfGmL
+taker =>  BuZ5WUtBcBUVmD9kKJj7v2Tf5f62knY3ns7fPBw679W5
 transferInstruction => TransactionInstruction {
   keys: [
     {
-      pubkey: [PublicKey [PublicKey(Ak6NdaUWqr4niNPYKsUe9LCiiaytTmWYHbu3CvKEgp8Z)]],
+      pubkey: [PublicKey [PublicKey(rqS5MHuZEUaesaUBRJMLzVcr5K9upnA7LacDd7Hf7CQ)]],
       isSigner: true,
       isWritable: true
     },
     {
-      pubkey: [PublicKey [PublicKey(3Yg4CyJT1EkNx96sgaKf5iiXF5715qMm4HAHJxFVkX1A)]],
+      pubkey: [PublicKey [PublicKey(BuZ5WUtBcBUVmD9kKJj7v2Tf5f62knY3ns7fPBw679W5)]],
       isSigner: false,
       isWritable: true
     },
     {
-      pubkey: [PublicKey [PublicKey(ZSorocWCiSBUckZVt5hqd3Ff744RmsKzzNxLLwZcg3d)]],
+      pubkey: [PublicKey [PublicKey(5E2x1V4bzu79onCbbLYmt2PZNNwRvvHaBmHEnS3JfGmL)]],
       isWritable: false,
       isSigner: false
     }
@@ -114,23 +118,24 @@ transferInstruction => TransactionInstruction {
   },
   data: <Buffer 02 00 00 00 40 42 0f 00 00 00 00 00>
 }
-Signature =>  3vqKs1JWnpSw2FAjU1qQQWiSoeDSFFdyJGgxJB7ocE1oPgq9o5WgLk4XWyGMduanNhcAdUNJz9B3moa3CPzQSsv2
+transaction length => 248 bytes
+Signature =>  5kwZD4rdKxsRMJ8zmv2G1jLoaCDKLWqDcZLEdyRSbbKZhdBXzNTKmNwRQx8zwdR2KB67uDeA9a2h1AdGYztMPfLR
 
 --- Search Transaction ---
 signaturesByAddress =>  [
   {
-    blockTime: 1674096985,
-    confirmationStatus: 'confirmed',
+    blockTime: 1714211452,
+    confirmationStatus: 'finalized',
     err: null,
     memo: null,
-    signature: '3vqKs1JWnpSw2FAjU1qQQWiSoeDSFFdyJGgxJB7ocE1oPgq9o5WgLk4XWyGMduanNhcAdUNJz9B3moa3CPzQSsv2',
-    slot: 10501
+    signature: '5kwZD4rdKxsRMJ8zmv2G1jLoaCDKLWqDcZLEdyRSbbKZhdBXzNTKmNwRQx8zwdR2KB67uDeA9a2h1AdGYztMPfLR',
+    slot: 294994114
   }
 ]
 parsedSignature =>  {
-  blockTime: 1674096985,
+  blockTime: 1714211452,
   meta: {
-    computeUnitsConsumed: 0,
+    computeUnitsConsumed: 150,
     err: null,
     fee: 5000,
     innerInstructions: [],
@@ -146,16 +151,16 @@ parsedSignature =>  {
     status: { Ok: null },
     loadedAddresses: undefined
   },
-  slot: 10501,
+  slot: 294994114,
   transaction: {
     message: {
       accountKeys: [Array],
-      addressTableLookups: null,
       instructions: [Array],
-      recentBlockhash: '4CtBaweswY6i4zYXNrMTMus3wst4CW29tXTzCxzvEH9Y'
+      recentBlockhash: 'HH5LK7Y436gWFVNr3F4yXf8ZfjYJaLE87g3RQtipL1Dh',
+      addressTableLookups: undefined
     },
     signatures: [
-      '3vqKs1JWnpSw2FAjU1qQQWiSoeDSFFdyJGgxJB7ocE1oPgq9o5WgLk4XWyGMduanNhcAdUNJz9B3moa3CPzQSsv2'
+      '5kwZD4rdKxsRMJ8zmv2G1jLoaCDKLWqDcZLEdyRSbbKZhdBXzNTKmNwRQx8zwdR2KB67uDeA9a2h1AdGYztMPfLR'
     ]
   },
   version: undefined
