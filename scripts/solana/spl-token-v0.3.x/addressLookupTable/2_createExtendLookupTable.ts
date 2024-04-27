@@ -42,6 +42,7 @@ async function createAddressLookupTable() {
     'DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P'
   );
 
+  // Address Lookup Table List
   // add addresses to the `lookupTableAddress` table via an `extend` instruction
   const extendInstruction = AddressLookupTableProgram.extendLookupTable({
     payer: payer.publicKey,
