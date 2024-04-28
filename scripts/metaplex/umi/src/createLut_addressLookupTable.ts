@@ -47,7 +47,7 @@ const main = async () => {
   lutBuilder.setAddressLookupTables([lut]);
 
   // ----------------------------------------------------
-  //  Add Instructions
+  //  Add Instructions to Address Lookup Table Builder
   // ----------------------------------------------------
   const builder = transactionBuilder().add(
     addMemo(umi, { memo: 'Hello world!' })
@@ -55,6 +55,9 @@ const main = async () => {
 
   lutBuilder.add(addMemo(umi, { memo: 'Hello world!' }));
 
+  // ----------------------------------------------------
+  //  Send Transaction
+  // ----------------------------------------------------
   const result = await lutBuilder.sendAndConfirm(umi);
 
   console.log('addressA =>', addressA.toString());
