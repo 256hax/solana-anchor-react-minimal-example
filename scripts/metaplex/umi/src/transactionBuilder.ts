@@ -42,7 +42,7 @@ const main = async () => {
   const referenceSigner = createSignerFromKeypair(umi, referenceKeypair);
 
   const instructionsVanilla: WrappedInstruction = {
-    bytesCreatedOnChain: 300,
+    bytesCreatedOnChain: 0,
     instruction: {
       // This is add keys example. You can remove it.
       keys: [
@@ -73,6 +73,7 @@ const main = async () => {
   // ----------------------------------------------------
   const result = await builder.sendAndConfirm(umi);
 
+  console.log('builder.getBytesCreatedOnChain =>', builder.getBytesCreatedOnChain());
   console.log('builder => %o', builder);
   console.log('signature =>', bs58.encode(result.signature));
 };
@@ -81,19 +82,16 @@ main();
 
 /*
 ts-node src/transactionBuilder.ts
-(node:18623) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:19931) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Server responded with 429 Too Many Requests.  Retrying after 500ms delay...
-Server responded with 429 Too Many Requests.  Retrying after 1000ms delay...
-Server responded with 429 Too Many Requests.  Retrying after 2000ms delay...
-Server responded with 429 Too Many Requests.  Retrying after 4000ms delay...
+builder.getBytesCreatedOnChain => 0
 builder => TransactionBuilder {
   items: [
     {
-      bytesCreatedOnChain: 300,
+      bytesCreatedOnChain: 0,
       instruction: {
         keys: [ [Object], [length]: 1 ],
-        data: <Buffer 54 68 69 73 20 6d 65 6d 6f 20 75 73 69 6e 67 20 6e 6f 20 6c 69 62 72 61 72 79 28 3d 76 61 6e 69 6c 6c 61 29 2e>,
+        data: <Buffer 54 68 69 73 20 6d 65 6d 6f 20 75 73 69 6e 67 20 6e 6f 20 6c 69 62 72 61 72 79 28 3d 76 61 6e 69 6c 6c 61 29>,
         programId: 'MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'
       },
       signers: [
@@ -105,7 +103,7 @@ builder => TransactionBuilder {
           signAllTransactions: [AsyncFunction]
         },
         {
-          publicKey: 'HfLw1wk1mRExgM8XuvFkRKgbiZuG67U5kjr2UMuNjuWt',
+          publicKey: '2oTppKPhBrhxnj2wQ3R5mnRHkcWvhcSSVwEM1ui2x2Uf',
           secretKey: [Uint8Array],
           signMessage: [AsyncFunction],
           signTransaction: [AsyncFunction],
@@ -169,5 +167,5 @@ builder => TransactionBuilder {
   ],
   options: {}
 }
-signature => 3a3AwaxEUoKWPcpzmL1pmuBcNDZdejEtXNhZNUSApECeS1Rs2mXcYxNxfKYvxcEQoBKz1H8jzgj8BE79NewteABD
+signature => WChSHSPzvvCafS7veEZMcd8v4FiSHWAqenvwmztnAfegTbqFPrrEEyYPeHD5fH8vBQgf24Pr2BiR8pYzzt3YtKu
 */
