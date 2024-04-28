@@ -1,4 +1,5 @@
 // Docs:
+//  https://www.quicknode.com/guides/solana-development/accounts-and-data/how-to-use-lookup-tables-on-solana
 //  https://solana.com/docs/advanced/lookup-tables
 
 // Lib
@@ -16,34 +17,35 @@ import {
   PublicKey,
 } from '@solana/web3.js';
 
-dotenv.config();
+async function main() {
+  dotenv.config();
 
-// -------------------------------
-//  Wallet
-// -------------------------------
-const secret = process.env.PAYER_SECRET_KEY;
-if (!secret) throw new Error('secret not found.');
-const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
+  // -------------------------------
+  //  RPC
+  // -------------------------------
+  // Replace with QuickNode RPC in .env file.
+  const endopoint = process.env.ENDPOINT;
+  if (!endopoint) throw new Error('endopoint not found.');
+  const connection = new Connection(endopoint);
+  // const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
 
-const taker = Keypair.generate();
+  // -------------------------------
+  //  Account
+  // -------------------------------
+  const secret = process.env.PAYER_SECRET_KEY;
+  if (!secret) throw new Error('secret not found.');
+  const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
 
-// -------------------------------
-//  RPC
-// -------------------------------
-// Replace with QuickNode RPC in .env file.
-const QUICKNODE_RPC = process.env.ENDPOINT;
-if (!QUICKNODE_RPC) throw new Error('QUICKNODE_RPC not found.');
-const connection = new Connection(QUICKNODE_RPC);
-// const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
-// const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
+  const taker = Keypair.generate();
 
-async function createAddressLookupTable() {
   const lookupTableAddress = new PublicKey(
     'DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P'
   );
 
-  // Address Lookup Table List
-  // add addresses to the `lookupTableAddress` table via an `extend` instruction
+  // -------------------------------
+  //  Add Lookup Addresses to LUT
+  // -------------------------------
   const extendInstruction = AddressLookupTableProgram.extendLookupTable({
     payer: payer.publicKey,
     authority: payer.publicKey,
@@ -56,21 +58,23 @@ async function createAddressLookupTable() {
     ],
   });
 
-  // Create Instructions
+  // -------------------------------
+  //  Create Sample Instructions
+  // -------------------------------
   const transferInstruction = SystemProgram.transfer({
     fromPubkey: payer.publicKey,
     toPubkey: taker.publicKey,
     lamports: LAMPORTS_PER_SOL * 0.001,
   });
 
+  // -------------------------------
+  //  Create Versioned Transactions
+  // -------------------------------
   const addressLookupTableAccount = (
     await connection.getAddressLookupTable(lookupTableAddress)
   ).value;
   if (!addressLookupTableAccount)
     throw new Error('addressLookupTableAccount not found.');
-
-  // Send this `extendInstruction` in a transaction to the cluster
-  // to insert the listing of `addresses` into your lookup table with address `lookupTableAddress`
 
   let latestBlockhash = await connection.getLatestBlockhash();
 
@@ -84,8 +88,12 @@ async function createAddressLookupTable() {
 
   transaction.sign([payer]);
 
+  // -------------------------------
+  //  Send a Transaction
+  // -------------------------------
   const signature = await connection.sendTransaction(transaction);
 
+  // Check confirmation.
   const confirmation = await connection.confirmTransaction({
     signature: signature,
     blockhash: latestBlockhash.blockhash,
@@ -95,7 +103,10 @@ async function createAddressLookupTable() {
 
   console.log('payer =>', payer.publicKey.toString());
   console.log('taker =>', taker.publicKey.toString());
-  console.log('SystemProgram.programId, =>', SystemProgram.programId.toString());
+  console.log(
+    'SystemProgram.programId, =>',
+    SystemProgram.programId.toString()
+  );
   console.log('Lookup Table Address=>', lookupTableAddress.toBase58());
   console.log('addressLookupTableAccount =>', addressLookupTableAccount);
   console.log('messageV0 =>', messageV0);
@@ -103,7 +114,7 @@ async function createAddressLookupTable() {
   console.log('signature =>', signature);
 }
 
-createAddressLookupTable();
+main();
 
 /*
 ts-node createExtendLookupTable.ts
