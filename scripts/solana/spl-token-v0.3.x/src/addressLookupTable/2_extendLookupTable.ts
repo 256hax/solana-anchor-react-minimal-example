@@ -107,7 +107,7 @@ async function main() {
     'SystemProgram.programId, =>',
     SystemProgram.programId.toString()
   );
-  console.log('Lookup Table Address=>', lookupTableAddress.toBase58());
+  console.log('Lookup Table Address =>', lookupTableAddress.toBase58());
   console.log('addressLookupTableAccount =>', addressLookupTableAccount);
   console.log('messageV0 =>', messageV0);
   console.log('transaction length', transaction.serialize().length, 'bytes');
@@ -124,7 +124,7 @@ ts-node createExtendLookupTable.ts
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 taker => M3QE4yVKmuuxWpn9cFphdH2MThBuDgGuvLES56hk9Gt
 SystemProgram.programId, => 11111111111111111111111111111111
-Lookup Table Address=> DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P
+Lookup Table Address => DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P
 addressLookupTableAccount => AddressLookupTableAccount {
   key: PublicKey [PublicKey(DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P)] {
     _bn: <BN: c120d51ca0e5701635d842e864600b1526afa0b24ccb68b8de926fbe327d36ca>

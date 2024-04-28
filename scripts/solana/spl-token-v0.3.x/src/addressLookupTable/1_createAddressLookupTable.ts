@@ -73,7 +73,7 @@ async function createAddressLookupTable() {
   if (confirmation.value.err) throw new Error('Transaction not confirmed.');
 
   console.log('payer =>', payer.publicKey.toString());
-  console.log('Lookup Table Address:', lookupTableAddress.toBase58());
+  console.log('Lookup Table Address =>', lookupTableAddress.toBase58());
   console.log('messageV0 =>', messageV0);
   console.log('transaction length', transaction.serialize().length, 'bytes');
   console.log('signature =>', signature);
@@ -86,7 +86,7 @@ ts-node createAddressLookupTable.ts
 (node:98546) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
-Lookup Table Address: EDZzUPDbU4pjAQKq9qWATUKVN4DbmUQrgqZ3LYSStRYy
+Lookup Table Address => EDZzUPDbU4pjAQKq9qWATUKVN4DbmUQrgqZ3LYSStRYy
 messageV0 => MessageV0 {
   header: {
     numRequiredSignatures: 1,
