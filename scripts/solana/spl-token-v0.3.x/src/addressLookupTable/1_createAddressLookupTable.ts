@@ -28,9 +28,9 @@ const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
 //  RPC
 // -------------------------------
 // Replace with QuickNode RPC in .env file.
-const QUICKNODE_RPC = process.env.ENDPOINT;
-if (!QUICKNODE_RPC) throw new Error('QUICKNODE_RPC not found.');
-const connection = new Connection(QUICKNODE_RPC);
+const endopoint = process.env.ENDPOINT;
+if (!endopoint) throw new Error('endopoint not found.');
+const connection = new Connection(endopoint);
 // const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
 // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
 
