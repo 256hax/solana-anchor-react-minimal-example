@@ -15,26 +15,29 @@ import {
   VersionedTransaction,
 } from '@solana/web3.js';
 
-dotenv.config();
-
-// -------------------------------
-//  Wallet
-// -------------------------------
-const secret = process.env.PAYER_SECRET_KEY;
-if (!secret) throw new Error('secret not found.');
-const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
-
-// -------------------------------
-//  RPC
-// -------------------------------
-// Replace with QuickNode RPC in .env file.
-const endopoint = process.env.ENDPOINT;
-if (!endopoint) throw new Error('endopoint not found.');
-const connection = new Connection(endopoint);
-// const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
-// const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
-
 async function createAddressLookupTable() {
+  dotenv.config();
+
+  // -------------------------------
+  //  RPC
+  // -------------------------------
+  // Replace with QuickNode RPC in .env file.
+  const endopoint = process.env.ENDPOINT;
+  if (!endopoint) throw new Error('endopoint not found.');
+  const connection = new Connection(endopoint);
+  // const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
+
+  // -------------------------------
+  //  Account
+  // -------------------------------
+  const secret = process.env.PAYER_SECRET_KEY;
+  if (!secret) throw new Error('secret not found.');
+  const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
+
+  // -------------------------------
+  //  Create LUT Instructions
+  // -------------------------------
   const [lookupTableInst, lookupTableAddress] =
     AddressLookupTableProgram.createLookupTable({
       authority: payer.publicKey,
@@ -42,6 +45,9 @@ async function createAddressLookupTable() {
       recentSlot: await connection.getSlot(),
     });
 
+  // -------------------------------
+  //  Create Versioned Transactions
+  // -------------------------------
   let latestBlockhash = await connection.getLatestBlockhash();
 
   const messageV0 = new TransactionMessage({
@@ -54,6 +60,9 @@ async function createAddressLookupTable() {
 
   transaction.sign([payer]);
 
+  // -------------------------------
+  //  Send a Transaction
+  // -------------------------------
   const signature = await connection.sendTransaction(transaction);
 
   const confirmation = await connection.confirmTransaction({
