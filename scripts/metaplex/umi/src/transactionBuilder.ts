@@ -65,7 +65,7 @@ const main = async () => {
 
   // Add instructions to Transaction Builder.
   let builder = transactionBuilder()
-    // .add(instructionsVanilla)
+    .add(instructionsVanilla)
     .add(instructionsMplToolbox);
 
   // ----------------------------------------------------
