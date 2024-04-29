@@ -1,62 +1,18 @@
 # Solana x Anchor x React Minimal Example
 Solana, Anchor, Metaplex, React Minimal Example.  
-This is Out of the Box, easy to start!  
+This example codes is Out of the Box!  
 I wrote the code in a single file to make it easy to understand, without dividing it into modules.
 
-For experiment purposes only.  
+For experimental purposes only.  
 
 ## How To Run
-It depends on Framework (e.g. Anchor, React, JS...). Check README.md in each directory.
+It depends on Framework (e.g. Anchor, React, JS...). Check README in each directory.
 
 ## Wallet Key
 I set id.json(keypair of wallet) at each directory.  
 Feel free to use that for only Devnet/Testnet. I hope you can easy to start minimal examples.
 
-## Tools
-### User-friendly Transaction Explorer
-I recommend to use Solana Explorer for localnet.
-
-1. Run local validator.
-```
-% solana-test-validator
-```
-
-2. Deploy something to localnet.
-
-3. Search Transaction Signature or public-key in Solana Explorer.
-[Solana Explorer (localhost:8899)](https://explorer.solana.com/?cluster=custom)
-
-### Use Metaplex in Localnet
-You can use Metaplex(e.g. mint/update NFTs) in Localnet.  
-
-#### Case 1 Anchor:  
-[Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)  
-
-#### Case 2 Solana CLI:  
-```
-% solana-test-validator --url https://api.devnet.solana.com /
-	--clone metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s /
-	--clone PwDiXFxQsGra4sFFTT8r1QWRMd4vfumiWC1jfWNfdYT /
-	--clone H7h6dv6X9KGLuCFvYMNa1zmCP5VCSzw8AkQGod6zaCnX /
-	--clone ojLGErfqghuAqpJXE1dguXF7kKfvketCEeah8ig6GU3
-```
-
-Remove test-ledger directory if it exists before running.
-  
-#### Case 3 Metaplex Amman:  
-[2/ Just add any program you need to the validator config and get back to building!](https://x.com/metaplex/status/1756731772224909638?s=20)
-
-## Outline Document for Product/Project Manager
-[Solana Blockchain Outline Figure](https://docs.google.com/presentation/d/1XXPCYqLqKd8rNa_n0ZjCyGAxjgxhmNG0/edit?usp=sharing&ouid=115427085832614065046&rtpof=true&sd=true)
-
-### Example Image
-![STEPN ON/OFF Chain](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-screenshot.png?raw=true)  
-
-![STEPN Mapping System](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-mapping-system.png?raw=true)  
-
-![Magic Eden Escrow](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/magiceden-accounts.png?raw=true)
-
-# Reference
+# Docs
 ## Solana
 - [Docs - Solana Cookbook](https://solanacookbook.com/)
 - [Docs - Solana CLI(e.g. Create Account, Transfer SOL)](https://docs.solana.com/cli)
@@ -107,3 +63,49 @@ Remove test-ledger directory if it exists before running.
 - [GitHub - arlocal](https://github.com/textury/arlocal)
 - [GitHub - ArConnect](https://github.com/th8ta/ArConnect)
 - [Support - Discord Arweave](https://discord.com/invite/BXk8tq7)
+
+# Remarks
+## Tools
+### User-friendly Transaction Explorer
+I recommend to use Solana Explorer for localnet.
+
+1. Run local validator.
+```
+% solana-test-validator
+```
+
+2. Deploy something to localnet.
+
+3. Search Transaction Signature or public-key in Solana Explorer.
+[Solana Explorer (localhost:8899)](https://explorer.solana.com/?cluster=custom)
+
+### Use Metaplex in Localnet
+You can use Metaplex(e.g. mint/update NFTs) in Localnet.  
+
+#### Case 1 Anchor:  
+[Mint NFT using Metaplex and Anchor in Localnet](https://github.com/256hax/solana-anchor-react-minimal-example/tree/main/anchor/mint_nft_using_metaplex_anchor_in_localnet)  
+
+#### Case 2 Solana CLI:  
+```
+% solana-test-validator --url https://api.devnet.solana.com /
+	--clone metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s /
+	--clone PwDiXFxQsGra4sFFTT8r1QWRMd4vfumiWC1jfWNfdYT /
+	--clone H7h6dv6X9KGLuCFvYMNa1zmCP5VCSzw8AkQGod6zaCnX /
+	--clone ojLGErfqghuAqpJXE1dguXF7kKfvketCEeah8ig6GU3
+```
+
+Remove test-ledger directory if it exists before running.
+  
+#### Case 3 Metaplex Amman:  
+[2/ Just add any program you need to the validator config and get back to building!](https://x.com/metaplex/status/1756731772224909638?s=20)
+
+## Outline Document for Product/Project Manager
+[Solana Blockchain Outline Figure](https://docs.google.com/presentation/d/1XXPCYqLqKd8rNa_n0ZjCyGAxjgxhmNG0/edit?usp=sharing&ouid=115427085832614065046&rtpof=true&sd=true)
+
+### Example Image
+![STEPN ON/OFF Chain](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-screenshot.png?raw=true)  
+
+![STEPN Mapping System](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/stepn-mapping-system.png?raw=true)  
+
+![Magic Eden Escrow](https://github.com/256hax/solana-anchor-react-minimal-example/blob/main/docs/screenshot/magiceden-accounts.png?raw=true)
+
