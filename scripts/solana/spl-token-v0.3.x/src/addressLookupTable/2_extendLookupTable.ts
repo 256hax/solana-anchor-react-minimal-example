@@ -18,11 +18,12 @@ import {
 } from '@solana/web3.js';
 
 async function main() {
+  // ----------------------------------------------------
+  //  Setup
+  // ----------------------------------------------------
   dotenv.config();
 
-  // -------------------------------
-  //  RPC
-  // -------------------------------
+  // Set Endpoint
   // Replace with QuickNode RPC in .env file.
   const endopoint = process.env.ENDPOINT;
   if (!endopoint) throw new Error('endopoint not found.');
@@ -30,22 +31,22 @@ async function main() {
   // const connection = new Connection('https://api.devnet.solana.com'); // <= Too many request error.
   // const connection = new Connection('http://127.0.0.1:8899', 'confirmed'); // <= invalid instruction data error.
 
-  // -------------------------------
-  //  Account
-  // -------------------------------
+  // Set Payer
   const secret = process.env.PAYER_SECRET_KEY;
   if (!secret) throw new Error('secret not found.');
   const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
 
+  // Set Taker
   const taker = Keypair.generate();
 
+  // Set LUT Address
   const lookupTableAddress = new PublicKey(
     'DztivjShDbPkguVMDAGjEumgWYjUED4dcAmkaLn3LQ1P'
   );
 
-  // -------------------------------
+  // ----------------------------------------------------
   //  Add Lookup Addresses to LUT
-  // -------------------------------
+  // ----------------------------------------------------
   const extendInstruction = AddressLookupTableProgram.extendLookupTable({
     payer: payer.publicKey,
     authority: payer.publicKey,
@@ -58,18 +59,18 @@ async function main() {
     ],
   });
 
-  // -------------------------------
-  //  Create Sample Instructions
-  // -------------------------------
+  // ----------------------------------------------------
+  //  Create Some Instructions if you need it
+  // ----------------------------------------------------
   const transferInstruction = SystemProgram.transfer({
     fromPubkey: payer.publicKey,
     toPubkey: taker.publicKey,
-    lamports: LAMPORTS_PER_SOL * 0.001,
+    lamports: LAMPORTS_PER_SOL * 0.0001,
   });
 
-  // -------------------------------
+  // ----------------------------------------------------
   //  Create Versioned Transactions
-  // -------------------------------
+  // ----------------------------------------------------
   const addressLookupTableAccount = (
     await connection.getAddressLookupTable(lookupTableAddress)
   ).value;
@@ -78,6 +79,7 @@ async function main() {
 
   let latestBlockhash = await connection.getLatestBlockhash();
 
+  // You can add instructions to LUT.
   const messageV0 = new TransactionMessage({
     payerKey: payer.publicKey,
     recentBlockhash: latestBlockhash.blockhash,
@@ -88,9 +90,9 @@ async function main() {
 
   transaction.sign([payer]);
 
-  // -------------------------------
+  // ----------------------------------------------------
   //  Send a Transaction
-  // -------------------------------
+  // ----------------------------------------------------
   const signature = await connection.sendTransaction(transaction);
 
   // Check confirmation.
