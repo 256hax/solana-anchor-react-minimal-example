@@ -47,7 +47,7 @@ const main = async () => {
       // This is add keys example. You can remove it.
       keys: [
         {
-          pubkey: publicKey(referenceKeypair.publicKey),
+          pubkey: referenceKeypair.publicKey,
           isSigner: true,
           isWritable: false,
         },
