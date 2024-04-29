@@ -8,7 +8,6 @@ import * as dotenv from 'dotenv';
 import {
   keypairIdentity,
   publicKey,
-  transactionBuilder,
 } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { deactivateLut } from '@metaplex-foundation/mpl-toolbox';
