@@ -1,5 +1,6 @@
 # Compressed NFT using Helius
-[Helius - COMPRESSION & DAS API](https://docs.helius.dev/compression-and-das-api/what-is-compression-on-solana) example codes.
+- [Helius - COMPRESSION & DAS API](https://docs.helius.dev/compression-and-das-api/what-is-compression-on-solana) example codes.
+- [Helius SDK](https://github.com/helius-labs/helius-sdk)
 
 ## Setup
 ```
