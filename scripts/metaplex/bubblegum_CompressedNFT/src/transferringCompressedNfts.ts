@@ -37,7 +37,7 @@ const transferringCompressedNfts = async () => {
   // ----------------------------------------------------
   //  Transferring cNFT
   // ----------------------------------------------------
-  const assetId = publicKey('Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq');
+  const assetId = publicKey('GyKSHxPxMpBPnvNUmcJVcjS6VmqpfNBmmGHUyX5THG4x');
   const assetWithProof = await getAssetWithProof(umi, assetId);
   const currentLeafOwner = publicKey(
     'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg'
@@ -62,24 +62,23 @@ const transferringCompressedNfts = async () => {
 transferringCompressedNfts();
 
 /*
-% ts-node src/<THIS_FILE>
-
-assetId => Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq
+ts-node src/transferringCompressedNfts.ts
+assetId => GyKSHxPxMpBPnvNUmcJVcjS6VmqpfNBmmGHUyX5THG4x
 assetWithProof => {
   leafOwner: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
   leafDelegate: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
-  merkleTree: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
+  merkleTree: 'GzdYevfnseXbGr7QdsGZwTe5VjrZjddGN2TehrFxuAxJ',
   root: Uint8Array(32) [
-    36, 196, 207, 227,  73, 115, 189, 188,
-    43, 224, 123, 198, 214,  47, 133, 125,
-    25, 123, 189, 252, 244,  50,   0, 206,
-    72,  89, 212, 200,  72, 133, 244, 125
+    230, 241, 235,  80, 138,  62,   8,  27,
+    187,  41, 185,  26,  46, 118, 189,  44,
+     46,   2,  11, 246, 101, 108, 127, 224,
+    169,  73,  54,  19, 251,  30, 195,  35
   ],
   dataHash: Uint8Array(32) [
-    249, 117, 163,  64, 223, 102,  55, 155,
-     10, 109, 180, 117, 232, 163, 124, 149,
-     71, 127, 135,  33, 199, 204,  71, 141,
-     18,  74, 149, 250,  38,  11,  12,   2
+     18, 193,  94, 178, 231, 192, 138, 208,
+     78,  88, 182, 107,  49, 210,  88,  57,
+    243, 169, 197,   7, 202, 193, 201,  70,
+    138,  60,   5, 238, 128,  83,  37,  24
   ],
   creatorHash: Uint8Array(32) [
      64, 187, 244,  77, 160,  13,  30, 158,
@@ -90,14 +89,25 @@ assetWithProof => {
   nonce: 0,
   index: 0,
   proof: [
-    '7YvGQcxWnF8hjrCC1caXGK21SC1GTeMAC99rgJBv8Nqc',
-    'EJ4F8NVDyAr3xFQqemSUD59gvBZnYNybxUTSEZCRi8Ae',
-    '5Z63Yf8nEwmTq36JjuQFncNsHpgsX4QYBwS2jbNULW6N'
+    '11111111111111111111111111111111',
+    'Cf5tmmFZ4D31tviuJezHdFLf5WF7yFvzfxNyftKsqTwr',
+    'DAbAU9srHpEUogXWuhy5VZ7g8UX9STymELtndcx1xgP1',
+    '3HCYqQRcQSChEuAw1ybNYHibrTNNjzbYzm56cmEmivB6',
+    'GSz87YKd3YoZWcEKhnjSsYJwv8o5aWGdBdGGYUphRfTh',
+    'zLUDhASAn7WA1Aqc724azRpZjKCjMQNATApe74JMg8C',
+    'ABnEXHmveD6iuMwfw2po7t6TPjn5kYMVwYJMi3fa9K91',
+    'JDh7eiWiUWtiWn623iybHqjQ6AQ6c2Czz8m6ZxwSCkta',
+    'BFvmeiEuzAYcMR8YxcuCMGYPDpjcmP5hsNbcswgQ8pMc',
+    'EvxphsdRErrDMs9nhFfF4nzq8i1C2KSogA7uB96TPpPR',
+    'HpMJWAzQv9HFgHBqY1o8V1B27sCYPFHJdGivDA658jEL',
+    'HjnrJn5vBUUzpCxzjjM9ZnCPuXei2cXKJjX468B9yWD7',
+    '4YCF1CSyTXm1Yi9W9JeYevawupkomdgy2dLxEBHL9euq',
+    'E3oMtCuPEauftdZLX8EZ8YX7BbFzpBCVRYEiLxwPJLY2'
   ],
   metadata: {
-    name: 'cNFT in a Collection',
+    name: 'Dummy cNFT',
     symbol: '',
-    uri: 'https://nftstorage.link/ipfs/bafkreidk3rfovtx4uehivgp7tmruoiaqkypproymlfzzpgeyayqcbfakma',
+    uri: 'https://static.scannner.io/metadata/armor/95/95af08ab-a917-4684-8161-f2458d95b683.json',
     sellerFeeBasisPoints: 500,
     primarySaleHappened: false,
     isMutable: true,
@@ -110,10 +120,10 @@ assetWithProof => {
   },
   rpcAsset: {
     interface: 'V1_NFT',
-    id: 'Hu8CCpYg6nWg6maFyKB9Sdgzqdvm6W7EU5142FSTqKPq',
+    id: 'GyKSHxPxMpBPnvNUmcJVcjS6VmqpfNBmmGHUyX5THG4x',
     content: {
       '$schema': 'https://schema.metaplex.com/nft1.0.json',
-      json_uri: 'https://nftstorage.link/ipfs/bafkreidk3rfovtx4uehivgp7tmruoiaqkypproymlfzzpgeyayqcbfakma',
+      json_uri: 'https://static.scannner.io/metadata/armor/95/95af08ab-a917-4684-8161-f2458d95b683.json',
       files: [Array],
       metadata: [Object],
       links: [Object]
@@ -122,10 +132,10 @@ assetWithProof => {
     compression: {
       eligible: false,
       compressed: true,
-      data_hash: 'HnnZFpKwwVHAgtTZkvoqvg4f9KK4ecLQJtmD7yHoU9fo',
+      data_hash: '2GDMeENBQgXEpsJrBp6yDtTTQc73CRYyyiTkoJweug6B',
       creator_hash: '5MhKaq3eEzsomVp5qU1EST7H9q8R9ndDxWuXeF6wbdgx',
-      asset_hash: 'CGs9Sk4LVppJADWjUnHRiNFAH7nQ7NimZwesijkD1Aze',
-      tree: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
+      asset_hash: 'BjWGLcsi6roNVLikpJkRkSzuhkqVx4wLjp4cfue9JiGF',
+      tree: 'GzdYevfnseXbGr7QdsGZwTe5VjrZjddGN2TehrFxuAxJ',
       seq: 1,
       leaf_id: 0
     },
@@ -155,18 +165,29 @@ assetWithProof => {
     burnt: false
   },
   rpcAssetProof: {
-    root: '3UXjr197UnuFBsPowPDhbkTZM9giwGYLCmPnx9PDLHKr',
+    root: 'GYWj44wNfZmjpcxzCpby3ujbFUGT8qShXkvcmkALCUmQ',
     proof: [
-      '7YvGQcxWnF8hjrCC1caXGK21SC1GTeMAC99rgJBv8Nqc',
-      'EJ4F8NVDyAr3xFQqemSUD59gvBZnYNybxUTSEZCRi8Ae',
-      '5Z63Yf8nEwmTq36JjuQFncNsHpgsX4QYBwS2jbNULW6N'
+      '11111111111111111111111111111111',
+      'Cf5tmmFZ4D31tviuJezHdFLf5WF7yFvzfxNyftKsqTwr',
+      'DAbAU9srHpEUogXWuhy5VZ7g8UX9STymELtndcx1xgP1',
+      '3HCYqQRcQSChEuAw1ybNYHibrTNNjzbYzm56cmEmivB6',
+      'GSz87YKd3YoZWcEKhnjSsYJwv8o5aWGdBdGGYUphRfTh',
+      'zLUDhASAn7WA1Aqc724azRpZjKCjMQNATApe74JMg8C',
+      'ABnEXHmveD6iuMwfw2po7t6TPjn5kYMVwYJMi3fa9K91',
+      'JDh7eiWiUWtiWn623iybHqjQ6AQ6c2Czz8m6ZxwSCkta',
+      'BFvmeiEuzAYcMR8YxcuCMGYPDpjcmP5hsNbcswgQ8pMc',
+      'EvxphsdRErrDMs9nhFfF4nzq8i1C2KSogA7uB96TPpPR',
+      'HpMJWAzQv9HFgHBqY1o8V1B27sCYPFHJdGivDA658jEL',
+      'HjnrJn5vBUUzpCxzjjM9ZnCPuXei2cXKJjX468B9yWD7',
+      '4YCF1CSyTXm1Yi9W9JeYevawupkomdgy2dLxEBHL9euq',
+      'E3oMtCuPEauftdZLX8EZ8YX7BbFzpBCVRYEiLxwPJLY2'
     ],
-    node_index: 8,
-    leaf: 'CGs9Sk4LVppJADWjUnHRiNFAH7nQ7NimZwesijkD1Aze',
-    tree_id: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui'
+    node_index: 16384,
+    leaf: 'BjWGLcsi6roNVLikpJkRkSzuhkqVx4wLjp4cfue9JiGF',
+    tree_id: 'GzdYevfnseXbGr7QdsGZwTe5VjrZjddGN2TehrFxuAxJ'
   }
 }
-currentLeafOwner => 55AfqEL3TC9mpkDZ63UCgDrzPcMQd5aZtDegfQCWQ5tK
+currentLeafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 newLeafOwner => 55AfqEL3TC9mpkDZ63UCgDrzPcMQd5aZtDegfQCWQ5tK
-signature => 2UbV4yeBc1vr1yvo7UDrcEXv5w8PEn5Zea4FTgiZAK7ArNBtpgfT6gqbk1VsEumbZhzFGhNcEGx4w4wDSpNhfhf3
+signature => 3486HV3oYSCNuN32VJsnC2xU2q5bbGd3Ywh8K7eUa4APEQxHL1PQksTMU4vVKYr3Q5bZ4chZskmSjpdzsSZ9H4iN
 */

@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "@metaplex-foundation/digital-asset-standard-api": "^1.0.3",
-    "@metaplex-foundation/mpl-bubblegum": "^3.1.2",
+    "@metaplex-foundation/mpl-bubblegum": "^4.0.0",
     "@metaplex-foundation/umi": "^0.9.1",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
     "@metaplex-foundation/umi-uploader-irys": "^0.9.1",
-    "@solana/web3.js": "^1.91.6",
+    "@solana/web3.js": "^1.91.7",
     "bs58": "^5.0.0",
     "dotenv": "^16.4.5"
   }
