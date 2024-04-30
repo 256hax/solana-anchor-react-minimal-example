@@ -40,10 +40,10 @@ const createMerkleTree = async () => {
   const merkleTree = generateSigner(umi);
   const builder = await createTree(umi, {
     merkleTree,
-    maxDepth: 3,
-    maxBufferSize: 8,
-    // maxDepth: 14,
-    // maxBufferSize: 64,
+    // maxDepth: 3,
+    // maxBufferSize: 8,
+    maxDepth: 14,
+    maxBufferSize: 64,
   });
   const confirmResult = await builder.sendAndConfirm(umi);
 
@@ -56,32 +56,22 @@ const createMerkleTree = async () => {
 createMerkleTree();
 
 /*
-% ts-node src/<THIS_FILE>
-
+ts-node src/createMerkleTree.ts
 payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
 merkleTree => {
-  publicKey: '81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq',
+  publicKey: '52QLGuQijXUUXm4FubWqiENsPYYavvBzygsqWUHXtEja',
   secretKey: Uint8Array(64) [
-     11, 241, 124, 113,  94, 217,  53, 249, 253, 202, 240,
-    246, 158,  51, 245, 126, 220,  52, 243,  15,  47,  90,
-     42, 156,  29,  85, 228,   9, 143,  69, 159,   7, 104,
-     35,  93,  20,  65, 193,  72, 176, 182,  60, 228, 238,
-    119, 133, 189, 159, 248, 138,  92, 113,   6, 106, 199,
-    207,  42, 250,  71, 212, 209, 176,  72,  98
+    199, 186, 163, 227,   6, 165, 201, 235,  78,  64, 124,
+    101,  34, 146,  82,  37, 184,  90, 156,  47, 181,  96,
+    158,  95, 176, 184, 103, 255,   2, 149, 209,  63,  59,
+    202, 181, 223, 198, 157,  64,  18,  54, 170,  75,  67,
+     79, 236, 199, 138, 184,  94, 139, 142, 226, 238,  40,
+    130,  98, 124, 185, 162, 215, 243, 213, 145
   ],
   signMessage: [AsyncFunction: signMessage],
   signTransaction: [AsyncFunction: signTransaction],
   signAllTransactions: [AsyncFunction: signAllTransactions]
 }
-signature => 3gz1a2XFzNNMfDa1NxVjTHHNYjajQDkZB61P4Qt83UGk1Tz93zRhtGZJuZsGAgTbVga7WQYB5QNQELS2KNvZxQbg
-result => {
-  context: { apiVersion: '1.18.4', slot: 285930224 },
-  value: {
-    confirmationStatus: 'processed',
-    confirmations: 0,
-    err: null,
-    slot: 285930224,
-    status: { Ok: null }
-  }
-}
+signature => 2Szt7pVaz63bY2r6f9L9Hxk4RjhvCe7Y2MMquw8soV7ePPJnUxMY7S2cNKDQJDLHtcfLiFvtGCtnYAHXhczxzR9W
+result => { context: { slot: 295652248 }, value: { err: null } }
 */
