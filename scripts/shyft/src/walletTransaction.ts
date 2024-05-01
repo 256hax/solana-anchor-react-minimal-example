@@ -2,7 +2,9 @@ import * as dotenv from 'dotenv';
 import { ShyftSdk, Network } from '@shyft-to/js';
 
 const walletTransaction = async () => {
-  // Config
+  // ----------------------------------------------------
+  //  Setup
+  // ----------------------------------------------------
   dotenv.config();
 
   const shyftApiKey = process.env.SHYFT_API_KEY;
@@ -13,7 +15,9 @@ const walletTransaction = async () => {
     network: Network.Mainnet,
   });
 
-  // Run
+  // ----------------------------------------------------
+  //  Get Transaction
+  // ----------------------------------------------------
   const result = await shyft.wallet.transaction({
     txnSignature:
       '395VH9iryUYk5M7CxQak6giYuMLDTRemj3kraZMJTFqDCpSJTHo3TvE6QNe5b1xhf6LiLrtM3XwqnYTMJc35wmWT',

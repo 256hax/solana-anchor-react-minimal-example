@@ -2,7 +2,9 @@ import * as dotenv from 'dotenv';
 import { ShyftSdk, Network } from '@shyft-to/js';
 
 const rpcGetAssetsByGroup = async () => {
-  // Config
+  // ----------------------------------------------------
+  //  Setup
+  // ----------------------------------------------------
   dotenv.config();
 
   const shyftApiKey = process.env.SHYFT_API_KEY;
@@ -13,7 +15,9 @@ const rpcGetAssetsByGroup = async () => {
     network: Network.Mainnet,
   });
 
-  // Run
+  // ----------------------------------------------------
+  //  Get Assets by Group
+  // ----------------------------------------------------
   const response = await shyft.rpc.getAssetsByGroup({
     groupKey: 'collection',
     groupValue: 'BxWpbnau1LfemNAoXuAe9Pbft59yz2egTxaMWtncGRfN',
