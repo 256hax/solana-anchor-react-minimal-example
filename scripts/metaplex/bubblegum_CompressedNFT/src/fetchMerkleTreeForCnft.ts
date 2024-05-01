@@ -35,7 +35,7 @@ const fetchMerkleTreeForCnft = async () => {
   // ----------------------------------------------------
   //  Fetching Merkle Tree
   // ----------------------------------------------------
-  const merkleTree = publicKey('D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui');
+  const merkleTree = publicKey('52QLGuQijXUUXm4FubWqiENsPYYavvBzygsqWUHXtEja');
   const merkleTreeAccount = await fetchMerkleTree(umi, merkleTree);
   const treeConfig = await fetchTreeConfigFromSeeds(umi, {
     merkleTree: merkleTree,
@@ -49,52 +49,60 @@ const fetchMerkleTreeForCnft = async () => {
 fetchMerkleTreeForCnft();
 
 /*
-% ts-node src/<THIS_FILE>
-
-merkleTree => D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui
+ts-node src/fetchMerkleTreeForCnft.ts
+merkleTree => 52QLGuQijXUUXm4FubWqiENsPYYavvBzygsqWUHXtEja
 merkleTreeAccount => {
-  publicKey: 'D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui',
+  publicKey: '52QLGuQijXUUXm4FubWqiENsPYYavvBzygsqWUHXtEja',
   header: {
     executable: false,
     owner: 'cmtDvXumGCrqC1Age74AVPhSRVXJMd8PJS91L8KbNCK',
-    lamports: { basisPoints: 9966720n, identifier: 'SOL', decimals: 9 },
-    rentEpoch: 18446744073709552000,
+    lamports: { basisPoints: 222218880n, identifier: 'SOL', decimals: 9 },
+    rentEpoch: 18446744073709551616n,
     exists: true
   },
   discriminator: 1,
   treeHeader: {
     __kind: 'V1',
-    maxBufferSize: 8,
-    maxDepth: 3,
-    authority: '7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv',
-    creationSlot: 270763465n,
+    maxBufferSize: 64,
+    maxDepth: 14,
+    authority: 'GhzQbNyPTCrMX3m4aPJhJqRQGFhS1VWfBasSNfpgJ3Yt',
+    creationSlot: 295652248n,
     padding: [ 0, 0, 0, 0, 0, 0 ]
   },
   tree: {
-    sequenceNumber: 1n,
-    activeIndex: 1n,
-    bufferSize: 2n,
+    sequenceNumber: 17n,
+    activeIndex: 17n,
+    bufferSize: 18n,
     changeLogs: [
-      [Object], [Object],
-      [Object], [Object],
-      [Object], [Object],
-      [Object], [Object]
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object]
     ],
     rightMostPath: {
       proof: [Array],
-      leaf: 'CGs9Sk4LVppJADWjUnHRiNFAH7nQ7NimZwesijkD1Aze',
-      index: 1
+      leaf: 'CAfpsYBDLmsw7A7UL7rqe5dUDacjDvaWjBJapqizC1GF',
+      index: 14
     }
   },
   canopy: []
 }
 treeConfig => {
-  publicKey: '7LFU328jKzsUj1U1nVAGeR4R9Q1dVLBvvb725vFUVqXv',
+  publicKey: 'GhzQbNyPTCrMX3m4aPJhJqRQGFhS1VWfBasSNfpgJ3Yt',
   header: {
     executable: false,
     owner: 'BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY',
     lamports: { basisPoints: 1559040n, identifier: 'SOL', decimals: 9 },
-    rentEpoch: 18446744073709552000,
+    rentEpoch: 18446744073709551616n,
     exists: true
   },
   discriminator: [
@@ -103,8 +111,8 @@ treeConfig => {
   ],
   treeCreator: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
   treeDelegate: 'HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg',
-  totalMintCapacity: 8n,
-  numMinted: 1n,
+  totalMintCapacity: 16384n,
+  numMinted: 14n,
   isPublic: false,
   isDecompressible: 1
 }
