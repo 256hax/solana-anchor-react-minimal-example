@@ -28,7 +28,9 @@ export const SendSOLToRandomAddress: FC = () => {
 
         const signature = await sendTransaction(transaction, connection, { minContextSlot });
 
-        await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+        const result = await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+
+        console.log('Signature =>', signature);
     }, [publicKey, sendTransaction, connection]);
 
     return (
