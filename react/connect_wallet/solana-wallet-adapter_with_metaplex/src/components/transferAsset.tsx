@@ -16,7 +16,7 @@ export const TransferAsset = () => {
 
   const transferringAsset = async () => {
     // cNFT(Asset ID)
-    const assetId = publicKey('GgJpXnVvKTzUo3ysc4Qy2gkseYf9zkEHMReGjEiRDbxR');
+    const assetId = publicKey('8fEjg7H3Q4wJHGPEL5jeGXH39ETegd3U9BKxzZ1EyZVa');
 
     // From
     const currentLeafOwner = publicKey(
@@ -41,6 +41,7 @@ export const TransferAsset = () => {
 
   return (
     <div>
+      <div>Note: Replace to your Asset ID and Leaf Owner in transferAsset.tsx</div>
       <button onClick={transferringAsset}>transferringAsset(cNFT)</button>
     </div>
   );
