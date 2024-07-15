@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter, SolflareWalletAdapter, UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import {
 	WalletModalProvider,
 	WalletDisconnectButton,
@@ -38,8 +38,6 @@ export const Wallet: FC = () => {
 			 * in the npm package `@solana/wallet-adapter-wallets`.
 			 */
 			// new BraveWalletAdapter(), <= Error: does not provide an export named 'BraveWalletAdapter'
-			new PhantomWalletAdapter(),
-			new SolflareWalletAdapter(),
 			new UnsafeBurnerWalletAdapter(),
 		],
 		// eslint-disable-next-line react-hooks/exhaustive-deps
