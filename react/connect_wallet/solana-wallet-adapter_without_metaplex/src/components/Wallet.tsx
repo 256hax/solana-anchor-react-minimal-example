@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { BraveWalletAdapter, MathWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter, TokenPocketWalletAdapter, TrustWalletAdapter, UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter, SolflareWalletAdapter, UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import {
 	WalletModalProvider,
 	WalletDisconnectButton,
@@ -14,6 +14,7 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 // Components
 import { SignMessageButton } from './SignMessageButton';
+import { SendSOLToRandomAddress } from './sendSOLToRandomAddress';
 
 export const Wallet: FC = () => {
 	// The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -37,11 +38,8 @@ export const Wallet: FC = () => {
 			 * in the npm package `@solana/wallet-adapter-wallets`.
 			 */
 			// new BraveWalletAdapter(), <= Error: does not provide an export named 'BraveWalletAdapter'
-			new MathWalletAdapter(),
 			new PhantomWalletAdapter(),
 			new SolflareWalletAdapter(),
-			new TokenPocketWalletAdapter(),
-			new TrustWalletAdapter(),
 			new UnsafeBurnerWalletAdapter(),
 		],
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +53,8 @@ export const Wallet: FC = () => {
 					<WalletMultiButton />
 					<WalletDisconnectButton />
 					{ /* Your app's components go here, nested within the context providers. */}
-					<SignMessageButton />
+					<div><SignMessageButton /></div>
+					<div><SendSOLToRandomAddress /></div>
 				</WalletModalProvider>
 			</WalletProvider>
 		</ConnectionProvider>
