@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@metaplex-foundation/js": "^0.20.1",
-    "@metaplex-foundation/mpl-bubblegum": "^4.1.0",
+    "@metaplex-foundation/mpl-bubblegum": "^4.2.1",
     "@metaplex-foundation/umi": "^0.9.2",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.2",
     "@metaplex-foundation/umi-signer-wallet-adapters": "^0.9.2",
@@ -18,21 +18,21 @@
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
-    "@solana/web3.js": "^1.95.0",
+    "@solana/web3.js": "^1.95.3",
     "bs58": "^6.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
     "assert": "^2.1.0",
     "crypto-browserify": "^3.12.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "typescript": "^5.5.3",
+    "typescript": "^5.6.3",
     "util": "^0.12.5",
-    "vite": "^5.3.3"
+    "vite": "^5.4.8"
   }
 }
