@@ -10,12 +10,13 @@ import {
 } from '@solana/web3.js';
 
 async function main (message: string) {
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+
   // ---------------------------------------------------
   // 1. Declare Keypair to sign transaction 
   // ---------------------------------------------------
   const payer = Keypair.generate();
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // --- Airdrop ---
   const airdropSignature = await connection.requestAirdrop(

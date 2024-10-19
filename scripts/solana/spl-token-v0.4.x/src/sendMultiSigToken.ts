@@ -13,14 +13,14 @@ import {
 } from '@solana/spl-token';
 
 export const main = async () => {
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+
   // -------------------------------------------
   //  Payer
   // -------------------------------------------
   // Airdrop SOL for paying transactions
   const payer = Keypair.generate();
-  // let connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
-
   const airdropSignature = await connection.requestAirdrop(
     payer.publicKey,
     LAMPORTS_PER_SOL

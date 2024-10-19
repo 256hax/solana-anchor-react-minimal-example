@@ -14,14 +14,13 @@ import {
 // }
 
 export const main = async() => {
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
+
   const payerA = Keypair.generate();
   const payerB = Keypair.generate();
   console.log('payerA Public Key -> ', payerA.publicKey.toString());
   console.log('payerB Public Key -> ', payerB.publicKey.toString());
-
-
-  // const connection = new web3.Connection(web3.clusterApiUrl('devnet'), 'confirmed');
-  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
 
   // --------------------------------
   //  Airdrop
