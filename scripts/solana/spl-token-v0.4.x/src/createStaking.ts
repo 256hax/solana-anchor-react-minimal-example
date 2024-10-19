@@ -11,16 +11,19 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 
-export const main = async() => {
+import { getStakeActivation } from '@anza-xyz/solana-rpc-get-stake-activation';
+
+export const main = async () => {
   // Fund a key to create transactions
   const fromPublicKey = Keypair.generate();
-  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  // let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  let connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  //   const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
 
+  // Increase the airdrop amount
   const airdropSignature = await connection.requestAirdrop(
-      fromPublicKey.publicKey,
-      LAMPORTS_PER_SOL,
+    fromPublicKey.publicKey,
+    2 * LAMPORTS_PER_SOL, // Increase to 2 SOL
   );
 
   const latestBlockhash = await connection.getLatestBlockhash();
@@ -31,22 +34,22 @@ export const main = async() => {
     signature: airdropSignature,
   });
 
-  
+
   // Create Account
   const stakeAccount = Keypair.generate();
 
   const authorizedAccount = Keypair.generate();
   /* Note: This is the minimum amount for a stake account -- Add additional Lamports for staking
       For example, we add 50 lamports as part of the stake */
-  const lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(StakeProgram.space)) + 50;
+  const lamportsForStakeAccount = (await connection.getMinimumBalanceForRentExemption(StakeProgram.space)) + LAMPORTS_PER_SOL; // Increase to 1 SOL
   const getMinimumBalanceForRentExemption_web3_StakeProgram_space = await connection.getMinimumBalanceForRentExemption(StakeProgram.space);
 
   const createAccountTransaction = StakeProgram.createAccount({
-      fromPubkey: fromPublicKey.publicKey,
-      authorized: new Authorized(authorizedAccount.publicKey, authorizedAccount.publicKey),
-      lamports: lamportsForStakeAccount,
-      lockup: new Lockup(0, 0, fromPublicKey.publicKey),
-      stakePubkey: stakeAccount.publicKey
+    fromPubkey: fromPublicKey.publicKey,
+    authorized: new Authorized(authorizedAccount.publicKey, authorizedAccount.publicKey),
+    lamports: lamportsForStakeAccount,
+    lockup: new Lockup(0, 0, fromPublicKey.publicKey),
+    stakePubkey: stakeAccount.publicKey
   });
   const create_new_stake_account_tx = await sendAndConfirmTransaction(connection, createAccountTransaction, [fromPublicKey, stakeAccount]);
 
@@ -56,37 +59,37 @@ export const main = async() => {
   // Stake balance: 2282930
 
   // We can verify the state of our stake. This may take some time to become active
-  const stakeState = await connection.getStakeActivation(stakeAccount.publicKey);
+  const stakeState = await getStakeActivation(connection, stakeAccount.publicKey);
   // Stake State: inactive
 
   // To delegate our stake, we get the current vote accounts and choose the first
   const voteAccounts = await connection.getVoteAccounts();
   const voteAccount = voteAccounts.current.concat(
-      voteAccounts.delinquent,
+    voteAccounts.delinquent,
   )[0];
   const votePubkey = new PublicKey(voteAccount.votePubkey);
 
   // We can then delegate our stake to the voteAccount
   const delegateTransaction = StakeProgram.delegate({
-      stakePubkey: stakeAccount.publicKey,
-      authorizedPubkey: authorizedAccount.publicKey,
-      votePubkey: votePubkey,
+    stakePubkey: stakeAccount.publicKey,
+    authorizedPubkey: authorizedAccount.publicKey,
+    votePubkey: votePubkey,
   });
   const delegateTransaction_tx = await sendAndConfirmTransaction(connection, delegateTransaction, [fromPublicKey, authorizedAccount]);
 
   // To withdraw our funds, we first have to deactivate the stake
   const deactivateTransaction = StakeProgram.deactivate({
-      stakePubkey: stakeAccount.publicKey,
-      authorizedPubkey: authorizedAccount.publicKey,
+    stakePubkey: stakeAccount.publicKey,
+    authorizedPubkey: authorizedAccount.publicKey,
   });
   const deactivateTransaction_tx = await sendAndConfirmTransaction(connection, deactivateTransaction, [fromPublicKey, authorizedAccount]);
 
   // Once deactivated, we can withdraw our funds
   const withdrawTransaction = StakeProgram.withdraw({
-      stakePubkey: stakeAccount.publicKey,
-      authorizedPubkey: authorizedAccount.publicKey,
-      toPubkey: fromPublicKey.publicKey,
-      lamports: stakeBalance,
+    stakePubkey: stakeAccount.publicKey,
+    authorizedPubkey: authorizedAccount.publicKey,
+    toPubkey: fromPublicKey.publicKey,
+    lamports: stakeBalance,
   });
 
   const withdrawTransaction_tx = await sendAndConfirmTransaction(connection, withdrawTransaction, [fromPublicKey, authorizedAccount]);
@@ -95,9 +98,9 @@ export const main = async() => {
   console.log('authorizedAccount        =>', authorizedAccount.publicKey.toString());
   console.log('create_account_tx        =>', create_new_stake_account_tx);
   console.log('StakeProgram_space       =>', getMinimumBalanceForRentExemption_web3_StakeProgram_space);
-  console.log('Add lamports for stake   =>', 50);
+  console.log('Add lamports for stake   =>', LAMPORTS_PER_SOL);
   console.log(`Stake balance            => ${stakeBalance}`)
-  console.log(`Stake State              => ${stakeState.state}`);
+  console.log(`Stake State              => ${stakeState.status}`);
   console.log('votePubkey               =>', votePubkey.toString());
   console.log('delegateTransaction_tx   =>', delegateTransaction_tx);
   console.log('deactivateTransaction_tx =>', deactivateTransaction_tx);
@@ -107,16 +110,15 @@ export const main = async() => {
 main();
 
 /*
-% % ts-node <THIS FILE>
-stakeAccount             => GjpM5DZ24UCzQTHwcaNQikD4x92QZN732TbzEVFL7s9x
-authorizedAccount        => Chcgef3qVUFtAgG7q7H8Xa5L4mJeLUMWUUYyqaYYpAD2
-create_account_tx        => 32LGEoo9yZ2Vg4woLbNonmHybyTvZ9x2ZL3cmXSzQvwByTRD3iA9FfHCGJFLUzyjoix14ZUQ9rRfh2jAWGymeFB6
+stakeAccount             => 7ZSwa9x6Q2XiYw98xpvWX4rfdd8TZjTBKg5aYQLH654N
+authorizedAccount        => Cw7H7p6XPUH3NdsjJ2WH4BdC6aNZmzW81QaQcppcgTTW
+create_account_tx        => 5o7e9MZqwBMBAqcdZWjyt7EWn12hazuJtvtN2cnFgEcwNrDJmkMkVx6cB7A4p8kvDre3NJJcRk7B68PGQhzDGYeR
 StakeProgram_space       => 2282880
-Add lamports for stake   => 50
-Stake balance            => 2282930
+Add lamports for stake   => 1000000000
+Stake balance            => 1002282880
 Stake State              => inactive
-votePubkey               => F95vVhuyAjAtmXbg2EnNVWKkD5yQsDS5S83Uw1TUDcZm
-delegateTransaction_tx   => 2kvoc3j6QAMdFwWzzLUyA4TeW8Z574J7kwJ6XPRmoa5Y9Vf57vPQT1YSPQN6B814SBsiQyyokGyrmevA4QdaGFT7
-deactivateTransaction_tx => 4pDG8bpqvkp32xTfockSgnCy3xUFJZvugV8aA3hA3myK25d3xcC9Jrrcm5ZcUkxDBfTRdxPmgHB22uax53rYC8FY
-withdrawTransaction_tx   => 3BBCzb7KGmduH4PZPYQ8jbeRMeLfMaJ7oZPp9vQeFSFna7AB9X6HCVaAoMUDjNueKQQoEHBpSNaFFNSEUPk8irVR
+votePubkey               => JFft3U1p53b3BJusb3gK4Nfzmfu1JgKRHdtXvLassCh
+delegateTransaction_tx   => 4MC4mzeph3e1HTnftYHwZetXtRQV2vHC8p8C9rrsoVvtGmLAgsXNbYuB3WAHnfNN3GqDHNNajXv63HdW5oMAoAv8
+deactivateTransaction_tx => 3XsQ8dMFy3zR6zufuA8qVHtwjoDCnQQcDcj5itQqt5LuWMP4xGz8YiCEqVUwRm9KeEdyyDpVVXy4XcMF1ajRabPc
+withdrawTransaction_tx   => 5yicR3Z4XtttkNCPU88XxMamait7zNAjWuFCjhQbNQRF9TSegPa1Q9bbFYhQy6UzhgkBxqcqy9a6LtRML2gNfMDU
 */

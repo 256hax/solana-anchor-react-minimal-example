@@ -5,19 +5,21 @@ import {
   LAMPORTS_PER_SOL,
   PublicKey,
   Transaction,
-  sendAndConfirmTransaction
+  sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import {
   getAssociatedTokenAddress,
-  createAssociatedTokenAccountInstruction
+  createAssociatedTokenAccountInstruction,
+  createMint,
 } from '@solana/spl-token';
 
 export const main = async () => {
-  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
-  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-
-  // --- Payer -------------------------------------------------------------
+  // ---------------------------------------------------
+  //  Payer
+  // ---------------------------------------------------
   const payer = Keypair.generate();
 
   const airdropSignature = await connection.requestAirdrop(
@@ -26,19 +28,29 @@ export const main = async () => {
   );
 
   let latestBlockhash = await connection.getLatestBlockhash();
-
+  
   await connection.confirmTransaction({
     blockhash: latestBlockhash.blockhash,
     lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
     signature: airdropSignature,
   });
 
+  // ---------------------------------------------------
+  //  Create Token
+  // ---------------------------------------------------
+  // const mint = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU'); // USDC Token in Devnet
+  // Create new token mint
+  const mint = await createMint(
+    connection, // connection
+    payer, // payer
+    payer.publicKey, // mintAuthority
+    null, // freezeAuthority
+    9 // decimals
+  );
 
-  // --- Token -------------------------------------------------------------
-  const mint = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU'); // USDC Token in Devnet
-
-
-  // --- Get ATA -------------------------------------------------------------
+  // ---------------------------------------------------
+  //  Get ATA
+  // ---------------------------------------------------
   // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#getAssociatedTokenAddress
   // Note: Only check ATA(Associated Token Address). It doesn't exist ATA yet.
   const ata = await getAssociatedTokenAddress(
@@ -46,8 +58,9 @@ export const main = async () => {
     payer.publicKey, // owner
   );
 
-  
-  // --- Create ATA Instruction -------------------------------------------------------------
+  // ---------------------------------------------------
+  //  Create ATA Instruction
+  // ---------------------------------------------------
   // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#createAssociatedTokenAccountInstruction
   const ataInstruction = await createAssociatedTokenAccountInstruction(
     payer.publicKey, // payer
@@ -56,14 +69,14 @@ export const main = async () => {
     mint, // mint
   );
 
-
-  // --- Transfer Transaction -------------------------------------------------------------
+  // ---------------------------------------------------
+  //  Transfer Transaction
+  // ---------------------------------------------------
   const transferTransaction = new Transaction().add(
     ataInstruction
   );
   
   const tx = await sendAndConfirmTransaction(connection, transferTransaction, [payer]);
-
 
   console.log('owner =>', payer.publicKey.toString());
   console.log('Associated Token Address =>', ata.toString());

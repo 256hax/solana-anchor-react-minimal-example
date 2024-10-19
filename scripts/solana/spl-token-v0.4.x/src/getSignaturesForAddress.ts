@@ -7,9 +7,8 @@ import {
 } from '@solana/web3.js';
 
 export const main = async() => {
-  const myPubkey = Keypair.generate();
+  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
   const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-  // let connection = new web3.Connection('http://127.0.0.1:8899', 'confirmed');
 
   const publicKeyParent = new PublicKey('HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg');
   const publicKeyATA = new PublicKey('Ck9BfLuAxJQeFf73uuaoNMevdHjDjp7vKye4z5zG4bqr');

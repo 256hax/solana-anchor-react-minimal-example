@@ -4,14 +4,16 @@ import {
   clusterApiUrl,
   SystemProgram,
   Keypair,
+  Transaction,
+  sendAndConfirmTransaction,
   LAMPORTS_PER_SOL,
   TransactionMessage,
   VersionedTransaction,
 } from '@solana/web3.js';
 
 const main = async () => {
-  // const connection = new Connection(clusterApiUrl("devnet"));
   const connection = new Connection('http://127.0.0.1:8899');
+  // const connection = new Connection(clusterApiUrl("devnet"));
 
   const payer = Keypair.generate();
   const toAccount = Keypair.generate();
@@ -28,6 +30,27 @@ const main = async () => {
   });
 
   // ------------------------------------------------------------------------
+  //  Create Transaction
+  // ------------------------------------------------------------------------
+  let legacyTransaction = new Transaction();
+
+  const taker = Keypair.generate();
+
+  legacyTransaction.add(
+    SystemProgram.transfer({
+      fromPubkey: payer.publicKey,
+      toPubkey: taker.publicKey,
+      lamports: LAMPORTS_PER_SOL * 0.01,
+    })
+  );
+
+  const legacySignature = await sendAndConfirmTransaction(
+    connection,
+    legacyTransaction,
+    [payer],
+  );
+
+  // ------------------------------------------------------------------------
   //  Set Max Supported Version 
   // ------------------------------------------------------------------------
   const slot = await connection.getSlot();
@@ -39,8 +62,8 @@ const main = async () => {
 
   // get a specific transaction (allowing for v0 transactions)
   const getSignature = await connection.getTransaction(
-    // Replace to valid tx.
-    "3jpoANiFeVGisWRY5UP648xRXs3iQasCHABPWRWnoEjeA93nc79WrnGgpgazjq4K9m8g2NJoyKoWBV1Kx5VmtwHQ",
+    // "BTHHy7p7opFqvLgsWFgFnwXsc7ipBPsXgdcPAD9y1RTrEKhG6pSo22WAvf7hQ6DdjSBNckQbGKsARbSRQTxL3wM",
+    legacySignature,
     {
       maxSupportedTransactionVersion: 0,
     },
@@ -72,14 +95,14 @@ const main = async () => {
     instructions,
   }).compileToV0Message();
 
-  const transaction = new VersionedTransaction(messageV0);
+  const versionedTransaction = new VersionedTransaction(messageV0);
 
   // sign your transaction with the required `Signers`
-  transaction.sign([payer]);
+  versionedTransaction.sign([payer]);
 
   // send our v0 transaction to the cluster
-  const signature = await connection.sendTransaction(transaction);
-  console.log('signature =>', signature);
+  const versionedSignature = await connection.sendTransaction(versionedTransaction);
+  console.log('signature =>', versionedSignature);
 };
 
 main();
@@ -88,17 +111,17 @@ main();
 % ts-node <THIS FILE>
 
 block => {
-  blockHeight: 41,
-  blockTime: 1685888668,
-  blockhash: 'CJJP8X7YbPNQ6bErNXCmCwWzooZoNxPmDnRrVoZHcQjU',
-  parentSlot: 41,
-  previousBlockhash: '6b9TSsrSwX4FgqnMSQP6jvN4KpKvSDxJT94htxE1XsXd',
+  blockHeight: 9773,
+  blockTime: 1729348400,
+  blockhash: 'DY7Dy7x67Qkdy3j6hHQAMsBYmgRxNEMjUFM8sqqF6Jjy',
+  parentSlot: 9772,
+  previousBlockhash: '429dE36ZBiT9At4HvqNZ1UG7zqGYSwqMAh6ka6rA6z1i',
   rewards: [
     {
       commission: null,
       lamports: 7500,
-      postBalance: 499999905000,
-      pubkey: 'J1SXLjPwvSEqM41cga3njLUnDPX1TszYwU81kh4cnHe7',
+      postBalance: 499951290000,
+      pubkey: 'DMSTaxT5RiQQAgbNftGgJyoVeukJNmHXgSQnNXb18iTo',
       rewardType: 'Fee'
     }
   ],
@@ -107,6 +130,39 @@ block => {
     { meta: [Object], transaction: [Object], version: 'legacy' }
   ]
 }
-getSignature => null
-signature => 3PJ9ip9Vp2CCFiyiTqhVcKjiDGFog4rf11bJ54wLdh99yZS6qBxPw6FNi2wdLdkdLGp3S7RQT5rhybeoQubAz7TP
+getSignature => {
+  blockTime: 1729348400,
+  meta: {
+    computeUnitsConsumed: 150,
+    err: null,
+    fee: 5000,
+    innerInstructions: [],
+    loadedAddresses: { readonly: [], writable: [] },
+    logMessages: [
+      'Program 11111111111111111111111111111111 invoke [1]',
+      'Program 11111111111111111111111111111111 success'
+    ],
+    postBalances: [ 989995000, 10000000, 1 ],
+    postTokenBalances: [],
+    preBalances: [ 1000000000, 0, 1 ],
+    preTokenBalances: [],
+    rewards: [],
+    status: { Ok: null }
+  },
+  slot: 9773,
+  transaction: {
+    message: Message {
+      header: [Object],
+      accountKeys: [Array],
+      recentBlockhash: '9QLQ34Far7jduj7X2jrZZfqtQuASC7WqGUTkujQkp6Pv',
+      instructions: [Array],
+      indexToProgramIds: [Map]
+    },
+    signatures: [
+      '5GPRVxkeimkUBs3gxigb8YCTHqt1JSBAKzmQU3iwFzes43dKKZeNfCbWXUhhLmJsy27F5cjcvzntGPthn8QJZHYC'
+    ]
+  },
+  version: 'legacy'
+}
+signature => 2YmXzhi4LDkGX54npvUa1TCdWtrQFT5HgtqHWJ4K4tVcypzoSK1ujrqVq5ms3KL6zcAkEWQa36dUS5iKLxAoVDrc
 */

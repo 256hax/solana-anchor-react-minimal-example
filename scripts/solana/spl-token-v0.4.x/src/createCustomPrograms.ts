@@ -17,8 +17,8 @@ import {
 } from '@solana/web3.js';
 
 export const main = async () => {
-  // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
   const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // let connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
   // ------------------------------------------
   //  Wallet

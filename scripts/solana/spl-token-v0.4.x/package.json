@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "@solana/spl-token": "^0.4.8",
-    "@solana/web3.js": "^1.95.2",
+    "@anza-xyz/solana-rpc-get-stake-activation": "^1.0.1",
+    "@solana/spl-token": "^0.4.9",
+    "@solana/web3.js": "^1.95.4",
     "dotenv": "^16.4.5",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
@@ -9,7 +10,7 @@
   },
   "devDependencies": {
     "@types/bs58": "^4.0.4",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.7.7",
     "@types/node-fetch": "^2.6.11",
     "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2"

@@ -3,14 +3,54 @@ import {
   Connection,
   Keypair,
   PublicKey,
+  LAMPORTS_PER_SOL,
+  
 } from '@solana/web3.js';
-import { getAssociatedTokenAddress } from '@solana/spl-token';
+import {
+  createMint,
+  getAssociatedTokenAddress,
+} from '@solana/spl-token';
 
 export const main = async () => {
-  // const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
-  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+  // const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-  const mint = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU'); // USDC Token in Devnet
+  // ---------------------------------------------------
+  //  Wallet
+  // ---------------------------------------------------
+  // Generate a new wallet keypair and airdrop SOL
+  const fromWallet = Keypair.generate();
+
+  // ---------------------------------------------------
+  //  Airdrop
+  // ---------------------------------------------------
+  const fromAirdropSignature = await connection.requestAirdrop(
+    fromWallet.publicKey,
+    LAMPORTS_PER_SOL
+  );
+
+  let latestBlockhash = await connection.getLatestBlockhash();
+
+  // Wait for airdrop confirmation
+  await connection.confirmTransaction({
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+    signature: fromAirdropSignature,
+  });
+
+  // ---------------------------------------------------
+  //  Create Token
+  // ---------------------------------------------------
+  // Create new token mint
+  const mint = await createMint(
+    connection, // connection
+    fromWallet, // payer
+    fromWallet.publicKey, // mintAuthority
+    null, // freezeAuthority
+    9 // decimals
+  );
+  // const mint = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU'); // USDC Token in Devnet
+
   const owner = Keypair.generate().publicKey;
 
   // Ref: https://solana-labs.github.io/solana-program-library/token/js/modules.html#getAssociatedTokenAddress
