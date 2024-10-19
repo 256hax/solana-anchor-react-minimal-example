@@ -22,9 +22,6 @@ export const main = async () => {
   // Generate a new wallet keypair and airdrop SOL
   const fromWallet = Keypair.generate();
 
-  // Generate a new wallet to receive newly minted token
-  const toWallet = Keypair.generate();
-
   // ---------------------------------------------------
   //  Airdrop
   // ---------------------------------------------------
