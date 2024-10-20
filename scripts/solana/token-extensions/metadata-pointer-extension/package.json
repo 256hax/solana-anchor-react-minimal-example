@@ -1,0 +1,41 @@
+{
+  "name": "solana-token-metadata-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx esrun src/index.ts",
+    "metadata-embedded": "ts-node src/embedded-metadata.ts",
+    "metadata-pointer": "ts-node src/metadata-with-pointer.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bn.js": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-typescript": "^0.14.0",
+    "prettier": "^3.2.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@irys/sdk": "^0.1.22",
+    "@metaplex-foundation/js": "^0.15.0",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.0",
+    "@metaplex-foundation/umi": "^0.9.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
+    "@metaplex-foundation/umi-web3js-adapters": "^0.9.1",
+    "@solana/spl-token": "^0.4.0",
+    "@solana/spl-token-metadata": "^0.1.2",
+    "@solana/web3.js": "^1.89.1",
+    "@typescript-eslint/parser": "^6.20.0",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.56.0",
+    "esrun": "^3.2.26",
+    "nft.storage": "^7.1.1"
+  }
+}
