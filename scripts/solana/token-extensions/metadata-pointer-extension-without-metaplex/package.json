@@ -1,0 +1,25 @@
+{
+  "name": "solana-token-metadata-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx esrun src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bn.js": "^5.1.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@irys/sdk": "^0.1.22",
+    "@solana/spl-token": "^0.4.0",
+    "@solana/spl-token-metadata": "^0.1.2",
+    "@solana/web3.js": "^1.89.1",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.4.5"
+  }
+}
