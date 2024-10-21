@@ -1,4 +1,4 @@
-# Metadata and Metadata Pointer Extension
+# Metadata Pointer Extension using Metaplex
 
 ## Docs
 - [Metadata and Metadata Pointer Extension](https://solana.com/developers/courses/token-extensions/token-extensions-metadata)
