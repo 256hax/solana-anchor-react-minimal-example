@@ -1,11 +1,12 @@
 import {
   Connection,
   Keypair,
+  PublicKey,
   SystemProgram,
   Transaction,
   clusterApiUrl,
   sendAndConfirmTransaction,
-} from "@solana/web3.js";
+} from '@solana/web3.js';
 import {
   ExtensionType,
   TOKEN_2022_PROGRAM_ID,
@@ -17,15 +18,18 @@ import {
   getTokenMetadata,
   TYPE_SIZE,
   LENGTH_SIZE,
-} from "@solana/spl-token";
+  getAssociatedTokenAddress,
+  createAssociatedTokenAccountInstruction,
+  createMintToInstruction,
+} from '@solana/spl-token';
 import {
   createInitializeInstruction,
   createUpdateFieldInstruction,
   createRemoveKeyInstruction,
   pack,
   TokenMetadata,
-} from "@solana/spl-token-metadata";
-import dotenv from "dotenv";
+} from '@solana/spl-token-metadata';
+import dotenv from 'dotenv';
 dotenv.config();
 
 // Payer
@@ -35,32 +39,26 @@ const secretKey = Uint8Array.from(JSON.parse(payerSecretKey));
 const payer = Keypair.fromSecretKey(secretKey);
 
 // Connection to devnet cluster
-const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+const connection = new Connection('http://127.0.0.1:8899', 'confirmed');
+// const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-// Transaction to send
 let transaction: Transaction;
-// Transaction signature returned from sent transaction
 let transactionSignature: string;
 
-// Generate new keypair for Mint Account
 const mintKeypair = Keypair.generate();
-// Address for Mint Account
 const mint = mintKeypair.publicKey;
-// Decimals for Mint Account
 const decimals = 2;
-// Authority that can mint new tokens
 const mintAuthority = payer.publicKey;
-// Authority that can update token metadata
 const updateAuthority = payer.publicKey;
 
 // Metadata to store in Mint Account
 const metaData: TokenMetadata = {
   updateAuthority: updateAuthority,
   mint: mint,
-  name: "OPOS",
-  symbol: "OPOS",
-  uri: "https://raw.githubusercontent.com/solana-developers/opos-asset/main/assets/DeveloperPortal/metadata.json",
-  additionalMetadata: [["description", "Only Possible On Solana"]],
+  name: 'OPOS',
+  symbol: 'OPOS',
+  uri: 'https://raw.githubusercontent.com/solana-developers/opos-asset/main/assets/DeveloperPortal/metadata.json',
+  additionalMetadata: [['description', 'Only Possible On Solana']],
 };
 
 // Size of MetadataExtension 2 bytes for type, 2 bytes for length
@@ -140,29 +138,26 @@ transactionSignature = await sendAndConfirmTransaction(
   [payer, mintKeypair] // Signers
 );
 
-console.log(
-  "\nCreate Mint Account:",
-  `https://solana.fm/tx/${transactionSignature}?cluster=devnet-solana`
-);
+console.log('Transaction Signature =>' ,transactionSignature);
 
 // Retrieve mint information
 const mintInfo = await getMint(
   connection,
   mint,
-  "confirmed",
+  'confirmed',
   TOKEN_2022_PROGRAM_ID
 );
 
 // Retrieve and log the metadata pointer state
 const metadataPointer = getMetadataPointerState(mintInfo);
-console.log("\nMetadata Pointer:", JSON.stringify(metadataPointer, null, 2));
+console.log('Metadata Pointer =>', JSON.stringify(metadataPointer, null, 2));
 
 // Retrieve and log the metadata state
 const metadata = await getTokenMetadata(
   connection,
   mint // Mint Account address
 );
-console.log("\nMetadata:", JSON.stringify(metadata, null, 2));
+console.log('Metadata =>', JSON.stringify(metadata, null, 2));
 
 // Instruction to remove a key from the metadata
 const removeKeyInstruction = createRemoveKeyInstruction({
@@ -183,19 +178,50 @@ transactionSignature = await sendAndConfirmTransaction(
   [payer]
 );
 
-console.log(
-  "\nRemove Additional Metadata Field:",
-  `https://solana.fm/tx/${transactionSignature}?cluster=devnet-solana`
-);
+console.log('Remove Additional Metadata Field Transaction Signature =>', transactionSignature);
 
 // Retrieve and log the metadata state
 const updatedMetadata = await getTokenMetadata(
   connection,
   mint // Mint Account address
 );
-console.log("\nUpdated Metadata:", JSON.stringify(updatedMetadata, null, 2));
+console.log('Updated Metadata =>', JSON.stringify(updatedMetadata, null, 2));
 
-console.log(
-  "\nMint Account:",
-  `https://solana.fm/address/${mint}?cluster=devnet-solana`
+console.log('Mint Account =>', mint.toString());
+
+const associatedTokenAccount = await getAssociatedTokenAddress(
+  mint,
+  payer.publicKey,
+  false,
+  TOKEN_2022_PROGRAM_ID,
 );
+
+console.log('Associated Token Account =>', associatedTokenAccount.toString());
+
+const destinationTokenAccount = await createAssociatedTokenAccountInstruction(
+  payer.publicKey, // Payer to create Token Account
+  associatedTokenAccount, // Token Account owner
+  payer.publicKey,
+  mint, // Mint Account address
+  TOKEN_2022_PROGRAM_ID, // Token Extension Program ID
+);
+
+const mintToInstruction = await createMintToInstruction(
+  new PublicKey(mint), // Mint Account address
+  associatedTokenAccount, // Destination address
+  mintAuthority, // Mint token authority
+  100, // Amount (100 for 2 decimal place mint = 1.00 tokens)
+  undefined, // Signers if multisig
+  TOKEN_2022_PROGRAM_ID, // Token Extension Program ID
+);
+
+transaction = new Transaction().add(
+  destinationTokenAccount, mintToInstruction);
+
+transactionSignature = await sendAndConfirmTransaction(
+  connection,
+  transaction,
+  [payer]
+);
+
+console.log('Mint Signature =>', transactionSignature.toString());
