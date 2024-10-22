@@ -2,6 +2,7 @@
 
 ## Docs
 - [How to use the Metadata Pointer extension](https://solana.com/developers/guides/token-extensions/metadata-pointer)
+- [Use Token Extensions from a Client](https://solana.com/developers/courses/token-extensions/token-extensions-in-the-client)
 
 ## Setup
 ```
@@ -11,21 +12,22 @@
 
 ## Run
 ```
+% solana-test-validator
+```
+```
 % npm run start
 ```
 
 ## Execution Log Example
 ```
-Create Mint Account: https://solana.fm/tx/4JJtgBq9oN1xzNjXSww65S7w8gg4qFabaJcfLZrqHsseje4ceXFmr7d1rFEmbaYRYw7VVaM2hY3HfYRhQoL6SR3Q?cluster=devnet-solana
-
-Metadata Pointer: {
+Transaction Signature => 5Pcir77hufWdpyxpidsq65z1xTFvK6Zt7ZVx6r3NwcFF7T12cPnog2DZ9yG1w8Ehw3B1DxgFKhriw1KVqoQA4UwK
+Metadata Pointer => {
   "authority": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
-  "metadataAddress": "Dp4DaUN45qGc6VEGuA9zNCYSXB8y9Zn2WcUmirTu7bAe"
+  "metadataAddress": "6jnN1Te7rAnYSG8GdEZJh18a8ojJnSMQu7QoPAVG99Z9"
 }
-
-Metadata: {
+Metadata => {
   "updateAuthority": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
-  "mint": "Dp4DaUN45qGc6VEGuA9zNCYSXB8y9Zn2WcUmirTu7bAe",
+  "mint": "6jnN1Te7rAnYSG8GdEZJh18a8ojJnSMQu7QoPAVG99Z9",
   "name": "OPOS",
   "symbol": "OPOS",
   "uri": "https://raw.githubusercontent.com/solana-developers/opos-asset/main/assets/DeveloperPortal/metadata.json",
@@ -36,17 +38,16 @@ Metadata: {
     ]
   ]
 }
-
-Remove Additional Metadata Field: https://solana.fm/tx/59mreq8nBhKwVZNWJYeFZL6tQJ5RKn88sSmqLDnCjMjm11wFVKco3ePRRh9ejgXvv4tBuLp8oEkseTpXq9e3puYY?cluster=devnet-solana
-
-Updated Metadata: {
+Remove Additional Metadata Field Transaction Signature => Dwx2y2us6fpDG34WdosngdovsU7qEPuqgCUDvg1xsuy8yAPYzoRy4A3kJuZd5z4oRT4d1tYuk2Yoids4P1RbpME
+Updated Metadata => {
   "updateAuthority": "HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg",
-  "mint": "Dp4DaUN45qGc6VEGuA9zNCYSXB8y9Zn2WcUmirTu7bAe",
+  "mint": "6jnN1Te7rAnYSG8GdEZJh18a8ojJnSMQu7QoPAVG99Z9",
   "name": "OPOS",
   "symbol": "OPOS",
   "uri": "https://raw.githubusercontent.com/solana-developers/opos-asset/main/assets/DeveloperPortal/metadata.json",
   "additionalMetadata": []
 }
-
-Mint Account: https://solana.fm/address/Dp4DaUN45qGc6VEGuA9zNCYSXB8y9Zn2WcUmirTu7bAe?cluster=devnet-solana
+Mint Account => 6jnN1Te7rAnYSG8GdEZJh18a8ojJnSMQu7QoPAVG99Z9
+Associated Token Account => ATyXkQ5273HN1sr5QSMKqnpBu5RAwX7zyXmN3BpZGKFL
+Mint Signature => 5Nm6KuC3VcWZatRvsXbFjTtdDCFixJ95NK1DmSbDvQHxUtEZH75z72Vz2D3RqmxGotTrr74bH62sP3dwCCrcqoXs
 ```
