@@ -22,7 +22,7 @@ Delete following:
 Install packages:
 ```
 npm add @coral-xyz/anchor
-npm add @solana/web3.js
+npm add @solana/web3.js@1
 npm add @solana/spl-token
 npm add chai
 npm add ts-mocha
