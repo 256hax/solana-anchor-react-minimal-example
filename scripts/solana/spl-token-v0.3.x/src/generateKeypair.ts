@@ -1,6 +1,6 @@
 // Ref:
 //  Tutorial: https://docs.solana.com/developing/clients/javascript-api#connecting-to-a-wallet
-//  API: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+//  API: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Keypair.html
 import {Keypair} from '@solana/web3.js';
 import * as fs from 'fs';
 

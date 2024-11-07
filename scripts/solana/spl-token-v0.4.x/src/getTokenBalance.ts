@@ -1,4 +1,4 @@
-// Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getBalance
+// Source: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getBalance
 import {
   Connection,
   Keypair,
@@ -48,7 +48,7 @@ export const main = async() => {
 
 
   console.log('\n--- Token Account Balance ---');
-  // Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getTokenAccountBalance
+  // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getTokenAccountBalance
   const myTokenPubkeyBalance = await connection.getTokenAccountBalance(myTokenPubkey.address);
   console.log('myTokenPubkeyBalance.value.amount =>', myTokenPubkeyBalance.value.amount);
 

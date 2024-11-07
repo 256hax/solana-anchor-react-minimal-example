@@ -55,7 +55,7 @@ export const main = async () => {
   const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(space);
 
   const tx = new Transaction().add(
-    // Ref: https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#createAccountWithSeed
+    // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/SystemProgram.html#createAccountWithSeed
     SystemProgram.createAccountWithSeed({
       fromPubkey: feePayer.publicKey, // funder
       newAccountPubkey: derived,

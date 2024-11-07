@@ -1,4 +1,4 @@
-// Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getTransaction
+// Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getTransaction
 import {
   SystemProgram,
   Connection,
@@ -86,7 +86,7 @@ export const main = async () => {
   console.log('accountKeys[0] =>', getTx?.transaction.message.getAccountKeys().get(0)?.toString());
   console.log('accountKeys[1] =>', getTx?.transaction.message.getAccountKeys().get(1)?.toString());
   console.log('accountKeys[2] =>', getTx?.transaction.message.getAccountKeys().get(2)?.toString());
-  // // Ref: https://solana-labs.github.io/solana-web3.js/types/ConfirmedTransactionMeta.html
+  // // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/types/ConfirmedTransactionMeta.html
   console.log('postBalances(Current Balance, Sent Amount) =>', getTx?.meta?.postBalances);
 };
 

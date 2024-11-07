@@ -1,5 +1,5 @@
 // Ref:
-//  Single: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignatureStatus
+//  Single: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getSignatureStatus
 //  Multiple: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignatureStatuses
 import {
   Connection,
@@ -39,7 +39,7 @@ export const createTransaction = async () => {
   }));
 
   // Send and confirm transaction
-  // Ref: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
+  // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/modules.html#sendAndConfirmTransaction
   // Note: feePayer is by default the first signer, or payer, if the parameter is not set
   const signature = await sendAndConfirmTransaction(
     connection, // Connection

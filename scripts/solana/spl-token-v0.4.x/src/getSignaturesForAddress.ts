@@ -1,4 +1,4 @@
-// Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getSignaturesForAddress
+// Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getSignaturesForAddress
 import {
   Connection,
   clusterApiUrl,

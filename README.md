@@ -21,7 +21,7 @@ Feel free to use that for only Devnet/Testnet. I hope you can easy to start mini
 - [API - (Rust)solana_program](https://docs.rs/solana-program/latest/solana_program/)
 - [API - (Rust)solana_sdk](https://docs.rs/solana-sdk/latest/solana_sdk/)
 - [API - (Rust)spl_token](https://docs.rs/spl-token/latest/spl_token/)
-- [API - (JS)@solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html)
+- [API - (JS)@solana/web3.js](https://solana-labs.github.io/solana-web3.js/v1.x/modules.html)
 - [API - (JS)@solana/spl-token](https://solana-labs.github.io/solana-program-library/token/js/)
 - [GitHub - solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library)
 - [GitHub - SPL Token Rust](https://github.com/solana-labs/solana-program-library/blob/master/token/program/src/instruction.rs)

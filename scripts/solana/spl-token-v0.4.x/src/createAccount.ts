@@ -49,7 +49,7 @@ export const main = async () => {
   };
 
   let transaction = new Transaction();
-  // Ref: https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#createAccount
+  // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/SystemProgram.html#createAccount
   transaction.add(
     SystemProgram.createAccount(createAccountParams)
   );

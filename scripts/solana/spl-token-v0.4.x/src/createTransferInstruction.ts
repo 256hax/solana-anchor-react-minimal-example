@@ -46,7 +46,7 @@ export const main = async () => {
     lamports: LAMPORTS_PER_SOL * 0.001,
   });
 
-  // Ref: https://solana-labs.github.io/solana-web3.js/classes/TransactionInstruction.html
+  // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/TransactionInstruction.html
   // Add read-only publickey for search.
   transferInstruction.keys.push(
     { pubkey: reference.publicKey, isWritable: false, isSigner: false },
