@@ -1,4 +1,4 @@
-// Ref: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getConfirmedSignaturesForAddress2
+// Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getConfirmedSignaturesForAddress2
 // Returns confirmed signatures for transactions involving an address backwards in time from the provided signature or most recent confirmed block
 import {
   Connection,

@@ -1,4 +1,4 @@
-// Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+// Source: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html
 import * as web3 from '@solana/web3.js';
 
 export const main = async() => {

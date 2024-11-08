@@ -63,7 +63,7 @@ export const main = async () => {
     connection,
     transaction,
     [payer],
-    // Options https://solana-labs.github.io/solana-web3.js/types/ConfirmOptions.html
+    // Options https://solana-labs.github.io/solana-web3.js/v1.x/types/ConfirmOptions.html
     // {
     //   commitment: 'confirmed',
     //   maxRetries: 3,

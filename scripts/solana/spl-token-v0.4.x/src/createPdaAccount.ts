@@ -15,7 +15,7 @@ export const main = async () => {
   const seed = 'test';
   const myPublicKey = new PublicKey('4Zhbi9RNNb8zeFesJysW9F7G1sNHyfQrimHQHSSNavFw');
 
-  // Ref: https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#findProgramAddressSync
+  // Ref: https://solana-labs.github.io/solana-web3.js/v1.x/classes/PublicKey.html#findProgramAddressSync
   const [pda, bump] = await PublicKey.findProgramAddressSync(
     // [Buffer.from(seed)],
     [Buffer.from(seed), myPublicKey.toBuffer()],

@@ -1,4 +1,4 @@
-// Docs: https://solana-labs.github.io/solana-web3.js/classes/AddressLookupTableProgram.html#closeLookupTable
+// Docs: https://solana-labs.github.io/solana-web3.js/v1.x/classes/AddressLookupTableProgram.html#closeLookupTable
 
 // Lib
 import * as dotenv from 'dotenv';

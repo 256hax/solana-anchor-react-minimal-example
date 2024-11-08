@@ -1,4 +1,4 @@
-// Source: https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getBalance
+// Source: https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html#getBalance
 import {
   Connection,
   Keypair,
