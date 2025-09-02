@@ -123,6 +123,7 @@ await sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions })(
 const transactionSignature = getSignatureFromTransaction(signedTransaction);
 
 console.log('Mint Address:', mint.address.toString());
+console.log('Mint Authority Address:', mintAuthority.address.toString());
 console.log(
   'Associated Token Account Address:',
   associatedTokenAddress.toString()
@@ -182,14 +183,15 @@ console.log('\nSuccessfully burned 10.0 tokens');
 console.log('Transaction Signature:', transactionSignature2);
 
 /*
-Mint Address: Cip5MzTSWax9LjpCHPKK5ske9FBz3NBUNtSHzgpUetfj
-Associated Token Account Address: FAZCjwvkQLT1SSN77Wz61s293txz6CuBT3daTTT84aCS
-Transaction Signature: 2TAU8KGSFZNXv74gBem47KU7JZTavYvSEdySt7RfAm1vYRdFvkDacQKY1HjhEGJRK3ForGpSFstDfqo4RFQcDawq
+Mint Address: nT98JqmMVS7UhxJueaMvV5P2cspSHSfbj7umgmF9GfB
+Mint Authority Address: AXrN39K2hR4sJLEGGiJWNq7MoYP2wDZ4y8tGq61QxjRP
+Associated Token Account Address: Fy6kYZwpyjymCoVCEhhzAx7n7j444Zz7cSoDNmYiSwm7
+Transaction Signature: 49WgKxEf6ztDM13LkXc8Bby3yUBDwLVeBVVJ1vhBq54yoZEwTr5ZDqhGxdDwQuraKAETJSK9EMPkXybgpotScxVE
 Successfully minted 1000.0 tokens
 
 Token balance before burn: 1000n tokens
 Token balance after burn: 990n tokens
 
 Successfully burned 10.0 tokens
-Transaction Signature: tUsDUpRsPUGWReGtCVUrymSa9bKFuMWgV381Ltc9Bk8pwxcmYooDNUKz6C478CG7KAiJVh4PVyNdmXJVff7cdXQ
+Transaction Signature: 3Ln4PrjUMTzHphHaVcLjxEBRsn6apTM3mmggpxSB9qNDds9Mm2kEdvCDWHgYPA5ncBq5VZf28hW5v61Es59F9tWc
 */
