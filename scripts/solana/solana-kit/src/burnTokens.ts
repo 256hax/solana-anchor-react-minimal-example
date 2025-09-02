@@ -29,8 +29,10 @@ import {
 const rpc = createSolanaRpc('http://localhost:8899');
 const rpcSubscriptions = createSolanaRpcSubscriptions('ws://localhost:8900');
 
-// Generate keypairs for fee payer
+// Generate keypairs for fee payer (also serves as mint authority)
 const feePayer = await generateKeyPairSigner();
+// Generate keypair for mint authority (separate from feePayer)
+const mintAuthority = await generateKeyPairSigner();
 
 // Fund fee payer
 await airdropFactory({ rpc, rpcSubscriptions })({
@@ -66,7 +68,7 @@ const createAccountInstruction = getCreateAccountInstruction({
 const initializeMintInstruction = getInitializeMintInstruction({
   mint: mint.address,
   decimals: 9,
-  mintAuthority: feePayer.address,
+  mintAuthority: mintAuthority.address,
 });
 
 // Use findAssociatedTokenPda to derive the ATA address
@@ -87,7 +89,7 @@ const createAtaInstruction = await getCreateAssociatedTokenInstructionAsync({
 const mintToInstruction = getMintToInstruction({
   mint: mint.address,
   token: associatedTokenAddress,
-  mintAuthority: feePayer.address,
+  mintAuthority: mintAuthority, // Pass the signer, not just the address
   amount: 1000_000_000_000n, // 1000.0 tokens with 9 decimals
 });
 
